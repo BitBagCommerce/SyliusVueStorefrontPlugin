@@ -1,4 +1,0 @@
-bitbag_vue_storefront_plugin_products_index:
-    controller: '@BitBag\SyliusVueStorefrontPlugin\Controller\GetProductsIndexAction'
-    methods: [GET]
-    path: '/product/index'

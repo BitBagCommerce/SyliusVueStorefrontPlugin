@@ -1,3 +1,0 @@
-bitbag_vue_storefront_plugin:
-    resource: 'routes/'
-    prefix: '/vsbridge'

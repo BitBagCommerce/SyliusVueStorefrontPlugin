@@ -4,32 +4,38 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Product;
 
-use Sylius\Component\Core\Model\Product as SyliusProduct;
+use Sylius\Component\Core\Model\ProductInterface;
 
 final class Product implements \JsonSerializable
 {
+    /** @var int */
+    private $productId;
+
     /** @var string */
-    private $sku;
+    private $itemId;
 
-    private function __construct(string $sku)
+    /** @var int */
+    private $stock;
+
+    /** @var bool */
+    private $isInStock;
+
+    public function __construct(int $productId, string $itemId)
     {
-        $this->sku = $sku;
+        $this->productId = $productId;
+        $this->itemId = $itemId;
     }
 
-    public static function fromSyliusProduct(SyliusProduct $product): self
+    public static function fromSyliusProduct(ProductInterface $product): self
     {
-        return new self($product->getCode());
-    }
-
-    public function sku(): string
-    {
-        return $this->sku;
+        return new self($product->getId(), $product->getCode());
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'sku' => $this->sku,
+            'item_id' => $this->itemId,
+            'product_id' => $this->productId,
         ];
     }
 }
