@@ -53,5 +53,23 @@
         "branch-alias": {
             "dev-master": "1.4-dev"
         }
+    },
+    "scripts": {
+        "php:check": [
+            "composer validate --strict",
+            "@php:analyse",
+            "@php:tests"
+        ],
+        "php:analyse": [
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests",
+            "vendor/bin/phpstan analyse --ansi --no-progress -c phpstan.neon -l 5 src tests"
+        ],
+        "php:tests": [
+            "vendor/bin/phpspec run --ansi",
+            "vendor/bin/phpunit --colors=always"
+        ],
+        "php:fix-style": [
+            "vendor/bin/ecs check --ansi --no-progress-bar spec src tests --fix"
+        ]
     }
 }

@@ -6,7 +6,7 @@
          colors="true"
          bootstrap="tests/Application/config/bootstrap.php">
     <testsuites>
-        <testsuite name="AcmeSyliusExamplePlugin Test Suite">
+        <testsuite name="BitBagSyliusVueStorefrontPlugin Test Suite">
             <directory>tests</directory>
         </testsuite>
         <env name="APP_ENV" value="test"/>
@@ -14,7 +14,7 @@
     </testsuites>
 
     <php>
-        <server name="KERNEL_CLASS_PATH" value="/tests/Application/AppKernel.php" />
+        <server name="KERNEL_CLASS_PATH" value="/tests/Application/Kernel.php" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>
 </phpunit>
