@@ -14,7 +14,8 @@
     </testsuites>
 
     <php>
-        <server name="KERNEL_CLASS_PATH" value="/tests/Application/Kernel.php" />
+        <server name="EXPECTED_RESPONSE_DIR" value="/tests/Functional/Api/json" />
+        <server name="KERNEL_CLASS" value="Tests\BitBag\SyliusVueStorefrontPlugin\Application\Kernel" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>
 </phpunit>

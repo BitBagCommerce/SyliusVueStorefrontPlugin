@@ -2,6 +2,7 @@ parameters:
     sylius.security.admin_regex: "^/admin"
     sylius.security.api_regex: "^/api"
     sylius.security.shop_regex: "^/(?!admin|api/.*|api$|media/.*)[^/]++"
+    bitbag.vue_storefront.security.regex: "^/vsbridge"
 
 security:
     providers:
@@ -81,22 +82,26 @@ security:
             anonymous: true
 
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         vs_bridge_login:
-            pattern:  ^/vsbridge/auth/admin
+            pattern: ^/vsbridge/auth/admin
             stateless: true
             anonymous: true
             json_login:
-                check_path: /vsbridge/auth/login_check
+                provider: sylius_admin_user_provider
+                check_path: /vsbridge/auth/admin/check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
 
         vs_bridge:
-            pattern:   ^/vsbridge
+            pattern: ^/vsbridge
             stateless: true
+            anonymous: false
             guard:
+                provider: sylius_admin_user_provider
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
@@ -117,5 +122,5 @@ security:
         - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }
 
-        - { path: ^/vsbridge/auth/admin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/vsbridge, roles: IS_AUTHENTICATED_FULLY }
+#        - { path: "%bitbag.vue_storefront.security.regex%/auth/admin", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: "%bitbag.vue_storefront.security.regex%", roles: IS_AUTHENTICATED_FULLY }
