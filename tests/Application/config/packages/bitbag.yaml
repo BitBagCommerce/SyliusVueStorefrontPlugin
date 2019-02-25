@@ -1,0 +1,8 @@
+imports:
+    - { resource: "../../../../src/Resources/config/indexes/vue_storefront_products.yaml" }
+
+fos_elastica:
+    clients:
+        default:
+            host: "localhost"
+            port: "9200"

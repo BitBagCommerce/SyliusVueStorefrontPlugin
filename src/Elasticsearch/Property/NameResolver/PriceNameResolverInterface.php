@@ -10,9 +10,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product;
+namespace BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Property\NameResolver;
 
-final class Price
+interface PriceNameResolverInterface
 {
+    public function resolveMinPriceName(): string;
 
+    public function resolveMaxPriceName(): string;
 }

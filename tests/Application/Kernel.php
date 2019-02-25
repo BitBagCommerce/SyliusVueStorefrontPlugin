@@ -32,12 +32,12 @@ final class Kernel extends BaseKernel
 
     public function getCacheDir(): string
     {
-        return $this->getProjectDir() . '/var/cache/' . $this->environment;
+        return sprintf('%s/var/cache', $this->getProjectDir());
     }
 
     public function getLogDir(): string
     {
-        return $this->getProjectDir() . '/var/log';
+        return sprintf('%s/var/log', $this->getProjectDir());
     }
 
     public function registerBundles(): iterable
@@ -54,6 +54,7 @@ final class Kernel extends BaseKernel
     {
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
         $container->setParameter('container.dumper.inline_class_loader', true);
+
         $confDir = $this->getProjectDir() . '/config';
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
@@ -85,7 +86,7 @@ final class Kernel extends BaseKernel
         /** @var ContainerBuilder $container */
         Assert::isInstanceOf($container, ContainerBuilder::class);
 
-        $locator = new FileLocator($this, $this->getRootDir() . '/Resources');
+        $locator = new FileLocator($this, sprintf('%s/Resources', $this->getProjectDir()));
         $resolver = new LoaderResolver(array(
             new XmlFileLoader($container, $locator),
             new YamlFileLoader($container, $locator),

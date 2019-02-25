@@ -3,5 +3,9 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.property_name_resolver.product.name" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Property\NameResolver\PrefixedNameResolver">
+            <argument type="string" id="%bitbag_vuestorefront_product_name_property_prefix%" />
+        </service>
     </services>
 </container>

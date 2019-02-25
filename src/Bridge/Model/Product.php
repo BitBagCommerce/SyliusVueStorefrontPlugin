@@ -1,33 +1,38 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.shop and write us
+ * an email on mikolaj.krol@bitbag.pl.
+ */
+
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Product;
+namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Model;
 
-use BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product\Category;
 use BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product\Price;
 use Sylius\Component\Core\Model\ProductInterface;
-use Sylius\Component\Core\Model\ProductTranslationInterface;
 
-final class Product implements \JsonSerializable
+final class Product
 {
     /** @var int */
-    private $entityId;
+    private $id;
 
     /** @var string */
     private $sku;
 
     /** @var string */
-    private $type;
+    private $typeId;
 
     /** @var string[] */
-    private $names;
+    private $name;
 
     /** @var Price[] */
     private $price;
 
-    /** @var Category[] */
-    private $category;
+    private $status;
 
     public function __construct(int $entityId, string $sku, string $type, array $names)
     {
@@ -39,24 +44,6 @@ final class Product implements \JsonSerializable
 
     public static function fromSyliusProduct(ProductInterface $product): self
     {
-        $productType = $product->isSimple() ? 'simple' : 'configurable';
-        $productTranslations = $product->getTranslations();
-
-        /** @var ProductTranslationInterface $productTranslation */
-        foreach ($productTranslations as $productTranslation) {
-            $productNames[] = $productTranslation->getName();
-        }
-
-        return new self($product->getId(), $product->getCode(), $productType, $productNames);
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'entity_id' => $this->entityId,
-            'sku_id' => $this->sku,
-            'type_id' => $this->type,
-            'name' => $this->names,
-        ];
+        return new self($product->getId(), $product->getCode());
     }
 }

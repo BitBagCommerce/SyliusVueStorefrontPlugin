@@ -10,9 +10,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product;
+namespace BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Property\NameResolver;
 
-final class Price
+interface PrefixedNameResolverInterface
 {
-
+    public function resolvePropertyName(string $suffix): string;
 }

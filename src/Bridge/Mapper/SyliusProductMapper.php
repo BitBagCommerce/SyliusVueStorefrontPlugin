@@ -10,9 +10,14 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product;
+namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Mapper;
 
-final class Price
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+
+final class SyliusProductMapper
 {
+    /** @var RepositoryInterface */
+    private $productRepository;
+
 
 }

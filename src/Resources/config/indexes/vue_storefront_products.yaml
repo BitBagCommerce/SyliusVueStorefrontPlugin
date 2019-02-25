@@ -1,0 +1,17 @@
+parameters:
+    bitbag_vuestorefront_product_name_property_prefix: name
+    bitbag_vuestorefront_product_price_property_prefix: price
+
+fos_elastica:
+    indexes:
+        bitbag_vue_storefront_product:
+            index_name: "bitbag_vue_storefront_products_%kernel.environment%"
+            types:
+                default:
+                    properties:
+                        enabled: ~
+                    persistence:
+                        driver: orm
+                        model: BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product
+                        provider: ~
+                        finder:
