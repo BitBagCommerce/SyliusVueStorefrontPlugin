@@ -24,7 +24,7 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $rootNode = $treeBuilder->root('acme_sylius_example_plugin');
+        $rootNode = $treeBuilder->root('sylius_vue_storefront_plugin');
 
         return $treeBuilder;
     }

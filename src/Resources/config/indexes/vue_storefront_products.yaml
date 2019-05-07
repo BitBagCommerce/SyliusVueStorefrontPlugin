@@ -12,6 +12,10 @@ fos_elastica:
                         enabled: ~
                     persistence:
                         driver: orm
-                        model: BitBag\SyliusVueStorefrontPlugin\Bridge\Model\Product
+                        model: "%sylius.model.product_variant.class%"
+                        model_to_elastica_transformer:
+                           service: bitbag_sylius_vue_storefront_plugin.transformer.product
                         provider: ~
-                        finder:
+                        listener:
+                            logger: true
+                            defer: true

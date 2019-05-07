@@ -1,0 +1,2 @@
+imports:
+  - { resource: "indexes/vue_storefront_products.yaml" }
