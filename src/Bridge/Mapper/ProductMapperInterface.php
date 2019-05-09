@@ -14,15 +14,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Mapper;
 
 interface ProductMapperInterface
 {
-    const DEFAULT_ATTRIBUTE_SET_ID = 11;
-    const DEFAULT_STATUS = 1;
-    const DEFAULT_VISIBILITY = 4;
-    const SIMPLE_TYPE = 'simple';
-    const TYPE_CONFIGURABLE = 'configurable';
-    const DEFAULT_CATEGORY_ID = 2;
-    const DEFAULT_AVAILABILITY = 1;
-    const DEFAULT_OPTION_STATUS = 'Enabled';
-    const DEFAULT_TAX_CLASS_ID = 2;
-    const DEFAULT_OPTION_CLASS_ID = 'Taxable Goods';
-    const DEFAULT_CATEGORY = 'Default category';
+    public const DEFAULT_ATTRIBUTE_SET_ID = 11;
+    public const DEFAULT_STATUS = 1;
+    public const DEFAULT_VISIBILITY = 4;
+    public const SIMPLE_TYPE = 'simple';
+    public const TYPE_CONFIGURABLE = 'configurable';
+    public const DEFAULT_CATEGORY_ID = 2;
+    public const DEFAULT_AVAILABILITY = '1';
+    public const DEFAULT_OPTION_STATUS = 'Enabled';
+    public const DEFAULT_TAX_CLASS_ID = 2;
+    public const DEFAULT_OPTION_CLASS_ID = 'Taxable Goods';
+    public const DEFAULT_CATEGORY = 'Default category';
 }

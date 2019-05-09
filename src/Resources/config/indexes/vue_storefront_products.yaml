@@ -13,6 +13,7 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: "%sylius.model.product_variant.class%"
+                        identifier: documentId
                         model_to_elastica_transformer:
                            service: bitbag_sylius_vue_storefront_plugin.transformer.product
                         provider: ~

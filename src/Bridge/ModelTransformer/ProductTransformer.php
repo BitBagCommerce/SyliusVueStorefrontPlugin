@@ -22,9 +22,9 @@ final class ProductTransformer implements ModelToElasticaTransformerInterface
     /** @param $productVariant ProductVariantInterface */
     public function transform($productVariant, array $fields): Document
     {
-        $values = Product::fromSyliusProductVariant($productVariant)->toArray();
+        $values = Product::fromSyliusProductVariant($productVariant)->toElasticArray();
 
 
-        return  new Document($values['entityId'], $values);
+        return  new Document($values[Product::ENTITY_ID], $values);
     }
 }
