@@ -10,12 +10,17 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin;
+namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
-use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-final class SyliusVueStorefrontPlugin extends Bundle
+final class StockItem implements \JsonSerializable
 {
-    use SyliusPluginTrait;
+    public function __construct()
+    {
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+        ];
+    }
 }

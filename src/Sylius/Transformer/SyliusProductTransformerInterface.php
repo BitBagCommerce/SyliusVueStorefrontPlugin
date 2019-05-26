@@ -10,12 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin;
+namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 
-use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use BitBag\SyliusVueStorefrontPlugin\Document\Product;
+use Sylius\Component\Core\Model\ProductInterface;
 
-final class SyliusVueStorefrontPlugin extends Bundle
+interface SyliusProductTransformerInterface
 {
-    use SyliusPluginTrait;
+    public function transform(ProductInterface $syliusProduct): Product;
 }

@@ -10,12 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin;
+namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct;
 
-use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use BitBag\SyliusVueStorefrontPlugin\Document\Product\MediaGallery;
+use Doctrine\Common\Collections\Collection;
 
-final class SyliusVueStorefrontPlugin extends Bundle
+interface ImagesToMediaGalleryTransformerInterface
 {
-    use SyliusPluginTrait;
+    public function transform(Collection $images): MediaGallery;
 }

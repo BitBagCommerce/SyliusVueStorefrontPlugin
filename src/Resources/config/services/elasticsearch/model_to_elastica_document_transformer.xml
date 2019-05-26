@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.product" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductToVueStorefrontDocumentTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.category" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\TaxonToVueStorefrontDocumentTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.taxon" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.tax_rule" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\TaxCategoryToVueStorefrontDocumentTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.tax_category" />
+        </service>
+    </services>
+</container>
