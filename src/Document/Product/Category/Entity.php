@@ -20,7 +20,7 @@ final class Entity implements \JsonSerializable
     private const SLUG = 'slug';
     private const PATH = 'path';
 
-//    TODO CATEGORY IN VS DOCS / DEMO APP
+//    TODO CATEGORY IN VS DOCS, BOILERPLATE APP / DEMO APP
     private const VS_DOCS = [self::CATEGORY_ID, self::NAME];
     private const DEMO_APP = [self::PATH, self::CATEGORY_ID, self::NAME, self::SLUG];
 

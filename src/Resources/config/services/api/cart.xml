@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="false" public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.create_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\CreateCartAction">
+            <argument>%bitbag_vuestorefront_sylius_channel%</argument>
+        </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.pull_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\PullCartAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.update_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\UpdateCartAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.delete_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\DeleteCartAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.apply_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\ApplyCouponAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.delete_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\DeleteCouponAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.get_applied_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\GetAppliedCouponAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.sync_totals"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SyncTotalsAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.get_payment_methods"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\GetPaymentMethodsAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_methods"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingMethodsAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_information"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingInformationAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.cart.collect_totals"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\CollectTotalsAction" />
+    </services>
+</container>

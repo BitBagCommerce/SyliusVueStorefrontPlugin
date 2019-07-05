@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="user_create_user" path="/create" methods="POST"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.create_user" />
+    <route id="user_login" path="/login" methods="POST" />
+    <route id="user_refresh_token" path="/refresh" methods="POST"
+           controller="gesdinet.jwtrefreshtoken::refresh" />
+    <route id="user_reset_password" path="/resetPassword" methods="POST"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.reset_password" />
+    <route id="user_change_password" path="/changePassword" methods="POST"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.change_password" />
+    <route id="user_get_order_history" path="/order-history" methods="GET"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history" />
+    <route id="user_get_user" path="/me" methods="GET"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.get_user" />
+    <route id="user_update_user" path="/me" methods="POST"
+           controller="bitbag_sylius_vue_storefront_plugin.api.user.update_user" />
+
+</routes>

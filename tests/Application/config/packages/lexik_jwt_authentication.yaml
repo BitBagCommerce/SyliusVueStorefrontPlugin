@@ -3,3 +3,7 @@ lexik_jwt_authentication:
     public_key: '%kernel.project_dir%/config/jwt/public.pem'
     pass_phrase: '%env(APP_SECRET)%'
     token_ttl: 3600
+    token_extractors:
+        query_parameter:
+            enabled: true
+            name: token

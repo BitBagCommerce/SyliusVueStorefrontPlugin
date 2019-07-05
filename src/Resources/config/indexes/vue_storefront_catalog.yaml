@@ -32,16 +32,16 @@ fos_elastica:
                         listener:
                             logger: true
                             defer: true
-                taxrule:
-                    properties:
-                        enabled: ~
-                    persistence:
-                        driver: orm
-                        model: "%sylius.model.tax_category.class%"
-                        identifier: documentId
-                        model_to_elastica_transformer:
-                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
-                        provider: ~
-                        listener:
-                            logger: true
-                            defer: true
+#                taxrule:
+#                    properties:
+#                        enabled: ~
+#                    persistence:
+#                        driver: orm
+#                        model: "%sylius.model.tax_category.class%"
+#                        identifier: documentId
+#                        model_to_elastica_transformer:
+#                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
+#                        provider: ~
+#                        listener:
+#                            logger: true
+#                            defer: true

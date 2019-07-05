@@ -91,6 +91,9 @@ final class Details
     private const TYPE_SIMPLE = 'simple';
     private const TYPE_CONFIGURABLE = 'configurable';
 
+    /** https://docs.magento.com/m2/ce/user_guide/system/data-attributes-product.html */
+    private const TYPES_IN_MAGENTO2 = [self::TYPE_SIMPLE, self::TYPE_CONFIGURABLE, 'grouped', 'virtual', 'bundle'];
+
     private const DEFAULT_ATTRIBUTE_SET_ID = 11;
     private const DEFAULT_STATUS = 1;
     private const DEFAULT_VISIBILITY = 4;
