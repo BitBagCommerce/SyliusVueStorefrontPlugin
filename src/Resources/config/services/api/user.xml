@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="false" public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.create_user"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\CreateUserAction">
+        </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.reset_password"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.change_password"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ChangePasswordAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_user"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetUserAction" />
+        <service id="bitbag_sylius_vue_storefront_plugin.api.user.update_user"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction" />
+    </services>
+</container>

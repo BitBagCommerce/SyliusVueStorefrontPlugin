@@ -1,0 +1,26 @@
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true"/>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.handler.user.create_user_handler"
+                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\CreateUserHandler">
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.handler.user.reset_password_handler"
+                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\ResetPasswordHandler">
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.handler.user.change_password_handler"
+                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\ChangePasswordHandler">
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.handler.user.update_user_handler"
+                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\UpdateUserHandler">
+            <tag name="messenger.message_handler" />
+        </service>
+
+    </services>
+</container>

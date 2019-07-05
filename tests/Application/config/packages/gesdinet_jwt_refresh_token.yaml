@@ -1,0 +1,4 @@
+gesdinet_jwt_refresh_token:
+  firewall: vs_bridge
+  token_parameter_name: refreshToken
+  user_provider: sylius_shop_user_provider

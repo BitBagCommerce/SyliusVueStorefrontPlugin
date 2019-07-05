@@ -24,7 +24,7 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
-        $rootNode = $treeBuilder->root('sylius_vue_storefront_plugin');
+        $rootNode = $treeBuilder->root('bitbag_sylius_vue_storefront_plugin');
 
         return $treeBuilder;
     }

@@ -51,6 +51,34 @@ security:
             stateless: true
             anonymous: true
 
+        vs_bridge_user_login:
+            pattern: "%bitbag.vue_storefront.security.regex%/user/login"
+            stateless: true
+            anonymous: true
+            form_login:
+                provider: sylius_shop_user_provider
+                login_path: /vsbridge/user/login
+                check_path: /vsbridge/user/login
+                username_parameter: username
+                password_parameter: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        vs_bridge:
+            pattern: "%bitbag.vue_storefront.security.regex%"
+            stateless: true
+            anonymous: true
+            guard:
+                provider: sylius_shop_user_provider
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+        refresh:
+            pattern:  "%bitbag.vue_storefront.security.regex%/user/refresh"
+            stateless: true
+            anonymous: true
+
         shop:
             switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
             context: shop
@@ -85,26 +113,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        vs_bridge_login:
-            pattern: ^/vsbridge/auth/admin
-            stateless: true
-            anonymous: true
-            json_login:
-                provider: sylius_admin_user_provider
-                check_path: /vsbridge/auth/admin/check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
-
-        vs_bridge:
-            pattern: ^/vsbridge
-            stateless: true
-            anonymous: false
-            guard:
-                provider: sylius_admin_user_provider
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
-
     access_control:
         - { path: "%sylius.security.admin_regex%/_partial", role: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1] }
         - { path: "%sylius.security.admin_regex%/_partial", role: ROLE_NO_ACCESS }
@@ -122,5 +130,9 @@ security:
         - { path: "%sylius.security.api_regex%/.*", role: ROLE_API_ACCESS }
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }
 
-#        - { path: "%bitbag.vue_storefront.security.regex%/auth/admin", roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: "%bitbag.vue_storefront.security.regex%", roles: IS_AUTHENTICATED_FULLY }
+        - { path: "%bitbag.vue_storefront.security.regex%/user/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%bitbag.vue_storefront.security.regex%/user/refresh", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%bitbag.vue_storefront.security.regex%/cart/create", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%bitbag.vue_storefront.security.regex%/guest-cart/.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%bitbag.vue_storefront.security.regex%/cart/.*", role: ROLE_USER }
+        - { path: "%bitbag.vue_storefront.security.regex%", role: ROLE_USER  }
