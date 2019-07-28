@@ -18,5 +18,8 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetUserAction" />
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.update_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
+                 class="BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler" />
     </services>
 </container>

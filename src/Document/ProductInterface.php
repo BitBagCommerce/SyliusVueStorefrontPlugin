@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Bridge\Model;
+namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
 interface ProductInterface
 {
@@ -37,6 +37,7 @@ interface ProductInterface
     public const DESCRIPTION = 'description';
     public const SHORT_DESCRIPTION = 'short_description';
     public const STOCK = 'stock';
+    public const STOCK_ITEM = 'stock_item';
     public const CATEGORY = 'category';
     public const MEDIA_GALLERY = 'media_gallery';
     public const CATEGORY_IDS = 'category_ids';

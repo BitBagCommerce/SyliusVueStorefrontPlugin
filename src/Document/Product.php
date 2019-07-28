@@ -22,11 +22,8 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\StockItem;
 
-final class Product
+final class Product implements ProductInterface
 {
-    private const STOCK = 'stock';
-    private const STOCK_ITEM = 'stock_item';
-
     /** @var int */
     private $documentId;
 

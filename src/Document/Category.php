@@ -40,7 +40,8 @@ final class Category implements \JsonSerializable
     private const REQUEST_PATH = 'request_path';
     //    private const TSK = 'tsk';
 
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
+    private const DATE_FORMAT = 'Y-m-d';
+//    private const DATE_FORMAT = 'Y-m-d H:i:s';
 
     private const SORT_BY_VALUES = ['position', 'name', 'price'];
     private const DISPLAY_MODES = ['PRODUCTS_AND_PAGE', 'PAGE', 'PRODUCTS'];
@@ -187,8 +188,10 @@ final class Category implements \JsonSerializable
             self::PRODUCT_COUNT => $this->productCount,
             self::CHILDREN_DATA => $this->childrenData,
             self::CHILDREN => $this->children,
+//            self::CREATED_AT => $this->createdAt,
             self::CREATED_AT => $this->createdAt->format(self::DATE_FORMAT),
             self::UPDATED_AT => $this->updatedAt->format(self::DATE_FORMAT),
+//            self::UPDATED_AT => $this->updatedAt,
             self::PATH => $this->path,
             self::SORT_BY => $this->sortBy,
             self::INCLUDE_IN_MENU => (int) $this->includeInMenu,

@@ -4,6 +4,5 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
-        <service id="bitbag_sylius_vue_storefront_plugin.transformer.product" class="BitBag\SyliusVueStorefrontPlugin\Bridge\ModelTransformer\ProductTransformer" />
     </services>
 </container>

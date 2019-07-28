@@ -14,9 +14,11 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 final class Details
 {
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
+//    private const DATE_FORMAT = 'Y-m-d H:i:s';
+    private const DATE_FORMAT = 'Y-m-d';
 
     private const ENTITY_ID = 'id';
+    private const ENTITY_TYPE_ID = 'entity_type_id';
     private const SKU = 'sku';
     private const NAME = 'name';
     private const ATTRIBUTE_SET_ID = 'attribute_set_id';
@@ -53,6 +55,7 @@ final class Details
     private const PERFORMANCE_FABRIC = 'performance_fabric';
     private const SALE = 'sale';
     private const CHILDREN_DATA = 'children_data';
+    private const IS_RECURRING = 'is_recurring';
 
     // TODO DEMO APP ONLY
     private const STYLE_GENERAL = 'style_general';
@@ -94,6 +97,7 @@ final class Details
     /** https://docs.magento.com/m2/ce/user_guide/system/data-attributes-product.html */
     private const TYPES_IN_MAGENTO2 = [self::TYPE_SIMPLE, self::TYPE_CONFIGURABLE, 'grouped', 'virtual', 'bundle'];
 
+    private const DEFAULT_ENTITY_TYPE_ID = 4;
     private const DEFAULT_ATTRIBUTE_SET_ID = 11;
     private const DEFAULT_STATUS = 1;
     private const DEFAULT_VISIBILITY = 4;
@@ -106,8 +110,17 @@ final class Details
     private const DEFAULT_CATEGORY = 'Default category';
     private const DEFAULT_MEDIA_TYPE = 'image';
 
+//   NODEAPP MAPPING COMPARISON
+    private const URL_PATH = 'url_path';
+    /** @var string */
+    private $urlPath;
+
+//    END OF NODEAPP COMPARISON
     /** @var int */
     private $entityId;
+
+    /** @var int */
+    private $entityTypeId;
 
     /** @var int */
     private $attributeSetId;
@@ -124,7 +137,8 @@ final class Details
     /** @var string */
     private $name;
 
-    /** @var int */
+//    TODO PRICE NEEDS TO BE FLOAT, NOT INT
+    /** @var float */
     private $price;
 
     /** @var int */
@@ -244,7 +258,8 @@ final class Details
     private $styleGeneral = '136';
 
     /** @var string */
-    private $slug = 'minerva-lumatech-and-trade-v-tee-1497';
+    private $slug;
+//    private $slug = 'minerva-lumatech-and-trade-v-tee-1497';
 
     /** @var int */
     private $tsk = 1551705236617;
@@ -293,14 +308,18 @@ final class Details
     /** @var \DateTime|null */
     private $specialToDate = null;
 
+    /** @var bool */
+    private $isReccuring = false;
+
     public function __construct(
         int $entityId,
+        ?int $entityTypeId,
         ?int $attributeSetId,
         ?string $type,
         string $sku,
         string $urlKey,
         string $name,
-        int $price,
+        float $price,
         ?int $status,
         ?int $visibility,
         \DateTime $createdAt,
@@ -318,9 +337,11 @@ final class Details
         int $requiredOptions,
         array $productLinks,
         array $colorOptions,
-        array $sizeOptions
+        array $sizeOptions,
+        ?bool $isReccuring
     ) {
         $this->entityId = $entityId;
+        $this->entityTypeId = $entityTypeId ?? self::DEFAULT_ENTITY_TYPE_ID;
         $this->attributeSetId = $attributeSetId ?? self::DEFAULT_ATTRIBUTE_SET_ID;
         $this->type = $type ?? self::TYPE_SIMPLE;
         $this->sku = $sku;
@@ -345,12 +366,16 @@ final class Details
         $this->productLinks = $productLinks;
         $this->colorOptions = $colorOptions;
         $this->sizeOptions = $sizeOptions;
+        $this->isReccuring = $isReccuring;
+        $this->urlPath = $urlKey;
+        $this->slug = $urlKey;
     }
 
     public function toArray(): array
     {
         return [
             self::ENTITY_ID => $this->entityId,
+            self::ENTITY_TYPE_ID => $this->entityTypeId,
             self::ATTRIBUTE_SET_ID => $this->attributeSetId,
             self::TYPE => $this->type,
             self::SKU => $this->sku,
@@ -359,7 +384,9 @@ final class Details
             self::PRICE => $this->price,
             self::STATUS => $this->status,
             self::VISIBILITY => $this->visibility,
+//            self::CREATED_AT => $this->createdAt,
             self::CREATED_AT => $this->createdAt->format(self::DATE_FORMAT),
+//            self::UPDATED_AT => $this->updatedAt,
             self::UPDATED_AT => $this->updatedAt->format(self::DATE_FORMAT),
             self::WEIGHT => $this->weight,
             self::EAN => $this->ean,
@@ -411,6 +438,8 @@ final class Details
             self::NEWS_TO_DATE => $this->newsToDate,
             self::SPECIAL_FROM_DATE => $this->specialFromDate,
             self::SPECIAL_TO_DATE => $this->specialToDate,
+            self::IS_RECURRING => $this->isReccuring,
+            self::URL_PATH => $this->urlPath,
         ];
     }
 

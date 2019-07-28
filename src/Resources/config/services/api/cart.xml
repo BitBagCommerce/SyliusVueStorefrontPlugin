@@ -8,6 +8,7 @@
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.create_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\CreateCartAction">
             <argument>%bitbag_vuestorefront_sylius_channel%</argument>
+            <argument type="service" id="validator" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.pull_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\PullCartAction" />

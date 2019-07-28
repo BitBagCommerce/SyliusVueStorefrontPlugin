@@ -31,6 +31,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
         return new Details(
             $product->getId(),
             null,
+            null,
             count($product->getVariants()) > 1 ? 'configurable' : 'simple',
             $product->getCode(),
             $product->getSlug(),
@@ -53,9 +54,10 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             1,//requiredOptions
             [],//productLinks
             [],//colorOptions,
-            []//sizeOptions
-//            [],//configurableOptions
-//            []//configurableChildren
+            [],//sizeOptions
+            false
+        //            [],//configurableOptions
+        //            []//configurableChildren
         );
     }
 }

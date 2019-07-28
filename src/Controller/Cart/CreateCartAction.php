@@ -13,7 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\CreateCartRequest;
+use BitBag\SyliusVueStorefrontPlugin\Response\Payload;
 use BitBag\SyliusVueStorefrontPlugin\Response\VueStorefrontResponse;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -29,16 +32,21 @@ final class CreateCartAction
     /** @var ValidatorInterface */
     private $validator;
 
-    public function __construct(MessageBusInterface $bus, ValidatorInterface $validator)
-    {
-
+    public function __construct(
+        MessageBusInterface $bus,
+        ValidatorInterface $validator
+    ) {
         $this->bus = $bus;
         $this->validator = $validator;
     }
 
     public function __invoke(Request $request): Response
     {
-        $createCartRequest = new CreateCartRequest($request);
+        if (null === $request) {
+            return VueStorefrontResponse::error('Invalid request');
+        }
+        $cartId = Uuid::uuid4();
+        $createCartRequest = new CreateCartRequest($request, $cartId);
 
         $validation = $this->validator->validate($createCartRequest);
 
@@ -46,11 +54,7 @@ final class CreateCartAction
 
         $this->bus->dispatch($createCartCommand);
 
-        if (null === $request) {
-            return VueStorefrontResponse::error('Invalid request');
-            //            throw new BadRequestHttpException();
-        }
-
+        $payload = new Payload($createCartCommand->cartId());
 
         return VueStorefrontResponse::success($payload);
     }
