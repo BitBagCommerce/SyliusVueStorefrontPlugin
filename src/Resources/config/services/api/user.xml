@@ -3,7 +3,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults autowire="true" autoconfigure="false" public="true" />
+        <defaults autowire="false" autoconfigure="false" public="true" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.create_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\CreateUserAction">
@@ -20,6 +20,24 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
-                 class="BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler">
+            <argument type="service" id="lexik_jwt_authentication.jwt_manager" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener">
+            <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager" />
+            <argument>%gesdinet_jwt_refresh_token.ttl%</argument>
+            <argument type="service" id="validator" />
+            <argument type="service" id="request_stack" />
+            <argument>%gesdinet_jwt_refresh_token.user_identity_field%</argument>
+            <argument>%gesdinet_jwt_refresh_token.single_use%</argument>
+
+            <tag name="kernel.event_listener"
+                 event="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
+                 method="attachRefreshToken"
+            />
+        </service>
     </services>
 </container>
