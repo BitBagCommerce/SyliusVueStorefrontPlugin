@@ -12,9 +12,9 @@
         "symfony/messenger": "^4.2"
     },
     "require-dev": {
+        "gesdinet/jwt-refresh-token-bundle": "~0.1",
         "lchrusciel/api-test-case": "^4.0",
         "lexik/jwt-authentication-bundle": "^2.6",
-        "gesdinet/jwt-refresh-token-bundle": "~0.1",
         "phpspec/phpspec": "^5.1",
         "phpstan/phpstan-doctrine": "^0.11",
         "phpstan/phpstan-shim": "^0.11",

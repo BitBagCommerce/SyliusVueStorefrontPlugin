@@ -17,6 +17,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEvent
  */
 class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler
 {
+    private const AUTHENTICATION_SUCCESS = 'bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success';
     protected $jwtManager;
 
     protected $dispatcher;
@@ -38,9 +39,9 @@ class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler
         );
 
         if ($this->dispatcher instanceof ContractsEventDispatcherInterface) {
-            $this->dispatcher->dispatch($event, Events::AUTHENTICATION_SUCCESS);
+            $this->dispatcher->dispatch($event, self::AUTHENTICATION_SUCCESS);
         } else {
-            $this->dispatcher->dispatch(Events::AUTHENTICATION_SUCCESS, $event);
+            $this->dispatcher->dispatch(self::AUTHENTICATION_SUCCESS, $event);
         }
 
         $response->setData($event->getData());
