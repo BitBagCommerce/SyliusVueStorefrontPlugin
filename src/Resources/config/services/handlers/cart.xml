@@ -3,35 +3,35 @@
         <defaults public="true"/>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.create_cart_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\CreateCartHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\CreateCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.update_cart_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\UpdateCartHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\UpdateCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.delete_cart_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\DeleteCartHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\DeleteCartHandler">
             <argument type="service" id="sylius.repository.order"/>
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.apply_coupon_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\ApplyCouponHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\ApplyCouponHandler">
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.delete_coupon_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\DeleteCouponHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\DeleteCouponHandler">
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.set_shipping_methods_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\SetShippingMethodsHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\SetShippingMethodsHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
@@ -39,7 +39,7 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.set_shipping_information_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\SetShippingInformationHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\SetShippingInformationHandler">
             <argument type="service" id="sylius.repository.order"/>
             <argument type="service" id="sylius.factory.address"/>
             <argument type="service" id="sm.factory"/>
@@ -47,7 +47,7 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.collect_totals_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\Cart\CollectTotalsHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\CollectTotalsHandler">
             <tag name="messenger.message_handler" />
         </service>
     </services>

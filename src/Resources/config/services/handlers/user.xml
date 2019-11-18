@@ -3,22 +3,22 @@
         <defaults public="true"/>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.create_user_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\CreateUserHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\CreateUserHandler">
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.reset_password_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\ResetPasswordHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ResetPasswordHandler">
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.change_password_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\ChangePasswordHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ChangePasswordHandler">
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.update_user_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\Handler\User\UpdateUserHandler">
+                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler">
             <tag name="messenger.message_handler" />
         </service>
 

@@ -10,18 +10,18 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Order;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class SetShippingInformationHandler
+final class CreateOrderHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
 
     }
 
-    public function __invoke(SetShippingInformation $setShippingInformation): void
+    public function __invoke(): void
     {
     }
 }

@@ -10,18 +10,19 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\User;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
+use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class ResetPasswordHandler
+final class UpdateUserHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
 
     }
 
-    public function __invoke(ResetPassword $resetPassword): void
+    public function __invoke(UpdateUser $updateCart): void
     {
     }
 }

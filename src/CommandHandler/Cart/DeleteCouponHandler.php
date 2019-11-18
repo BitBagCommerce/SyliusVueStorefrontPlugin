@@ -10,15 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCoupon;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
-final class DeleteCouponHandler
+final class DeleteCouponHandler implements MessageHandlerInterface
 {
     /** @var OrderRepositoryInterface */
     private $orderRepository;

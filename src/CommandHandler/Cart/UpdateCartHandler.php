@@ -10,16 +10,19 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
-final class CreateOrderHandler
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+
+final class UpdateCartHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
 
     }
 
-    public function __invoke(): void
+    public function __invoke(UpdateCart $updateCart): void
     {
     }
 }

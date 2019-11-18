@@ -10,14 +10,15 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCart;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
-final class DeleteCartHandler
+final class DeleteCartHandler implements MessageHandlerInterface
 {
     /** @var OrderRepositoryInterface */
     private $cartRepository;

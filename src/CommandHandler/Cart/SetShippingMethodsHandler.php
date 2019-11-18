@@ -10,18 +10,19 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CollectTotals;
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class CollectTotalsHandler
+final class SetShippingMethodsHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
 
     }
 
-    public function __invoke(CollectTotals $collectTotals): void
+    public function __invoke(SetShippingMethods $setShippingMethods): void
     {
     }
 }

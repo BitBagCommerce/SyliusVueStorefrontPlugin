@@ -10,18 +10,19 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
+use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class SetShippingMethodsHandler
+final class ChangePasswordHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
 
     }
 
-    public function __invoke(SetShippingMethods $setShippingMethods): void
+    public function __invoke(ChangePassword $changePassword): void
     {
     }
 }

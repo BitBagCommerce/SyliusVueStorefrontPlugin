@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
@@ -18,9 +18,10 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
-final class CreateCartHandler
+final class CreateCartHandler implements MessageHandlerInterface
 {
     /** @var FactoryInterface */
     private $cartFactory;

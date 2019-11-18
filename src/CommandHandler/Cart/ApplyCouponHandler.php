@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\ApplyCoupon;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -19,9 +19,10 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
+use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
-final class ApplyCouponHandler
+final class ApplyCouponHandler implements MessageHandlerInterface
 {
     /** @var OrderRepositoryInterface */
     private $orderRepository;
@@ -47,7 +48,6 @@ final class ApplyCouponHandler
         $this->couponEligibilityChecker = $couponEligibilityChecker;
     }
 
-    /** @param AddCoupon $addCoupon */
     public function __invoke(ApplyCoupon $applyCoupon): void
     {
         /** @var OrderInterface $cart */
