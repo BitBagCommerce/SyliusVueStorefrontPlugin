@@ -25,6 +25,11 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
+        <service id="itbag_sylius_vue_storefront_plugin.listener.json_request"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\JsonRequestListener">
+            <tag name="kernel.event_listener" event="kernel.controller" method="convertJsonStringToArray" />
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"
                  class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener">
             <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager" />
