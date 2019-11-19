@@ -12,28 +12,28 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Customer;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 
 final class CreateUser
 {
-    /** @var Customer|null */
+    /** @var NewCustomer */
     private $customer;
 
-    /** @var string|null */
+    /** @var string */
     private $password;
 
-    public function __construct(?Customer $customer, ?string $password)
+    public function __construct(NewCustomer $customer, string $password)
     {
         $this->customer = $customer;
         $this->password = $password;
     }
 
-    public function customer(): ?Customer
+    public function customer(): NewCustomer
     {
         return $this->customer;
     }
 
-    public function password(): ?string
+    public function password(): string
     {
         return $this->password;
     }

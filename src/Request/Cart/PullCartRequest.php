@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\PullCart;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SetShippingMethodsRequest
+final class PullCartRequest
 {
     /** @var string|null */
     private $token;
@@ -23,18 +23,14 @@ final class SetShippingMethodsRequest
     /** @var int|string */
     private $cartId;
 
-    /** @var array|null */
-    private $address;
-
     public function __construct(Request $request)
     {
         $this->token = $request->query->get('token');
         $this->cartId = $request->query->get('cartId');
-        $this->address = $request->request->get('address');
     }
 
-    public function getCommand(): SetShippingMethods
+    public function getCommand(): PullCart
     {
-        return new SetShippingMethods($this->token, $this->cartId, $this->address);
+        return new PullCart($this->token, $this->cartId);
     }
 }

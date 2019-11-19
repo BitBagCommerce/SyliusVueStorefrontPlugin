@@ -20,7 +20,7 @@ final class CollectTotalsRequest
     /** @var string|null */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
     /** @var array|null */

@@ -61,7 +61,7 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
         $this->tokenParameterName = $tokenParameterName;
     }
 
-    public function attachRefreshToken(AuthenticationSuccessEvent $event)
+    public function attachRefreshToken(AuthenticationSuccessEvent $event): void
     {
         $data = $event->getData();
         $user = $event->getUser();

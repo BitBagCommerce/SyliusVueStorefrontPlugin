@@ -10,9 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Model;
+namespace BitBag\SyliusVueStorefrontPlugin\Model\Response\User;
 
-final class Customer
+use BitBag\SyliusVueStorefrontPlugin\Model\Response\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Response\Response;
+
+final class User implements Response
 {
     private const ID = 'id';
     private const GROUP_ID = 'group_id';
@@ -26,8 +29,10 @@ final class Customer
     private const LAST_NAME = 'lastname';
     private const STORE_ID = 'store_id';
     private const WEBSITE_ID = 'website_id';
-    private const ADRESSES = 'addresses';
+    private const ADDRESSES = 'addresses';
     private const DISABLE_AUTOMATIC_GROUP_CHANGE = 'disable_auto_group_change';
+
+    private const DATE_FORMAT = 'Y-m-d H:i:s';
 
     /** @var int */
     private $id;
@@ -35,10 +40,10 @@ final class Customer
     /** @var int */
     private $groupId;
 
-    /** @var string */
+    /** @var string|null */
     private $defaultBilling;
 
-    /** @var string */
+    /** @var string|null */
     private $defaultShipping;
 
     /** @var \DateTime */
@@ -71,8 +76,22 @@ final class Customer
     /** @var int */
     private $disableAutomaticGroupChange;
 
-    public function __construct(int $id, int $groupId, string $defaultBilling, string $defaultShipping, \DateTime $createdAt, \DateTime $updatedAt, string $createdIn, string $email, string $firstName, string $lastName, int $storeId, int $websiteId, array $addresses, int $disableAutomaticGroupChange)
-    {
+    public function __construct(
+        int $id,
+        int $groupId,
+        ?string $defaultBilling,
+        ?string $defaultShipping,
+        \DateTime $createdAt,
+        \DateTime $updatedAt,
+        string $createdIn,
+        string $email,
+        string $firstName,
+        string $lastName,
+        int $storeId,
+        int $websiteId,
+        array $addresses,
+        int $disableAutomaticGroupChange
+    ) {
         $this->id = $id;
         $this->groupId = $groupId;
         $this->defaultBilling = $defaultBilling;
@@ -87,5 +106,25 @@ final class Customer
         $this->websiteId = $websiteId;
         $this->addresses = $addresses;
         $this->disableAutomaticGroupChange = $disableAutomaticGroupChange;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return \array_filter([
+            self::ID => $this->id,
+            self::GROUP_ID => $this->groupId,
+            self::DEFAULT_BILLING => $this->defaultBilling,
+            self::DEFAULT_SHIPPING => $this->defaultShipping,
+            self::CREATED_AT => $this->createdAt->format(self::DATE_FORMAT),
+            self::UPDATED_AT => $this->updatedAt->format(self::DATE_FORMAT),
+            self::CREATED_IN => $this->createdIn,
+            self::EMAIL => $this->email,
+            self::FIRST_NAME => $this->firstName,
+            self::LAST_NAME => $this->lastName,
+            self::STORE_ID => $this->storeId,
+            self::WEBSITE_ID => $this->websiteId,
+            self::ADDRESSES => $this->addresses,
+            self::DISABLE_AUTOMATIC_GROUP_CHANGE => $this->disableAutomaticGroupChange
+        ]);
     }
 }

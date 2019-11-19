@@ -20,10 +20,10 @@ final class ApplyCouponRequest
     /** @var string|null */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
-    /** @var string|null */
+    /** @var string */
     private $coupon;
 
     public function __construct(Request $request)

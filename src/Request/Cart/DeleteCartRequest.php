@@ -20,7 +20,7 @@ final class DeleteCartRequest
     /** @var string|null */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
     public function __construct(Request $request)

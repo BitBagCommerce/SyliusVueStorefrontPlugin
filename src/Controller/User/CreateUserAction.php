@@ -12,17 +12,27 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest;
+use BitBag\SyliusVueStorefrontPlugin\Response\VueStorefrontResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class CreateUserAction
 {
-    public function __construct()
+    /** @var MessageBusInterface */
+    private $bus;
+
+    public function __construct(MessageBusInterface $bus)
     {
+        $this->bus = $bus;
     }
 
     public function __invoke(Request $request): Response
     {
+        $user = CreateUserRequest::fromHttpRequest($request);
+//walidacja
+        $this->bus->dispatch($user->getCommand());
 
         return VueStorefrontResponse::success($payload);
     }

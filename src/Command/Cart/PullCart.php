@@ -10,22 +10,20 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
+namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\User;
-
-final class UpdateUser
+final class PullCart
 {
     /** @var string|null */
     private $token;
 
-    /** @var User|;null */
-    private $customer;
+    /** @var int|string */
+    private $cartId;
 
-    public function __construct(?string $token, User $customer)
+    public function __construct(?string $token, $cartId)
     {
         $this->token = $token;
-        $this->customer = $customer;
+        $this->cartId = $cartId;
     }
 
     public function token(): ?string
@@ -33,8 +31,8 @@ final class UpdateUser
         return $this->token;
     }
 
-    public function customer(): User
+    public function cartId(): ?string
     {
-        return $this->customer;
+        return $this->cartId;
     }
 }

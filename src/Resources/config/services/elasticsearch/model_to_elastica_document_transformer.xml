@@ -12,6 +12,10 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.taxon" />
         </service>
 
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.attribute" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductAttributeToVueStorefrontDocumentTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_attribute" />
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.tax_rule" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\TaxCategoryToVueStorefrontDocumentTransformer">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.tax_category" />
         </service>

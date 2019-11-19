@@ -12,29 +12,18 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\User;
-
-final class UpdateUser
+final class GetOrderHistory
 {
     /** @var string|null */
     private $token;
 
-    /** @var User|;null */
-    private $customer;
-
-    public function __construct(?string $token, User $customer)
+    public function __construct(?string $token)
     {
         $this->token = $token;
-        $this->customer = $customer;
     }
 
     public function token(): ?string
     {
         return $this->token;
-    }
-
-    public function customer(): User
-    {
-        return $this->customer;
     }
 }

@@ -10,18 +10,8 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Handler\User;
+namespace BitBag\SyliusVueStorefrontPlugin\Model\Response;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
-
-final class CreateUserHandler
+interface Response extends \JsonSerializable
 {
-    public function __construct()
-    {
-
-    }
-
-    public function __invoke(CreateUser $createUser): void
-    {
-    }
 }

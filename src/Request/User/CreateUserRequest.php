@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CreateUserRequest
@@ -23,14 +24,19 @@ final class CreateUserRequest
     /** @var string|null */
     private $password;
 
-    public function __construct(Request $request)
+    private function __construct(Request $request)
     {
         $this->customer = $request->request->get('customer');
         $this->password = $request->request->get('password');
     }
 
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
     public function getCommand(): CreateUser
     {
-        return new CreateUser($this->customer, $this->password);
+        return new CreateUser(NewCustomer::createFromArray($this->customer), $this->password);
     }
 }

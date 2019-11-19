@@ -62,7 +62,6 @@ fos_elastica:
                         eco_collection_options: { type: integer }
                         erin_recommends: { type: integer }
                         tax_class_id: { type: long }
-
                     persistence:
                         driver: orm
                         model: "%sylius.model.product.class%"
@@ -73,11 +72,12 @@ fos_elastica:
                         listener:
                             logger: true
                             defer: true
+
                 category:
                     properties:
                         enabled: ~
-                        updated_at: {type: date, format: "yyyy-MM-dd"}
-                        created_at: {type: date, format: "yyyy-MM-dd"}
+                        updated_at: { type: date, format: yyyy-MM-dd }
+                        created_at: { type: date, format: yyyy-MM-dd }
                     persistence:
                         driver: orm
                         model: "%sylius.model.taxon.class%"
@@ -88,16 +88,42 @@ fos_elastica:
                         listener:
                             logger: true
                             defer: true
-#                taxrule:
-#                    properties:
-#                        enabled: ~
-#                    persistence:
-#                        driver: orm
-#                        model: "%sylius.model.tax_category.class%"
-#                        identifier: documentId
-#                        model_to_elastica_transformer:
-#                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
-#                        provider: ~
-#                        listener:
-#                            logger: true
-#                            defer: true
+
+                attribute:
+                    properties:
+                        enabled: ~
+                        id: { type: long }
+                        attribute_id: { type: long }
+                        options:
+                            type: nested
+                            properties:
+                                value: { type: text, index: not_analyzed }
+                    persistence:
+                        driver: orm
+                        model: "%sylius.model.product_attribute.class%"
+                        identifier: documentId
+                        model_to_elastica_transformer:
+                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
+                        provider: ~
+                        listener:
+                            logger: true
+                            defer: true
+
+                taxrule:
+                    properties:
+                        enabled: ~
+                        id: { type: long }
+                        rates:
+                            type: nested
+                            properties:
+                                rate: { type: float }
+                    persistence:
+                        driver: orm
+                        model: "%sylius.model.tax_category.class%"
+                        identifier: documentId
+                        model_to_elastica_transformer:
+                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
+                        provider: ~
+                        listener:
+                            logger: true
+                            defer: true

@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Model;
+namespace BitBag\SyliusVueStorefrontPlugin\Model\Response;
 
 use Webmozart\Assert\Assert;
 
