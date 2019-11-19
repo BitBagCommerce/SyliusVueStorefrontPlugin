@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file has been created by developers from BitBag.
  * Feel free to contact us once you face any issues or want to start
@@ -29,6 +31,6 @@ class JsonRequestListener
             throw new BadRequestHttpException('Invalid json body: ' . json_last_error_msg());
         }
 
-        $request->request->replace(is_array($data) ? $data : array());
+        $request->request->replace(is_array($data) ? $data : []);
     }
 }

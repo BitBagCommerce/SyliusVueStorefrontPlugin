@@ -35,7 +35,7 @@ final class ProductTaxonRepository
 
         foreach ($productTaxons as $productTaxon) {
             $productVariantsCounter += count($productTaxon->getProduct()->getVariants());
-       }
+        }
 
         return $productVariantsCounter;
     }

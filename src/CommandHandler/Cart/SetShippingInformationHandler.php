@@ -19,7 +19,6 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(SetShippingInformation $setShippingInformation): void

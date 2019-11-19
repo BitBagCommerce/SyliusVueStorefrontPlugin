@@ -19,7 +19,6 @@ final class ChangePasswordHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(ChangePassword $changePassword): void

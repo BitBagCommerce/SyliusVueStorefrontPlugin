@@ -29,7 +29,6 @@ final class OrderProduct
         $this->quantity = $quantity;
     }
 
-
     //    public static function createFromArray(array $addressInformation): self
     //    {
     //

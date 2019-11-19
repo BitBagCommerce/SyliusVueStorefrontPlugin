@@ -18,7 +18,6 @@ final class CreateOrderHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(): void

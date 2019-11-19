@@ -66,7 +66,6 @@ final class Details
     private const SIZE = 'size';
     private const IS_CONFIGURED = 'is_configured';
 
-
     // TODO PROPERTIES BELOW APPEAR ONLY IN CORESHOP VS BRIDGE
 
     private const WEIGHT = 'weight';
@@ -77,7 +76,6 @@ final class Details
     private const SHORT_DESCRIPTION = 'short_description';
     private const COLOR_OPTIONS = 'color_options';
     private const SIZE_OPTIONS = 'size_options';
-
 
     //    INTEGRATION BOILERPLATE
     private const ACCESSORIES_SIZE = 'accessories_size';
@@ -110,7 +108,7 @@ final class Details
     private const DEFAULT_CATEGORY = 'Default category';
     private const DEFAULT_MEDIA_TYPE = 'image';
 
-//   NODEAPP MAPPING COMPARISON
+    //   NODEAPP MAPPING COMPARISON
     private const URL_PATH = 'url_path';
     /** @var string */
     private $urlPath;
@@ -204,7 +202,7 @@ final class Details
     private $tierPrices = [];
 
     /** @var array|null */
-    private $customAttributes = null;
+    private $customAttributes;
 
     /** @var string */
     private $smallImage = '/a/b/small.jpg';
@@ -279,34 +277,34 @@ final class Details
     //    TODO INTEGRATION BOILERPLATE ONLY
 
     /** @var string|null */
-    private $accessoriesSize = null;
+    private $accessoriesSize;
 
     /** @var string|null */
-    private $metaKeyword = null;
+    private $metaKeyword;
 
     /** @var string|null */
-    private $metaTitle = null;
+    private $metaTitle;
 
     /** @var string|null */
-    private $metaDescription = null;
+    private $metaDescription;
 
     /** @var bool|null */
-    private $giftMessageAvailable = null;
+    private $giftMessageAvailable;
 
     /** @var bool|null */
     private $giftWrappingAvailable = false;
 
     /** @var \DateTime|null */
-    private $newsFromDate = null;
+    private $newsFromDate;
 
     /** @var \DateTime|null */
-    private $newsToDate = null;
+    private $newsToDate;
 
     /** @var \DateTime|null */
-    private $specialFromDate = null;
+    private $specialFromDate;
 
     /** @var \DateTime|null */
-    private $specialToDate = null;
+    private $specialToDate;
 
     /** @var bool */
     private $isReccuring = false;
@@ -442,5 +440,4 @@ final class Details
             self::URL_PATH => $this->urlPath,
         ];
     }
-
 }

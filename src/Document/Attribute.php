@@ -148,7 +148,7 @@ final class Attribute
     private $defaultFrontendLabel = 'Display Product Options In';
 
     /** @var array|null */
-    private $frontendLabels = null;
+    private $frontendLabels;
 
     /** @var string */
     private $backendType = 'varchar';
@@ -241,4 +241,3 @@ final class Attribute
         ];
     }
 }
-

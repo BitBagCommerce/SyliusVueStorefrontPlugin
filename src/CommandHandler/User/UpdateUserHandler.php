@@ -19,7 +19,6 @@ final class UpdateUserHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(UpdateUser $updateCart): void

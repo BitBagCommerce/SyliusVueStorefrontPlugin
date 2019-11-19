@@ -99,7 +99,6 @@ final class Address
         $this->email = $email;
     }
 
-
     public static function createFromArray(array $address): self
     {
         Assert::keyExists($address, self::COUNTRY_ID);

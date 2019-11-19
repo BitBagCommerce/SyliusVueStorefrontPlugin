@@ -22,7 +22,6 @@ use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOpt
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\TaxonsToCategoriesTransformerInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
-use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 
 final class SyliusProductAttributeTransformer implements SyliusProductAttributeTransformerInterface

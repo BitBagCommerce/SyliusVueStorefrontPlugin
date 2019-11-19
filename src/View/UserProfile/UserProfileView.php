@@ -40,5 +40,3 @@ final class UserProfileView
 
     public $disable_auto_group_change;
 }
-
-

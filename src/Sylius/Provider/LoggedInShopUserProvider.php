@@ -39,6 +39,6 @@ final class LoggedInShopUserProvider
     {
         $token = $this->tokenStorage->getToken();
 
-        return (null !== $token && $token->getUser() instanceof ShopUserInterface);
+        return null !== $token && $token->getUser() instanceof ShopUserInterface;
     }
 }

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BitBag\SyliusVueStorefrontPlugin\Response\User;
 
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
-use Lexik\Bundle\JWTAuthenticationBundle\Events;
 use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler as BaseAuthenticationSuccessHandler;
 use Symfony\Component\HttpFoundation\Response;

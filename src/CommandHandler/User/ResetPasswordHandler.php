@@ -19,7 +19,6 @@ final class ResetPasswordHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(ResetPassword $resetPassword): void

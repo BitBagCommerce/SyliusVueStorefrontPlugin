@@ -11,8 +11,6 @@ final class GetOrderHistoryAction
 {
     public function __invoke(Request $request): Response
     {
-
         return VueStorefrontResponse::success($payload);
     }
-
 }

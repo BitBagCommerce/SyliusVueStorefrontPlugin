@@ -19,7 +19,6 @@ final class CollectTotalsHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(CollectTotals $collectTotals): void

@@ -124,7 +124,7 @@ final class User implements Response
             self::STORE_ID => $this->storeId,
             self::WEBSITE_ID => $this->websiteId,
             self::ADDRESSES => $this->addresses,
-            self::DISABLE_AUTOMATIC_GROUP_CHANGE => $this->disableAutomaticGroupChange
+            self::DISABLE_AUTOMATIC_GROUP_CHANGE => $this->disableAutomaticGroupChange,
         ]);
     }
 }

@@ -19,7 +19,6 @@ final class SetShippingMethodsHandler implements MessageHandlerInterface
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(SetShippingMethods $setShippingMethods): void
