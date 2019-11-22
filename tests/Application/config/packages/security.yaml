@@ -55,13 +55,12 @@ security:
             pattern: "%bitbag.vue_storefront.security.regex%/user/login"
             stateless: true
             anonymous: true
-            form_login:
+            provider: sylius_shop_user_provider
+            json_login:
                 provider: sylius_shop_user_provider
-                login_path: /vsbridge/user/login
                 check_path: /vsbridge/user/login
-                username_parameter: username
-                password_parameter: password
-                success_handler: lexik_jwt_authentication.handler.authentication_success
+                password_path: password
+                success_handler: bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
 
@@ -69,6 +68,7 @@ security:
             pattern: "%bitbag.vue_storefront.security.regex%"
             stateless: true
             anonymous: true
+            provider: sylius_shop_user_provider
             guard:
                 provider: sylius_shop_user_provider
                 authenticators:
