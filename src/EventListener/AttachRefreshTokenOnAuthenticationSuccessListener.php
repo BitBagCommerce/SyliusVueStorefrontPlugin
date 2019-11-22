@@ -1,15 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 /*
- * This file is part of the GesdinetJWTRefreshTokenBundle package.
- *
- * (c) Gesdinet <http://www.gesdinet.com/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.shop and write us
+ * an email on mikolaj.krol@bitbag.pl.
  */
+
+declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\EventListener;
 
@@ -71,14 +70,6 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
 
         if (!$user instanceof UserInterface) {
             return;
-        }
-
-        if ('/vsbridge/user/refresh' === $request->getPathInfo()) {
-           $data['result'] = $data['token'];
-           unset($data['result']);
-
-           $event->setData($data);
-           return;
         }
 
         $refreshTokenString = RequestRefreshToken::getRefreshToken($request, $this->tokenParameterName);

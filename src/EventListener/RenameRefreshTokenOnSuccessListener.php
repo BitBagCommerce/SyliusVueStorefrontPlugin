@@ -1,30 +1,30 @@
 <?php
 
 /*
- * This file is part of the GesdinetJWTRefreshTokenBundle package.
- *
- * (c) Gesdinet <http://www.gesdinet.com/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.shop and write us
+ * an email on mikolaj.krol@bitbag.pl.
  */
+
+declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\EventListener;
 
-use Gesdinet\JWTRefreshTokenBundle\Event\RefreshEvent;
-use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class RenameRefreshTokenOnSuccessListener
 {
+    private const ROUTE_REFRESH_JWT_TOKEN = '/vsbridge/user/refresh';
+
     /** @var RequestStack */
     protected $requestStack;
 
-    public function __construct(
-        RequestStack $requestStack
-    ) {
+    public function __construct(RequestStack $requestStack)
+    {
         $this->requestStack = $requestStack;
     }
 
@@ -38,10 +38,9 @@ class RenameRefreshTokenOnSuccessListener
             return;
         }
 
-        if ('/vsbridge/user/refresh' === $request->getPathInfo()) {
+        if (self::ROUTE_REFRESH_JWT_TOKEN === $request->getPathInfo()) {
             $data['result'] = $data['token'];
-            unset($data['token']);
-            unset($data['refreshToken']);
+            unset($data['token'], $data['refreshToken']);
 
             $event->setData($data);
         }

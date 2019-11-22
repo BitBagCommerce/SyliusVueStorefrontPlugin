@@ -20,7 +20,7 @@ final class AddressView
     /** @var int */
     public $customer_id;
 
-    /** @var int */
+    /** @var string */
     public $firstname;
 
     /** @var string */
