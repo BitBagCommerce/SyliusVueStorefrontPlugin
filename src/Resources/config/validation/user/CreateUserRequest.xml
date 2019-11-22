@@ -8,21 +8,21 @@
                 <option name="fields">
                     <value key="email">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag_vue_storefront_api.sylius.email.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.email.not_blank</option>
                         </constraint>
                         <constraint name="Email">
-                            <option name="message">bitbag_vue_storefront_api.sylius.email.invalid</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.email.invalid</option>
                         </constraint>
                         <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserDoesNotExist" />
                     </value>
                     <value key="firstname">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag_vue_storefront_api.sylius.firstname.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.firstname.not_blank</option>
                         </constraint>
                     </value>
                     <value key="lastname">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag_vue_storefront_api.sylius.lastname.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.lastname.not_blank</option>
                         </constraint>
                     </value>
                 </option>
@@ -30,7 +30,7 @@
         </property>
         <property name="password">
             <constraint name="NotBlank">
-                <option name="message">bitbag_vue_storefront_api.sylius.password.not_blank</option>
+                <option name="message">bitbag.vue_storefront_api.sylius.password.not_blank</option>
             </constraint>
         </property>
     </class>

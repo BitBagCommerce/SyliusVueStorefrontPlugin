@@ -31,7 +31,7 @@ final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInte
             $message[] = $result->getMessage();
         }
 
-        $errorMessage->result = \implode(',', $message);
+        $errorMessage->result = \implode(' ', $message);
 
         return $errorMessage;
     }
