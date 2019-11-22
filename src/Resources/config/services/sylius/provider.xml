@@ -10,5 +10,10 @@
             <argument type="service" id="sylius.repository.channel" />
             <argument>%bitbag_vuestorefront_sylius_channel%</argument>
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.current_user"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProvider">
+            <argument type="service" id="security.token_storage"/>
+        </service>
     </services>
 </container>

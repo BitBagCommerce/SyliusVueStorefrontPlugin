@@ -8,6 +8,9 @@
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.create_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\CreateUserAction">
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.reset_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction" />
@@ -26,13 +29,9 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="itbag_sylius_vue_storefront_plugin.listener.json_request"
-                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\JsonRequestListener">
-            <tag name="kernel.event_listener" event="kernel.controller" method="convertJsonStringToArray" />
-        </service>
-
         <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"
-                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener">
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener"
+       >
             <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager" />
             <argument>%gesdinet_jwt_refresh_token.ttl%</argument>
             <argument type="service" id="validator" />
@@ -44,6 +43,14 @@
                  event="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
                  method="attachRefreshToken"
             />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.rename"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\RenameRefreshTokenOnSuccessListener"
+        >
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success"
+                 method="renameRefreshToken" priority="-1" />
         </service>
     </services>
 </container>
