@@ -32,7 +32,8 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"
-                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener">
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener"
+       >
             <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager" />
             <argument>%gesdinet_jwt_refresh_token.ttl%</argument>
             <argument type="service" id="validator" />
@@ -44,6 +45,14 @@
                  event="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
                  method="attachRefreshToken"
             />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.rename"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\RenameRefreshTokenOnSuccessListener"
+        >
+            <argument type="service" id="request_stack" />
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success"
+                 method="renameRefreshToken" priority="-1" />
         </service>
     </services>
 </container>

@@ -73,6 +73,14 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
             return;
         }
 
+        if ('/vsbridge/user/refresh' === $request->getPathInfo()) {
+           $data['result'] = $data['token'];
+           unset($data['result']);
+
+           $event->setData($data);
+           return;
+        }
+
         $refreshTokenString = RequestRefreshToken::getRefreshToken($request, $this->tokenParameterName);
 
         if ($refreshTokenString && true === $this->singleUse) {
