@@ -5,7 +5,7 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="true" />
 
-        <service id="itbag_sylius_vue_storefront_plugin.listener.json_request"
+        <service id="bitbag_sylius_vue_storefront_plugin.listener.json_request"
                  class="BitBag\SyliusVueStorefrontPlugin\EventListener\JsonRequestListener">
             <tag name="kernel.event_listener" event="kernel.controller" method="convertJsonStringToArray" />
         </service>
