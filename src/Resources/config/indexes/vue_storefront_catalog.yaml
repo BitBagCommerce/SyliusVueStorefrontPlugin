@@ -2,6 +2,9 @@ parameters:
     bitbag_vuestorefront_sylius_channel: 'US_WEB'
 
 fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+
     indexes:
         bitbag_vue_storefront_catalog:
             index_name: "vue_storefront_catalog"
