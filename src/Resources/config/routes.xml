@@ -5,11 +5,4 @@
 
     <import resource="routes/api.xml" name-prefix="bitbag_vue_storefront_plugin_" prefix="/vsbridge" />
 
-    <route id="bitbag_vue_storefront_plugin_image_process"
-           path="/img/{width}/{height}/{operation}/{relativeUrl}" methods="GET">
-        <requirement key="width">\d+</requirement>
-        <requirement key="height">\d+</requirement>
-        <requirement key="operation">crop|fit|resize|identify</requirement>
-        <requirement key="relativeUrl">.+</requirement>
-    </route>
 </routes>

@@ -29,7 +29,7 @@ final class ImagesToMediaGalleryTransformer implements ImagesToMediaGalleryTrans
             ++$mediaCounter;
 
             $gallery[] = new Media(
-                'localhost:8000/media/cache/resolve/sylius_shop_product_thumbnail/' . $image->getPath(),
+                $image->getPath(),
                 $mediaCounter,
                 $image->getType(),
                 $image->getId()

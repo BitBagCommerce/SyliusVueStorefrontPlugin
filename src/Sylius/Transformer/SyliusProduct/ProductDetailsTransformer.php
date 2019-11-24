@@ -43,7 +43,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             $product->getUpdatedAt(),
             5, //weight
             $product->getCode(),
-            'localhost:8000/media/cache/resolve/sylius_shop_product_thumbnail/' . $product->getImages()->first()->getPath(),
+            $product->getImages()->first()->getPath(),
             $product->getVariants()->first()->getOnHand() > 0,
             null,
             $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getId() : null,

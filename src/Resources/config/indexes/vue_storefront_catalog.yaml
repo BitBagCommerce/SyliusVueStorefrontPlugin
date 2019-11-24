@@ -2,6 +2,9 @@ parameters:
     bitbag_vuestorefront_sylius_channel: 'US_WEB'
 
 fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+
     indexes:
         bitbag_vue_storefront_catalog:
             index_name: "vue_storefront_catalog"
@@ -89,41 +92,41 @@ fos_elastica:
                             logger: true
                             defer: true
 
-                attribute:
-                    properties:
-                        enabled: ~
-                        id: { type: long }
-                        attribute_id: { type: long }
-                        options:
-                            type: nested
-                            properties:
-                                value: { type: text, index: not_analyzed }
-                    persistence:
-                        driver: orm
-                        model: "%sylius.model.product_attribute.class%"
-                        identifier: documentId
-                        model_to_elastica_transformer:
-                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
-                        provider: ~
-                        listener:
-                            logger: true
-                            defer: true
-
-                taxrule:
-                    properties:
-                        enabled: ~
-                        id: { type: long }
-                        rates:
-                            type: nested
-                            properties:
-                                rate: { type: float }
-                    persistence:
-                        driver: orm
-                        model: "%sylius.model.tax_category.class%"
-                        identifier: documentId
-                        model_to_elastica_transformer:
-                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
-                        provider: ~
-                        listener:
-                            logger: true
-                            defer: true
+#                attribute:
+#                    properties:
+#                        enabled: ~
+#                        id: { type: long }
+#                        attribute_id: { type: long }
+#                        options:
+#                            type: nested
+#                            properties:
+#                                value: { type: text, index: not_analyzed }
+#                    persistence:
+#                        driver: orm
+#                        model: "%sylius.model.product_attribute.class%"
+#                        identifier: documentId
+#                        model_to_elastica_transformer:
+#                            service: bitbag_sylius_vue_storefront_plugin.transformer.attribute
+#                        provider: ~
+#                        listener:
+#                            logger: true
+#                            defer: true
+#
+#                taxrule:
+#                    properties:
+#                        enabled: ~
+#                        id: { type: long }
+#                        rates:
+#                            type: nested
+#                            properties:
+#                                rate: { type: float }
+#                    persistence:
+#                        driver: orm
+#                        model: "%sylius.model.tax_category.class%"
+#                        identifier: documentId
+#                        model_to_elastica_transformer:
+#                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
+#                        provider: ~
+#                        listener:
+#                            logger: true
+#                            defer: true
