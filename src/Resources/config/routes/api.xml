@@ -8,5 +8,5 @@
     <import resource="api/stock.xml" prefix="/stock" />
     <import resource="api/cart.xml" prefix="/cart" />
     <import resource="api/cart.xml" name-prefix="guest_" prefix="/guest-cart" />
-
+    <import resource="api/image.xml" prefix="/image" />
 </routes>
