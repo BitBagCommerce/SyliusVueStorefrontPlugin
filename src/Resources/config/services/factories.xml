@@ -6,6 +6,10 @@
     <services>
         <defaults public="true" />
 
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\AddressViewFactory">
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactory">
         </service>

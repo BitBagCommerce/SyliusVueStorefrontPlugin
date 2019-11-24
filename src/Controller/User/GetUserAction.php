@@ -12,18 +12,41 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class GetUserAction
 {
-    public function __construct()
-    {
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
+
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
+    /** @var UserProfileViewFactoryInterface */
+    private $userProfileViewFactory;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
+        UserProfileViewFactoryInterface $userProfileViewFactory
+    ) {
+        $this->viewHandler = $viewHandler;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
+        $this->userProfileViewFactory = $userProfileViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
+        $user = $this->loggedInShopUserProvider->provide()->getCustomer();
 
-        return VueStorefrontResponse::success($payload);
+        return $this->viewHandler->handle(View::create(
+            $this->userProfileViewFactory->create($user),
+            Response::HTTP_OK
+        ));
     }
 }
