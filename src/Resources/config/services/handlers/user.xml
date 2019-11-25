@@ -4,7 +4,11 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.create_user_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\CreateUserHandler">
-            <tag name="messenger.message_handler" />
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="sylius.factory.shop_user"/>
+            <argument type="service" id="sylius.factory.customer"/>
+            <argument type="service" id="sylius.repository.customer"/>
+            <tag name="messenger.message_handler"/>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.reset_password_handler"

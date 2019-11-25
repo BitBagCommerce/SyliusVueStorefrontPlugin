@@ -12,10 +12,13 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -35,16 +38,26 @@ final class CreateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var UserProfileViewFactoryInterface */
+    private $userProfileViewFactory;
+
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
     public function __construct(
         MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        UserProfileViewFactoryInterface $userProfileViewFactory,
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->userProfileViewFactory = $userProfileViewFactory;
+        $this->customerRepository = $customerRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -62,6 +75,12 @@ final class CreateUserAction
 
         $this->bus->dispatch($user->getCommand());
 
-        return new Response();
+        /** @var CustomerInterface $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $user->getCommand()->customer()->email()]);
+
+        return $this->viewHandler->handle(View::create(
+            $this->userProfileViewFactory->create($customer),
+            Response::HTTP_OK
+        ));
     }
 }
