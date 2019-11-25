@@ -9,6 +9,10 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.reset_password_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ResetPasswordHandler">
+            <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="sylius.shop_user.token_generator.password_reset"/>
+            <argument type="service" id="sylius.email_sender"/>
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel"/>
             <tag name="messenger.message_handler" />
         </service>
 
