@@ -13,24 +13,26 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateUserRequest
 {
-    /** @var string|null */
-    private $token;
-
-    /** @var array|null */
+    /** @var ExistingUser */
     private $customer;
 
     public function __construct(Request $request)
     {
-        $this->token = $request->query->get('token');
         $this->customer = $request->request->get('customer');
     }
 
-    public function getCommand(): UpdateUser
+    public static function fromHttpRequest(Request $request): self
     {
-        return new UpdateUser($this->token, $this->customer);
+        return new self($request);
+    }
+
+    public function command(): UpdateUser
+    {
+        return new UpdateUser(ExistingUser::createFromArray($this->customer));
     }
 }

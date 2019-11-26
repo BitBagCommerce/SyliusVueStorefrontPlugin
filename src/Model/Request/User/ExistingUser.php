@@ -31,8 +31,6 @@ final class ExistingUser
     private const ADDRESSES = 'addresses';
     private const DISABLE_AUTOMATIC_GROUP_CHANGE = 'disable_auto_group_change';
 
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
-
     /** @var int */
     private $id;
 
@@ -78,8 +76,8 @@ final class ExistingUser
     public function __construct(
         int $id,
         int $groupId,
-        ?string $defaultBilling,
-        ?string $defaultShipping,
+        string $defaultBilling,
+        string $defaultShipping,
         \DateTime $createdAt,
         \DateTime $updatedAt,
         string $createdIn,
@@ -105,5 +103,95 @@ final class ExistingUser
         $this->websiteId = $websiteId;
         $this->addresses = $addresses;
         $this->disableAutomaticGroupChange = $disableAutomaticGroupChange;
+    }
+
+    public static function createFromArray(array $existingUser)
+    {
+        return new self(
+            $existingUser[self::ID],
+            $existingUser[self::GROUP_ID],
+            $existingUser[self::DEFAULT_BILLING],
+            $existingUser[self::DEFAULT_SHIPPING],
+            new \DateTime($existingUser[self::CREATED_AT]),
+            new \DateTime($existingUser[self::UPDATED_AT]),
+            $existingUser[self::CREATED_IN],
+            $existingUser[self::EMAIL],
+            $existingUser[self::FIRST_NAME],
+            $existingUser[self::LAST_NAME],
+            $existingUser[self::STORE_ID],
+            $existingUser[self::WEBSITE_ID],
+            $existingUser[self::ADDRESSES],
+            $existingUser[self::DISABLE_AUTOMATIC_GROUP_CHANGE]
+        );
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getGroupId(): int
+    {
+        return $this->groupId;
+    }
+
+    public function getDefaultBilling(): string
+    {
+        return $this->defaultBilling;
+    }
+
+    public function getDefaultShipping(): string
+    {
+        return $this->defaultShipping;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function getCreatedIn(): string
+    {
+        return $this->createdIn;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function getStoreId(): int
+    {
+        return $this->storeId;
+    }
+
+    public function getWebsiteId(): int
+    {
+        return $this->websiteId;
+    }
+
+    public function getAddresses(): array
+    {
+        return $this->addresses;
+    }
+
+    public function getDisableAutomaticGroupChange(): int
+    {
+        return $this->disableAutomaticGroupChange;
     }
 }

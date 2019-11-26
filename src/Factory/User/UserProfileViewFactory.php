@@ -32,13 +32,13 @@ final class UserProfileViewFactory implements UserProfileViewFactoryInterface
         $userProfileView = new UserProfileView();
         $userProfileView->id = $syliusCustomer->getId();
         $userProfileView->group_id = 1;
-        $userProfileView->default_shipping =
-            (string) $syliusCustomer->getDefaultAddress() ? $syliusCustomer->getDefaultAddress()->getId() : '';
+        $userProfileView->default_shipping = $syliusCustomer->getDefaultAddress() ? $syliusCustomer->getDefaultAddress()->getId() : '';
         $userProfileView->created_at = $syliusCustomer->getCreatedAt()->format(DateHelper::DATE_TIME_FORMAT);
         $userProfileView->updated_at = $syliusCustomer->getUpdatedAt()->format(DateHelper::DATE_TIME_FORMAT);
         $userProfileView->email = $syliusCustomer->getEmail();
         $userProfileView->firstname = $syliusCustomer->getFirstName();
         $userProfileView->lastname = $syliusCustomer->getLastName();
+
         $userProfileView->store_id = 1;
         $userProfileView->website_id = 1;
 

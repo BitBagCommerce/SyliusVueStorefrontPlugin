@@ -13,15 +13,28 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class UpdateUserHandler implements MessageHandlerInterface
 {
-    public function __construct()
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
+    public function __construct(CustomerRepositoryInterface $customerRepository)
     {
+        $this->customerRepository = $customerRepository;
     }
 
-    public function __invoke(UpdateUser $updateCart): void
+    public function __invoke(UpdateUser $command): void
     {
+        /** @var CustomerInterface $customer */
+        $customer = $this->customerRepository->findOneBy(['email' => $command->email()]);
+
+        $customer->setFirstName($command->customer()->getFirstName());
+        $customer->setLastName($command->customer()->getLastName());
+
+        $this->customerRepository->add($customer);
     }
 }

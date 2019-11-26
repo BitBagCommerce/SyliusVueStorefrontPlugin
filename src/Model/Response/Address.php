@@ -57,7 +57,7 @@ final class Address
     /** @var string */
     private $company;
 
-    /** @var string */
+    /** @var string|null */
     private $telephone;
 
     /** @var string */

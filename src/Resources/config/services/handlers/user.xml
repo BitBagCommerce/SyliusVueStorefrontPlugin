@@ -30,6 +30,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.update_user_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler">
+            <argument type="service" id="sylius.repository.customer"/>
             <tag name="messenger.message_handler" />
         </service>
     </services>
