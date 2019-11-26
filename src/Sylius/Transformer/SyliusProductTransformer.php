@@ -20,7 +20,6 @@ use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductDet
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOptionsToConfigurableOptionsTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\TaxonsToCategoriesTransformerInterface;
-use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 
 final class SyliusProductTransformer implements SyliusProductTransformerInterface
@@ -46,12 +45,6 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
     /** @var ProductAssociationsToLinksTransformerInterface */
     private $productAssociationsTransformer;
 
-    /** @var ChannelRepositoryInterface */
-    private $channelRepository;
-
-    /** @var string */
-    private $syliusChannel;
-
     public function __construct(
         ProductDetailsTransformerInterface $productDetailsTransformer,
         InventoryToStockTransformerInterface $inventoryTransformer,
@@ -59,9 +52,7 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         TaxonsToCategoriesTransformerInterface $taxonsTransformer,
         ProductVariantsToConfigurableChildrenTransformerInterface $productVariantsTransformer,
         ProductOptionsToConfigurableOptionsTransformerInterface $productOptionsTransformer,
-        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer,
-        ChannelRepositoryInterface $channelRepository,
-        string $syliusChannel
+        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer
     ) {
         $this->productDetailsTransformer = $productDetailsTransformer;
         $this->inventoryTransformer = $inventoryTransformer;
@@ -70,18 +61,10 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         $this->productVariantsTransformer = $productVariantsTransformer;
         $this->productOptionsTransformer = $productOptionsTransformer;
         $this->productAssociationsTransformer = $productAssociationsTransformer;
-        $this->channelRepository = $channelRepository;
-        $this->syliusChannel = $syliusChannel;
     }
 
     public function transform(ProductInterface $syliusProduct): Product
     {
-        $importedChannel = $this->channelRepository->findOneByCode($this->syliusChannel);
-
-        if (false === $syliusProduct->getChannels()->contains($importedChannel)) {
-            return null;
-        }
-
         $details = $this->productDetailsTransformer->transform($syliusProduct);
         $stock = $this->inventoryTransformer->transform($syliusProduct->getVariants()->first());
         $mediaGallery = $this->imagesTransformer->transform($syliusProduct->getImages());
