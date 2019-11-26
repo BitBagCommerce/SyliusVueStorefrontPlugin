@@ -15,7 +15,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
-use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class ChangePasswordHandler implements MessageHandlerInterface
