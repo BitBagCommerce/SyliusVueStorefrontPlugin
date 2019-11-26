@@ -17,12 +17,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ResetPasswordRequest
 {
-    /** @var string|null */
+    /** @var string */
     private $email;
 
     public function __construct(Request $request)
     {
         $this->email = $request->request->get('email');
+    }
+
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
     }
 
     public function getCommand(): ResetPassword

@@ -14,10 +14,10 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
 final class ResetPassword
 {
-    /** @var string|null */
+    /** @var string */
     private $email;
 
-    public function __construct(?string $email)
+    public function __construct(string $email)
     {
         $this->email = $email;
     }
