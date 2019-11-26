@@ -17,24 +17,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ChangePasswordRequest
 {
-    /** @var string|null */
-    private $token;
-
-    /** @var string|null */
+    /** @var string */
     private $currentPassword;
 
-    /** @var string|null */
+    /** @var string */
     private $newPassword;
 
     public function __construct(Request $request)
     {
-        $this->token = $request->query->get('token');
         $this->currentPassword = $request->request->get('currentPassword');
         $this->newPassword = $request->request->get('newPassword');
     }
 
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
     public function getCommand(): ChangePassword
     {
-        return new ChangePassword($this->token, $this->currentPassword, $this->newPassword);
+        return new ChangePassword($this->newPassword);
     }
 }

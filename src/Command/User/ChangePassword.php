@@ -14,33 +14,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
 final class ChangePassword
 {
-    /** @var string|null */
-    private $token;
-
-    /** @var string|null */
-    private $currentPassword;
-
-    /** @var string|null */
+    /** @var string */
     private $newPassword;
 
-    public function __construct(?string $token, ?string $currentPassword, ?string $newPassword)
+    public function __construct(string $newPassword)
     {
-        $this->token = $token;
-        $this->currentPassword = $currentPassword;
         $this->newPassword = $newPassword;
     }
 
-    public function token(): ?string
-    {
-        return $this->token;
-    }
-
-    public function currentPassword(): ?string
-    {
-        return $this->currentPassword;
-    }
-
-    public function newPassword(): ?string
+    public function getNewPassword(): string
     {
         return $this->newPassword;
     }
