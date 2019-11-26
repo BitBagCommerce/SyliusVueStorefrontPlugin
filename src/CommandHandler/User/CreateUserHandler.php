@@ -63,7 +63,9 @@ final class CreateUserHandler implements MessageHandlerInterface
         $user = $this->userFactory->createNew();
         $user->setPlainPassword($command->password());
         $user->setCustomer($customer);
-
+        $user->setUsername($command->customer()->email());
+        $user->setUsernameCanonical($command->customer()->email());
+        $user->setEnabled(true);
         $this->userRepository->add($user);
     }
 
