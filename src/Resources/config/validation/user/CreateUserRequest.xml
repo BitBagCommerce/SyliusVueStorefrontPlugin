@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest">
         <property name="customer">
-            <constraint name="NotNull" />
+            <constraint name="NotNull">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.customer.not_null</option>
+            </constraint>
             <constraint name="Collection">
+                <option name="missingFieldsMessage">bitbag.vue_storefront_api.sylius.user.customer.missing_fields</option>
                 <option name="fields">
                     <value key="email">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag.vue_storefront_api.sylius.email.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.email.not_blank</option>
                         </constraint>
                         <constraint name="Email">
-                            <option name="message">bitbag.vue_storefront_api.sylius.email.invalid</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.email.invalid</option>
                         </constraint>
                         <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserDoesNotExist" />
                     </value>
                     <value key="firstname">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag.vue_storefront_api.sylius.firstname.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.firstname.not_blank</option>
                         </constraint>
                     </value>
                     <value key="lastname">
                         <constraint name="NotBlank">
-                            <option name="message">bitbag.vue_storefront_api.sylius.lastname.not_blank</option>
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.lastname.not_blank</option>
                         </constraint>
                     </value>
                 </option>
@@ -30,7 +35,7 @@
         </property>
         <property name="password">
             <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.password.not_blank</option>
+                <option name="message">bitbag.vue_storefront_api.sylius.user.password.not_blank</option>
             </constraint>
         </property>
     </class>
