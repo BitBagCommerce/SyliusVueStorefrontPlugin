@@ -13,15 +13,31 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class ChangePasswordHandler implements MessageHandlerInterface
 {
-    public function __construct()
-    {
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
+    public function __construct(
+        CustomerRepositoryInterface $customerRepository,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider
+    ) {
+        $this->customerRepository = $customerRepository;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
     }
 
     public function __invoke(ChangePassword $changePassword): void
     {
+        $customer = $this->loggedInShopUserProvider->provide();
+        $customer->setPlainPassword($changePassword->getNewPassword());
+
+        $this->customerRepository->add($customer);
     }
 }

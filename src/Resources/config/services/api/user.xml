@@ -13,7 +13,6 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
             <argument type="service" id="sylius.repository.customer"/>
-
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.reset_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction">
@@ -23,7 +22,12 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.change_password"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ChangePasswordAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ChangePasswordAction">
+            <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+        </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction" />
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_user"

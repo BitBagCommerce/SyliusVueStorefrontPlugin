@@ -11,3 +11,4 @@ bitbag:
                 not_blank: Please enter last name.
             password:
                 not_blank: Please enter password.
+                invalid: The password doesn't match this account.
