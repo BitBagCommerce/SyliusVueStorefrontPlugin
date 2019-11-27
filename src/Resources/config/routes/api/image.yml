@@ -1,0 +1,9 @@
+image_process:
+    methods: GET
+    path: /{width}/{height}/{operation}/{relativeUrl}
+    controller: bitbag_sylius_vue_storefront_plugin.api.image.process_image
+    requirements:
+        width: \d+
+        height: \d+
+        operation: crop|fit|resize|identify
+        relativeUrl: .+

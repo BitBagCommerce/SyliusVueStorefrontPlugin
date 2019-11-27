@@ -1,0 +1,4 @@
+order_create_order:
+    path: /create
+    methods: POST
+    controller: bitbag_sylius_vue_storefront_plugin.api.order.create_order

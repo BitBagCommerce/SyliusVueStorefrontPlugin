@@ -1,0 +1,4 @@
+controllers:
+    resource: routes/api.yml
+    prefix: /vsbridge
+    name_prefix: bitbag_vue_storefront_plugin_
