@@ -1,13 +1,5 @@
 <?php
 
-/*
- * This file has been created by developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on mikolaj.krol@bitbag.pl.
- */
-
 declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
@@ -49,8 +41,9 @@ final class ChangePasswordAction
 
     public function __invoke(Request $request): Response
     {
-        $user = ChangePasswordRequest::fromHttpRequest($request);
-        $validationResults = $this->validator->validate($user);
+        $changePasswordRequest = ChangePasswordRequest::fromHttpRequest($request);
+
+        $validationResults = $this->validator->validate($changePasswordRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -58,7 +51,8 @@ final class ChangePasswordAction
                 Response::HTTP_INTERNAL_SERVER_ERROR
             ));
         }
-        $this->bus->dispatch($user->getCommand());
+
+        $this->bus->dispatch($changePasswordRequest->getCommand());
 
         return $this->viewHandler->handle(View::create(
             Response::HTTP_OK

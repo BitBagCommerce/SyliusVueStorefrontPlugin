@@ -22,7 +22,7 @@ final class ChangePassword
         $this->newPassword = $newPassword;
     }
 
-    public function getNewPassword(): string
+    public function newPassword(): string
     {
         return $this->newPassword;
     }
