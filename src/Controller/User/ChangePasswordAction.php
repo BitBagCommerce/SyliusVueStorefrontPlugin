@@ -56,7 +56,7 @@ final class ChangePasswordAction
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_BAD_REQUEST
             ));
         }
 

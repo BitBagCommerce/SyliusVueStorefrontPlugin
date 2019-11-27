@@ -22,7 +22,7 @@ final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInte
     public function create(ConstraintViolationListInterface $validationResults): ValidationErrorView
     {
         $errorMessage = new ValidationErrorView();
-        $errorMessage->code = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $errorMessage->code = Response::HTTP_BAD_REQUEST;
 
         $message = [];
 
