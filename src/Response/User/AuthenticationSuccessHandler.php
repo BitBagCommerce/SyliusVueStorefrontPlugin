@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
+
 declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Response\User;
@@ -11,12 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 
-/**
- * AuthenticationSuccessHandler.
- *
- * @author Dev Lexik <dev@lexik.fr>
- */
-class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler
+final class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler
 {
     private const AUTHENTICATION_SUCCESS = 'bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success';
     protected $jwtManager;
