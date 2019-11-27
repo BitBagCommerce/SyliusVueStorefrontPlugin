@@ -1,0 +1,38 @@
+user_create_user:
+    path: /create
+    methods: POST
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.create_user
+
+user_login:
+    path: /login
+    methods: POST
+
+user_refresh_token:
+    path: /refresh
+    methods: POST
+    controller: gesdinet.jwtrefreshtoken::refresh
+
+user_reset_password:
+    path: /reset-password
+    methods: POST
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.reset_password
+
+user_change_password:
+    path: /change-password
+    methods: POST
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.change_password
+
+user_get_order_history:
+    path: /order-history
+    methods: GET
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.get_order_history
+
+user_get_user:
+    path: /me
+    methods: GET
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.get_user
+
+user_update_user:
+    path: /me
+    methods: POST
+    controller: bitbag_sylius_vue_storefront_plugin.api.user.update_user

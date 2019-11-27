@@ -1,0 +1,24 @@
+user_module:
+    resource: api/user.yml
+    prefix: /user
+
+order_module:
+    resource: api/order.yml
+    prefix: /order
+
+stock_module:
+    resource: api/stock.yml
+    prefix: /stock
+
+cart_module:
+    resource: api/cart.yml
+    prefix: /cart
+
+guest_cart_module:
+    resource: api/cart.yml
+    prefix: /guest-cart
+    name_prefix: guest_
+
+image_module:
+    resource: api/image.yml
+    prefix: /image
