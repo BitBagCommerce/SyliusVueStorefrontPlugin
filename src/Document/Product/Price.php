@@ -109,7 +109,6 @@ final class Price
 //        $this->originalPriceInludingTax = $originalPriceInludingTax;
     }
 
-
     public function toArray(): array
     {
         return [

@@ -24,5 +24,4 @@ final class CheckStockAction
     public function __invoke(Request $request): Response
     {
     }
-
 }

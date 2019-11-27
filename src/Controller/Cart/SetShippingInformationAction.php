@@ -23,6 +23,5 @@ final class SetShippingInformationAction
 
     public function __invoke(Request $request): Response
     {
-
     }
 }

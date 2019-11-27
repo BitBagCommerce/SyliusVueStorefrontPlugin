@@ -40,6 +40,7 @@ final class TaxRatesTransformer implements TaxRatesTransformerInterface
 
             $ratesIds[] = $taxRate->getId();
         }
+
         return new Rates($rates, $ratesIds);
     }
 }

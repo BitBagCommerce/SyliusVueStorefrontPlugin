@@ -36,7 +36,7 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
             $taxon->getName(),
             true,
             $taxon->getPosition(),
-            $taxon->getLevel()+2,
+            $taxon->getLevel() + 2,
             $this->productTaxonRepository->getAmountOfProductVariants($taxon),
             $this->processChildren($taxon->getChildren()),
             $this->buildChildrenIds($taxon->getChildren()),

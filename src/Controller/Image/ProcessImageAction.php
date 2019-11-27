@@ -55,11 +55,10 @@ final class ProcessImageAction
             ;
 
             return new JsonResponse($image->metadata()->toArray());
-        } else {
-            $image = $this->imagine->open($path);
-
-            $image->resize(new Box($width, $height))->show('jpg');
         }
+
+        $image = $this->imagine->open($path);
+        $image->resize(new Box($width, $height))->show('jpg');
 
         return new Response($image->show('jpg'));
     }

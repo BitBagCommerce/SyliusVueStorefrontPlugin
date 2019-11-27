@@ -47,8 +47,7 @@ final class Child implements \JsonSerializable
         string $name,
         string $sku
         //        array $customAttributes
-    )
-    {
+    ) {
         $this->price = $price;
         $this->name = $name;
         $this->sku = $sku;
@@ -66,5 +65,4 @@ final class Child implements \JsonSerializable
             ]
         );
     }
-
 }

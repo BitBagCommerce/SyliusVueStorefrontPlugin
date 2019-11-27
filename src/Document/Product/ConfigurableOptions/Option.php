@@ -61,7 +61,6 @@ final class Option implements \JsonSerializable
         $this->attributeCode = $attributeCode;
     }
 
-
     public function jsonSerialize(): array
     {
         return [

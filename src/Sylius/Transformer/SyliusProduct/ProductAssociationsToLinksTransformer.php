@@ -43,7 +43,7 @@ final class ProductAssociationsToLinksTransformer implements ProductAssociations
                     count($product->getVariants()) > 1 ? 'configurable' : 'simple'
                 );
 
-                $productLinkPosition++;
+                ++$productLinkPosition;
             }
         }
 
@@ -52,7 +52,7 @@ final class ProductAssociationsToLinksTransformer implements ProductAssociations
 
     private function renameAssociationType(string $syliusAssociationTypeCode): string
     {
-        switch ($syliusAssociationTypeCode){
+        switch ($syliusAssociationTypeCode) {
             case 'similar_products':
                 return 'related';
             case 'xyz':

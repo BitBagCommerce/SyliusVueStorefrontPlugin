@@ -43,7 +43,6 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
         return new ConfigurableOptions($configurableOptions);
     }
 
-
     private function processValues(Collection $syliusProductOptionValues): array
     {
         $configurableOptionValues = [];
@@ -53,6 +52,7 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
             //            TODO OPTION VALUE STRING TO INT
             $configurableOptionValues[] = new OptionValue($syliusProductOptionValue->getId(), $syliusProductOptionValue->getName());
         }
+
         return $configurableOptionValues;
     }
 }

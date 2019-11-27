@@ -19,11 +19,9 @@ final class UpdateCartAction
 {
     public function __construct()
     {
-
     }
 
     public function __invoke(Request $request): Response
     {
-
     }
 }

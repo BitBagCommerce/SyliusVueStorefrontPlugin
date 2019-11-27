@@ -23,6 +23,5 @@ final class SetShippingMethodsAction
 
     public function __invoke(Request $request): Response
     {
-
     }
 }

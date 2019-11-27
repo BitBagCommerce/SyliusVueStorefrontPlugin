@@ -102,7 +102,7 @@ final class Stock implements \JsonSerializable
     private $lowQuantityNotificationThreshold = 1;
 
     /** @var \DateTime|null */
-    private $lowQuantityDate = null;
+    private $lowQuantityDate;
 
     /** @var bool */
     private $manageStock = true;
