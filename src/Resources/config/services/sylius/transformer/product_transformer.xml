@@ -21,9 +21,6 @@
                       id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.options" />
             <argument type="service"
                       id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.associations" />
-            <argument type="service"
-                      id="sylius.repository.channel" />
-            <argument>%bitbag_vuestorefront_sylius_channel%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.details"

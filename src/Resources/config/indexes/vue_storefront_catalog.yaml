@@ -1,6 +1,3 @@
-parameters:
-    bitbag_vuestorefront_sylius_channel: 'US_WEB'
-
 fos_elastica:
     clients:
         default: { host: localhost, port: 9200 }
@@ -10,6 +7,7 @@ fos_elastica:
             index_name: "vue_storefront_catalog"
             types:
                 product:
+                    indexable_callback: ['@bitbag_sylius_vue_storefront_plugin.checker.product_in_channel']
                     properties:
                         enabled: ~
                         slug: { type: keyword }

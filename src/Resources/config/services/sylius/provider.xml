@@ -8,12 +8,19 @@
         <service id="bitbag_sylius_vue_storefront_plugin.provider.channel"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider">
             <argument type="service" id="sylius.repository.channel" />
-            <argument>%bitbag_vuestorefront_sylius_channel%</argument>
+            <argument>%env(APP_CHANNEL_CODE)%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.provider.current_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProvider">
-            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="security.token_storage" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.customer"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ShopUserAwareCustomerProvider">
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.factory.customer" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
         </service>
     </services>
 </container>

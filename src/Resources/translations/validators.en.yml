@@ -1,14 +1,25 @@
 bitbag:
     vue_storefront_api:
         sylius:
-            email:
-                not_blank: Please enter your email.
-                invalid: Please enter valid email.
-                unique: This email is already in use.
-            firstname:
-                not_blank: Please enter first name.
-            lastname:
-                not_blank: Please enter last name.
-            password:
-                not_blank: Please enter password.
-                invalid: The password doesn't match this account.
+            user:
+                customer:
+                    not_null: Please provide customer data.
+                    missing_fields: Customer object has missing properties.
+                email:
+                    not_blank: Please enter your email.
+                    invalid: Please enter valid email.
+                    unique: This email is already in use.
+                firstname:
+                    not_blank: Please enter first name.
+                lastname:
+                    not_blank: Please enter last name.
+                password:
+                    not_blank: Please enter password.
+            cart:
+                token_value:
+                    unique: The cart id is already in use.
+                cart_id:
+                    not_null: Cart id can not be null.
+                token:
+                    not_blank: Please provide valid token.
+

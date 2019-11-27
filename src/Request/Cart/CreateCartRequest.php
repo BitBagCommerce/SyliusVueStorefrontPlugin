@@ -1,19 +1,11 @@
 <?php
 
-/*
- * This file has been created by developers from BitBag.
- * Feel free to contact us once you face any issues or want to start
- * another great project.
- * You can find more information about us on https://bitbag.shop and write us
- * an email on mikolaj.krol@bitbag.pl.
- */
-
 declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
-use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CreateCartRequest
@@ -24,10 +16,15 @@ final class CreateCartRequest
     /** @var string */
     private $cartId;
 
-    public function __construct(Request $request, UuidInterface $cartId)
+    public function __construct(Request $request)
     {
         $this->token = $request->query->get('token');
-        $this->cartId = $cartId->toString();
+        $this->cartId = Uuid::uuid4()->toString();
+    }
+
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
     }
 
     public function getCommand(): CreateCart

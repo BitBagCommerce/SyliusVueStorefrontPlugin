@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.validator.cart.cart_token_value_is_not_used_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart\CartTokenValueIsNotUsedValidator">
+            <argument type="service" id="sylius.repository.order"/>
+            <tag name="validator.constraint_validator" alias="sylius_cart_token_value_is_not_used_validator" />
+        </service>
+    </services>
+</container>
