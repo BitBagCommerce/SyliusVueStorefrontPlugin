@@ -22,8 +22,9 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.change_password_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ChangePasswordHandler">
-            <argument type="service" id="sylius.repository.customer"/>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
+            <argument type="service" id="sylius.security.password_encoder" />
+            <argument type="service" id="sylius.repository.shop_user"/>
             <tag name="messenger.message_handler" />
         </service>
 
@@ -31,6 +32,5 @@
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler">
             <tag name="messenger.message_handler" />
         </service>
-
     </services>
 </container>
