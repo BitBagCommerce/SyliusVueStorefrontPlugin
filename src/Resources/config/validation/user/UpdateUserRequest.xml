@@ -10,6 +10,7 @@
                         <constraint name="NotBlank">
                             <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
                         </constraint>
+                        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserCheckCorrectIdValidator" />
                     </value>
                     <value key="group_id">
                         <constraint name="NotBlank">
@@ -70,17 +71,17 @@
                             <option name="message">bitbag.vue_storefront_api.sylius.user.website_id.not_blank</option>
                         </constraint>
                     </value>
-                    <value key="addresses">
-                        <constraint name="Collection">
-                            <option name="fields">
-                                <value key="country_id">
-                                    <constraint name="NotBlank">
-                                        <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
-                                    </constraint>
-                                </value>
-                            </option>
-                        </constraint>
-                    </value>
+<!--                    <value key="addresses">-->
+<!--                        <constraint name="Collection">-->
+<!--                            <option name="fields">-->
+<!--                                <value key="country_id">-->
+<!--                                    <constraint name="NotBlank">-->
+<!--                                        <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>-->
+<!--                                    </constraint>-->
+<!--                                </value>-->
+<!--                            </option>-->
+<!--                        </constraint>-->
+<!--                    </value>-->
                     <value key="disable_auto_group_change">
                         <constraint name="NotBlank">
                             <option name="message">bitbag.vue_storefront_api.sylius.user.disable_auto_group_change.not_blank</option>

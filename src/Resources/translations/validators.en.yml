@@ -7,6 +7,7 @@ bitbag:
                     missing_fields: Customer object has missing properties.
                 id:
                     not_blank: Please provide validate id user.
+                    valid_id:  Please provide validate id.
                 group_id:
                     not_blank: Please provide validate group_id.
                 default_billing:
