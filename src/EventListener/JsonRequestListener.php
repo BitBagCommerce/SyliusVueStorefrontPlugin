@@ -27,10 +27,6 @@ class JsonRequestListener
 
         $data = json_decode($request->getContent(), true);
 
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new BadRequestHttpException('Invalid json body: ' . json_last_error_msg());
-        }
-
         $request->request->replace(is_array($data) ? $data : []);
     }
 }
