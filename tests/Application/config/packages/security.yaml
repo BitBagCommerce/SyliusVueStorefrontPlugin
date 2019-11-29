@@ -10,6 +10,10 @@ security:
             id: sylius.admin_user_provider.email_or_name_based
         sylius_shop_user_provider:
             id: sylius.shop_user_provider.email_or_name_based
+        jwt:
+            lexik_jwt:
+                class: Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUser
+
     encoders:
         Sylius\Component\User\Model\UserInterface: sha512
     firewalls:
@@ -74,11 +78,6 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
-        refresh:
-            pattern:  "%bitbag.vue_storefront.security.regex%/user/refresh"
-            stateless: true
-            anonymous: true
-
         shop:
             switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
             context: shop
@@ -98,7 +97,7 @@ security:
                 csrf_parameter: _csrf_shop_security_token
                 csrf_token_id: shop_authenticate
             remember_me:
-                secret: "%env(APP_SECRET)%"
+                secret: '%kernel.secret%'
                 name: APP_SHOP_REMEMBER_ME
                 lifetime: 31536000
                 remember_me_parameter: _remember_me
@@ -110,7 +109,7 @@ security:
             anonymous: true
 
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
     access_control:
@@ -131,8 +130,3 @@ security:
         - { path: "%sylius.security.shop_regex%/account", role: ROLE_USER }
 
         - { path: "%bitbag.vue_storefront.security.regex%/user/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%bitbag.vue_storefront.security.regex%/user/refresh", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%bitbag.vue_storefront.security.regex%/cart/create", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%bitbag.vue_storefront.security.regex%/guest-cart/.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%bitbag.vue_storefront.security.regex%/cart/.*", role: ROLE_USER }
-        - { path: "%bitbag.vue_storefront.security.regex%", role: ROLE_USER  }

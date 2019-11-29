@@ -1,5 +1,6 @@
 imports:
-    - { resource: "../../../../src/Resources/config/indexes/vue_storefront_products.yaml" }
+    - { resource: "../../../../src/Resources/config/indexes/vue_storefront_catalog.yaml" }
+    - { resource: "command_bus.yaml" }
 
 fos_elastica:
     clients:
