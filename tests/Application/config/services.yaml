@@ -2,3 +2,22 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en_US
+    test.client.parameters: []
+
+services:
+    test.client.history:
+        class: Symfony\Component\BrowserKit\History
+        shared: false
+
+    test.client.cookiejar:
+        class: Symfony\Component\BrowserKit\CookieJar
+        shared: false
+
+    test.client:
+        class: Symfony\Bundle\FrameworkBundle\KernelBrowser
+        public: true
+        arguments:
+            - "@kernel"
+            - "%test.client.parameters%"
+            - "@test.client.history"
+            - "@test.client.cookiejar"

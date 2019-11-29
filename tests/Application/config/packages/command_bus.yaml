@@ -1,0 +1,6 @@
+framework:
+  messenger:
+    buses:
+      bitbag_vue_storefront_plugin.command_bus:
+        middleware:
+          - doctrine_transaction

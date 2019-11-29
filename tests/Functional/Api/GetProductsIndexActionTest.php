@@ -14,6 +14,6 @@ final class GetProductsIndexActionTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'products_index_successfull');
+        self::assertResponse($response, 'json/products_index_successfull');
     }
 }
