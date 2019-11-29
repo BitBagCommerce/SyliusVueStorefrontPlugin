@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Response\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Addresses;
 
 final class ExistingUser
 {
@@ -67,8 +67,8 @@ final class ExistingUser
     /** @var int */
     private $websiteId;
 
-//    /** @var Address[] */
-//    private $addresses;
+    /** @var Addresses[] */
+    private $addresses;
 
     /** @var int */
     private $disableAutomaticGroupChange;
@@ -86,7 +86,7 @@ final class ExistingUser
         string $lastName,
         int $storeId,
         int $websiteId,
-//        array $addresses,
+        array $addresses,
         int $disableAutomaticGroupChange
     ) {
         $this->id = $id;
@@ -101,7 +101,7 @@ final class ExistingUser
         $this->lastName = $lastName;
         $this->storeId = $storeId;
         $this->websiteId = $websiteId;
-//        $this->addresses = $addresses;
+        $this->addresses = $addresses;
         $this->disableAutomaticGroupChange = $disableAutomaticGroupChange;
     }
 
@@ -120,7 +120,7 @@ final class ExistingUser
             $existingUser[self::LAST_NAME],
             $existingUser[self::STORE_ID],
             $existingUser[self::WEBSITE_ID],
-//            $existingUser[self::ADDRESSES],
+            $existingUser[self::ADDRESSES],
             $existingUser[self::DISABLE_AUTOMATIC_GROUP_CHANGE]
         );
     }
@@ -135,12 +135,12 @@ final class ExistingUser
         return $this->groupId;
     }
 
-    public function getDefaultBilling(): string
+    public function getDefaultBilling(): ?string
     {
         return $this->defaultBilling;
     }
 
-    public function getDefaultShipping(): string
+    public function getDefaultShipping(): ?string
     {
         return $this->defaultShipping;
     }
@@ -185,10 +185,10 @@ final class ExistingUser
         return $this->websiteId;
     }
 
-//    public function getAddresses(): array
-//    {
-//        return $this->addresses;
-//    }
+    public function getAddresses(): array
+    {
+        return $this->addresses;
+    }
 
     public function getDisableAutomaticGroupChange(): int
     {

@@ -35,6 +35,38 @@ bitbag:
                 disable_auto_group_change:
                     not_blank: Please enter disable auto group change.
                     not_null:  Please provide disable auto group change value.
+                address:
+                    id:
+                        not_blank: Please provide valid address id
+                    customer_id:
+                        not_blank:  Please provide valid customer id.
+                    region_id:
+                        not_blank:  Please provide valid region id.
+                    country_id:
+                        not_blank:  Please provide valid country id.
+                    street:
+                        not_blank:  Please provide valid  street name.
+                    company_id:
+                        not_blank:  Please provide valid company id.
+                    telephone:
+                        not_blank:  Please provide valid telephone.
+                    postcode:
+                        not_blank:  Please provide valid postcode.
+                    city:
+                        not_blank:  Please provide valid city.
+                    firstname:
+                        not_blank:  Please provide valid firstname.
+                    lastname:
+                        not_blank:  Please provide valid lastname.
+                    vat_id:
+                        not_blank:  Please provide valid vat id.
+                    region:
+                        region_code:
+                            not_blank:  Please provide valid region code.
+                        region:
+                            not_blank:  Please provide valid region .
+                        region_id:
+                            not_blank:  Please provide valid region id.
 
             cart:
                 token_value:
