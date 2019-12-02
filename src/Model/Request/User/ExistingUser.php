@@ -125,72 +125,72 @@ final class ExistingUser
         );
     }
 
-    public function getId(): int
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function getGroupId(): int
+    public function groupId(): int
     {
         return $this->groupId;
     }
 
-    public function getDefaultBilling(): ?string
+    public function defaultBilling(): ?string
     {
         return $this->defaultBilling;
     }
 
-    public function getDefaultShipping(): ?string
+    public function defaultShipping(): ?string
     {
         return $this->defaultShipping;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function createdAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function updatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
 
-    public function getCreatedIn(): string
+    public function createdIn(): string
     {
         return $this->createdIn;
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
         return $this->email;
     }
 
-    public function getFirstName(): string
+    public function firstName(): string
     {
         return $this->firstName;
     }
 
-    public function getLastName(): string
+    public function lastName(): string
     {
         return $this->lastName;
     }
 
-    public function getStoreId(): int
+    public function storeId(): int
     {
         return $this->storeId;
     }
 
-    public function getWebsiteId(): int
+    public function websiteId(): int
     {
         return $this->websiteId;
     }
 
-    public function getAddresses(): array
+    public function addresses(): array
     {
         return $this->addresses;
     }
 
-    public function getDisableAutomaticGroupChange(): int
+    public function disableAutomaticGroupChange(): int
     {
         return $this->disableAutomaticGroupChange;
     }
