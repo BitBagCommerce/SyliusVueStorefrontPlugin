@@ -9,9 +9,9 @@
             <tag name="validator.constraint_validator" alias="sylius_shop_user_does_not_exist_validator" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.validator.user.shop_user_check_correct_id_validator"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\User\ShopUserCheckCorrectIdValidator">
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\User\CustomerIsCurrentShopUserValidator">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
-            <tag name="validator.constraint_validator" alias="sylius_shop_user_check_correct_id_validator" />
+            <tag name="validator.constraint_validator" alias="vue_storefront_customer_is_current_shop_user_validator" />
         </service>
     </services>
 </container>

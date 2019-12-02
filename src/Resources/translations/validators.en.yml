@@ -6,14 +6,14 @@ bitbag:
                     not_null: Please provide customer data.
                     missing_fields: Customer object has missing properties.
                 id:
-                    not_blank: Please provide validate id user.
-                    valid_id:  Please provide validate id.
+                    not_blank: Please provide user id.
+                    valid_id:  Please provide valid user id.
                 group_id:
-                    not_blank: Please provide validate group_id.
+                    not_blank: Please provide valid group id.
                 default_billing:
-                    not_blank: Please provide validate default billing.
+                    not_blank: Please provide valid default billing.
                 default_shipping:
-                    not_blank: Please provide validate defualt shipping.
+                    not_blank: Please provide valid defualt shipping.
                 email:
                     not_blank: Please enter your email.
                     invalid: Please enter valid email.
@@ -24,20 +24,18 @@ bitbag:
                     not_blank: Please enter last name.
                 password:
                     not_blank: Please enter password.
-                date_time:
-                    wrong_format: Datetime has wrong format.
                 created_in:
-                    not_blank: Please enter create_in  created in.
+                    not_blank: CreatedIn property can not be blank.
                 store_id:
                     not_blank: Please enter store id.
                 website_id:
                     not_blank: Please enter website id.
                 disable_auto_group_change:
-                    not_blank: Please enter disable auto group change.
-                    not_null:  Please provide disable auto group change value.
+                    not_blank: DisableAutoGroupChange property can not be blank.
+                    not_null:  DisableAutoGroupChange property can not be null.
                 address:
                     id:
-                        not_blank: Please provide valid address id
+                        not_blank: Please provide valid address id.
                     customer_id:
                         not_blank:  Please provide valid customer id.
                     region_id:
@@ -45,7 +43,7 @@ bitbag:
                     country_id:
                         not_blank:  Please provide valid country id.
                     street:
-                        not_blank:  Please provide valid  street name.
+                        not_blank:  Please provide valid street name.
                     company_id:
                         not_blank:  Please provide valid company id.
                     telephone:
@@ -64,7 +62,7 @@ bitbag:
                         region_code:
                             not_blank:  Please provide valid region code.
                         region:
-                            not_blank:  Please provide valid region .
+                            not_blank:  Please provide valid region.
                         region_id:
                             not_blank:  Please provide valid region id.
 
@@ -80,3 +78,7 @@ bitbag:
                     not_null: Please provide coupon code.
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
+
+        datetime:
+            format:
+                invalid_format: Invalid format of provided date.
