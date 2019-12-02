@@ -131,11 +131,6 @@
                                             <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blankk</option>
                                         </constraint>
                                     </value>
-                                    <value key="telephone">
-                                        <constraint name="NotBlank">
-                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.telephone.not_blank</option>
-                                        </constraint>
-                                    </value>
                                     <value key="postcode">
                                         <constraint name="NotBlank">
                                             <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_blank</option>
