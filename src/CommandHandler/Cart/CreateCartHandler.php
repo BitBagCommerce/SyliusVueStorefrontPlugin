@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\CustomerProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -28,7 +29,7 @@ final class CreateCartHandler implements MessageHandlerInterface
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /** @var ChannelProvider */
+    /** @var ChannelProviderInterface */
     private $channelProvider;
 
     /** @var CustomerProviderInterface */
@@ -37,7 +38,7 @@ final class CreateCartHandler implements MessageHandlerInterface
     public function __construct(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelProvider $channelProvider,
+        ChannelProviderInterface $channelProvider,
         CustomerProviderInterface $customerProvider
     ) {
         $this->cartFactory = $cartFactory;

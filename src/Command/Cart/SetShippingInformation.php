@@ -32,7 +32,7 @@ final class SetShippingInformation
         $this->addressInformation = $addressInformation;
     }
 
-    public function roken(): ?string
+    public function token(): ?string
     {
         return $this->token;
     }
