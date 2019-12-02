@@ -26,7 +26,7 @@ final class AddressView
     /** @var int|null */
     public $region_id;
 
-    /** @var array|string[] */
+    /** @var string */
     public $street;
 
     /** @var string */

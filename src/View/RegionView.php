@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View;
 
-class RegionView
+final class RegionView
 {
     /** @var string|null */
     public $regionCode;
