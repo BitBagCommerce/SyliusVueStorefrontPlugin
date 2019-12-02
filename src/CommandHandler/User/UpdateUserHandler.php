@@ -13,10 +13,11 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Addresses;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Expr\Comparison;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
+use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -24,56 +25,68 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class UpdateUserHandler implements MessageHandlerInterface
 {
-    private const ADDRESS_ID = 'id';
-    private const CUSTOMER_ID = 'id';
-
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
     /** @var AddressRepositoryInterface */
     private $addressRepository;
 
+    /** @var AddressFactoryInterface */
+    private $addressFactory;
+
+    /** @var ObjectManager */
+    private $objectManager;
+
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
-        AddressRepositoryInterface $addressRepository
+        AddressRepositoryInterface $addressRepository,
+        AddressFactoryInterface $addressFactory,
+        ObjectManager $objectManager
     ) {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
+        $this->addressFactory = $addressFactory;
+        $this->objectManager = $objectManager;
     }
 
     public function __invoke(UpdateUser $command): void
     {
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy([self::CUSTOMER_ID => $command->customer()->Id()]);
-        $customer->setFirstName($command->customer()->FirstName());
-        $customer->setLastName($command->customer()->LastName());
+        $customer = $this->customerRepository->findOneBy(['id' => $command->customer()->id()]);
 
-        $arrayAddressFromClient = $command->customer()->Addresses();
+        $customer->setFirstName($command->customer()->firstName());
+        $customer->setLastName($command->customer()->lastName());
 
-        foreach ($arrayAddressFromClient as $propertyAddress) {
-            $address = Addresses::createFromArray($propertyAddress);
+        $addresses = $command->customer()->addresses();
 
-            /** @var AddressInterface $findByOneAddressByd */
-            $findByOneAddressByd = $customer->getAddresses()->matching(
-                (new Criteria())
-                    ->where(new Comparison(self::ADDRESS_ID, '=', $address->Id()))
-            )->first();
+        foreach ($addresses as $requestAddress) {
+            $address = Address::createFromArray($requestAddress);
 
-            if (false !== $findByOneAddressByd) {
-                $findByOneAddressByd->setProvinceCode((string) $address->regionId());
-                $findByOneAddressByd->setProvinceName((string) $address->region()->region());
-                $findByOneAddressByd->setCompany($address->company());
-                $findByOneAddressByd->setPhoneNumber($address->telephone());
-                $findByOneAddressByd->setPostcode($address->postcode());
-                $findByOneAddressByd->setCountryCode($address->countryId());
-                $findByOneAddressByd->setStreet($address->street());
-                $findByOneAddressByd->setCity($address->city());
-                $findByOneAddressByd->setFirstName($address->firstName());
-                $findByOneAddressByd->setLastName($address->lastName());
+            /** @var AddressInterface $syliusAddress */
+            $syliusAddress = $customer->getAddresses()
+                ->matching(Criteria::create()
+                    ->where(Criteria::expr()->eq('id', $address->id())))
+                ->first()
+            ;
 
-                $this->addressRepository->add($findByOneAddressByd);
+            if (false === $syliusAddress) {
+                $syliusAddress = $this->addressFactory->createForCustomer($customer);
             }
+
+            $syliusAddress->setProvinceCode((string) $address->regionId());
+            $syliusAddress->setProvinceName((string) $address->region()->region());
+            $syliusAddress->setCompany($address->company());
+            $syliusAddress->setPhoneNumber($address->telephone());
+            $syliusAddress->setPostcode($address->postcode());
+            $syliusAddress->setCountryCode($address->countryId());
+            $syliusAddress->setStreet($address->street());
+            $syliusAddress->setCity($address->city());
+            $syliusAddress->setFirstName($address->firstName());
+            $syliusAddress->setLastName($address->lastName());
+
+            $this->addressRepository->add($syliusAddress);
         }
-        $this->customerRepository->add($customer);
+
+        $this->objectManager->flush();
     }
 }

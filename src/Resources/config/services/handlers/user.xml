@@ -32,6 +32,8 @@
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler">
             <argument type="service" id="sylius.repository.customer"/>
             <argument type="service" id="sylius.repository.address"/>
+            <argument type="service" id="sylius.factory.address"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="messenger.message_handler" />
         </service>
     </services>
