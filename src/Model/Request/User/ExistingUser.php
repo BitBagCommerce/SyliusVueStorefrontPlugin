@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Addresses;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
 
 final class ExistingUser
 {
@@ -67,7 +67,7 @@ final class ExistingUser
     /** @var int */
     private $websiteId;
 
-    /** @var Addresses[] */
+    /** @var Address[] */
     private $addresses;
 
     /** @var int */
@@ -76,8 +76,8 @@ final class ExistingUser
     public function __construct(
         int $id,
         int $groupId,
-        string $defaultBilling,
-        string $defaultShipping,
+        ?string $defaultBilling,
+        ?string $defaultShipping,
         \DateTime $createdAt,
         \DateTime $updatedAt,
         string $createdIn,
@@ -105,7 +105,7 @@ final class ExistingUser
         $this->disableAutomaticGroupChange = $disableAutomaticGroupChange;
     }
 
-    public static function createFromArray(array $existingUser)
+    public static function createFromArray(array $existingUser): self
     {
         return new self(
             $existingUser[self::ID],

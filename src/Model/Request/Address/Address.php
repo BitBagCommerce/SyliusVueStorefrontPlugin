@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Address;
 
-final class Addresses
+final class Address
 {
     private const ID = 'id';
     private const CUSTOMER_ID = 'customer_id';
@@ -32,7 +32,7 @@ final class Addresses
     private $id;
 
     /** @var int */
-    private $customer_id;
+    private $customerId;
 
     /** @var Region */
     private $region;
@@ -69,7 +69,7 @@ final class Addresses
 
     public function __construct(
         int $id,
-        int $customer_id,
+        int $customerId,
         Region $region,
         int $regionId,
         string $countryId,
@@ -83,7 +83,7 @@ final class Addresses
         string $vatId
     ) {
         $this->id = $id;
-        $this->customer_id = $customer_id;
+        $this->customerId = $customerId;
         $this->region = $region;
         $this->regionId = $regionId;
         $this->countryId = $countryId;
@@ -123,7 +123,7 @@ final class Addresses
 
     public function customerId(): int
     {
-        return $this->customer_id;
+        return $this->customerId;
     }
 
     public function region(): Region

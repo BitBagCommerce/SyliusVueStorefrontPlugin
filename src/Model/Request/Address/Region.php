@@ -37,7 +37,7 @@ final class Region
         $this->regionId = $regionId;
     }
 
-    public static function createFromArray(array $array)
+    public static function createFromArray(array $array): self
     {
         return new self(
             $array[self::REGION_CODE],
