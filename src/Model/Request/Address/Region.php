@@ -14,6 +14,10 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Address;
 
 final class Region
 {
+    private const REGION_CODE = 'region_code';
+    private const REGION = 'region';
+    private const REGION_ID = 'region_id';
+
     /** @var string|null */
     private $regionCode;
 
@@ -31,5 +35,19 @@ final class Region
         $this->regionCode = $regionCode;
         $this->region = $region;
         $this->regionId = $regionId;
+    }
+
+    public static function createFromArray(array $array)
+    {
+        return new self(
+            $array[self::REGION_CODE],
+            $array[self::REGION],
+            $array[self::REGION_ID]
+        );
+    }
+
+    public function region(): ?string
+    {
+        return $this->region;
     }
 }

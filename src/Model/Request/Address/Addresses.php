@@ -37,13 +37,13 @@ final class Addresses
     /** @var Region */
     private $region;
 
-    /** @var string */
+    /** @var int */
     private $regionId;
 
     /** @var string */
     private $countryId;
 
-    /** @var Street */
+    /** @var string */
     private $street;
 
     /** @var string */
@@ -71,9 +71,9 @@ final class Addresses
         int $id,
         int $customer_id,
         Region $region,
-        string $regionId,
+        int $regionId,
         string $countryId,
-        Street $street,
+        string $streets,
         string $company,
         ?string $telephone,
         string $postcode,
@@ -87,7 +87,7 @@ final class Addresses
         $this->region = $region;
         $this->regionId = $regionId;
         $this->countryId = $countryId;
-        $this->street = $street;
+        $this->street = $streets;
         $this->company = $company;
         $this->telephone = $telephone;
         $this->postcode = $postcode;
@@ -101,18 +101,83 @@ final class Addresses
     {
         return new self(
             $address[self::ID],
-            $address[self::CUSTOMER_ID] ?? null,
-            $address[self::REGION] ?? null,
-            $address[self::REGION_ID] ?? null,
-            $address[self::COUNTRY_ID] ?? null,
-            $address[self::STREET] ?? null,
-            $address[self::COMPANY] ?? null,
-            $address[self::TELEPHONE] ?? null,
-            $address[self::POSTCODE] ?? null,
-            $address[self::TELEPHONE] ?? null,
-            $address[self::FIRST_NAME] ?? null,
-            $address[self::LAST_NAME] ?? null,
-            $address[self::VAT_ID] ?? null
+            $address[self::CUSTOMER_ID],
+            Region::createFromArray($address[self::REGION]),
+            $address[self::REGION_ID],
+            $address[self::COUNTRY_ID],
+            $address[self::STREET],
+            $address[self::COMPANY],
+            $address[self::TELEPHONE],
+            $address[self::POSTCODE],
+            $address[self::CITY],
+            $address[self::FIRST_NAME],
+            $address[self::LAST_NAME],
+            $address[self::VAT_ID]
         );
+    }
+
+    public function id(): int
+    {
+        return $this->id;
+    }
+
+    public function customerId(): int
+    {
+        return $this->customer_id;
+    }
+
+    public function region(): Region
+    {
+        return $this->region;
+    }
+
+    public function regionId(): int
+    {
+        return $this->regionId;
+    }
+
+    public function countryId(): string
+    {
+        return $this->countryId;
+    }
+
+    public function street(): string
+    {
+        return $this->street;
+    }
+
+    public function company(): string
+    {
+        return $this->company;
+    }
+
+    public function telephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function postcode(): string
+    {
+        return $this->postcode;
+    }
+
+    public function city(): string
+    {
+        return $this->city;
+    }
+
+    public function firstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function lastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function vatId(): string
+    {
+        return $this->vatId;
     }
 }
