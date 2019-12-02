@@ -43,7 +43,7 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
+            <argument type="service" id="sylius.repository.customer" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
