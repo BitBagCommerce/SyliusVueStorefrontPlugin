@@ -26,7 +26,6 @@ final class CartExistsValidator extends ConstraintValidator
         $this->orderRepository = $orderRepository;
     }
 
-    /** {@inheritdoc} */
     public function validate($cartId, Constraint $constraint): void
     {
         if (null === $this->orderRepository->findOneBy(['tokenValue' => $cartId])) {
