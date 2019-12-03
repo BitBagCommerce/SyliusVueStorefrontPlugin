@@ -20,13 +20,18 @@ final class DeleteCouponRequest
     /** @var string|null */
     private $token;
 
-    /** @var int|string */
+    /** @var string */
     private $cartId;
 
     public function __construct(Request $request)
     {
         $this->token = $request->query->get('token');
         $this->cartId = $request->query->get('cartId');
+    }
+
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
     }
 
     public function getCommand(): DeleteCoupon
