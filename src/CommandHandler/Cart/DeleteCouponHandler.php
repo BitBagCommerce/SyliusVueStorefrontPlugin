@@ -40,7 +40,7 @@ final class DeleteCouponHandler implements MessageHandlerInterface
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $deleteCoupon->cartId()]);
 
-        Assert::notNull($cart, sprintf('Cart with token %s has not been found.', $deleteCoupon->cartId()));
+        Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $deleteCoupon->cartId()));
 
         $cart->setPromotionCoupon(null);
 

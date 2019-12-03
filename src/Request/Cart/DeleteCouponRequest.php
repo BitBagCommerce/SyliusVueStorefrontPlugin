@@ -29,6 +29,11 @@ final class DeleteCouponRequest
         $this->cartId = $request->query->get('cartId');
     }
 
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
     public function getCommand(): DeleteCoupon
     {
         return new DeleteCoupon($this->token, $this->cartId);

@@ -17,10 +17,10 @@ final class DeleteCoupon
     /** @var string|null */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
-    public function __construct(?string $token, ?string $cartId)
+    public function __construct(?string $token, $cartId)
     {
         $this->token = $token;
         $this->cartId = $cartId;
@@ -31,7 +31,7 @@ final class DeleteCoupon
         return $this->token;
     }
 
-    public function cartId(): ?string
+    public function cartId()
     {
         return $this->cartId;
     }
