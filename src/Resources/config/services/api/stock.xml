@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.api.stock.check_stock"
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Stock\CheckStockAction">
+            <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+        </service>
+    </services>
+</container>
