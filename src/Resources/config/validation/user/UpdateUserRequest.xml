@@ -13,7 +13,7 @@
                         <constraint name="NotBlank">
                             <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
                         </constraint>
-                        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserCheckCorrectId" />
+                        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CustomerIsCurrentShopUser" />
                     </value>
                     <value key="group_id">
                         <constraint name="NotBlank">
