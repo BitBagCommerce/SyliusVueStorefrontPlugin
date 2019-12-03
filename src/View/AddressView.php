@@ -20,14 +20,17 @@ final class AddressView
     /** @var int */
     public $customer_id;
 
-    /** @var string */
-    public $firstname;
+    /** @var RegionView|null */
+    public $region;
+
+    /** @var int|null */
+    public $region_id;
 
     /** @var string */
-    public $lastname;
-
-    /** @var array|string[] */
     public $street;
+
+    /** @var string */
+    public $company;
 
     /** @var string */
     public $city;
@@ -37,4 +40,10 @@ final class AddressView
 
     /** @var string */
     public $postcode;
+
+    /** @var string */
+    public $firstname;
+
+    /** @var string */
+    public $lastname;
 }

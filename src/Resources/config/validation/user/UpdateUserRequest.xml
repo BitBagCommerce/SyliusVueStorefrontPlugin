@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="BitBag\SyliusVueStorefrontPlugin\Request\User\UpdateUserRequest">
+        <property name="customer">
+            <constraint name="NotNull">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.customer.not_null</option>
+            </constraint>
+            <constraint name="Collection">
+                <option name="missingFieldsMessage">bitbag.vue_storefront_api.sylius.user.customer.missing_fields</option>
+                <option name="fields">
+                    <value key="id">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
+                        </constraint>
+                        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CustomerIsCurrentShopUser" />
+                    </value>
+                    <value key="group_id">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.group_id.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="default_billing">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.default_billing.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="default_shipping">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.default_shipping.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="created_at">
+                        <constraint name="DateTime">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.date_time.wrong_format</option>
+                        </constraint>
+                    </value>
+                    <value key="updated_at">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.date_time.wrong_format</option>
+                        </constraint>
+                    </value>
+                    <value key="created_in">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.created_in.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="email">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.email.not_blank</option>
+                        </constraint>
+                        <constraint name="Email">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.email.invalid</option>
+                        </constraint>
+                        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserDoesNotExist" />
+                    </value>
+                    <value key="firstname">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.firstname.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="lastname">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.lastname.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="store_id">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.store_id.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="website_id">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.website_id.not_blank</option>
+                        </constraint>
+                    </value>
+                    <value key="addresses">
+                        <constraint name="All">
+                            <constraint name="Collection">
+                                <option name="allowExtraFields">true</option>
+                                <option name="fields">
+                                    <value key="id">
+                                        <constraint name="NotNull">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.id.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="customer_id">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.customer_id.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="region">
+                                        <constraint name="Collection">
+                                            <option name="fields">
+                                                <value key="region_code">
+                                                    <constraint name="NotBlank">
+                                                        <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_code.not_blank</option>
+                                                    </constraint>
+                                                </value>
+                                                <value key="region">
+                                                    <constraint name="NotBlank">
+                                                        <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region.not_blank</option>
+                                                    </constraint>
+                                                </value>
+                                                <value key="region_id">
+                                                    <constraint name="NotBlank">
+                                                        <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_id.not_blank</option>
+                                                    </constraint>
+                                                </value>
+                                            </option>
+                                        </constraint>
+                                    </value>
+                                    <value key="region_id">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.region_id.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="country_id">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.country_id.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="street">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank
+                                            </option>
+                                        </constraint>
+                                    </value>
+                                    <value key="company">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blankk</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="postcode">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="city">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.city.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="firstname">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.firstname.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="lastname">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.lastname.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                    <value key="vat_id">
+                                        <constraint name="NotBlank">
+                                            <option name="message">bitbag.vue_storefront_api.sylius.user.address.vat_id.not_blank</option>
+                                        </constraint>
+                                    </value>
+                                </option>
+                            </constraint>
+                        </constraint>
+                    </value>
+                    <value key="disable_auto_group_change">
+                        <constraint name="NotBlank">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.disable_auto_group_change.not_blank</option>
+                        </constraint>
+                        <constraint name="NotNull">
+                            <option name="message">bitbag.vue_storefront_api.sylius.user.disable_auto_group_change.not_null</option>
+                        </constraint>
+                    </value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

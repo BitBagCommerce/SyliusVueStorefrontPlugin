@@ -37,7 +37,14 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.update_user"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction" >
+            <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
+            <argument type="service" id="sylius.repository.customer" />
+        </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
                  class="BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler">

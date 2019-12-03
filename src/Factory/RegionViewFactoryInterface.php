@@ -10,8 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Model\Response;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory;
 
-interface Response extends \JsonSerializable
+use BitBag\SyliusVueStorefrontPlugin\View\RegionView;
+use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
+
+interface RegionViewFactoryInterface
 {
+    public function create(SyliusAddressInterface $address): RegionView;
 }

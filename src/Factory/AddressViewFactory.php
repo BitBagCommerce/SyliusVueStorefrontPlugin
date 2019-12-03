@@ -17,13 +17,23 @@ use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {
+    /** @var RegionViewFactoryInterface */
+    private $regionView;
+
+    public function __construct(RegionViewFactoryInterface $regionView)
+    {
+        $this->regionView = $regionView;
+    }
+
     public function create(SyliusAddressInterface $syliusAddress): AddressView
     {
+        $regionView = $this->regionView->create($syliusAddress);
         $addressView = new AddressView();
+
         $addressView->id = $syliusAddress->getId();
+        $addressView->region = $regionView;
         $addressView->customer_id = $syliusAddress->getCustomer()->getId();
         $addressView->country_id = $syliusAddress->getCountryCode();
-        // todo: street array vs string in Sylius
         $addressView->street = $syliusAddress->getStreet();
         $addressView->postcode = $syliusAddress->getPostcode();
         $addressView->city = $syliusAddress->getCity();
