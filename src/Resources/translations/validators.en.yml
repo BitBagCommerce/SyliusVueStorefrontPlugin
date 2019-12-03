@@ -18,8 +18,12 @@ bitbag:
             cart:
                 token_value:
                     unique: The cart id is already in use.
+                    exists: The cart does not exist.
                 cart_id:
                     not_null: Cart id can not be null.
                 token:
                     not_blank: Please provide valid token.
-
+                coupon:
+                    not_null: Please provide coupon code.
+                    not_blank: Coupon code can not be blank.
+                    valid: Provided coupon code is not valid.

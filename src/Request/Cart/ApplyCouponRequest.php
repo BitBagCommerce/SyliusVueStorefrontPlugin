@@ -33,8 +33,23 @@ final class ApplyCouponRequest
         $this->coupon = $request->query->get('coupon');
     }
 
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
     public function getCommand(): ApplyCoupon
     {
         return new ApplyCoupon($this->token, $this->cartId, $this->coupon);
+    }
+
+    public function getCartId()
+    {
+        return $this->cartId;
+    }
+
+    public function getCoupon(): string
+    {
+        return $this->coupon;
     }
 }

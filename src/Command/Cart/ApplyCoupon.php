@@ -17,13 +17,13 @@ final class ApplyCoupon
     /** @var string|null */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
-    /** @var string|null */
+    /** @var string */
     private $coupon;
 
-    public function __construct(?string $token, ?string $cartId, ?string $coupon)
+    public function __construct(?string $token, $cartId, string $coupon)
     {
         $this->token = $token;
         $this->cartId = $cartId;
@@ -35,12 +35,12 @@ final class ApplyCoupon
         return $this->token;
     }
 
-    public function cartId(): ?string
+    public function cartId()
     {
         return $this->cartId;
     }
 
-    public function coupon(): ?string
+    public function coupon(): string
     {
         return $this->coupon;
     }
