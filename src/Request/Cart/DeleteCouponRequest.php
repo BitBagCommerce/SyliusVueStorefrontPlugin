@@ -20,7 +20,7 @@ final class DeleteCouponRequest
     /** @var string|null */
     private $token;
 
-    /** @var int|string */
+    /** @var string */
     private $cartId;
 
     public function __construct(Request $request)

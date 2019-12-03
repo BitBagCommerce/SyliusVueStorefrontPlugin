@@ -20,7 +20,7 @@ final class ApplyCouponRequest
     /** @var string|null */
     private $token;
 
-    /** @var int|string */
+    /** @var string */
     private $cartId;
 
     /** @var string */
@@ -43,7 +43,7 @@ final class ApplyCouponRequest
         return new ApplyCoupon($this->token, $this->cartId, $this->coupon);
     }
 
-    public function getCartId()
+    public function getCartId(): string
     {
         return $this->cartId;
     }
