@@ -51,14 +51,14 @@ final class ApplyCouponHandler implements MessageHandlerInterface
     public function __invoke(ApplyCoupon $applyCoupon): void
     {
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $addCoupon->orderToken()]);
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $applyCoupon->cartId()]);
 
-        Assert::notNull($cart, sprintf('Cart with token %s has not been found.', $addCoupon->orderToken()));
+        Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $applyCoupon->cartId()));
 
         /** @var PromotionCouponInterface $coupon */
-        $coupon = $this->couponRepository->findOneBy(['code' => $addCoupon->couponCode()]);
+        $coupon = $this->couponRepository->findOneBy(['code' => $applyCoupon->coupon()]);
 
-        Assert::notNull($coupon, sprintf('Coupon with code %s has not been found.', $addCoupon->couponCode()));
+        Assert::notNull($coupon, sprintf('Coupon with code %s has not been found.', $applyCoupon->coupon()));
         Assert::true($this->couponEligibilityChecker->isEligible($cart, $coupon));
 
         $cart->setPromotionCoupon($coupon);

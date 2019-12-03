@@ -8,5 +8,19 @@
             <argument type="service" id="sylius.repository.order"/>
             <tag name="validator.constraint_validator" alias="sylius_cart_token_value_is_not_used_validator" />
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.validator.cart.cart_exists_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart\CartExistsValidator">
+            <argument type="service" id="sylius.repository.order"/>
+            <tag name="validator.constraint_validator" alias="sylius_cart_exists_validator" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.validator.cart.coupon_exists_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart\ValidCouponValidator">
+            <argument type="service" id="sylius.repository.order"/>
+            <argument type="service" id="sylius.repository.promotion_coupon"/>
+            <argument type="service" id="sylius.promotion_eligibility_checker"/>
+            <tag name="validator.constraint_validator" alias="sylius_valid_coupon_validator" />
+        </service>
     </services>
 </container>
