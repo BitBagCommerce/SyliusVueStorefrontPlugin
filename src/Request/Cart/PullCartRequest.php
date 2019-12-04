@@ -29,6 +29,11 @@ final class PullCartRequest
         $this->cartId = $request->query->get('cartId');
     }
 
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
     public function getCommand(): PullCart
     {
         return new PullCart($this->token, $this->cartId);

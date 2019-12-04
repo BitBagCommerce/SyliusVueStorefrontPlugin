@@ -29,7 +29,10 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction">
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+        </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetUserAction">
             <argument type="service" id="fos_rest.view_handler" />
