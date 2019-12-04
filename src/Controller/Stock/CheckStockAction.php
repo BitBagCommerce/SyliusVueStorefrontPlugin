@@ -49,7 +49,7 @@ final class CheckStockAction
         $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
-        $this->checkStockViewFactory = $validationErrorViewFactory;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->checkStockViewFactory = $checkStockViewFactory;
     }
 

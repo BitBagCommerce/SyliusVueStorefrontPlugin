@@ -6,8 +6,7 @@
     <class name="BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockProductRequest">
         <property name="sku">
             <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.cart.token.not_blank</option>
-                <option name="allowNull">true</option>
+                <option name="message">bitbag.vue_storefront_api.sylius.stock.sku.not_blank</option>
             </constraint>
         </property>
     </class>

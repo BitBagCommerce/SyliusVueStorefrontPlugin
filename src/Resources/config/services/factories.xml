@@ -22,5 +22,9 @@
         <service id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactory">
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Stock\CheckStockViewFactory">
+        </service>
     </services>
 </container>

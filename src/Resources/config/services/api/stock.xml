@@ -11,7 +11,7 @@
             <argument type="service" id="validator" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_stock_view" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
 
         </service>
     </services>
