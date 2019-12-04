@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class CreateUserRequest
 {
-    /** @var array|null */
+    /** @var NewCustomer */
     private $customer;
 
     /** @var string|null */
@@ -35,8 +35,18 @@ final class CreateUserRequest
         return new self($request);
     }
 
+    public function setCustomer(NewCustomer $customer): void
+    {
+        $this->customer = $customer;
+    }
+
+    public function setPassword(?string $password): void
+    {
+        $this->password = $password;
+    }
+
     public function getCommand(): CreateUser
     {
-        return new CreateUser(NewCustomer::createFromArray($this->customer), $this->password);
+        return new CreateUser($this->customer, $this->password);
     }
 }

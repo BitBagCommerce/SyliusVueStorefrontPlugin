@@ -16,18 +16,14 @@ use Webmozart\Assert\Assert;
 
 final class NewCustomer
 {
-    private const EMAIL = 'email';
-    private const FIRST_NAME = 'firstname';
-    private const LAST_NAME = 'lastname';
-
     /** @var string */
     private $email;
 
     /** @var string */
-    private $firstName;
+    private $firstname;
 
     /** @var string */
-    private $lastName;
+    private $lastname;
 
     private function __construct(string $email, string $firstName, string $lastName)
     {
@@ -35,32 +31,40 @@ final class NewCustomer
         $this->firstName = $firstName;
         $this->lastName = $lastName;
     }
-
-    public static function createFromArray(array $customer): self
+//
+    public function __set($key, $value)
     {
-        Assert::keyExists($customer, self::EMAIL);
-        Assert::keyExists($customer, self::FIRST_NAME);
-        Assert::keyExists($customer, self::LAST_NAME);
-
-        return new self(
-            $customer[self::EMAIL],
-            $customer[self::FIRST_NAME],
-            $customer[self::LAST_NAME]
-        );
+        $this->$key = $value;
     }
 
-    public function email(): string
-    {
-        return $this->email;
-    }
 
-    public function firstName(): string
-    {
-        return $this->firstName;
-    }
-
-    public function lastName(): string
-    {
-        return $this->lastName;
-    }
+    //    public function email(): string
+//    {
+//        return $this->email;
+//    }
+//
+//    public function firstName(): string
+//    {
+//        return $this->firstName;
+//    }
+//
+//    public function lastName(): string
+//    {
+//        return $this->lastName;
+//    }
+//
+//    public function setEmail(string $email): void
+//    {
+//        $this->email = $email;
+//    }
+//
+//    public function setFirstName(string $firstName): void
+//    {
+//        $this->firstName = $firstName;
+//    }
+//
+//    public function setLastName(string $lastName): void
+//    {
+//        $this->lastName = $lastName;
+//    }
 }

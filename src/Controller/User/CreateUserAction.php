@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor;
 use BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -44,13 +45,17 @@ final class CreateUserAction
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
+    /** @var RequestProcessor */
+    private $requestProcessor;
+
     public function __construct(
         MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+    RequestProcessor $requestProcessor
     ) {
         $this->bus = $bus;
         $this->validator = $validator;
@@ -58,11 +63,13 @@ final class CreateUserAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->userProfileViewFactory = $userProfileViewFactory;
         $this->customerRepository = $customerRepository;
+        $this->requestProcessor = $requestProcessor;
     }
 
     public function __invoke(Request $request): Response
     {
-        $user = CreateUserRequest::fromHttpRequest($request);
+        $aa = $this->requestProcessor->validate($request);
+//        $user = CreateUserRequest::fromHttpRequest($request);
 
         $validationResults = $this->validator->validate($user);
 

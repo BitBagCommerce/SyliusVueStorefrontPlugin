@@ -13,6 +13,7 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
             <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.processor.request" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.reset_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction">
