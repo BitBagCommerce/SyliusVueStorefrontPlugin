@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\CheckStockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockProductRequest;
 use FOS\RestBundle\View\View;
@@ -35,16 +36,21 @@ final class CheckStockAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var CheckStockViewFactoryInterface */
+    private $checkStockViewFactory;
+
     public function __construct(
         MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CheckStockViewFactoryInterface $checkStockViewFactory
     ) {
         $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
-        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->checkStockViewFactory = $validationErrorViewFactory;
+        $this->checkStockViewFactory = $checkStockViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -60,6 +66,9 @@ final class CheckStockAction
             ));
         }
 
-        $this->bus->dispatch($checkStockProductRequest->getCommand());
+        return $this->viewHandler->handle(View::create(
+            $this->checkStockViewFactory->create(),
+            Response::HTTP_OK
+        ));
     }
 }

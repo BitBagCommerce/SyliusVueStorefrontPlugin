@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Stock\CheckStockProduct;
 use Symfony\Component\HttpFoundation\Request;
 
 final class CheckStockProductRequest
@@ -28,10 +27,5 @@ final class CheckStockProductRequest
     public static function fromHttpRequest(Request $request): self
     {
         return new self($request);
-    }
-
-    public function getCommand(): CheckStockProduct
-    {
-        return new CheckStockProduct($this->sku);
     }
 }
