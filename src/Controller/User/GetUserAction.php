@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use FOS\RestBundle\View\View;
@@ -30,14 +31,19 @@ final class GetUserAction
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     public function __construct(
         ViewHandlerInterface $viewHandler,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        UserProfileViewFactoryInterface $userProfileViewFactory
+        UserProfileViewFactoryInterface $userProfileViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
         $this->viewHandler = $viewHandler;
         $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->userProfileViewFactory = $userProfileViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -45,8 +51,9 @@ final class GetUserAction
         $user = $this->loggedInShopUserProvider->provide()->getCustomer();
 
         return $this->viewHandler->handle(View::create(
-            $this->userProfileViewFactory->create($user),
-            Response::HTTP_OK
-        ));
+            $this->genericSuccessViewFactory->create(
+                $this->userProfileViewFactory->create($user)),
+            Response::HTTP_OK)
+        );
     }
 }
