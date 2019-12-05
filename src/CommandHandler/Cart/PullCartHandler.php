@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\PullCart;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class PullCartHandler implements MessageHandlerInterface
@@ -21,7 +21,7 @@ final class PullCartHandler implements MessageHandlerInterface
     {
     }
 
-    public function __invoke(UpdateCart $updateCart): void
+    public function __invoke(PullCart $updateCart): void
     {
     }
 }
