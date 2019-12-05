@@ -10,12 +10,15 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Controller\Order;
 
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @todo
+ */
 final class CreateOrderAction
 {
     /** @var LoggedInShopUserProviderInterface */

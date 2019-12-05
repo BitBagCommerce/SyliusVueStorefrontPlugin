@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;

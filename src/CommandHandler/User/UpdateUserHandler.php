@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
+use BitBag\SyliusVueStorefrontPlugin\Provider\AddressProviderInterface;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
@@ -60,6 +61,7 @@ final class UpdateUserHandler implements MessageHandlerInterface
         $addresses = $command->customer()->addresses();
 
         foreach ($addresses as $requestAddress) {
+
             $address = Address::createFromArray($requestAddress);
 
             /** @var AddressInterface $syliusAddress */

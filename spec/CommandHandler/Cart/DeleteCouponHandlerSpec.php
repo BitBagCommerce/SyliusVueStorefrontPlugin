@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCoupon;
