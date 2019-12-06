@@ -13,17 +13,18 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Stock;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Stock\StockView;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class CheckStockViewFactory implements CheckStockViewFactoryInterface
 {
-    public function create(): StockView
+    public function create(ProductVariantInterface $productVariant): StockView
     {
         $stockView = new StockView();
-        $stockView->item_id = 580; // z syliusa
-        $stockView->product_id = 500; // z syliusa
+        $stockView->item_id = $productVariant->getId(); // z syliusa
+        $stockView->product_id = $productVariant->getProduct()->getId(); // z syliusa
         $stockView->stock_id = 1;
-        $stockView->qty = 53; // z syliusa
-        $stockView->is_in_stock = true;
+        $stockView->qty = $productVariant->getOnHold(); // z syliusa
+        $stockView->is_in_stock = $productVariant->getOnHold() > 0;
         $stockView->is_qty_decimal = false;
         $stockView->show_default_notification_message = false;
         $stockView->use_config_max_sale_qty = true;

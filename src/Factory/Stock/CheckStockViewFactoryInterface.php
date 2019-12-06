@@ -13,8 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Stock;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Stock\StockView;
+use Sylius\Component\Core\Model\ProductVariantInterface;
+
 
 interface CheckStockViewFactoryInterface
 {
-    public function create(): StockView;
+    public function create(ProductVariantInterface $productVariant): StockView;
 }
