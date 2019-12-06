@@ -24,7 +24,7 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Stock\CheckStockViewFactory">
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactory">
         </service>
     </services>
 </container>

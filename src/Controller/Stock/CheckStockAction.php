@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 
-use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\CheckStockViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockProductRequest;
+use BitBag\SyliusVueStorefrontPlugin\Request\Stock\StockProductRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
@@ -37,7 +37,7 @@ final class CheckStockAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var CheckStockViewFactoryInterface */
+    /** @var StockViewFactoryInterface */
     private $checkStockViewFactory;
 
     /** @var ProductVariantRepository */
@@ -48,7 +48,7 @@ final class CheckStockAction
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CheckStockViewFactoryInterface $checkStockViewFactory,
+        StockViewFactoryInterface $checkStockViewFactory,
         ProductVariantRepository $productVariant
     ) {
         $this->bus = $bus;
@@ -61,24 +61,25 @@ final class CheckStockAction
 
     public function __invoke(Request $request): Response
     {
-        $checkStockProductRequest = CheckStockProductRequest::fromHttpRequest($request);
+        $stockProductRequest = StockProductRequest::fromHttpRequest($request);
 
-        $validationResults = $this->validator->validate($checkStockProductRequest);
+        $validationResults = $this->validator->validate($stockProductRequest);
 
-        if (0 !== count($validationResults) ) {
+        if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
                 $this->validationErrorViewFactory->create($validationResults),
                 Response::HTTP_BAD_REQUEST
             ));
         }
 
-        $productVariant = $this->productVariant->findOneBy(['code' => $request->get('sku') ]);
+        $productVariant = $this->productVariant->findOneBy(['code' => $stockProductRequest->getSku()]);
 
         if (null == $productVariant) {
             return $this->viewHandler->handle(View::create(
                 [], Response::HTTP_NOT_FOUND
             ));
         }
+
         return $this->viewHandler->handle(View::create(
             $this->checkStockViewFactory->create($productVariant),
             Response::HTTP_OK

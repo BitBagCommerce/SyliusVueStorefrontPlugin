@@ -10,19 +10,26 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Command\Stock;
+namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-final class CheckStockProduct
+use Symfony\Component\HttpFoundation\Request;
+
+final class StockProductRequest
 {
     /** @var string */
     private $sku;
 
-    public function __construct(string $sku)
+    public function __construct(Request $request)
     {
-        $this->sku = $sku;
+        $this->sku = $request->get('sku');
     }
 
-    public function sku(): string
+    public static function fromHttpRequest(Request $request): self
+    {
+        return new self($request);
+    }
+
+    public function getSku(): string
     {
         return $this->sku;
     }

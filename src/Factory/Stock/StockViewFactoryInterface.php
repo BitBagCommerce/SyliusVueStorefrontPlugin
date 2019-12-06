@@ -15,8 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Stock;
 use BitBag\SyliusVueStorefrontPlugin\View\Stock\StockView;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 
-
-interface CheckStockViewFactoryInterface
+interface StockViewFactoryInterface
 {
     public function create(ProductVariantInterface $productVariant): StockView;
 }
