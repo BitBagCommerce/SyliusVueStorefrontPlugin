@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\Stock\StockProductRequest;
@@ -43,13 +44,17 @@ final class CheckStockAction
     /** @var ProductVariantRepository */
     private $productVariant;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     public function __construct(
         MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         StockViewFactoryInterface $checkStockViewFactory,
-        ProductVariantRepository $productVariant
+        ProductVariantRepository $productVariant,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
         $this->bus = $bus;
         $this->validator = $validator;
@@ -57,6 +62,7 @@ final class CheckStockAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->checkStockViewFactory = $checkStockViewFactory;
         $this->productVariant = $productVariant;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -81,7 +87,9 @@ final class CheckStockAction
         }
 
         return $this->viewHandler->handle(View::create(
-            $this->checkStockViewFactory->create($productVariant),
+            $this->genericSuccessViewFactory->create(
+            $this->checkStockViewFactory->create($productVariant)
+            ),
             Response::HTTP_OK
         ));
     }
