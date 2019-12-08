@@ -15,20 +15,17 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Stock\StockProductRequest;
+use BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
+use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CheckStockAction
 {
-    /** @var MessageBusInterface */
-    private $bus;
-
     /** @var ValidatorInterface */
     private $validator;
 
@@ -39,37 +36,35 @@ final class CheckStockAction
     private $validationErrorViewFactory;
 
     /** @var StockViewFactoryInterface */
-    private $checkStockViewFactory;
+    private $stockViewFactory;
 
-    /** @var ProductVariantRepository */
-    private $productVariant;
+    /** @var ProductVariantRepositoryInterface */
+    private $productVariantRepository;
 
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     public function __construct(
-        MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        StockViewFactoryInterface $checkStockViewFactory,
-        ProductVariantRepository $productVariant,
+        StockViewFactoryInterface $stockViewFactory,
+        ProductVariantRepositoryInterface $productVariantRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
-        $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->checkStockViewFactory = $checkStockViewFactory;
-        $this->productVariant = $productVariant;
+        $this->stockViewFactory = $stockViewFactory;
+        $this->productVariantRepository = $productVariantRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $stockProductRequest = StockProductRequest::fromHttpRequest($request);
+        $checkStockRequest = CheckStockRequest::fromHttpRequest($request);
 
-        $validationResults = $this->validator->validate($stockProductRequest);
+        $validationResults = $this->validator->validate($checkStockRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -78,9 +73,10 @@ final class CheckStockAction
             ));
         }
 
-        $productVariant = $this->productVariant->findOneBy(['code' => $stockProductRequest->getSku()]);
+        /** @var ProductVariantInterface $productVariant */
+        $productVariant = $this->productVariantRepository->findOneBy(['code' => $checkStockRequest->getSku()]);
 
-        if (null == $productVariant) {
+        if (null === $productVariant) {
             return $this->viewHandler->handle(View::create(
                 [], Response::HTTP_NOT_FOUND
             ));
@@ -88,7 +84,7 @@ final class CheckStockAction
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-            $this->checkStockViewFactory->create($productVariant)
+                $this->stockViewFactory->create($productVariant)
             ),
             Response::HTTP_OK
         ));

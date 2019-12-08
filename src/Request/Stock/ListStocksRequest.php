@@ -14,14 +14,14 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
 use Symfony\Component\HttpFoundation\Request;
 
-final class StockProductRequest
+final class ListStocksRequest
 {
     /** @var string */
-    private $sku;
+    private $skus;
 
     public function __construct(Request $request)
     {
-        $this->sku = $request->get('sku');
+        $this->skus = $request->query->get('skus');
     }
 
     public static function fromHttpRequest(Request $request): self
@@ -29,13 +29,8 @@ final class StockProductRequest
         return new self($request);
     }
 
-    public function getSku(): string
+    public function SKUsToArray(): array
     {
-        return $this->sku;
-    }
-
-    public function convertStringSKUToArraySeparatedComma(): array
-    {
-        return explode(',', $this->sku);
+        return explode(',', $this->skus);
     }
 }
