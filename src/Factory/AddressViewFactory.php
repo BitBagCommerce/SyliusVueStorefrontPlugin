@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory;
 
 use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
-use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
+use Sylius\Component\Core\Model\AddressInterface as SyliusAddressInterface;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {

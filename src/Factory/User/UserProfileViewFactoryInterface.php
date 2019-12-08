@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;
-use Sylius\Component\Customer\Model\CustomerInterface as SyliusCustomerInterface;
+use Sylius\Component\Core\Model\CustomerInterface as SyliusCustomerInterface;
 
 interface UserProfileViewFactoryInterface
 {
