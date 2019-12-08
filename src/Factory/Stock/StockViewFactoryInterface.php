@@ -18,4 +18,6 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 interface StockViewFactoryInterface
 {
     public function create(ProductVariantInterface $productVariant): StockView;
+
+    public function createCollectionStockStockView(ProductVariantInterface ...$productVariantCollection): array;
 }

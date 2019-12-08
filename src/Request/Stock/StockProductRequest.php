@@ -33,4 +33,9 @@ final class StockProductRequest
     {
         return $this->sku;
     }
+
+    public function convertStringSKUToArraySeparatedComma(): array
+    {
+        return explode(',', $this->sku);
+    }
 }
