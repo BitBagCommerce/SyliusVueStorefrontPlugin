@@ -79,6 +79,9 @@ bitbag:
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
 
+            stock:
+                sku:
+                    not_blank: Please provide valid sku
         datetime:
             format:
                 invalid_format: Invalid format of provided date.

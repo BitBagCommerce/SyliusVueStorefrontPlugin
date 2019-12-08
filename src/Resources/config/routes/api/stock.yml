@@ -1,3 +1,4 @@
 stock_check:
     path: /check/{sku}
     methods: GET
+    controller: bitbag_sylius_vue_storefront_plugin.api.stock.check_stock

@@ -10,23 +10,27 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
+namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\User\GetUser;
 use Symfony\Component\HttpFoundation\Request;
 
-final class GetUserRequest
+final class StockProductRequest
 {
-    /** @var string|null */
-    private $token;
+    /** @var string */
+    private $sku;
 
     public function __construct(Request $request)
     {
-        $this->token = $request->query->get('token');
+        $this->sku = $request->get('sku');
     }
 
-    public function getCommand(): GetUser
+    public static function fromHttpRequest(Request $request): self
     {
-        return new GetUser($this->token);
+        return new self($request);
+    }
+
+    public function getSku(): string
+    {
+        return $this->sku;
     }
 }

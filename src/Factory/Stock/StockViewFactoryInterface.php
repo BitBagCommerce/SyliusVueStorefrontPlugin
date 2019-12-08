@@ -10,20 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Stock;
 
-final class GetUser
+use BitBag\SyliusVueStorefrontPlugin\View\Stock\StockView;
+use Sylius\Component\Core\Model\ProductVariantInterface;
+
+interface StockViewFactoryInterface
 {
-    /** @var string|null */
-    private $token;
-
-    public function __construct(?string $token)
-    {
-        $this->token = $token;
-    }
-
-    public function token(): ?string
-    {
-        return $this->token;
-    }
+    public function create(ProductVariantInterface $productVariant): StockView;
 }
