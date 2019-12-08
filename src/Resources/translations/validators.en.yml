@@ -81,7 +81,7 @@ bitbag:
 
             stock:
                 sku:
-                    not_blank: Please provide valid sku
+                    not_blank: Please provide valid SKU.
         datetime:
             format:
                 invalid_format: Invalid format of provided date.
