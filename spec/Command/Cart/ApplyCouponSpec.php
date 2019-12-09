@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 final class ApplyCouponSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = "apply-coupon-spec";
+    private const CART_ID = 'apply-coupon-spec';
     private const COUPON = 'coupon';
 
     function let(): void
@@ -22,12 +22,12 @@ final class ApplyCouponSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(ApplyCoupon::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->token()->shouldReturn(self::TOKEN);
         $this->cartId()->shouldReturn(self::CART_ID);

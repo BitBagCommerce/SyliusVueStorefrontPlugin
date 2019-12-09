@@ -15,7 +15,7 @@ final class CreateUserSpec extends ObjectBehavior
     /** @var NewCustomer */
     private $customer;
 
-    public function let(): void
+    function let(): void
     {
         $this->customer = $this->getCustomerMock();
 
@@ -25,12 +25,12 @@ final class CreateUserSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(CreateUser::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->customer()->shouldReturn($this->customer);
         $this->password()->shouldReturn(self::PASSWORD);
@@ -38,12 +38,10 @@ final class CreateUserSpec extends ObjectBehavior
 
     private function getCustomerMock(): NewCustomer
     {
-        $customer = NewCustomer::createFromArray([
+        return NewCustomer::createFromArray([
             'email' => 'shop@example.com',
             'firstname' => 'Katarzyna',
-            'lastname' => 'Nosowska'
+            'lastname' => 'Nosowska',
         ]);
-
-        return $customer;
     }
 }

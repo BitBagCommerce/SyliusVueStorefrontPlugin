@@ -10,9 +10,9 @@ use PhpSpec\ObjectBehavior;
 final class DeleteCouponSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = "delete-coupon-spec";
+    private const CART_ID = 'delete-coupon-spec';
 
-    public function let(): void
+    function let(): void
     {
         $this->beConstructedWith(
             self::TOKEN,
@@ -20,12 +20,12 @@ final class DeleteCouponSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(DeleteCoupon::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->token()->shouldReturn(self::TOKEN);
         $this->cartId()->shouldReturn(self::CART_ID);

@@ -9,7 +9,7 @@ use PhpSpec\ObjectBehavior;
 
 final class ChangePasswordSpec extends ObjectBehavior
 {
-    const NEW_PASSWORD = 'sylius';
+    private const NEW_PASSWORD = 'sylius';
 
     public function let(): void
     {
@@ -18,12 +18,12 @@ final class ChangePasswordSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(ChangePassword::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->newPassword()->shouldReturn(self::NEW_PASSWORD);
     }

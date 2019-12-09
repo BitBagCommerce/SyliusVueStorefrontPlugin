@@ -10,10 +10,10 @@ use PhpSpec\ObjectBehavior;
 final class UpdateCartSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = "update-cart-spec";
+    private const CART_ID = 'update-cart-spec';
     private const CART_ITEM = null;
 
-    public function let(): void
+    function let(): void
     {
         $this->beConstructedWith(
             self::TOKEN,
@@ -22,12 +22,12 @@ final class UpdateCartSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(UpdateCart::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->token()->shouldReturn(self::TOKEN);
         $this->cartId()->shouldReturn(self::CART_ID);

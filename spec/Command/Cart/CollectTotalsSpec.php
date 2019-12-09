@@ -10,10 +10,10 @@ use PhpSpec\ObjectBehavior;
 final class CollectTotalsSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = "collect-totals-spec";
+    private const CART_ID = 'collect-totals-spec';
     private const METHODS = null;
 
-    public function let(): void
+    function let(): void
     {
         $this->beConstructedWith(
             self::TOKEN,
@@ -22,12 +22,12 @@ final class CollectTotalsSpec extends ObjectBehavior
         );
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(CollectTotals::class);
     }
 
-    public function it_allows_access_via_properties(): void
+    function it_allows_access_via_properties(): void
     {
         $this->token()->shouldReturn(self::TOKEN);
         $this->cartId()->shouldReturn(self::CART_ID);
