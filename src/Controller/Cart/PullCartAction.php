@@ -12,21 +12,20 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PullCartAction
 {
-    /** @var MessageBusInterface */
-    private $bus;
-
     /** @var ValidatorInterface */
     private $validator;
 
@@ -39,18 +38,26 @@ final class PullCartAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var CartItemViewFactoryInterface */
+    private $cartItemViewFactory;
+
     public function __construct(
-        MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        OrderRepositoryInterface $orderRepository,
+        CartItemViewFactoryInterface $cartItemViewFactory
     ) {
-        $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->orderRepository = $orderRepository;
+        $this->cartItemViewFactory = $cartItemViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -66,12 +73,17 @@ final class PullCartAction
             ));
         }
 
-        $createCartCommand = $pullCartRequest->getCommand();
-
-        $this->bus->dispatch($createCartCommand);
+        /** @var OrderInterface $cart */
+        $cart = $this->orderRepository->findOneBy([
+            'tokenValue' => $pullCartRequest->getCartId(),
+            'state' => OrderInterface::STATE_CART,
+        ]);
 
         return $this->viewHandler->handle(View::create(
-            $this->genericSuccessViewFactory->create([])
+            $this->genericSuccessViewFactory->create(
+                $this->cartItemViewFactory->createList($cart->getItems())
+            ),
+            Response::HTTP_OK
         ));
     }
 }

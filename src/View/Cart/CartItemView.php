@@ -14,19 +14,27 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
 final class CartItemView
 {
+    /** @var int */
     public $item_id;
 
+    /** @var string */
     public $sku;
 
+    /** @var int */
     public $qty;
 
+    /** @var string */
     public $name;
 
+    /** @var int */
     public $price;
 
+    /** @var int */
     public $product_type;
 
+    /** @var string */
     public $quote_id;
 
+    /** @var object */
     public $product_option;
 }

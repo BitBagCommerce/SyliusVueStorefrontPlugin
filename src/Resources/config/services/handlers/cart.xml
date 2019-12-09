@@ -11,11 +11,6 @@
             <tag name="messenger.message_handler" />
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.pull_cart_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\PullCartHandler">
-            <tag name="messenger.message_handler" />
-        </service>
-
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.update_cart_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\UpdateCartHandler">
             <argument type="service" id="sylius.repository.order" />
