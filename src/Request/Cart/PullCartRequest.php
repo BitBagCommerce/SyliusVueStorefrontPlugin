@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\PullCart;
 use Symfony\Component\HttpFoundation\Request;
 
 final class PullCartRequest
@@ -34,8 +33,8 @@ final class PullCartRequest
         return new self($request);
     }
 
-    public function getCommand(): PullCart
+    public function getCartId()
     {
-        return new PullCart($this->token, $this->cartId);
+        return $this->cartId;
     }
 }
