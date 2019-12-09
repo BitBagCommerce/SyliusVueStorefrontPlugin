@@ -75,7 +75,7 @@ final class GetPaymentMethodsAction
 
         $cart = $this->orderRepository->findOneBy([
             'tokenValue' => $paymentMethodsRequest->getCartId(),
-             'state' => OrderInterface::STATE_CART,
+            'state' => OrderInterface::STATE_CART,
         ]);
 
         return $this->viewHandler->handle(View::create(
