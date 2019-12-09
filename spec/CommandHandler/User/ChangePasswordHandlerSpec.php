@@ -12,14 +12,13 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\UserPasswordEncoderInterface;
 
-class ChangePasswordHandlerSpec extends ObjectBehavior
+final class ChangePasswordHandlerSpec extends ObjectBehavior
 {
     public function let(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         UserPasswordEncoderInterface $userPasswordEncoder,
         UserRepositoryInterface $shopUserRepository
-    ): void
-    {
+    ): void {
         $this->beConstructedWith($loggedInShopUserProvider, $userPasswordEncoder, $shopUserRepository);
     }
 
@@ -33,8 +32,7 @@ class ChangePasswordHandlerSpec extends ObjectBehavior
         UserPasswordEncoderInterface $userPasswordEncoder,
         UserRepositoryInterface $shopUserRepository,
         ShopUserInterface $shopUser
-    ): void
-    {
+    ): void {
         $password = 'new-password';
         $encodedPassword = 'encoded-new-password';
 

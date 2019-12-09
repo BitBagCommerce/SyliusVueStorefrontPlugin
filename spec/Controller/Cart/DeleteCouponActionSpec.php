@@ -22,7 +22,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class DeleteCouponActionSpec extends ObjectBehavior
+final class DeleteCouponActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -35,8 +35,7 @@ class DeleteCouponActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $bus,
             $validator,
@@ -53,8 +52,7 @@ class DeleteCouponActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([
             'token' => 'token',
             'cartId' => '12345'
@@ -79,8 +77,7 @@ class DeleteCouponActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([
             'token' => 'token',
             'cartId' => '12345'

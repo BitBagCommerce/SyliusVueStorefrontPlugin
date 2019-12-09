@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCoupon;
 use PhpSpec\ObjectBehavior;
 
-class DeleteCouponSpec extends ObjectBehavior
+final class DeleteCouponSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "delete-coupon-spec";

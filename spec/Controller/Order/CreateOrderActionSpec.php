@@ -8,16 +8,14 @@ use BitBag\SyliusVueStorefrontPlugin\Controller\Order\CreateOrderAction;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use PhpSpec\ObjectBehavior;
 
-class CreateOrderActionSpec extends ObjectBehavior
+final class CreateOrderActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
         $this->shouldHaveType(CreateOrderAction::class);
     }
 
-    function let(
-        LoggedInShopUserProviderInterface $loggedInUserProvider
-    ): void
+    function let(LoggedInShopUserProviderInterface $loggedInUserProvider): void
     {
         $this->beConstructedWith(
             $loggedInUserProvider

@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\ApplyCoupon;
 use PhpSpec\ObjectBehavior;
 
-class ApplyCouponSpec extends ObjectBehavior
+final class ApplyCouponSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "apply-coupon-spec";

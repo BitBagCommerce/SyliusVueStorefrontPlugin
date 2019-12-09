@@ -22,7 +22,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateCartActionSpec extends ObjectBehavior
+final class CreateCartActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -35,8 +35,7 @@ class CreateCartActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $bus,
             $validator,
@@ -52,11 +51,9 @@ class CreateCartActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([
-            'token' => 'token',
-            'cartId' => '12345'
+            'token' => 'token'
         ]);
 
         $createCartRequest = new CreateCartRequest($request);
@@ -64,9 +61,9 @@ class CreateCartActionSpec extends ObjectBehavior
         $validator->validate($createCartRequest)->willReturn($violationList);
 
         $envelope = new Envelope($createCartRequest->getCommand(), []);
-        $bus->dispatch($createCartRequest->getCommand())->willReturn($envelope);
+        $bus->dispatch(Argument::any())->willReturn($envelope);
 
-        $genericSuccessViewFactory->create('12345')->willReturn(new GenericSuccessView());
+        $genericSuccessViewFactory->create(Argument::any())->willReturn(new GenericSuccessView());
 
         $viewHandler->handle(Argument::any(), Argument::any())->willReturn(new Response());
 
@@ -79,11 +76,9 @@ class CreateCartActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([
-            'token' => 'token',
-            'cartId' => '12345'
+            'token' => 'token'
         ]);
 
         $createCartRequest = new CreateCartRequest($request);
@@ -93,7 +88,7 @@ class CreateCartActionSpec extends ObjectBehavior
         $validator->validate($createCartRequest)->willReturn($violationList);
 
         $envelope = new Envelope($createCartRequest->getCommand(), []);
-        $bus->dispatch($createCartRequest->getCommand())->willReturn($envelope);
+        $bus->dispatch(Argument::any())->willReturn($envelope);
 
         $validationErrorViewFactory->create($violationList)->willReturn(new ValidationErrorView());
 

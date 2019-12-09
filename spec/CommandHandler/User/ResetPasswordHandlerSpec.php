@@ -16,15 +16,14 @@ use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Sylius\Component\User\Security\Generator\GeneratorInterface;
 
-class ResetPasswordHandlerSpec extends ObjectBehavior
+final class ResetPasswordHandlerSpec extends ObjectBehavior
 {
     public function let(
         UserRepositoryInterface $userRepository,
         GeneratorInterface $tokenGenerator,
         SenderInterface $sender,
         ChannelProviderInterface $channelProvider
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $userRepository,
             $tokenGenerator,
@@ -45,8 +44,7 @@ class ResetPasswordHandlerSpec extends ObjectBehavior
         SenderInterface $sender,
         ChannelProviderInterface $channelProvider,
         ChannelInterface $channel
-    ): void
-    {
+    ): void {
         $resetPassword = new ResetPassword('shop@example.com');
 
         $userRepository->findOneByEmail($resetPassword->email())->willReturn($user);

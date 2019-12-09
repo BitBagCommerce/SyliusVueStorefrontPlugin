@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class CheckStockActionSpec extends ObjectBehavior
+final class CheckStockActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

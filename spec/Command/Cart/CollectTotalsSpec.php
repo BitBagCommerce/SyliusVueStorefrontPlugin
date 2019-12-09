@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CollectTotals;
 use PhpSpec\ObjectBehavior;
 
-class CollectTotalsSpec extends ObjectBehavior
+final class CollectTotalsSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "collect-totals-spec";

@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class DeleteCartActionSpec extends ObjectBehavior
+final class DeleteCartActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

@@ -12,7 +12,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProcessImageActionSpec extends ObjectBehavior
+final class ProcessImageActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -30,8 +30,7 @@ class ProcessImageActionSpec extends ObjectBehavior
     function it_process_image_to_identify(
         ImagineInterface $imagine,
         ImageInterface $image
-    ): void
-    {
+    ): void {
         $request = new Request([], [], [
             'width' => 256,
             'height' => 256,
@@ -52,8 +51,7 @@ class ProcessImageActionSpec extends ObjectBehavior
     function it_process_image_to_different_operation(
         ImagineInterface $imagine,
         ImageInterface $image
-    ): void
-    {
+    ): void {
         $request = new Request([], [], [
             'width' => 256,
             'height' => 256,

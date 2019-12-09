@@ -12,7 +12,7 @@ use PhpSpec\ObjectBehavior;
  * Class CollectTotalsHandlerSpec
  * @package spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart
  */
-class CollectTotalsHandlerSpec extends ObjectBehavior
+final class CollectTotalsHandlerSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

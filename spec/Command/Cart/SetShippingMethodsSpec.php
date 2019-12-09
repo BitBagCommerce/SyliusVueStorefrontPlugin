@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
 use PhpSpec\ObjectBehavior;
 
-class SetShippingMethodsSpec extends ObjectBehavior
+final class SetShippingMethodsSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "set-shipping-methods-spec";

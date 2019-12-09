@@ -12,7 +12,7 @@ use PhpSpec\ObjectBehavior;
  * Class UpdateUserSpec
  * @package spec\BitBag\SyliusVueStorefrontPlugin\Command\User
  */
-class UpdateUserSpec extends ObjectBehavior
+final class UpdateUserSpec extends ObjectBehavior
 {
     private const PASSWORD = 'sylius';
 

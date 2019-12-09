@@ -61,7 +61,6 @@ final class UpdateUserHandler implements MessageHandlerInterface
         $addresses = $command->customer()->addresses();
 
         foreach ($addresses as $requestAddress) {
-
             $address = Address::createFromArray($requestAddress);
 
             /** @var AddressInterface $syliusAddress */

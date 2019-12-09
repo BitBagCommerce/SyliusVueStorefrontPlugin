@@ -14,15 +14,14 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 
-class CreateUserHandlerSpec extends ObjectBehavior
+final class CreateUserHandlerSpec extends ObjectBehavior
 {
     public function let(
         UserRepositoryInterface $userRepository,
         FactoryInterface $userFactory,
         FactoryInterface $customerFactory,
         CustomerRepositoryInterface $customerRepository
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $userRepository,
             $userFactory,
@@ -42,8 +41,7 @@ class CreateUserHandlerSpec extends ObjectBehavior
         FactoryInterface $userFactory,
         ShopUserInterface $user,
         UserRepositoryInterface $userRepository
-    ): void
-    {
+    ): void {
         $newCustomer = NewCustomer::createFromArray([
             'email' => 'shop@example.com',
             'firstname' => 'Katarzyna',

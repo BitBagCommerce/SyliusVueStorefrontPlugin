@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class GetPaymentMethodsActionSpec extends ObjectBehavior
+final class GetPaymentMethodsActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

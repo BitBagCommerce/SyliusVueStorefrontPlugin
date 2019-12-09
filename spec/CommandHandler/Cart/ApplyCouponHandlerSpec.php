@@ -15,7 +15,7 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
 
-class ApplyCouponHandlerSpec extends ObjectBehavior
+final class ApplyCouponHandlerSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
@@ -27,8 +27,7 @@ class ApplyCouponHandlerSpec extends ObjectBehavior
         PromotionCouponRepositoryInterface $couponRepository,
         OrderProcessorInterface $orderProcessor,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $orderRepository,
             $couponRepository,
@@ -44,8 +43,7 @@ class ApplyCouponHandlerSpec extends ObjectBehavior
         PromotionCouponRepositoryInterface $couponRepository,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker,
         OrderProcessorInterface $orderProcessor
-    ): void
-    {
+    ): void {
         $applyCoupon = new ApplyCoupon('123', 'cart-id', 'coupon');
 
         $orderRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);

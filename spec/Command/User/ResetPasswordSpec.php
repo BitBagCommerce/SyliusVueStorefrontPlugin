@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
 use PhpSpec\ObjectBehavior;
 
-class ResetPasswordSpec extends ObjectBehavior
+final class ResetPasswordSpec extends ObjectBehavior
 {
     private const EMAIL = 'email';
 

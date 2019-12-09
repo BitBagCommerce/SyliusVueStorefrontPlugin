@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class PullCartActionSpec extends ObjectBehavior
+final class PullCartActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

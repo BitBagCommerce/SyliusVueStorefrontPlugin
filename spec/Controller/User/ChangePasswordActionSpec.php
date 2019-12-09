@@ -20,7 +20,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ChangePasswordActionSpec extends ObjectBehavior
+final class ChangePasswordActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -32,8 +32,7 @@ class ChangePasswordActionSpec extends ObjectBehavior
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $bus,
             $validator,
@@ -48,8 +47,7 @@ class ChangePasswordActionSpec extends ObjectBehavior
         ConstraintViolationInterface $constraintViolation,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([], [
             'currentPassword' => 'old-password',
             'newPassword' => 'brand-new-password'
@@ -72,8 +70,7 @@ class ChangePasswordActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([], [
             'currentPassword' => 'old-password',
             'newPassword' => 'brand-new-password'

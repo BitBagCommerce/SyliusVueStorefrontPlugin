@@ -16,7 +16,7 @@ use Sylius\Component\Core\Model\ShopUserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class GetUserActionSpec extends ObjectBehavior
+final class GetUserActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -27,8 +27,7 @@ class GetUserActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         UserProfileViewFactoryInterface $userProfileViewFactory
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $viewHandler,
             $loggedInShopUserProvider,
@@ -42,8 +41,7 @@ class GetUserActionSpec extends ObjectBehavior
         CustomerInterface $customer,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request();
 
         $loggedInShopUserProvider->provide()->willReturn($user);

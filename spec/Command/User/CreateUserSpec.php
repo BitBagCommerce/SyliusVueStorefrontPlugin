@@ -8,7 +8,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 use PhpSpec\ObjectBehavior;
 
-class CreateUserSpec extends ObjectBehavior
+final class CreateUserSpec extends ObjectBehavior
 {
     private const PASSWORD = 'sylius';
 

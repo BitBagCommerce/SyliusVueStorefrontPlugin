@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
 use PhpSpec\ObjectBehavior;
 
-class ChangePasswordSpec extends ObjectBehavior
+final class ChangePasswordSpec extends ObjectBehavior
 {
     const NEW_PASSWORD = 'sylius';
 

@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
-class DeleteCartHandlerSpec extends ObjectBehavior
+final class DeleteCartHandlerSpec extends ObjectBehavior
 {
     public function let(OrderRepositoryInterface $cartRepository): void
     {
@@ -25,8 +25,7 @@ class DeleteCartHandlerSpec extends ObjectBehavior
     public function it_deletes_cart(
         OrderRepositoryInterface $cartRepository,
         OrderInterface $cart
-    ): void
-    {
+    ): void {
         $deleteCart = new DeleteCart('token', 'cart-id');
 
         $cart->getState()->willReturn(OrderInterface::STATE_CART);

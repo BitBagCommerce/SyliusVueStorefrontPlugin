@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCart;
 use PhpSpec\ObjectBehavior;
 
-class DeleteCartSpec extends ObjectBehavior
+final class DeleteCartSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "delete-cart-spec";

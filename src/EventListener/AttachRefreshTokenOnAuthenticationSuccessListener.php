@@ -77,7 +77,6 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
         if ($refreshTokenString && true === $this->singleUse) {
             $refreshToken = $this->refreshTokenManager->get($refreshTokenString);
             $refreshTokenString = null;
-
             if ($refreshToken instanceof RefreshTokenInterface) {
                 $this->refreshTokenManager->delete($refreshToken);
             }

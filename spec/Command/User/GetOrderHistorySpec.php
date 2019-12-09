@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\GetOrderHistory;
 use PhpSpec\ObjectBehavior;
 
-class GetOrderHistorySpec extends ObjectBehavior
+final class GetOrderHistorySpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
 

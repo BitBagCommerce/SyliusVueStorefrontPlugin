@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\PullCart;
 use PhpSpec\ObjectBehavior;
 
-class PullCartSpec extends ObjectBehavior
+final class PullCartSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
     private const CART_ID = "pull-spec-spec";

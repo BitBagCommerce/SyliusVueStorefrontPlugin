@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class SyncTotalsActionSpec extends ObjectBehavior
+final class SyncTotalsActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

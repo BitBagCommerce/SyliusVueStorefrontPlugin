@@ -24,7 +24,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CreateUserActionSpec extends ObjectBehavior
+final class CreateUserActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -38,8 +38,7 @@ class CreateUserActionSpec extends ObjectBehavior
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         CustomerRepositoryInterface $customerRepository
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $bus,
             $validator,
@@ -59,8 +58,7 @@ class CreateUserActionSpec extends ObjectBehavior
         CustomerInterface $customer,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([], [
             'customer' => [
                 'email' => 'shop@example.com',
@@ -91,8 +89,7 @@ class CreateUserActionSpec extends ObjectBehavior
         MessageBusInterface $bus,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         ViewHandlerInterface $viewHandler
-    ): void
-    {
+    ): void {
         $request = new Request([], [
             'customer' => [
                 'email' => 'shop@example.com',

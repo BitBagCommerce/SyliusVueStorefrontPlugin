@@ -11,13 +11,12 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
-class DeleteCouponHandlerSpec extends ObjectBehavior
+final class DeleteCouponHandlerSpec extends ObjectBehavior
 {
     public function let(
         OrderRepositoryInterface $orderRepository,
         OrderProcessorInterface $orderProcessor
-    ): void
-    {
+    ): void {
         $this->beConstructedWith($orderRepository, $orderProcessor);
     }
 
@@ -30,8 +29,7 @@ class DeleteCouponHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $orderRepository,
         OrderProcessorInterface $orderProcessor,
         OrderInterface $cart
-    ): void
-    {
+    ): void {
         $deleteCoupon = new DeleteCoupon('token', 'cart-id');
 
         $orderRepository->findOneBy(['tokenValue' => $deleteCoupon->cartId()])->willReturn($cart);

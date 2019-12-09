@@ -7,7 +7,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\GetUser;
 use PhpSpec\ObjectBehavior;
 
-class GetUserSpec extends ObjectBehavior
+final class GetUserSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
 

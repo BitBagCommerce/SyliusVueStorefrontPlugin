@@ -10,7 +10,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  */
-class SetShippingMethodsActionSpec extends ObjectBehavior
+final class SetShippingMethodsActionSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {

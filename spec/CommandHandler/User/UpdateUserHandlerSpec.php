@@ -17,7 +17,7 @@ use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 
-class UpdateUserHandlerSpec extends ObjectBehavior
+final class UpdateUserHandlerSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
@@ -29,8 +29,7 @@ class UpdateUserHandlerSpec extends ObjectBehavior
         AddressRepositoryInterface $addressRepository,
         AddressFactoryInterface $addressFactory,
         ObjectManager $objectManager
-    ): void
-    {
+    ): void {
         $this->beConstructedWith(
             $customerRepository,
             $addressRepository,
@@ -46,8 +45,7 @@ class UpdateUserHandlerSpec extends ObjectBehavior
         AddressRepositoryInterface $addressRepository,
         ObjectManager $objectManager,
         ArrayCollection $collection
-    ): void
-    {
+    ): void {
         $existingUser = ExistingUser::createFromArray([
             'id' => 1,
             'group_id' => 2,

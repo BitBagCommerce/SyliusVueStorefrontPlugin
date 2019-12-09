@@ -17,7 +17,7 @@ use Sylius\Component\Currency\Model\CurrencyInterface;
 use Sylius\Component\Locale\Model\LocaleInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
-class CreateCartHandlerSpec extends ObjectBehavior
+final class CreateCartHandlerSpec extends ObjectBehavior
 {
     public function let(
         FactoryInterface $cartFactory,
@@ -44,8 +44,7 @@ class CreateCartHandlerSpec extends ObjectBehavior
         CustomerInterface $customer,
         CurrencyInterface $currency,
         LocaleInterface $locale
-    ): void
-    {
+    ): void {
         $createCart = new CreateCart('token', 'cart-id');
 
         $channel->getBaseCurrency()->willReturn($currency);
