@@ -15,20 +15,16 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Stock\StockProductRequest;
+use BitBag\SyliusVueStorefrontPlugin\Request\Stock\ListStocksRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Bundle\CoreBundle\Doctrine\ORM\ProductVariantRepository;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class CheckProductListAction
+final class ListStocksAction
 {
-    /** @var MessageBusInterface */
-    private $bus;
-
     /** @var ValidatorInterface */
     private $validator;
 
@@ -39,37 +35,35 @@ final class CheckProductListAction
     private $validationErrorViewFactory;
 
     /** @var StockViewFactoryInterface */
-    private $checkStockViewFactory;
+    private $stockViewFactory;
 
-    /** @var ProductVariantRepository */
-    private $productVariant;
+    /** @var ProductVariantRepositoryInterface */
+    private $productVariantRepository;
 
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     public function __construct(
-        MessageBusInterface $bus,
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        StockViewFactoryInterface $checkStockViewFactory,
-        ProductVariantRepository $productVariant,
+        StockViewFactoryInterface $stockViewFactory,
+        ProductVariantRepositoryInterface $productVariantRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
-        $this->bus = $bus;
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->checkStockViewFactory = $checkStockViewFactory;
-        $this->productVariant = $productVariant;
+        $this->stockViewFactory = $stockViewFactory;
+        $this->productVariantRepository = $productVariantRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $stockProductListRequest = StockProductRequest::fromHttpRequest($request);
+        $listStocksRequest = ListStocksRequest::fromHttpRequest($request);
 
-        $validationResults = $this->validator->validate($stockProductListRequest);
+        $validationResults = $this->validator->validate($listStocksRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -78,10 +72,11 @@ final class CheckProductListAction
             ));
         }
 
-        $productVariantCodeCollection = $stockProductListRequest->convertStringSKUToArraySeparatedComma();
+        $productsVariantsCodes = $listStocksRequest->SKUsToArray();
 
-        $productVariant = $this->productVariant->findby(['code' => $productVariantCodeCollection]);
-        if (null == $productVariant) {
+        $productsVariants = $this->productVariantRepository->findby(['code' => $productsVariantsCodes]);
+
+        if (null === $productsVariantsCodes) {
             return $this->viewHandler->handle(View::create(
                 [], Response::HTTP_NOT_FOUND
             ));
@@ -89,7 +84,7 @@ final class CheckProductListAction
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->checkStockViewFactory->createCollectionStockStockView(...$productVariant)
+                $this->stockViewFactory->createList(...$productsVariants)
             ),
             Response::HTTP_OK
         ));

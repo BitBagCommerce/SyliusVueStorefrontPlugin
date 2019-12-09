@@ -19,5 +19,5 @@ interface StockViewFactoryInterface
 {
     public function create(ProductVariantInterface $productVariant): StockView;
 
-    public function createCollectionStockStockView(ProductVariantInterface ...$productVariantCollection): array;
+    public function createList(ProductVariantInterface ...$productsVariants): array;
 }
