@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer;
 
+use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 use BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductAttributeToVueStorefrontDocumentTransformer;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
-use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 
 final class ProductAttributeToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
 {
@@ -22,7 +22,7 @@ final class ProductAttributeToVueStorefrontDocumentTransformerSpec extends Objec
         $this->beConstructedWith($syliusProductAttributeTransformer);
     }
 
-    function it_transforms(
+    function it_transforms_sylius_product_attribute_to_vue_storefront_attribute(
         SyliusProductAttributeTransformerInterface $syliusProductAttributeTransformer,
         ProductAttributeInterface $syliusProductAttribute
     ): void {

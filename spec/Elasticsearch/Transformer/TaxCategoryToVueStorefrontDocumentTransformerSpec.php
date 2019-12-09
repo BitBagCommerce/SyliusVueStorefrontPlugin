@@ -23,7 +23,7 @@ final class TaxCategoryToVueStorefrontDocumentTransformerSpec extends ObjectBeha
         $this->beConstructedWith($syliusTaxCategoryTransformer);
     }
 
-    function it_transforms(
+    function it_transforms_sylius_tax_category_to_vue_storefront_tax_rule(
         SyliusTaxCategoryToTaxRuleTransformerInterface $syliusTaxCategoryTransformer,
         TaxCategoryInterface $taxCategory
     ): void {
@@ -37,7 +37,7 @@ final class TaxCategoryToVueStorefrontDocumentTransformerSpec extends ObjectBeha
             [],
             [],
             true,
-            new Rates([],[])
+            new Rates([], [])
         );
 
         $syliusTaxCategoryTransformer->transform($taxCategory)->willReturn($taxRule);

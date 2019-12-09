@@ -30,8 +30,11 @@ final class ProductInChannelCheckerSpec extends ObjectBehavior
         ArrayCollection $collection
     ): void {
         $channelRepository->findOneByCode('channel-code')->willReturn($channel);
+
         $syliusProduct->getChannels()->willReturn($collection);
+
         $collection->contains($channel)->willReturn(true);
+
         $this->__invoke($syliusProduct);
     }
 }

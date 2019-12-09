@@ -22,7 +22,7 @@ final class TaxonToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
         $this->beConstructedWith($syliusTaxonToCategoryTransformer);
     }
 
-    function it_transforms(
+    function it_transforms_sylius_taxon_to_vue_storefront_category(
         SyliusTaxonToCategoryTransformerInterface $syliusTaxonToCategoryTransformer,
         TaxonInterface $taxon
     ): void {
@@ -44,7 +44,7 @@ final class TaxonToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
             true,
             'PRODUCTS',
             true,
-                '1column',
+            '1column',
             0,
             'example-key',
             'example/url/path',

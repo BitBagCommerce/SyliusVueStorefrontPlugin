@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer;
 
-use BitBag\SyliusVueStorefrontPlugin\Document\Category;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableChildren;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
@@ -14,9 +13,7 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\StockItem;
 use BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductToVueStorefrontDocumentTransformer;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductTransformerInterface;
-use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Core\Model\ProductInterface;
 
 final class ProductToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
@@ -31,7 +28,7 @@ final class ProductToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
         $this->beConstructedWith($syliusProductTransformer);
     }
 
-    function it_transforms(
+    function it_transforms_sylius_product_to_vue_storefront_product(
         SyliusProductTransformerInterface $syliusProductTransformer,
         ProductInterface $syliusProduct
     ): void {
