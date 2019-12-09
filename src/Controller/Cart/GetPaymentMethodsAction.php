@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartPaymentMethodsViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetPaymentMethodsRequest;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,36 +35,41 @@ final class GetPaymentMethodsAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var CartPaymentMethodsViewFactoryInterface */
-    private $cartPaymentMethodsViewFactory;
-
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
+    /** @var PaymentMethodRepositoryInterface */
+    private $paymentMethodRepository;
+
+    /** @var PaymentMethodViewFactoryInterface */
+    private $paymentMethodViewFactory;
 
     public function __construct(
         ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        CartPaymentMethodsViewFactoryInterface $cartPaymentMethodsViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        OrderRepositoryInterface $orderRepository
+        ChannelProviderInterface $channelProvider,
+        PaymentMethodRepositoryInterface $paymentMethodRepository,
+        PaymentMethodViewFactoryInterface $paymentMethodViewFactory
     ) {
         $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->cartPaymentMethodsViewFactory = $cartPaymentMethodsViewFactory;
-        $this->orderRepository = $orderRepository;
+        $this->channelProvider = $channelProvider;
+        $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->paymentMethodViewFactory = $paymentMethodViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $paymentMethodsRequest = GetPaymentMethodsRequest::fromHttpRequest($request);
+        $getPaymentMethodsRequest = GetPaymentMethodsRequest::fromHttpRequest($request);
 
-        $validationResults = $this->validator->validate($paymentMethodsRequest);
+        $validationResults = $this->validator->validate($getPaymentMethodsRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -73,14 +78,13 @@ final class GetPaymentMethodsAction
             ));
         }
 
-        $cart = $this->orderRepository->findOneBy([
-            'tokenValue' => $paymentMethodsRequest->getCartId(),
-            'state' => OrderInterface::STATE_CART,
-        ]);
+        $channel = $this->channelProvider->provide();
+
+        $paymentMethods = $this->paymentMethodRepository->findEnabledForChannel($channel);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->cartPaymentMethodsViewFactory->createList($cart->getPayments())
+                $this->paymentMethodViewFactory->createList($paymentMethods)
             )
         ));
     }

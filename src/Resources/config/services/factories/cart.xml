@@ -7,10 +7,10 @@
         <defaults public="true" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory" >
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory">
         </service>
-        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_payment_methods_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartPaymentMethodsViewFactory" >
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactory">
         </service>
     </services>
 </container>
