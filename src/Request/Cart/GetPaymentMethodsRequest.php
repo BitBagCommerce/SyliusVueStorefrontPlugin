@@ -37,9 +37,4 @@ final class GetPaymentMethodsRequest
     {
         return $this->cartId;
     }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
 }

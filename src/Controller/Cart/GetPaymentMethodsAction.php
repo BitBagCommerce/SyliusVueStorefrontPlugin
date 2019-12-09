@@ -79,7 +79,9 @@ final class GetPaymentMethodsAction
         ]);
 
         return $this->viewHandler->handle(View::create(
-            $this->genericSuccessViewFactory->create($this->cartPaymentMethodsViewFactory->createList($cart->getPayments()))
+            $this->genericSuccessViewFactory->create(
+                $this->cartPaymentMethodsViewFactory->createList($cart->getPayments())
+            )
         ));
     }
 }
