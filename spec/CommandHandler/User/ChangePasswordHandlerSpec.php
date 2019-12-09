@@ -14,7 +14,7 @@ use Sylius\Component\User\Security\UserPasswordEncoderInterface;
 
 final class ChangePasswordHandlerSpec extends ObjectBehavior
 {
-    public function let(
+    function let(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         UserPasswordEncoderInterface $userPasswordEncoder,
         UserRepositoryInterface $shopUserRepository
@@ -22,27 +22,26 @@ final class ChangePasswordHandlerSpec extends ObjectBehavior
         $this->beConstructedWith($loggedInShopUserProvider, $userPasswordEncoder, $shopUserRepository);
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(ChangePasswordHandler::class);
     }
 
-    public function it_changes_password(
+    function it_changes_password(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         UserPasswordEncoderInterface $userPasswordEncoder,
         UserRepositoryInterface $shopUserRepository,
         ShopUserInterface $shopUser
     ): void {
-        $password = 'new-password';
-        $encodedPassword = 'encoded-new-password';
+        $changePassword = new ChangePassword('new-password');
 
-        $changePassword = new ChangePassword($password);
         $loggedInShopUserProvider->provide()->willReturn($shopUser);
 
-        $shopUser->setPlainPassword($password)->shouldBeCalledOnce();
+        $shopUser->setPlainPassword('new-password')->shouldBeCalledOnce();
 
-        $userPasswordEncoder->encode($shopUser)->willReturn($encodedPassword);
-        $shopUser->setPassword($encodedPassword)->shouldBeCalledOnce();
+        $userPasswordEncoder->encode($shopUser)->willReturn('encoded-new-password');
+
+        $shopUser->setPassword('encoded-new-password')->shouldBeCalledOnce();
 
         $shopUserRepository->add($shopUser)->shouldBeCalledOnce();
 

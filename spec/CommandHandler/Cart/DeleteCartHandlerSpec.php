@@ -12,24 +12,26 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class DeleteCartHandlerSpec extends ObjectBehavior
 {
-    public function let(OrderRepositoryInterface $cartRepository): void
+    function let(OrderRepositoryInterface $cartRepository): void
     {
         $this->beConstructedWith($cartRepository);
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(DeleteCartHandler::class);
     }
 
-    public function it_deletes_cart(
+    function it_deletes_cart(
         OrderRepositoryInterface $cartRepository,
         OrderInterface $cart
     ): void {
         $deleteCart = new DeleteCart('token', 'cart-id');
 
         $cart->getState()->willReturn(OrderInterface::STATE_CART);
-        $cartRepository->findOneBy(['tokenValue' => $deleteCart->cartId()])->willReturn($cart);
+
+        $cartRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);
+
         $cartRepository->remove($cart)->shouldBeCalled();
 
         $this->__invoke($deleteCart);

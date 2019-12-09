@@ -45,25 +45,25 @@ final class CreateUserHandlerSpec extends ObjectBehavior
         $newCustomer = NewCustomer::createFromArray([
             'email' => 'shop@example.com',
             'firstname' => 'Katarzyna',
-            'lastname' => 'Nosowska'
+            'lastname' => 'Nosowska',
         ]);
 
         $userRepository->findOneByEmail($newCustomer->email())->willReturn(null);
 
-        $password = 'example-password';
-        $command = new CreateUser($newCustomer, $password);
+        $command = new CreateUser($newCustomer, 'example-password');
 
         $customerFactory->createNew()->willReturn($customer);
-        $customer->setFirstName($command->customer()->firstName())->shouldBeCalled();
-        $customer->setLastName($command->customer()->lastName())->shouldBeCalled();
-        $customer->setEmail($command->customer()->email())->shouldBeCalled();
+        $customer->setFirstName('Katarzyna')->shouldBeCalled();
+        $customer->setLastName('Nosowska')->shouldBeCalled();
+        $customer->setEmail('shop@example.com')->shouldBeCalled();
 
         $userFactory->createNew()->willReturn($user);
-        $user->setPlainPassword($command->password())->shouldBeCalled();
+        $user->setPlainPassword('example-password')->shouldBeCalled();
         $user->setCustomer($customer)->shouldBeCalled();
-        $user->setUsername($command->customer()->email())->shouldBeCalled();
-        $user->setUsernameCanonical($command->customer()->email())->shouldBeCalled();
+        $user->setUsername('shop@example.com')->shouldBeCalled();
+        $user->setUsernameCanonical('shop@example.com')->shouldBeCalled();
         $user->setEnabled(true)->shouldBeCalled();
+
         $userRepository->add($user)->shouldBeCalled();
 
         $this->__invoke($command);

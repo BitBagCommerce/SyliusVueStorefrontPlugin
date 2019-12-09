@@ -19,22 +19,21 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class CreateCartHandlerSpec extends ObjectBehavior
 {
-    public function let(
+    function let(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         ChannelProviderInterface $channelProvider,
         CustomerProviderInterface $customerProvider
-    ): void
-    {
+    ): void {
         $this->beConstructedWith($cartFactory, $cartRepository, $channelProvider, $customerProvider);
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(CreateCartHandler::class);
     }
 
-    public function it_creates_cart(
+    function it_creates_cart(
         FactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         OrderInterface $cart,
@@ -49,8 +48,11 @@ final class CreateCartHandlerSpec extends ObjectBehavior
 
         $channel->getBaseCurrency()->willReturn($currency);
         $channel->getDefaultLocale()->willReturn($locale);
+
         $channelProvider->provide()->willReturn($channel);
-        $customerProvider->provide($createCart->cartId())->willReturn($customer);
+
+        $customerProvider->provide('cart-id')->willReturn($customer);
+
         $cartFactory->createNew()->willReturn($cart);
 
         $cartRepository->add($cart)->shouldBeCalled();

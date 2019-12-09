@@ -18,7 +18,7 @@ use Sylius\Component\User\Security\Generator\GeneratorInterface;
 
 final class ResetPasswordHandlerSpec extends ObjectBehavior
 {
-    public function let(
+    function let(
         UserRepositoryInterface $userRepository,
         GeneratorInterface $tokenGenerator,
         SenderInterface $sender,
@@ -37,7 +37,7 @@ final class ResetPasswordHandlerSpec extends ObjectBehavior
         $this->shouldHaveType(ResetPasswordHandler::class);
     }
 
-    public function it_resets_password(
+    function it_resets_password(
         UserRepositoryInterface $userRepository,
         ShopUserInterface $user,
         GeneratorInterface $tokenGenerator,
@@ -47,12 +47,13 @@ final class ResetPasswordHandlerSpec extends ObjectBehavior
     ): void {
         $resetPassword = new ResetPassword('shop@example.com');
 
-        $userRepository->findOneByEmail($resetPassword->email())->willReturn($user);
+        $userRepository->findOneByEmail('shop@example.com')->willReturn($user);
+
+        $tokenGenerator->generate()->willReturn('token123');
 
         $user->setPasswordResetToken('token123')->shouldBeCalled();
         $user->setPasswordRequestedAt(Argument::any())->shouldBeCalled();
 
-        $tokenGenerator->generate()->willReturn('token123');
         $user->getPasswordResetToken()->willReturn('token123');
 
         $channelProvider->provide()->willReturn($channel);

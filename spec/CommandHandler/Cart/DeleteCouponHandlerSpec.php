@@ -13,27 +13,29 @@ use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 final class DeleteCouponHandlerSpec extends ObjectBehavior
 {
-    public function let(
+    function let(
         OrderRepositoryInterface $orderRepository,
         OrderProcessorInterface $orderProcessor
     ): void {
         $this->beConstructedWith($orderRepository, $orderProcessor);
     }
 
-    public function it_is_initializable(): void
+    function it_is_initializable(): void
     {
         $this->shouldHaveType(DeleteCouponHandler::class);
     }
 
-    public function it_deletes_coupon(
+    function it_deletes_coupon(
         OrderRepositoryInterface $orderRepository,
         OrderProcessorInterface $orderProcessor,
         OrderInterface $cart
     ): void {
         $deleteCoupon = new DeleteCoupon('token', 'cart-id');
 
-        $orderRepository->findOneBy(['tokenValue' => $deleteCoupon->cartId()])->willReturn($cart);
+        $orderRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);
+
         $cart->setPromotionCoupon(null)->shouldBeCalled();
+
         $orderProcessor->process($cart)->shouldBeCalled();
 
         $this->__invoke($deleteCoupon);

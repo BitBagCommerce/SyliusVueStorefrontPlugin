@@ -47,9 +47,11 @@ final class ApplyCouponHandlerSpec extends ObjectBehavior
         $applyCoupon = new ApplyCoupon('123', 'cart-id', 'coupon');
 
         $orderRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);
+
         $couponRepository->findOneBy(['code' => 'coupon'])->willReturn($coupon);
 
-        $couponEligibilityChecker->isEligible($cart, $coupon)->willReturn(1);
+        $couponEligibilityChecker->isEligible($cart, $coupon)->willReturn(true);
+
         $cart->setPromotionCoupon($coupon)->shouldBeCalledOnce();
 
         $orderProcessor->process($cart)->shouldBeCalled();
