@@ -18,6 +18,7 @@ use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetPaymentMethodsRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,7 +73,10 @@ final class GetPaymentMethodsAction
             ));
         }
 
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $paymentMethodsRequest->getCartId()]);
+        $cart = $this->orderRepository->findOneBy([
+            'tokenValue' => $paymentMethodsRequest->getCartId(),
+             'state' => OrderInterface::STATE_CART,
+        ]);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create($this->cartPaymentMethodsViewFactory->createList($cart->getPayments()))

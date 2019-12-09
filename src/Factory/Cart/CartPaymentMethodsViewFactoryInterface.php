@@ -12,9 +12,11 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartPaymentMethodsView;
 use Doctrine\Common\Collections\Collection;
 
 interface CartPaymentMethodsViewFactoryInterface
 {
+    /** @return array|CartPaymentMethodsView[] */
     public function createList(Collection $payments): array;
 }

@@ -19,13 +19,13 @@ final class GetPaymentMethodsRequest
     /** @var string|null */
     private $token;
 
-    /** @var string */
+    /** @var int|string */
     private $cartId;
 
     public function __construct(Request $request)
     {
         $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId') ?? '99r1zBmvap';
+        $this->cartId = $request->query->get('cartId');
     }
 
     public static function fromHttpRequest(Request $request): self
