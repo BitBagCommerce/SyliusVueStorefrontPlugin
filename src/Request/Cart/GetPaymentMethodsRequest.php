@@ -33,7 +33,7 @@ final class GetPaymentMethodsRequest
         return new self($request);
     }
 
-    public function getCartId(): string
+    public function getCartId()
     {
         return $this->cartId;
     }
