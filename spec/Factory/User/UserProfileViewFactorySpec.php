@@ -28,8 +28,7 @@ final class UserProfileViewFactorySpec extends ObjectBehavior
     function it_creates_user_profile_view(
         CustomerInterface $syliusCustomer,
         AddressViewFactoryInterface $addressViewFactory,
-        AddressInterface $address,
-        \Sylius\Component\Addressing\Model\AddressInterface $baseAddress
+        AddressInterface $address
     ): void {
         $syliusCustomer->getId()->shouldBeCalled();
         $syliusCustomer->getDefaultAddress()->willReturn($address);
