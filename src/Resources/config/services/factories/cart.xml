@@ -9,5 +9,8 @@
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory">
         </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactory">
+        </service>
     </services>
 </container>

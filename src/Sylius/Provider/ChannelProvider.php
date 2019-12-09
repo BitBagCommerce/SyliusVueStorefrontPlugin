@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Channel\Repository\ChannelRepositoryInterface;
 
-final class ChannelProvider
+final class ChannelProvider implements ChannelProviderInterface
 {
     /** @var ChannelRepositoryInterface */
     private $channelRepository;
