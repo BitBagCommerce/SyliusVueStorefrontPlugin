@@ -12,5 +12,21 @@
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactory">
         </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.extension_attributes_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ExtensionAttributesViewFactory">
+        </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.tax_grand_total_detail_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\TaxGrandtotalDetailViewFactory">
+        </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.total_segments_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\TotalSegmentsViewFactory">
+        </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.extension_attributes_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.tax_grand_total_detail_view_factory"/>
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.total_segments_view_factory" />
+        </service>
+
     </services>
 </container>
