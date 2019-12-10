@@ -14,5 +14,5 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
 interface ShippingInformationViewFactoryInterface
 {
-    public function create();
+    public function create(): array;
 }

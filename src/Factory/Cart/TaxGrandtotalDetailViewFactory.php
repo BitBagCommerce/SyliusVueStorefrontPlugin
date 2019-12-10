@@ -14,8 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
 final class TaxGrandtotalDetailViewFactory implements TaxGrandtotalDetailViewFactoryInterface
 {
-
-    public function create()
+    public function create(): array
     {
     }
 }

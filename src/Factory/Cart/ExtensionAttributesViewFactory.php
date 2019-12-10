@@ -14,8 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
 final class ExtensionAttributesViewFactory implements ExtensionAttributesViewFactoryInterface
 {
-
-    public function create()
+    public function create(): array
     {
     }
 }

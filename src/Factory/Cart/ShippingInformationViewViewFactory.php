@@ -33,8 +33,7 @@ final class ShippingInformationViewViewFactory implements ShippingInformationVie
         $this->totalSegmentsViewFactory = $totalSegmentsViewFactory;
     }
 
-
-    public function create()
+    public function create(): array
     {
         return [];
     }

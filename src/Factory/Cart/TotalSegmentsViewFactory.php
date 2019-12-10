@@ -14,9 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
 final class TotalSegmentsViewFactory implements TotalSegmentsViewFactoryInterface
 {
-
-    public function create()
+    public function create(): array
     {
-        // TODO: Implement create() method.
     }
 }
