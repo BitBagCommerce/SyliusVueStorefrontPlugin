@@ -29,6 +29,21 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
         $this->shouldHaveType(AttachRefreshTokenOnAuthenticationSuccessListener::class);
     }
 
+    function let(
+        RefreshTokenManagerInterface $refreshTokenManager,
+        ValidatorInterface $validator,
+        RequestStack $requestStack
+    ): void {
+        $this->beConstructedWith(
+            $refreshTokenManager,
+            1,
+            $validator,
+            $requestStack,
+            'username',
+            false
+        );
+    }
+
     function it_returns_when_no_user_passed(
         UserInterface $user,
         RequestStack $requestStack

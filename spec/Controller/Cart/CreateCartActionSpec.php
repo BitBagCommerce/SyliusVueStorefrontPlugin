@@ -53,7 +53,7 @@ final class CreateCartActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler
     ): void {
         $request = new Request([
-            'token' => 'token'
+            'token' => 'token',
         ]);
 
         $createCartRequest = new CreateCartRequest($request);
@@ -78,7 +78,7 @@ final class CreateCartActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler
     ): void {
         $request = new Request([
-            'token' => 'token'
+            'token' => 'token',
         ]);
 
         $createCartRequest = new CreateCartRequest($request);

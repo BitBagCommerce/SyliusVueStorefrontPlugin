@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Controller\User\GetUserAction;
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\GenericSuccessView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use PhpSpec\ObjectBehavior;
@@ -26,12 +28,14 @@ final class GetUserActionSpec extends ObjectBehavior
     function let(
         ViewHandlerInterface $viewHandler,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        UserProfileViewFactoryInterface $userProfileViewFactory
+        UserProfileViewFactoryInterface $userProfileViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ): void {
         $this->beConstructedWith(
             $viewHandler,
             $loggedInShopUserProvider,
-            $userProfileViewFactory
+            $userProfileViewFactory,
+            $genericSuccessViewFactory
         );
     }
 
@@ -40,6 +44,7 @@ final class GetUserActionSpec extends ObjectBehavior
         ShopUserInterface $user,
         CustomerInterface $customer,
         UserProfileViewFactoryInterface $userProfileViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ViewHandlerInterface $viewHandler
     ): void {
         $request = new Request();
@@ -48,6 +53,7 @@ final class GetUserActionSpec extends ObjectBehavior
         $user->getCustomer()->willReturn($customer);
 
         $userProfileViewFactory->create($customer)->willReturn(new UserProfileView());
+        $genericSuccessViewFactory->create(Argument::any())->willReturn(new GenericSuccessView());
         $viewHandler->handle(Argument::any(), Argument::any())->willReturn(new Response());
 
         $this->__invoke($request);
