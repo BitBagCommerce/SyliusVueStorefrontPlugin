@@ -12,8 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
-use BitBag\SyliusVueStorefrontPlugin\Model\AddressInformation;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
 use Symfony\Component\HttpFoundation\Request;
 
 final class SetShippingInformationRequest
@@ -24,7 +23,7 @@ final class SetShippingInformationRequest
     /** @var int|string */
     private $cartId;
 
-    /** @var array|null */
+    /** @var AddressInformation */
     private $addressInformation;
 
     public function __construct(Request $request)
@@ -34,9 +33,8 @@ final class SetShippingInformationRequest
         $this->addressInformation = $request->request->get('addressInformation');
     }
 
-    public function getCommand(): SetShippingInformation
+    public static function fromHttpRequest(Request $request): self
     {
-        return new SetShippingInformation($this->token, $this->cartId,
-            AddressInformation::createFromArray($this->addressInformation));
+        return new self($request);
     }
 }
