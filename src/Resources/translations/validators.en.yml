@@ -78,6 +78,11 @@ bitbag:
                     not_null: Please provide coupon code.
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
+                item:
+                    item_id:
+                        not_null: Please provide valid item id.
+                    id:
+                        exist: The order item does not exist.
                 address_information:
                     shipping_method_code:
                         not_blank: Shipping method can not be blank.

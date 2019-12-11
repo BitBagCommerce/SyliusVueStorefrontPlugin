@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd" >
+    <class name="BitBag\SyliusVueStorefrontPlugin\Request\Cart\DeleteCartRequest" >
+        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartOrderItemExist" />
+        <property name="token" >
+            <constraint name="NotNull" >
+                <option name="message" >bitbag.vue_storefront_api.sylius.cart.token.not_null</option >
+            </constraint >
+        </property >
+        <property name="cartId" >
+            <constraint name="NotNull" >
+                <option name="message" >bitbag.vue_storefront_api.sylius.cart.cart_id.not_null</option >
+            </constraint >
+            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />
+        </property >
+        <property name="cartItem" >
+            <constraint name="Collection" >
+                <option name="fields" >
+                    <value key="sku" >
+                        <constraint name="NotNull" >
+                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.sku.not_null</option >
+                        </constraint >
+                    </value >
+                    <value key="item_id" >
+                        <constraint name="NotNull" >
+                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.item_id.not_null</option >
+                        </constraint >
+                    </value >
+                    <value key="quoteId" >
+                        <constraint name="NotNull" >
+                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.quote_id.not_null</option >
+                        </constraint >
+                    </value >
+                </option >
+            </constraint >
+        </property >
+    </class >
+</constraint-mapping >

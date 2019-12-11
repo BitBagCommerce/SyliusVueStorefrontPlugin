@@ -22,5 +22,12 @@
             <argument type="service" id="sylius.promotion_eligibility_checker"/>
             <tag name="validator.constraint_validator" alias="sylius_valid_coupon_validator" />
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.validator.cart.item_exists_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart\OrderItemExistValidator">
+            <argument type="service" id="sylius.repository.order_item"/>
+            <argument type="service" id="sylius.repository.order"/>
+            <tag name="validator.constraint_validator" alias="sylius_order_item_exist_validator" />
+        </service>
     </services>
 </container>
