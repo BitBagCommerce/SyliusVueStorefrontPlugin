@@ -10,9 +10,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Common;
 
-use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address\RegionViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 use Sylius\Component\Core\Model\AddressInterface as SyliusAddressInterface;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
@@ -27,11 +28,9 @@ final class AddressViewFactory implements AddressViewFactoryInterface
 
     public function create(SyliusAddressInterface $syliusAddress): AddressView
     {
-        $regionView = $this->regionView->create($syliusAddress);
         $addressView = new AddressView();
-
         $addressView->id = $syliusAddress->getId();
-        $addressView->region = $regionView;
+        $addressView->region = $this->regionView->create($syliusAddress);
         $addressView->customer_id = $syliusAddress->getCustomer()->getId();
         $addressView->country_id = $syliusAddress->getCountryCode();
         $addressView->street = $syliusAddress->getStreet();

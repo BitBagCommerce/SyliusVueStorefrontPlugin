@@ -10,13 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Common\Address;
 
-final class PaymentMethodView
+final class RegionView
 {
-    /** @var string */
-    public $code;
+    /** @var string|null */
+    public $regionCode;
 
-    /** @var string */
-    public $title;
+    /** @var string|null */
+    public $region;
+
+    /** @var int|null */
+    public $regionId;
 }

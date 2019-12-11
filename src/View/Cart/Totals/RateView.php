@@ -10,12 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class PaymentMethodView
+final class RateView
 {
     /** @var string */
-    public $code;
+    public $percent;
 
     /** @var string */
     public $title;

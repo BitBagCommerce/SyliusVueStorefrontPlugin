@@ -12,11 +12,13 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
-final class PaymentMethodView
-{
-    /** @var string */
-    public $code;
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalsView;
 
-    /** @var string */
-    public $title;
+class ShippingInformationView
+{
+    /** @var array|PaymentMethodView[] */
+    public $payments_methods;
+
+    /** @var TotalsView */
+    public $totals;
 }

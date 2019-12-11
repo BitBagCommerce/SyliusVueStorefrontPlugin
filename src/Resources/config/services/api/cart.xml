@@ -57,10 +57,19 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory" />
         </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_methods"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingMethodsAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingMethodsAction" >
+        </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_information"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingInformationAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SetShippingInformationAction" >
+            <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory" />
+        </service>
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.collect_totals"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\CollectTotalsAction" />
+
     </services>
 </container>

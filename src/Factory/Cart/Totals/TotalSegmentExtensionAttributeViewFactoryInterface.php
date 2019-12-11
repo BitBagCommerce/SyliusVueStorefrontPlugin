@@ -10,13 +10,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
-final class PaymentMethodView
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentExtensionAttributeView;
+
+interface TotalSegmentExtensionAttributeViewFactoryInterface
 {
-    /** @var string */
-    public $code;
-
-    /** @var string */
-    public $title;
+    public function create(): TotalSegmentExtensionAttributeView;
 }

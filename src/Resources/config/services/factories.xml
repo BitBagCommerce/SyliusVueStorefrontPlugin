@@ -7,12 +7,12 @@
         <defaults public="true" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\AddressViewFactory">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.region_view_factory" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.common.address.region_view_factory" />
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.factory.region_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\RegionViewFactory">
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.common.address.region_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address\RegionViewFactory">
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory"

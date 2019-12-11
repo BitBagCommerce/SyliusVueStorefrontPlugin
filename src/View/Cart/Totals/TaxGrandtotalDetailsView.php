@@ -10,13 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class PaymentMethodView
+final class TaxGrandtotalDetailsView
 {
-    /** @var string */
-    public $code;
+    /** @var float */
+    public $amount;
 
-    /** @var string */
-    public $title;
+    /** @var array|RateView[] */
+    public $rates;
+
+    /** @var int */
+    public $group_id;
 }

@@ -10,16 +10,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
-final class RegionView
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TaxGrandtotalDetailsView;
+
+interface TaxGrandtotalDetailsViewFactoryInterface
 {
-    /** @var string|null */
-    public $regionCode;
-
-    /** @var string|null */
-    public $region;
-
-    /** @var int|null */
-    public $regionId;
+    public function create(): TaxGrandtotalDetailsView;
 }

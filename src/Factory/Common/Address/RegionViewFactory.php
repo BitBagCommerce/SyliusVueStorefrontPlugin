@@ -10,19 +10,19 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address;
 
-use BitBag\SyliusVueStorefrontPlugin\View\RegionView;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\Address\RegionView;
 use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
 
 final class RegionViewFactory implements RegionViewFactoryInterface
 {
-    public function create(SyliusAddressInterface $address): RegionView
+    public function create(SyliusAddressInterface $syliusAddress): RegionView
     {
         $regionView = new RegionView();
-        $regionView->regionCode = $address->getProvinceCode();
-        $regionView->regionId = $address->getProvinceCode();
-        $regionView->region = $address->getProvinceName();
+        $regionView->regionCode = $syliusAddress->getProvinceCode();
+        $regionView->regionId = $syliusAddress->getProvinceCode();
+        $regionView->region = $syliusAddress->getProvinceName();
 
         return $regionView;
     }
