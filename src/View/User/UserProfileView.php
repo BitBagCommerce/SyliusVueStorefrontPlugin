@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User;
 
-use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
 final class UserProfileView
 {

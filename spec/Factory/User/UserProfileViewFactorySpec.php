@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Factory\AddressViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactory;
-use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -50,7 +50,8 @@ final class UserProfileViewFactorySpec extends ObjectBehavior
             [
                 $address->getWrappedObject(),
             ]
-        ));
+        ))
+        ;
 
         $addressViewFactory->create(Argument::any())->willReturn(new AddressView());
 

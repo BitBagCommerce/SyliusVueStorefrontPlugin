@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
 
 final class SetShippingMethods
 {
@@ -22,10 +22,10 @@ final class SetShippingMethods
     /** @var string|null */
     private $cartId;
 
-    /** @var Address|null */
+    /** @var Address */
     private $address;
 
-    public function __construct(?string $token, ?string $cartId, ?Address $address)
+    public function __construct(?string $token, ?string $cartId, Address $address)
     {
         $this->token = $token;
         $this->cartId = $cartId;
@@ -42,7 +42,7 @@ final class SetShippingMethods
         return $this->cartId;
     }
 
-    public function address(): ?Address
+    public function address(): Address
     {
         return $this->address;
     }

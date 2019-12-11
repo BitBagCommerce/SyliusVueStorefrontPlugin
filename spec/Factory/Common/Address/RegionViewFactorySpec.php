@@ -10,10 +10,10 @@
 
 declare(strict_types=1);
 
-namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory;
+namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address;
 
-use BitBag\SyliusVueStorefrontPlugin\Factory\RegionViewFactory;
-use BitBag\SyliusVueStorefrontPlugin\View\RegionView;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address\RegionViewFactory;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\Address\RegionView;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
 
