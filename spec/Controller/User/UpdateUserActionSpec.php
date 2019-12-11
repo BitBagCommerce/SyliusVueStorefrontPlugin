@@ -122,7 +122,7 @@ final class UpdateUserActionSpec extends ObjectBehavior
                     ],
                 ],
                 'disable_auto_group_change' => 0,
-            ]
+            ],
         ]);
 
         $updateUserRequest = new UpdateUserRequest($request);
@@ -134,7 +134,6 @@ final class UpdateUserActionSpec extends ObjectBehavior
         $customerRepository->findOneBy(['id' => $updateUserRequest->command()->customer()->id()])->willReturn($customer);
 
         throw new SkippingException('$userProfileViewFactory->create() problem');
-
         $userProfileViewFactory->create($customer->getWrappedObject())->willReturn(new UserProfileView());
 
         $viewHandler->handle(Argument::any(), Argument::any())->willReturn(new Response());
@@ -204,7 +203,7 @@ final class UpdateUserActionSpec extends ObjectBehavior
                     ],
                 ],
                 'disable_auto_group_change' => 0,
-            ]
+            ],
         ]);
 
         $updateUserRequest = new UpdateUserRequest($request);

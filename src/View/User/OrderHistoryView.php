@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User;
 
-use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
-
 final class OrderHistoryView
 {
     /** @var array */

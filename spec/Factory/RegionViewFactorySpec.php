@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory;
 use BitBag\SyliusVueStorefrontPlugin\Factory\RegionViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\RegionView;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
 
 final class RegionViewFactorySpec extends ObjectBehavior

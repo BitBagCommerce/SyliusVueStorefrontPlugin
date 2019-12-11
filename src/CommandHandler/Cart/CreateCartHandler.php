@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\CustomerProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;

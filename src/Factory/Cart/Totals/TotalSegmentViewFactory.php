@@ -38,6 +38,7 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
     {
         $totalSegmentView = new TotalSegmentView();
         $totalSegmentView->title = $syliusAdjustment->getLabel();
+
         return $totalSegmentView;
     }
 }

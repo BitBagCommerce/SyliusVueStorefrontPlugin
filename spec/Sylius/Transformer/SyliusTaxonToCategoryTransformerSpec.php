@@ -53,7 +53,7 @@ final class SyliusTaxonToCategoryTransformerSpec extends ObjectBehavior
         $baseProductTaxonRepository->findBy(Argument::any())->willReturn(
             [
                 $productTaxon,
-                $productTaxon
+                $productTaxon,
             ]
         );
 

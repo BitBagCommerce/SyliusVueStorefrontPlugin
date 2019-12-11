@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformer;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 
 final class SyliusProductAttributeTransformerSpec extends ObjectBehavior

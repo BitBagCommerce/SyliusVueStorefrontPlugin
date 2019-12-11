@@ -38,7 +38,7 @@ final class RenameRefreshTokenOnSuccessListenerSpec extends ObjectBehavior
     ): void {
         $request = new Request(
             [
-                'refreshToken' => 'token'
+                'refreshToken' => 'token',
             ],
             [],
             [],

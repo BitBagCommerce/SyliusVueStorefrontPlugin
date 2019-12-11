@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ShopUserAwareCustomerProvider;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;

@@ -27,7 +27,6 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends ObjectBehavior
@@ -61,7 +60,6 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
         $requestStack->getCurrentRequest()->willReturn(new Request());
 
         throw new SkippingException('todo');
-
         $this->attachRefreshToken($event);
     }
 
@@ -84,7 +82,7 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
         );
 
         $request = new Request([
-            'refreshToken' => 'token'
+            'refreshToken' => 'token',
         ]);
 
         /** @var AuthenticationSuccessEvent $event */

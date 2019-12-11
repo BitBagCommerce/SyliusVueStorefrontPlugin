@@ -32,8 +32,7 @@ final class ProductAssociationsToLinksTransformerSpec extends ObjectBehavior
         ProductAssociationInterface $syliusProductAssociation,
         ProductInterface $product,
         ProductAssociationTypeInterface $productAssociationType
-    ): void
-    {
+    ): void {
         $syliusProductAssociation->getOwner()->willReturn($product);
         $syliusProductAssociation->getAssociatedProducts()->willReturn(
             new ArrayCollection(
@@ -62,5 +61,4 @@ final class ProductAssociationsToLinksTransformerSpec extends ObjectBehavior
             )
         )->shouldReturnAnInstanceOf(ProductLinks::class);
     }
-
 }

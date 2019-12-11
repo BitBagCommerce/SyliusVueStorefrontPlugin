@@ -28,7 +28,7 @@ final class CreateCartFactorySpec extends ObjectBehavior
     function it_is_creating_cart_from_DTO(): void
     {
         $request = new Request([
-            'token' => 'token'
+            'token' => 'token',
         ]);
 
         $createCartRequest = new CreateCartRequest($request);

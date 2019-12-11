@@ -58,7 +58,7 @@ final class ChangePasswordActionSpec extends ObjectBehavior
     ): void {
         $request = new Request([], [
             'currentPassword' => 'old-password',
-            'newPassword' => 'brand-new-password'
+            'newPassword' => 'brand-new-password',
         ]);
 
         $changePasswordRequest = new ChangePasswordRequest($request);
@@ -81,7 +81,7 @@ final class ChangePasswordActionSpec extends ObjectBehavior
     ): void {
         $request = new Request([], [
             'currentPassword' => 'old-password',
-            'newPassword' => 'brand-new-password'
+            'newPassword' => 'brand-new-password',
         ]);
 
         $changePasswordRequest = new ChangePasswordRequest($request);

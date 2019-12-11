@@ -64,7 +64,7 @@ final class ApplyCouponActionSpec extends ObjectBehavior
         $request = new Request([
             'token' => 'token',
             'cartId' => '12345',
-            'coupon' => 'coupon'
+            'coupon' => 'coupon',
         ]);
 
         $applyCouponRequest = new ApplyCouponRequest($request);
@@ -90,7 +90,7 @@ final class ApplyCouponActionSpec extends ObjectBehavior
         $request = new Request([
             'token' => 'token',
             'cartId' => '12345',
-            'coupon' => 'coupon'
+            'coupon' => 'coupon',
         ]);
 
         $applyCouponRequest = new ApplyCouponRequest($request);

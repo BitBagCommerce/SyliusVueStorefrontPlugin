@@ -14,7 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Mailer\Emails;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;

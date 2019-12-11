@@ -13,6 +13,7 @@ final class CreateCartFactory implements CreateCartFactoryInterface
     public function createFromDTO(CreateCartRequest $createCartRequest): CreateCart
     {
         $cartId = Uuid::uuid4()->toString();
+
         return new CreateCart($createCartRequest->getToken(), $cartId);
     }
 }

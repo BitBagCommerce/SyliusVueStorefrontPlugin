@@ -13,9 +13,7 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\DependencyInjection;
 
 use BitBag\SyliusVueStorefrontPlugin\DependencyInjection\Configuration;
-use PhpParser\Node\Arg;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 final class ConfigurationSpec extends ObjectBehavior

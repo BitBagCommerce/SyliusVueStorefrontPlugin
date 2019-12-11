@@ -41,12 +41,12 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $regionView->create(Argument::any())->willReturn(new RegionView());
         $syliusAddress->getId()->shouldBeCalled();
         $syliusAddress->getCustomer()->willReturn($customer);
-        $syliusAddress->getCountryCode()->shouldBeCalled();;
-        $syliusAddress->getStreet()->shouldBeCalled();;
-        $syliusAddress->getPostcode()->shouldBeCalled();;
-        $syliusAddress->getCity()->shouldBeCalled();;
-        $syliusAddress->getFirstName()->shouldBeCalled();;
-        $syliusAddress->getLastName()->shouldBeCalled();;
+        $syliusAddress->getCountryCode()->shouldBeCalled();
+        $syliusAddress->getStreet()->shouldBeCalled();
+        $syliusAddress->getPostcode()->shouldBeCalled();
+        $syliusAddress->getCity()->shouldBeCalled();
+        $syliusAddress->getFirstName()->shouldBeCalled();
+        $syliusAddress->getLastName()->shouldBeCalled();
         $this->create($syliusAddress)->shouldBeAnInstanceOf(AddressView::class);
     }
 }

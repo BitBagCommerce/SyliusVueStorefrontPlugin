@@ -34,7 +34,7 @@ final class ProductOptionsToConfigurableOptionsTransformerSpec extends ObjectBeh
         $syliusProductOption->getValues()->willReturn(
             new ArrayCollection(
                 [
-                    $productOptionValue->getWrappedObject()
+                    $productOptionValue->getWrappedObject(),
                 ]
             )
         );

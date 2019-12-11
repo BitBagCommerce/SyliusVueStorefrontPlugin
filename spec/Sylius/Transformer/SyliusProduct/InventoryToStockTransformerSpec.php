@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\InventoryToStockTransformer;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class InventoryToStockTransformerSpec extends ObjectBehavior

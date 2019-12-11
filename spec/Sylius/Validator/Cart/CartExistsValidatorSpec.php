@@ -48,7 +48,6 @@ final class CartExistsValidatorSpec extends ObjectBehavior
         $orderRepository->findOneBy(['tokenValue' => 1, 'state' => 'cart'])->willReturn(null);
 
         throw new SkippingException('$this->context and $constraint->message problems');
-
         $this->validate(1, $constraint);
     }
 }

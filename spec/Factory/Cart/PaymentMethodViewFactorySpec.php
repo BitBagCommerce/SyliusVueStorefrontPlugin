@@ -26,7 +26,7 @@ final class PaymentMethodViewFactorySpec extends ObjectBehavior
     function it_creates_payment_method_views(
         PaymentMethodInterface $paymentMethod
     ): void {
-       $this->createList(
+        $this->createList(
            [
                $paymentMethod,
                $paymentMethod,

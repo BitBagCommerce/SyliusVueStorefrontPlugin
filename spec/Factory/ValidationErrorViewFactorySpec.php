@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\ValidationErrorView;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 final class ValidationErrorViewFactorySpec extends ObjectBehavior

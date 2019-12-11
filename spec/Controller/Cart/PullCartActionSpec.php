@@ -90,7 +90,7 @@ final class PullCartActionSpec extends ObjectBehavior
         $cart->getItems()->willReturn(new ArrayCollection(
             [
                 $cartItem,
-                $cartItem
+                $cartItem,
             ]
         ));
 

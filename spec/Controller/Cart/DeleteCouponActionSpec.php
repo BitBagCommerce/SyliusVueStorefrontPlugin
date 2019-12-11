@@ -63,7 +63,7 @@ final class DeleteCouponActionSpec extends ObjectBehavior
     ): void {
         $request = new Request([
             'token' => 'token',
-            'cartId' => '12345'
+            'cartId' => '12345',
         ]);
 
         $deleteCouponRequest = new DeleteCouponRequest($request);
@@ -88,7 +88,7 @@ final class DeleteCouponActionSpec extends ObjectBehavior
     ): void {
         $request = new Request([
             'token' => 'token',
-            'cartId' => '12345'
+            'cartId' => '12345',
         ]);
 
         $deleteCouponRequest = new DeleteCouponRequest($request);

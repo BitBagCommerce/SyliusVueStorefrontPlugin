@@ -15,9 +15,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 use BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest;
 use BitBag\SyliusVueStorefrontPlugin\Request\User\ResetPasswordRequest;
-use BitBag\SyliusVueStorefrontPlugin\View\GenericSuccessView;
 use BitBag\SyliusVueStorefrontPlugin\View\ValidationErrorView;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use PhpSpec\ObjectBehavior;
@@ -61,7 +59,7 @@ final class ResetPasswordActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler
     ): void {
         $request = new Request([], [
-            'email' => 'shop@example.com'
+            'email' => 'shop@example.com',
         ]);
 
         $resetPasswordRequest = new ResetPasswordRequest($request);
@@ -83,7 +81,7 @@ final class ResetPasswordActionSpec extends ObjectBehavior
         ViewHandlerInterface $viewHandler
     ): void {
         $request = new Request([], [
-            'email' => 'shop@example.com'
+            'email' => 'shop@example.com',
         ]);
 
         $resetPasswordRequest = new ResetPasswordRequest($request);

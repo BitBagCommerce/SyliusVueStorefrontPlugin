@@ -69,7 +69,7 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
             new ArrayCollection(
                 [
                     new ProductVariant(),
-                    new ProductVariant()
+                    new ProductVariant(),
                 ]
             )
         );
@@ -123,7 +123,7 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
             new Product\MediaGallery(
                 [
                     new ProductImage(),
-                    new ProductImage()
+                    new ProductImage(),
                 ]
             )
         );
@@ -134,7 +134,7 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
             new Product\ConfigurableChildren(
                 [
                     new ProductVariant(),
-                    new ProductVariant()
+                    new ProductVariant(),
                 ]
             )
         );
