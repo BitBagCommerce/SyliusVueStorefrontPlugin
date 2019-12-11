@@ -10,11 +10,11 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
-final class TaxGrandtotalDetailViewFactory implements TaxGrandtotalDetailViewFactoryInterface
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TaxGrandtotalDetailsView;
+
+interface TaxGrandtotalDetailsViewFactoryInterface
 {
-    public function create(): array
-    {
-    }
+    public function create(): TaxGrandtotalDetailsView;
 }

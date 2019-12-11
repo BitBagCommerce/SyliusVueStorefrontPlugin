@@ -12,7 +12,12 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\ShippingInformationView;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+
 interface ShippingInformationViewFactoryInterface
 {
-    public function create(): array;
+    /** @param array|PaymentMethodInterface[] $syliusPaymentMethods */
+    public function create(array $syliusPaymentMethods, SyliusOrderInterface $syliusOrder): ShippingInformationView;
 }

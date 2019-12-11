@@ -10,7 +10,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
+
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 
 final class TotalsView
 {
@@ -47,18 +49,18 @@ final class TotalsView
     /** @var float */
     public $shipping_incl_tax;
 
-    /** @var float */
+    /** @var string */
     public $base_currency_code;
 
-    /** @var float */
+    /** @var string */
     public $quote_currency_code;
 
-    /** @var float */
+    /** @var int */
     public $items_qty;
 
-    /** @var Items[] */
+    /** @var array|CartItemView[] */
     public $items;
 
-    /** @var TotalSegmentsView[] */
+    /** @var array|TotalSegmentView[] */
     public $total_segments;
 }

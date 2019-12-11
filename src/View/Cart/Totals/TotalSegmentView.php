@@ -10,9 +10,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class TotalSegmentsView
+final class TotalSegmentView
 {
     /** @var string */
     public $code;
@@ -26,6 +26,6 @@ final class TotalSegmentsView
     /** @var string */
     public $area;
 
-    /** @var ExtensionAttributesView */
+    /** @var TotalSegmentExtensionAttributeView */
     public $extension_attributes;
 }

@@ -10,12 +10,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
-use BitBag\SyliusVueStorefrontPlugin\View\AddressView;
-use Sylius\Component\Core\Model\AddressInterface as SyliusAddressInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TaxGrandtotalDetailsView;
 
-interface AddressViewFactoryInterface
+final class TaxGrandtotalDetailsViewFactory implements TaxGrandtotalDetailsViewFactoryInterface
 {
-    public function create(SyliusAddressInterface $syliusAddress): AddressView;
+    public function create(): TaxGrandtotalDetailsView
+    {
+    }
 }

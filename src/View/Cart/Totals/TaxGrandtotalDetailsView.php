@@ -10,9 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-interface TaxGrandtotalDetailViewFactoryInterface
+final class TaxGrandtotalDetailsView
 {
-    public function create(): array;
+    /** @var float */
+    public $amount;
+
+    /** @var array|RateView[] */
+    public $rates;
+
+    /** @var int */
+    public $group_id;
 }

@@ -10,7 +10,9 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Common;
+
+use BitBag\SyliusVueStorefrontPlugin\View\Common\Address\RegionView;
 
 final class AddressView
 {

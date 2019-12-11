@@ -61,9 +61,9 @@ final class SetShippingInformationAction
 
     public function __invoke(Request $request): Response
     {
-        $shippingInformationRequest = SetShippingInformationRequest::fromHttpRequest($request);
+        $setShippingInformationRequest = SetShippingInformationRequest::fromHttpRequest($request);
 
-        $validationResults = $this->validator->validate($shippingInformationRequest);
+        $validationResults = $this->validator->validate($setShippingInformationRequest);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(

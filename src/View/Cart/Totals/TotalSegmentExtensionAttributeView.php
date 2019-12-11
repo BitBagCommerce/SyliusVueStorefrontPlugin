@@ -10,13 +10,10 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class RatesView
+final class TotalSegmentExtensionAttributeView
 {
-    /** @var string */
-    public $percent;
-
-    /** @var string */
-    public $title;
+    /** @var array|TaxGrandtotalDetailsView[] */
+    public $tax_grandtotal_details;
 }

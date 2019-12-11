@@ -10,11 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Common\Address;
 
-final class ExtensionAttributesViewFactory implements ExtensionAttributesViewFactoryInterface
+final class RegionView
 {
-    public function create(): array
-    {
-    }
+    /** @var string|null */
+    public $regionCode;
+
+    /** @var string|null */
+    public $region;
+
+    /** @var int|null */
+    public $regionId;
 }

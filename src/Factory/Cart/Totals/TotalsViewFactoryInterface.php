@@ -10,15 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalsView;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
-class ShippingInformationView
+interface TotalsViewFactoryInterface
 {
-    /** @var array|PaymentMethodView[] */
-    public $payments_methods;
-
-    /** @var TotalsView */
-    public $totals;
+    public function create(SyliusOrderInterface $syliusOrder): TotalsView;
 }

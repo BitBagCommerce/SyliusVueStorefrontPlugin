@@ -10,12 +10,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-use BitBag\SyliusVueStorefrontPlugin\View\RegionView;
-use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface;
-
-interface RegionViewFactoryInterface
+final class RateView
 {
-    public function create(SyliusAddressInterface $address): RegionView;
+    /** @var string */
+    public $percent;
+
+    /** @var string */
+    public $title;
 }
