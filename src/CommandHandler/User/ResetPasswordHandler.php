@@ -15,6 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Mailer\Emails;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -33,14 +34,14 @@ final class ResetPasswordHandler implements MessageHandlerInterface
     /** @var SenderInterface */
     private $sender;
 
-    /** @var ChannelProvider */
+    /** @var ChannelProviderInterface */
     private $channelProvider;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         GeneratorInterface $tokenGenerator,
         SenderInterface $sender,
-        ChannelProvider $channelProvider
+        ChannelProviderInterface $channelProvider
     ) {
         $this->userRepository = $userRepository;
         $this->tokenGenerator = $tokenGenerator;

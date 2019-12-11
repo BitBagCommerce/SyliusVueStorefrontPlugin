@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CreateCartFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +28,7 @@ final class CreateCartRequest
     public function __construct(Request $request)
     {
         $this->token = $request->query->get('token');
-        $this->cartId = Uuid::uuid4()->toString();
+        //$this->cartId = Uuid::uuid4()->toString();
     }
 
     public static function fromHttpRequest(Request $request): self
@@ -37,6 +38,12 @@ final class CreateCartRequest
 
     public function getCommand(): CreateCart
     {
-        return new CreateCart($this->token, $this->cartId);
+        //return new CreateCart($this->token, $this->cartId);
+        return (new CreateCartFactory())->createFromDTO($this);
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
     }
 }

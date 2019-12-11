@@ -57,6 +57,7 @@ final class CreateUserHandler implements MessageHandlerInterface
         $customer->setFirstName($command->customer()->firstName());
         $customer->setLastName($command->customer()->lastName());
         $customer->setEmail($command->customer()->email());
+
         $this->customerRepository->add($customer);
 
         /** @var ShopUserInterface $user */
@@ -66,6 +67,7 @@ final class CreateUserHandler implements MessageHandlerInterface
         $user->setUsername($command->customer()->email());
         $user->setUsernameCanonical($command->customer()->email());
         $user->setEnabled(true);
+
         $this->userRepository->add($user);
     }
 

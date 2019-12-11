@@ -24,7 +24,7 @@ final class CreateUserRequest
     /** @var string|null */
     private $password;
 
-    private function __construct(Request $request)
+    public function __construct(Request $request)
     {
         $this->customer = $request->request->get('customer');
         $this->password = $request->request->get('password');
