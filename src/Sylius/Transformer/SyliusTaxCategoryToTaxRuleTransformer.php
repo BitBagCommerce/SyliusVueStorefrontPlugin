@@ -40,8 +40,8 @@ final class SyliusTaxCategoryToTaxRuleTransformer implements SyliusTaxCategoryTo
             [],
             [],
             false,
-            $rates,
-            5
+            $rates/*,
+            5*/
         );
     }
 }

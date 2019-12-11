@@ -35,6 +35,7 @@ final class ProductAssociationsToLinksTransformer implements ProductAssociations
 
             /** @var ProductInterface $product */
             foreach ($syliusProductAssociation->getAssociatedProducts() as $product) {
+                //dd($product->getVariants());
                 $productLinks[] = new Link(
                     $syliusProductAssociationOwnerCode,
                     $this->renameAssociationType($syliusProductAssociation->getType()->getCode()),

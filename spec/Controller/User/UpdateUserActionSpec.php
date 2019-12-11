@@ -15,7 +15,6 @@ use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
-use Sylius\Component\Customer\Model\Customer;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
