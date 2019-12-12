@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class SetShippingInformationRequest
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var int|string */

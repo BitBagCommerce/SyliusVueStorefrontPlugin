@@ -18,7 +18,7 @@ use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class CollectTotalsRequest implements RequestCommandInterface
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var int|string */

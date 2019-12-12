@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class PullCartRequest
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var int|string */

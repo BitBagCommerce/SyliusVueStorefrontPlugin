@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class GetPaymentMethodsRequest
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var int|string */

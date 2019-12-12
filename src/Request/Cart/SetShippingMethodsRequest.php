@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class SetShippingMethodsRequest implements RequestCommandInterface
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var int|string */

@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class CreateCartRequest implements RequestCommandInterface
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var string */

@@ -18,7 +18,7 @@ use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class DeleteCouponRequest implements RequestCommandInterface
 {
-    /** @var string|null */
+    /** @var string */
     public $token;
 
     /** @var string */
