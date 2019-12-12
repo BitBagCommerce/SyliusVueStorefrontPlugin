@@ -12,9 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\User\UpdateUserRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -22,15 +23,14 @@ use Sylius\Component\Customer\Model\CustomerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UpdateUserAction
 {
+    /** @var RequestProcessorInterface */
+    private $updateUserRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -38,33 +38,31 @@ final class UpdateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var UserProfileViewFactoryInterface */
-    private $userProfileViewFactory;
-
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
+    /** @var UserProfileViewFactoryInterface */
+    private $userProfileViewFactory;
+
     public function __construct(
+        RequestProcessorInterface $updateUserRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         CustomerRepositoryInterface $loggedInUserProvider
     ) {
+        $this->updateUserRequestProcessor = $updateUserRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->userProfileViewFactory = $userProfileViewFactory;
         $this->customerRepository = $loggedInUserProvider;
+        $this->userProfileViewFactory = $userProfileViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $updateUserRequest = UpdateUserRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($updateUserRequest);
+        $validationResults = $this->updateUserRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -73,10 +71,13 @@ final class UpdateUserAction
             ));
         }
 
-        $this->bus->dispatch($updateUserRequest->command());
+        /** @var UpdateUser $updateUserCommand */
+        $updateUserCommand = $this->updateUserRequestProcessor->getCommand($request);
+
+        $this->bus->dispatch($updateUserCommand);
 
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['id' => $updateUserRequest->command()->customer()->id()]);
+        $customer = $this->customerRepository->findOneBy(['id' => $updateUserCommand->customer()->id()]);
 
         return $this->viewHandler->handle(View::create(
             $this->userProfileViewFactory->create($customer),

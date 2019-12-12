@@ -15,6 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -22,12 +23,11 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PullCartAction
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var RequestProcessorInterface */
+    private $pullCartRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -45,14 +45,14 @@ final class PullCartAction
     private $cartItemViewFactory;
 
     public function __construct(
-        ValidatorInterface $validator,
+        RequestProcessorInterface $pullCartRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         OrderRepositoryInterface $orderRepository,
         CartItemViewFactoryInterface $cartItemViewFactory
     ) {
-        $this->validator = $validator;
+        $this->pullCartRequestProcessor = $pullCartRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -62,9 +62,7 @@ final class PullCartAction
 
     public function __invoke(Request $request): Response
     {
-        $pullCartRequest = PullCartRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($pullCartRequest);
+        $validationResults = $this->pullCartRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -73,9 +71,12 @@ final class PullCartAction
             ));
         }
 
+        /** @var PullCartRequest $pullCartRequest */
+        $pullCartRequest = $this->pullCartRequestProcessor->getRequest($request);
+
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy([
-            'tokenValue' => $pullCartRequest->getCartId(),
+            'tokenValue' => $pullCartRequest->cartId,
             'state' => OrderInterface::STATE_CART,
         ]);
 

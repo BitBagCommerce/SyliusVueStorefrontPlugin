@@ -15,19 +15,18 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetPaymentMethodsRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class GetPaymentMethodsAction
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var RequestProcessorInterface */
+    private $getPaymentMethodsRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -48,7 +47,7 @@ final class GetPaymentMethodsAction
     private $paymentMethodViewFactory;
 
     public function __construct(
-        ValidatorInterface $validator,
+        RequestProcessorInterface $getPaymentMethodsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
@@ -56,7 +55,7 @@ final class GetPaymentMethodsAction
         PaymentMethodRepositoryInterface $paymentMethodRepository,
         PaymentMethodViewFactoryInterface $paymentMethodViewFactory
     ) {
-        $this->validator = $validator;
+        $this->getPaymentMethodsRequestProcessor = $getPaymentMethodsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -67,9 +66,7 @@ final class GetPaymentMethodsAction
 
     public function __invoke(Request $request): Response
     {
-        $getPaymentMethodsRequest = GetPaymentMethodsRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($getPaymentMethodsRequest);
+        $validationResults = $this->getPaymentMethodsRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(

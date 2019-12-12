@@ -15,19 +15,19 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Stock\CheckStock;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CheckStockAction
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var RequestProcessorInterface */
+    private $checkStockRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -45,14 +45,14 @@ final class CheckStockAction
     private $genericSuccessViewFactory;
 
     public function __construct(
-        ValidatorInterface $validator,
+        RequestProcessorInterface $checkStockRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         StockViewFactoryInterface $stockViewFactory,
         ProductVariantRepositoryInterface $productVariantRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
-        $this->validator = $validator;
+        $this->checkStockRequestProcessor = $checkStockRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->stockViewFactory = $stockViewFactory;
@@ -62,9 +62,7 @@ final class CheckStockAction
 
     public function __invoke(Request $request): Response
     {
-        $checkStockRequest = CheckStockRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($checkStockRequest);
+        $validationResults = $this->checkStockRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -73,8 +71,11 @@ final class CheckStockAction
             ));
         }
 
+        /** @var CheckStock $checkStockQuery */
+        $checkStockQuery = $this->checkStockRequestProcessor->getQuery($request);
+
         /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->productVariantRepository->findOneBy(['code' => $checkStockRequest->getSku()]);
+        $productVariant = $this->productVariantRepository->findOneBy(['code' => $checkStockQuery->sku()]);
 
         if (null === $productVariant) {
             return $this->viewHandler->handle(View::create(

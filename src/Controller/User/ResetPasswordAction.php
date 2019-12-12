@@ -13,21 +13,20 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\User\ResetPasswordRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ResetPasswordAction
 {
+    /** @var RequestProcessorInterface */
+    private $resetPasswordRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -36,22 +35,20 @@ final class ResetPasswordAction
     private $validationErrorViewFactory;
 
     public function __construct(
+        RequestProcessorInterface $resetPasswordRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
-        $this->viewHandler = $viewHandler;
+        $this->resetPasswordRequestProcessor = $resetPasswordRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
+        $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $resetPasswordRequest = ResetPasswordRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($resetPasswordRequest);
+        $validationResults = $this->resetPasswordRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -59,7 +56,7 @@ final class ResetPasswordAction
                 Response::HTTP_BAD_REQUEST
             ));
         }
-        $this->bus->dispatch($resetPasswordRequest->getCommand());
+        $this->bus->dispatch($this->resetPasswordRequestProcessor->getCommand($request));
 
         return $this->viewHandler->handle(View::create(null, Response::HTTP_OK));
     }

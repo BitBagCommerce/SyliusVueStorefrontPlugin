@@ -7,33 +7,36 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.create_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\CreateUserAction">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.create_user" />
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
             <argument type="service" id="sylius.repository.customer" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.processor.request" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.reset_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ResetPasswordAction">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.reset_password" />
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.change_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\ChangePasswordAction">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.change_password" />
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction">
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history_view_factory" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetUserAction">
             <argument type="service" id="fos_rest.view_handler" />
@@ -41,10 +44,11 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.update_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\UpdateUserAction">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.update_user" />
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
-            <argument type="service" id="validator" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory" />
