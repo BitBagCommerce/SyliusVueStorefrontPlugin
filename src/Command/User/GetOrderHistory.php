@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
-final class GetOrderHistory
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+final class GetOrderHistory implements CommandInterface
 {
     /** @var string|null */
     private $token;

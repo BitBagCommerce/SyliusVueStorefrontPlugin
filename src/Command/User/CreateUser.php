@@ -12,9 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 
-final class CreateUser
+final class CreateUser implements CommandInterface
 {
     /** @var NewCustomer */
     private $customer;

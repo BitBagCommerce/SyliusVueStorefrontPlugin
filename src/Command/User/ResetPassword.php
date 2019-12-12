@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
-final class ResetPassword
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+final class ResetPassword implements CommandInterface
 {
     /** @var string */
     private $email;

@@ -12,9 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
 
-final class UpdateUser
+final class UpdateUser implements CommandInterface
 {
     /** @var ExistingUser */
     private $customer;

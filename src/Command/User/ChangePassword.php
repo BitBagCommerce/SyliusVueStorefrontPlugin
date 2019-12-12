@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
-final class ChangePassword
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+final class ChangePassword implements CommandInterface
 {
     /** @var string */
     private $newPassword;
