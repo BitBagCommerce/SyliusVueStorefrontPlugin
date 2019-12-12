@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CollectTotals;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CollectTotalsRequest implements RequestInterface
+final class CollectTotalsRequest implements RequestCommandInterface
 {
     /** @var string|null */
     public $token;
@@ -26,7 +27,7 @@ final class CollectTotalsRequest implements RequestInterface
     /** @var array|null */
     public $methods;
 
-    public function getCommand(): CollectTotals
+    public function getCommand(): CommandInterface
     {
         return new CollectTotals($this->token, $this->cartId, $this->methods);
     }

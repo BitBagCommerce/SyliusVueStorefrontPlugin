@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class SetShippingInformationRequest implements RequestInterface
+final class SetShippingInformationRequest
 {
     /** @var string|null */
     public $token;

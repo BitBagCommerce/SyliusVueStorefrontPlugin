@@ -12,16 +12,17 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class UpdateUserRequest implements RequestInterface
+final class UpdateUserRequest implements RequestCommandInterface
 {
     /** @var ExistingUser */
     public $customer;
 
-    public function getCommand(): UpdateUser
+    public function getCommand(): CommandInterface
     {
         return new UpdateUser(ExistingUser::createFromArray($this->customer));
     }

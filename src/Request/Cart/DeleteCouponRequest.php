@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCoupon;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class DeleteCouponRequest implements RequestInterface
+final class DeleteCouponRequest implements RequestCommandInterface
 {
     /** @var string|null */
     public $token;
@@ -23,7 +24,7 @@ final class DeleteCouponRequest implements RequestInterface
     /** @var string */
     public $cartId;
 
-    public function getCommand(): DeleteCoupon
+    public function getCommand(): CommandInterface
     {
         return new DeleteCoupon($this->token, $this->cartId);
     }

@@ -12,10 +12,11 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ChangePasswordRequest implements RequestInterface
+final class ChangePasswordRequest implements RequestCommandInterface
 {
     /** @var string */
     public $currentPassword;
@@ -23,7 +24,7 @@ final class ChangePasswordRequest implements RequestInterface
     /** @var string */
     public $newPassword;
 
-    public function getCommand(): ChangePassword
+    public function getCommand(): CommandInterface
     {
         return new ChangePassword($this->newPassword);
     }

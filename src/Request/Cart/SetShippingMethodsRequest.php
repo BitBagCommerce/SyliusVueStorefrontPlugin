@@ -13,10 +13,11 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class SetShippingMethodsRequest implements RequestInterface
+final class SetShippingMethodsRequest implements RequestCommandInterface
 {
     /** @var string|null */
     public $token;
@@ -27,7 +28,7 @@ final class SetShippingMethodsRequest implements RequestInterface
     /** @var array|null */
     public $address;
 
-    public function getCommand(): SetShippingMethods
+    public function getCommand(): CommandInterface
     {
         return new SetShippingMethods($this->token, $this->cartId, $this->address);
     }

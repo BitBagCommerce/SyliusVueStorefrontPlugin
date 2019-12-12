@@ -12,10 +12,17 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Stock\CheckStock;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class CheckStockRequest implements RequestInterface
+final class CheckStockRequest implements RequestQueryInterface
 {
     /** @var string */
     public $sku;
+
+    public function getQuery(): QueryInterface
+    {
+        return new CheckStock($this->sku);
+    }
 }

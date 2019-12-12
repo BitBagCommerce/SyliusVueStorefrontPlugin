@@ -12,10 +12,17 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Stock\ListStocks;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class ListStocksRequest implements RequestInterface
+final class ListStocksRequest implements RequestQueryInterface
 {
     /** @var string */
     public $skus;
+
+    public function getQuery(): QueryInterface
+    {
+        return new ListStocks($this->skus);
+    }
 }

@@ -12,11 +12,12 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CreateUserRequest implements RequestInterface
+final class CreateUserRequest implements RequestCommandInterface
 {
     /** @var NewCustomer */
     public $customer;
@@ -24,7 +25,7 @@ final class CreateUserRequest implements RequestInterface
     /** @var string|null */
     public $password;
 
-    public function getCommand(): CreateUser
+    public function getCommand(): CommandInterface
     {
         return new CreateUser($this->customer, $this->password);
     }

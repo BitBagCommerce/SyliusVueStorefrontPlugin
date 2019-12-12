@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class UpdateCartRequest implements RequestInterface
+final class UpdateCartRequest implements RequestCommandInterface
 {
     /** @var string|null */
     public $token;
@@ -26,7 +27,7 @@ final class UpdateCartRequest implements RequestInterface
     /** @var array|null */
     public $cartItem;
 
-    public function getCommand(): UpdateCart
+    public function getCommand(): CommandInterface
     {
         return new UpdateCart($this->token, $this->cartId, $this->cartItem);
     }

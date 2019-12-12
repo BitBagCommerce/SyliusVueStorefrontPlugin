@@ -12,15 +12,16 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ResetPasswordRequest implements RequestInterface
+final class ResetPasswordRequest implements RequestCommandInterface
 {
     /** @var string */
     public $email;
 
-    public function getCommand(): ResetPassword
+    public function getCommand(): CommandInterface
     {
         return new ResetPassword($this->email);
     }

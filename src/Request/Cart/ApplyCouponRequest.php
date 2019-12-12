@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\ApplyCoupon;
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ApplyCouponRequest implements RequestInterface
+final class ApplyCouponRequest implements RequestCommandInterface
 {
     /** @var string|null */
     public $token;
@@ -26,7 +27,7 @@ final class ApplyCouponRequest implements RequestInterface
     /** @var string */
     public $coupon;
 
-    public function getCommand(): ApplyCoupon
+    public function getCommand(): CommandInterface
     {
         return new ApplyCoupon($this->token, $this->cartId, $this->coupon);
     }
