@@ -12,9 +12,11 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -22,15 +24,14 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateUserAction
 {
+    /** @var RequestProcessor */
+    private $createUserRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -45,15 +46,15 @@ final class CreateUserAction
     private $customerRepository;
 
     public function __construct(
+        RequestProcessorInterface $createUserRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         CustomerRepositoryInterface $customerRepository
     ) {
+        $this->createUserRequestProcessor = $createUserRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->userProfileViewFactory = $userProfileViewFactory;
@@ -62,9 +63,7 @@ final class CreateUserAction
 
     public function __invoke(Request $request): Response
     {
-        $user = CreateUserRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($user);
+        $validationResults = $this->createUserRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -73,10 +72,13 @@ final class CreateUserAction
             ));
         }
 
-        $this->bus->dispatch($user->getCommand());
+        /** @var CreateUser $createUserCommand */
+        $createUserCommand = $this->createUserRequestProcessor->getCommand($request);
+
+        $this->bus->dispatch($createUserCommand);
 
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['email' => $user->getCommand()->customer()->email()]);
+        $customer = $this->customerRepository->findOneBy(['email' => $createUserCommand->customer()->email]);
 
         return $this->viewHandler->handle(View::create(
             $this->userProfileViewFactory->create($customer),

@@ -13,21 +13,20 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\User\ChangePasswordRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ChangePasswordAction
 {
+    /** @var RequestProcessorInterface */
+    private $changePasswordRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -36,22 +35,20 @@ final class ChangePasswordAction
     private $validationErrorViewFactory;
 
     public function __construct(
+        RequestProcessorInterface $changePasswordRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory
     ) {
+        $this->changePasswordRequestProcessor = $changePasswordRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $changePasswordRequest = ChangePasswordRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($changePasswordRequest);
+        $validationResults = $this->changePasswordRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -60,7 +57,7 @@ final class ChangePasswordAction
             ));
         }
 
-        $this->bus->dispatch($changePasswordRequest->getCommand());
+        $this->bus->dispatch($this->changePasswordRequestProcessor->getCommand($request));
 
         return $this->viewHandler->handle(View::create(
             Response::HTTP_OK

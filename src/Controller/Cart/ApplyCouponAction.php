@@ -14,21 +14,20 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ApplyCouponAction
 {
+    /** @var RequestProcessorInterface */
+    private $applyCouponRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -40,14 +39,14 @@ final class ApplyCouponAction
     private $genericSuccessViewFactory;
 
     public function __construct(
+        RequestProcessorInterface $applyCouponRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
+        $this->applyCouponRequestProcessor = $applyCouponRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -55,9 +54,7 @@ final class ApplyCouponAction
 
     public function __invoke(Request $request): Response
     {
-        $applyCouponRequest = ApplyCouponRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($applyCouponRequest);
+        $validationResults = $this->applyCouponRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -66,7 +63,7 @@ final class ApplyCouponAction
             ));
         }
 
-        $applyCouponCommand = $applyCouponRequest->getCommand();
+        $applyCouponCommand = $this->applyCouponRequestProcessor->getCommand($request);
 
         $this->bus->dispatch($applyCouponCommand);
 

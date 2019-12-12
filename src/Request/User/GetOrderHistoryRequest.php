@@ -13,19 +13,15 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\GetOrderHistory;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class GetOrderHistoryRequest
+final class GetOrderHistoryRequest implements RequestQueryInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-    }
-
-    public function getCommand(): GetOrderHistory
+    public function getQuery(): QueryInterface
     {
         return new GetOrderHistory($this->token);
     }

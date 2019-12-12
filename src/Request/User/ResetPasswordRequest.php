@@ -12,25 +12,16 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ResetPasswordRequest
+final class ResetPasswordRequest implements RequestCommandInterface
 {
     /** @var string */
-    private $email;
+    public $email;
 
-    public function __construct(Request $request)
-    {
-        $this->email = $request->request->get('email');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function getCommand(): ResetPassword
+    public function getCommand(): CommandInterface
     {
         return new ResetPassword($this->email);
     }

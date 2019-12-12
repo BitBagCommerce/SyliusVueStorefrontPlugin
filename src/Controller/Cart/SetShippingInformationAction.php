@@ -15,21 +15,20 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingInformationRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SetShippingInformationAction
 {
+    /** @var RequestProcessorInterface */
+    private $setShippingInformationRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -44,15 +43,15 @@ final class SetShippingInformationAction
     private $shippingInformationViewFactory;
 
     public function __construct(
+        RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ShippingInformationViewFactoryInterface $shippingInformationViewFactory
     ) {
+        $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -61,9 +60,7 @@ final class SetShippingInformationAction
 
     public function __invoke(Request $request): Response
     {
-        $setShippingInformationRequest = SetShippingInformationRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($setShippingInformationRequest);
+        $validationResults = $this->setShippingInformationRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(

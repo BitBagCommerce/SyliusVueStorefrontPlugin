@@ -12,27 +12,18 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class UpdateUserRequest
+final class UpdateUserRequest implements RequestCommandInterface
 {
     /** @var ExistingUser */
-    private $customer;
+    public $customer;
 
-    public function __construct(Request $request)
+    public function getCommand(): CommandInterface
     {
-        $this->customer = $request->request->get('customer');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function command(): UpdateUser
-    {
-        return new UpdateUser(ExistingUser::createFromArray($this->customer));
+        return new UpdateUser($this->customer);
     }
 }

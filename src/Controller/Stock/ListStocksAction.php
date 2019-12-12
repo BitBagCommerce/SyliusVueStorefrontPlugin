@@ -15,18 +15,18 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Stock\ListStocksRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Stock\ListStocks;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ListStocksAction
 {
-    /** @var ValidatorInterface */
-    private $validator;
+    /** @var RequestProcessorInterface */
+    private $listStocksRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -44,14 +44,14 @@ final class ListStocksAction
     private $genericSuccessViewFactory;
 
     public function __construct(
-        ValidatorInterface $validator,
+        RequestProcessorInterface $listStocksRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         StockViewFactoryInterface $stockViewFactory,
         ProductVariantRepositoryInterface $productVariantRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
-        $this->validator = $validator;
+        $this->listStocksRequestProcessor = $listStocksRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->stockViewFactory = $stockViewFactory;
@@ -61,9 +61,7 @@ final class ListStocksAction
 
     public function __invoke(Request $request): Response
     {
-        $listStocksRequest = ListStocksRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($listStocksRequest);
+        $validationResults = $this->listStocksRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -72,7 +70,10 @@ final class ListStocksAction
             ));
         }
 
-        $productsVariantsCodes = $listStocksRequest->SKUsToArray();
+        /** @var ListStocks $listStocksQuery */
+        $listStocksQuery = $this->listStocksRequestProcessor->getQuery($request);
+
+        $productsVariantsCodes = $listStocksQuery->SKUsToArray();
 
         $productsVariants = $this->productVariantRepository->findby(['code' => $productsVariantsCodes]);
 

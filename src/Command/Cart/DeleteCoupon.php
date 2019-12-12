@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
-final class DeleteCoupon
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+final class DeleteCoupon implements CommandInterface
 {
     /** @var string|null */
     private $token;

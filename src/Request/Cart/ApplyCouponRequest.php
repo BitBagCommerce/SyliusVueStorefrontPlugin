@@ -13,43 +13,22 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\ApplyCoupon;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ApplyCouponRequest
+final class ApplyCouponRequest implements RequestCommandInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var string */
-    private $cartId;
+    public $cartId;
 
     /** @var string */
-    private $coupon;
+    public $coupon;
 
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-        $this->coupon = $request->query->get('coupon');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function getCommand(): ApplyCoupon
+    public function getCommand(): CommandInterface
     {
         return new ApplyCoupon($this->token, $this->cartId, $this->coupon);
-    }
-
-    public function getCartId(): string
-    {
-        return $this->cartId;
-    }
-
-    public function getCoupon(): string
-    {
-        return $this->coupon;
     }
 }

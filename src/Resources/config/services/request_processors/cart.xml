@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="false" public="false" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.apply_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.collect_totals"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\CollectTotalsRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.create_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\CreateCartRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.delete_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\DeleteCartRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.delete_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\DeleteCouponRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_payment_methods"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetPaymentMethodsRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.pull_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.set_shipping_information"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingInformationRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.set_shipping_methods"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingMethodsRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.update_cart"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\UpdateCartRequest</argument>
+        </service>
+    </services>
+</container>

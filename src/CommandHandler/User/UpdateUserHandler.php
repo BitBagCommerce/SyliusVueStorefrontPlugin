@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
@@ -52,20 +52,18 @@ final class UpdateUserHandler implements MessageHandlerInterface
     public function __invoke(UpdateUser $command): void
     {
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['id' => $command->customer()->id()]);
+        $customer = $this->customerRepository->findOneBy(['id' => $command->customer()->id]);
 
-        $customer->setFirstName($command->customer()->firstName());
-        $customer->setLastName($command->customer()->lastName());
+        $customer->setFirstName($command->customer()->firstname);
+        $customer->setLastName($command->customer()->lastname);
 
         $addresses = $command->customer()->addresses();
 
-        foreach ($addresses as $requestAddress) {
-            $address = Address::createFromArray($requestAddress);
-
+        foreach ($addresses as $address) {
             /** @var AddressInterface $syliusAddress */
             $syliusAddress = $customer->getAddresses()
                 ->matching(Criteria::create()
-                    ->where(Criteria::expr()->eq('id', $address->id())))
+                    ->where(Criteria::expr()->eq('id', $address->id)))
                 ->first()
             ;
 
@@ -73,16 +71,16 @@ final class UpdateUserHandler implements MessageHandlerInterface
                 $syliusAddress = $this->addressFactory->createForCustomer($customer);
             }
 
-            $syliusAddress->setProvinceCode((string) $address->regionId());
-            $syliusAddress->setProvinceName((string) $address->region()->region());
-            $syliusAddress->setCompany($address->company());
-            $syliusAddress->setPhoneNumber($address->telephone());
-            $syliusAddress->setPostcode($address->postcode());
-            $syliusAddress->setCountryCode($address->countryId());
-            $syliusAddress->setStreet($address->street());
-            $syliusAddress->setCity($address->city());
-            $syliusAddress->setFirstName($address->firstName());
-            $syliusAddress->setLastName($address->lastName());
+            $syliusAddress->setProvinceCode((string) $address->region_id);
+            $syliusAddress->setProvinceName((string) $address->region()->region);
+            $syliusAddress->setCompany($address->company);
+            $syliusAddress->setPhoneNumber($address->telephone);
+            $syliusAddress->setPostcode($address->postcode);
+            $syliusAddress->setCountryCode($address->country_id);
+            $syliusAddress->setStreet($address->street);
+            $syliusAddress->setCity($address->city);
+            $syliusAddress->setFirstName($address->firstname);
+            $syliusAddress->setLastName($address->lastname);
 
             $this->addressRepository->add($syliusAddress);
         }

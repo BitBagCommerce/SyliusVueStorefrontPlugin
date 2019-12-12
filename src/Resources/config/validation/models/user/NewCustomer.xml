@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ This file has been created by developers from BitBag.
+  ~  Feel free to contact us once you face any issues or want to start
+  ~  another great project.
+  ~ You can find more information about us on https://bitbag.io and write us
+  ~ an email on hello@bitbag.io.
+  -->
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer">
+        <property name="email">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.email.not_blank</option>
+            </constraint>
+            <constraint name="Email">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.email.invalid</option>
+            </constraint>
+            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserDoesNotExist" />
+        </property>
+        <property name="firstname">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.firstname.not_blank</option>
+            </constraint>
+        </property>
+        <property name="lastname">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.lastname.not_blank</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

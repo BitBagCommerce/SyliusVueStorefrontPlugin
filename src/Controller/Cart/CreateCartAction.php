@@ -14,21 +14,20 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\CreateCartRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CreateCartAction
 {
+    /** @var RequestProcessorInterface */
+    private $createCartRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -40,14 +39,14 @@ final class CreateCartAction
     private $genericSuccessViewFactory;
 
     public function __construct(
+        RequestProcessorInterface $createCartRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
+        $this->createCartRequestProcessor = $createCartRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -55,9 +54,7 @@ final class CreateCartAction
 
     public function __invoke(Request $request): Response
     {
-        $createCartRequest = CreateCartRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($createCartRequest);
+        $validationResults = $this->createCartRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -66,7 +63,7 @@ final class CreateCartAction
             ));
         }
 
-        $createCartCommand = $createCartRequest->getCommand();
+        $createCartCommand = $this->createCartRequestProcessor->getCommand($request);
 
         $this->bus->dispatch($createCartCommand);
 

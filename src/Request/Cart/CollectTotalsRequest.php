@@ -13,27 +13,21 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CollectTotals;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CollectTotalsRequest
+final class CollectTotalsRequest implements RequestCommandInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var int|string */
-    private $cartId;
+    public $cartId;
 
     /** @var array|null */
-    private $methods;
+    public $methods;
 
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-        $this->methods = $request->request->get('methods');
-    }
-
-    public function getCommand(): CollectTotals
+    public function getCommand(): CommandInterface
     {
         return new CollectTotals($this->token, $this->cartId, $this->methods);
     }

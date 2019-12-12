@@ -12,25 +12,17 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Stock;
 
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Stock\CheckStock;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class CheckStockRequest
+final class CheckStockRequest implements RequestQueryInterface
 {
     /** @var string */
-    private $sku;
+    public $sku;
 
-    public function __construct(Request $request)
+    public function getQuery(): QueryInterface
     {
-        $this->sku = $request->attributes->get('sku');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function getSku(): string
-    {
-        return $this->sku;
+        return new CheckStock($this->sku);
     }
 }

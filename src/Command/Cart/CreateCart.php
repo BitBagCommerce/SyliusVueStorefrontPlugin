@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
-final class CreateCart
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+final class CreateCart implements CommandInterface
 {
     /** @var string|null */
     private $token;

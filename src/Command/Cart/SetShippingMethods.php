@@ -12,9 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
 
-final class SetShippingMethods
+final class SetShippingMethods implements CommandInterface
 {
     /** @var string|null */
     private $token;

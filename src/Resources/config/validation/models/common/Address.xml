@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address">
+        <property name="id">
+            <constraint name="NotNull">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.id.not_blank</option>
+            </constraint>
+        </property>
+        <property name="customer_id">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.customer_id.not_blank</option>
+            </constraint>
+        </property>
+        <property name="region">
+            <constraint name="Valid" />
+        </property>
+        <property name="region_id">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region_id.not_blank</option>
+            </constraint>
+        </property>
+        <property name="country_id">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.country_id.not_blank</option>
+            </constraint>
+        </property>
+        <property name="street">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
+            </constraint>
+        </property>
+        <property name="company">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blankk</option>
+            </constraint>
+        </property>
+        <property name="postcode">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_blank</option>
+            </constraint>
+        </property>
+        <property name="city">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.city.not_blank</option>
+            </constraint>
+        </property>
+        <property name="firstname">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.firstname.not_blank</option>
+            </constraint>
+        </property>
+        <property name="lastname">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.lastname.not_blank</option>
+            </constraint>
+        </property>
+        <property name="vat_id">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.vat_id.not_blank</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>
