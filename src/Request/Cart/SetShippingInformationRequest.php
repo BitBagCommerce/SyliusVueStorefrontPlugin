@@ -13,28 +13,16 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class SetShippingInformationRequest
+final class SetShippingInformationRequest implements RequestInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var int|string */
-    private $cartId;
+    public $cartId;
 
     /** @var AddressInformation */
-    private $addressInformation;
-
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-        $this->addressInformation = $request->request->get('addressInformation');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
+    public $addressInformation;
 }

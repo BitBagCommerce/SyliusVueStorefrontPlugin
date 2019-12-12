@@ -13,26 +13,15 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class ChangePasswordRequest
+final class ChangePasswordRequest implements RequestInterface
 {
     /** @var string */
-    private $currentPassword;
+    public $currentPassword;
 
     /** @var string */
-    private $newPassword;
-
-    public function __construct(Request $request)
-    {
-        $this->currentPassword = $request->request->get('currentPassword');
-        $this->newPassword = $request->request->get('newPassword');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
+    public $newPassword;
 
     public function getCommand(): ChangePassword
     {

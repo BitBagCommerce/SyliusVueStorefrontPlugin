@@ -14,36 +14,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class CreateUserRequest
+final class CreateUserRequest implements RequestInterface
 {
     /** @var NewCustomer */
-    private $customer;
+    public $customer;
 
     /** @var string|null */
-    private $password;
-
-    public function __construct(Request $request)
-    {
-        $this->customer = $request->request->get('customer');
-        $this->password = $request->request->get('password');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function setCustomer(NewCustomer $customer): void
-    {
-        $this->customer = $customer;
-    }
-
-    public function setPassword(?string $password): void
-    {
-        $this->password = $password;
-    }
+    public $password;
 
     public function getCommand(): CreateUser
     {

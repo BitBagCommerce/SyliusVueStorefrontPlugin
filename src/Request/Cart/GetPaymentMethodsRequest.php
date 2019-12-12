@@ -12,29 +12,14 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class GetPaymentMethodsRequest
+final class GetPaymentMethodsRequest implements RequestInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var int|string */
-    private $cartId;
-
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
-    public function getCartId()
-    {
-        return $this->cartId;
-    }
+    public $cartId;
 }

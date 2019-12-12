@@ -13,26 +13,15 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCoupon;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class DeleteCouponRequest
+final class DeleteCouponRequest implements RequestInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var string */
-    private $cartId;
-
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
+    public $cartId;
 
     public function getCommand(): DeleteCoupon
     {

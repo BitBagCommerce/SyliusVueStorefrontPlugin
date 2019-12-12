@@ -13,25 +13,18 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use Symfony\Component\HttpFoundation\Request;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class UpdateCartRequest
+final class UpdateCartRequest implements RequestInterface
 {
     /** @var string|null */
-    private $token;
+    public $token;
 
     /** @var int|string */
-    private $cartId;
+    public $cartId;
 
     /** @var array|null */
-    private $cartItem;
-
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        $this->cartId = $request->query->get('cartId');
-        $this->cartItem = $request->request->get('cartItem');
-    }
+    public $cartItem;
 
     public function getCommand(): UpdateCart
     {
