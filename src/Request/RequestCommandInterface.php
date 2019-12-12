@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request;
 
-interface RequestInterface
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+
+interface RequestCommandInterface extends RequestInterface
 {
+    public function getCommand(): CommandInterface;
 }

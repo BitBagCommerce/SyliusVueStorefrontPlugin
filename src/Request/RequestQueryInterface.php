@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request;
 
-interface RequestInterface
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+
+interface RequestQueryInterface extends RequestInterface
 {
+    public function getQuery(): QueryInterface;
 }
