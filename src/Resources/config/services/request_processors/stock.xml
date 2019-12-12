@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="false" public="false" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.stock.check_stock"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Stock\CheckStockRequest</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.list_stocks"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Stock\ListStocksRequest</argument>
+        </service>
+    </services>
+</container>
