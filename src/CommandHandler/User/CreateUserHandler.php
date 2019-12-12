@@ -49,14 +49,14 @@ final class CreateUserHandler implements MessageHandlerInterface
 
     public function __invoke(CreateUser $command): void
     {
-        $this->assertEmailIsNotTaken($command->customer()->email());
+        $this->assertEmailIsNotTaken($command->customer()->email);
 
         /** @var CustomerInterface $customer */
         $customer = $this->customerFactory->createNew();
 
-        $customer->setFirstName($command->customer()->firstName());
-        $customer->setLastName($command->customer()->lastName());
-        $customer->setEmail($command->customer()->email());
+        $customer->setFirstName($command->customer()->firstname);
+        $customer->setLastName($command->customer()->lastname);
+        $customer->setEmail($command->customer()->email);
 
         $this->customerRepository->add($customer);
 
@@ -64,8 +64,8 @@ final class CreateUserHandler implements MessageHandlerInterface
         $user = $this->userFactory->createNew();
         $user->setPlainPassword($command->password());
         $user->setCustomer($customer);
-        $user->setUsername($command->customer()->email());
-        $user->setUsernameCanonical($command->customer()->email());
+        $user->setUsername($command->customer()->email);
+        $user->setUsernameCanonical($command->customer()->email);
         $user->setEnabled(true);
 
         $this->userRepository->add($user);
