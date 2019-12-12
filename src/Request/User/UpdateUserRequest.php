@@ -24,6 +24,6 @@ final class UpdateUserRequest implements RequestCommandInterface
 
     public function getCommand(): CommandInterface
     {
-        return new UpdateUser(ExistingUser::createFromArray($this->customer));
+        return new UpdateUser($this->customer);
     }
 }

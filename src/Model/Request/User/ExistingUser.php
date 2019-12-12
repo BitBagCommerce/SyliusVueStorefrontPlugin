@@ -12,186 +12,87 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 
 final class ExistingUser
 {
-    private const ID = 'id';
-    private const GROUP_ID = 'group_id';
-    private const DEFAULT_BILLING = 'default_billing';
-    private const DEFAULT_SHIPPING = 'default_shipping';
-    private const CREATED_AT = 'created_at';
-    private const UPDATED_AT = 'updated_at';
-    private const CREATED_IN = 'created_in';
-    private const EMAIL = 'email';
-    private const FIRST_NAME = 'firstname';
-    private const LAST_NAME = 'lastname';
-    private const STORE_ID = 'store_id';
-    private const WEBSITE_ID = 'website_id';
-    private const ADDRESSES = 'addresses';
-    private const DISABLE_AUTOMATIC_GROUP_CHANGE = 'disable_auto_group_change';
+    public const ID = 'id';
+    public const GROUP_ID = 'group_id';
+    public const DEFAULT_BILLING = 'default_billing';
+    public const DEFAULT_SHIPPING = 'default_shipping';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
+    public const CREATED_IN = 'created_in';
+    public const EMAIL = 'email';
+    public const FIRST_NAME = 'firstname';
+    public const LAST_NAME = 'lastname';
+    public const STORE_ID = 'store_id';
+    public const WEBSITE_ID = 'website_id';
+    public const ADDRESSES = 'addresses';
+    public const DISABLE_AUTOMATIC_GROUP_CHANGE = 'disable_auto_group_change';
 
     /** @var int */
-    private $id;
+    public $id;
 
     /** @var int */
-    private $groupId;
+    public $group_id;
 
     /** @var string|null */
-    private $defaultBilling;
+    public $default_billing;
 
     /** @var string|null */
-    private $defaultShipping;
+    public $default_shipping;
 
     /** @var \DateTime */
-    private $createdAt;
+    public $created_at;
 
     /** @var \DateTime */
-    private $updatedAt;
+    public $updated_at;
 
     /** @var string */
-    private $createdIn;
+    public $created_in;
 
     /** @var string */
-    private $email;
+    public $email;
 
     /** @var string */
-    private $firstName;
+    public $firstname;
 
     /** @var string */
-    private $lastName;
+    public $lastname;
 
     /** @var int */
-    private $storeId;
+    public $store_id;
 
     /** @var int */
-    private $websiteId;
+    public $website_id;
 
     /** @var Address[] */
-    private $addresses;
+    public $addresses;
 
     /** @var int */
-    private $disableAutomaticGroupChange;
+    public $disable_auto_group_change;
 
-    public function __construct(
-        int $id,
-        int $groupId,
-        ?string $defaultBilling,
-        ?string $defaultShipping,
-        \DateTime $createdAt,
-        \DateTime $updatedAt,
-        string $createdIn,
-        string $email,
-        string $firstName,
-        string $lastName,
-        int $storeId,
-        int $websiteId,
-        array $addresses,
-        int $disableAutomaticGroupChange
-    ) {
+    public function __construct(int $id, int $group_id, ?string $default_billing, ?string $default_shipping, \DateTime $created_at, \DateTime $updated_at, string $created_in, string $email, string $firstname, string $lastname, int $store_id, int $website_id, array $addresses, int $disable_auto_group_change)
+    {
         $this->id = $id;
-        $this->groupId = $groupId;
-        $this->defaultBilling = $defaultBilling;
-        $this->defaultShipping = $defaultShipping;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
-        $this->createdIn = $createdIn;
+        $this->group_id = $group_id;
+        $this->default_billing = $default_billing;
+        $this->default_shipping = $default_shipping;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
+        $this->created_in = $created_in;
         $this->email = $email;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->storeId = $storeId;
-        $this->websiteId = $websiteId;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->store_id = $store_id;
+        $this->website_id = $website_id;
         $this->addresses = $addresses;
-        $this->disableAutomaticGroupChange = $disableAutomaticGroupChange;
-    }
-
-    public static function createFromArray(array $existingUser): self
-    {
-        return new self(
-            $existingUser[self::ID],
-            $existingUser[self::GROUP_ID],
-            $existingUser[self::DEFAULT_BILLING],
-            $existingUser[self::DEFAULT_SHIPPING],
-            new \DateTime($existingUser[self::CREATED_AT]),
-            new \DateTime($existingUser[self::UPDATED_AT]),
-            $existingUser[self::CREATED_IN],
-            $existingUser[self::EMAIL],
-            $existingUser[self::FIRST_NAME],
-            $existingUser[self::LAST_NAME],
-            $existingUser[self::STORE_ID],
-            $existingUser[self::WEBSITE_ID],
-            $existingUser[self::ADDRESSES],
-            $existingUser[self::DISABLE_AUTOMATIC_GROUP_CHANGE]
-        );
-    }
-
-    public function id(): int
-    {
-        return $this->id;
-    }
-
-    public function groupId(): int
-    {
-        return $this->groupId;
-    }
-
-    public function defaultBilling(): ?string
-    {
-        return $this->defaultBilling;
-    }
-
-    public function defaultShipping(): ?string
-    {
-        return $this->defaultShipping;
-    }
-
-    public function createdAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function updatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function createdIn(): string
-    {
-        return $this->createdIn;
-    }
-
-    public function email(): string
-    {
-        return $this->email;
-    }
-
-    public function firstName(): string
-    {
-        return $this->firstName;
-    }
-
-    public function lastName(): string
-    {
-        return $this->lastName;
-    }
-
-    public function storeId(): int
-    {
-        return $this->storeId;
-    }
-
-    public function websiteId(): int
-    {
-        return $this->websiteId;
+        $this->disable_auto_group_change = $disable_auto_group_change;
     }
 
     public function addresses(): array
     {
         return $this->addresses;
-    }
-
-    public function disableAutomaticGroupChange(): int
-    {
-        return $this->disableAutomaticGroupChange;
     }
 }
