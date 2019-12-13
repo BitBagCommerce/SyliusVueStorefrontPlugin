@@ -55,7 +55,12 @@ final class RequestProcessor implements RequestProcessorInterface
 
     private function transformHttpRequest(Request $httpRequest): RequestInterface
     {
-        $requestBody = $this->serializer->decode($httpRequest->getContent(), self::FORMAT_JSON);
+        $requestBody = [];
+
+        if (!empty($httpRequest->getContent())) {
+            $requestBody = $this->serializer->decode($httpRequest->getContent(), self::FORMAT_JSON);
+        }
+
         return $this->serializer->denormalize(
             \array_merge($requestBody, $httpRequest->attributes->all(), $httpRequest->query->all()),
             $this->className
