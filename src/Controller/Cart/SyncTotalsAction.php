@@ -17,7 +17,6 @@ use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use BitBag\SyliusVueStorefrontPlugin\Query\Cart\SyncTotals;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\SyncTotalsRequest;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -60,7 +59,6 @@ final class SyncTotalsAction
         $this->orderRepository = $orderRepository;
         $this->totalsViewFactory = $totalsViewFactory;
     }
-
 
     public function __invoke(Request $request): Response
     {
