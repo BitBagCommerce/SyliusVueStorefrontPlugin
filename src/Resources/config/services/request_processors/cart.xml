@@ -54,5 +54,10 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
             <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\UpdateCartRequest</argument>
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.sync_totals"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SyncTotalsRequest</argument>
+        </service>
     </services>
 </container>
