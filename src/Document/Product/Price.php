@@ -76,37 +76,37 @@ final class Price
     private $originalPriceInludingTax;
 
     public function __construct(
-//        ?float $finalPrice,
-//        ?float $price,
-//        ?float $minimalPrice,
-//        ?float $maximalPrice,
-//        ?float $priceTax,
-//        ?float $priceIncludingTax,
-//        ?float $regularPrice,
-//        ?float $minimalRegularPrice,
-//        ?float $maximalRegularPrice,
-//        ?float $specialPrice,
-//        ?float $specialPriceTax,
-//        ?float $specialPriceIncludingTax,
-//        ?float $originalPrice,
-//        ?float $originalPriceTax,
-//        ?float $originalPriceInludingTax
+        ?float $finalPrice,
+        ?float $price,
+        ?float $minimalPrice,
+        ?float $maximalPrice,
+        ?float $priceTax,
+        ?float $priceIncludingTax,
+        ?float $regularPrice,
+        ?float $minimalRegularPrice,
+        ?float $maximalRegularPrice,
+        ?float $specialPrice,
+        ?float $specialPriceTax,
+        ?float $specialPriceIncludingTax,
+        ?float $originalPrice,
+        ?float $originalPriceTax,
+        ?float $originalPriceInludingTax
     ) {
-//        $this->finalPrice = $finalPrice;
-//        $this->price = $price;
-//        $this->minimalPrice = $minimalPrice;
-//        $this->maximalPrice = $maximalPrice;
-//        $this->priceTax = $priceTax;
-//        $this->priceIncludingTax = $priceIncludingTax;
-//        $this->regularPrice = $regularPrice;
-//        $this->minimalRegularPrice = $minimalRegularPrice;
-//        $this->maximalRegularPrice = $maximalRegularPrice;
-//        $this->specialPrice = $specialPrice;
-//        $this->specialPriceTax = $specialPriceTax;
-//        $this->specialPriceIncludingTax = $specialPriceIncludingTax;
-//        $this->originalPrice = $originalPrice;
-//        $this->originalPriceTax = $originalPriceTax;
-//        $this->originalPriceInludingTax = $originalPriceInludingTax;
+        $this->finalPrice = $finalPrice;
+        $this->price = $price;
+        $this->minimalPrice = $minimalPrice;
+        $this->maximalPrice = $maximalPrice;
+        $this->priceTax = $priceTax;
+        $this->priceIncludingTax = $priceIncludingTax;
+        $this->regularPrice = $regularPrice;
+        $this->minimalRegularPrice = $minimalRegularPrice;
+        $this->maximalRegularPrice = $maximalRegularPrice;
+        $this->specialPrice = $specialPrice;
+        $this->specialPriceTax = $specialPriceTax;
+        $this->specialPriceIncludingTax = $specialPriceIncludingTax;
+        $this->originalPrice = $originalPrice;
+        $this->originalPriceTax = $originalPriceTax;
+        $this->originalPriceInludingTax = $originalPriceInludingTax;
     }
 
     public function toArray(): array

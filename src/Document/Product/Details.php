@@ -22,7 +22,6 @@ final class Details
     private const SKU = 'sku';
     private const NAME = 'name';
     private const ATTRIBUTE_SET_ID = 'attribute_set_id';
-    private const PRICE = 'price';
     private const STATUS = 'status';
     private const VISIBILITY = 'visibility';
     private const TYPE = 'type_id';
@@ -134,10 +133,6 @@ final class Details
 
     /** @var string */
     private $name;
-
-//    TODO PRICE NEEDS TO BE FLOAT, NOT INT
-    /** @var float */
-    private $price;
 
     /** @var int */
     private $status;
@@ -317,11 +312,10 @@ final class Details
         string $sku,
         string $urlKey,
         string $name,
-        float $price,
         ?int $status,
         ?int $visibility,
-        \DateTime $createdAt,
-        \DateTime $updatedAt,
+        \DateTimeInterface $createdAt,
+        \DateTimeInterface $updatedAt,
         int $weight,
         string $ean,
         ?string $image,
@@ -345,7 +339,6 @@ final class Details
         $this->sku = $sku;
         $this->urlKey = $urlKey;
         $this->name = $name;
-        $this->price = $price;
         $this->status = $status ?? self::DEFAULT_STATUS;
         $this->visibility = $visibility ?? self::DEFAULT_VISIBILITY;
         $this->createdAt = $createdAt;
@@ -379,7 +372,6 @@ final class Details
             self::SKU => $this->sku,
             self::URL_KEY => $this->urlKey,
             self::NAME => $this->name,
-            self::PRICE => $this->price,
             self::STATUS => $this->status,
             self::VISIBILITY => $this->visibility,
 //            self::CREATED_AT => $this->createdAt,

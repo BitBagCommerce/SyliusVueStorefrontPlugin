@@ -31,8 +31,8 @@ final class TaxRatesTransformer implements TaxRatesTransformerInterface
                 $taxRate->getCode(),
                 (int) $taxRate->getAmountAsPercentage(),
                 ('country' === $taxRate->getZone()->getType()) ? $taxRate->getZone()->getName() : null,
-                5,
-                5,
+                ('province' === $taxRate->getZone()->getType()) ? $taxRate->getZone()->getId() : 0,
+                0, //postcode
                 false,
                 null,
                 null

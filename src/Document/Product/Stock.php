@@ -144,54 +144,54 @@ final class Stock implements \JsonSerializable
         int $id,
         int $quantity,
         int $productId,
-        int $itemId
-//        bool $isInStock,
-//        int $minimalSaleQuantity,
-//        int $maximalSaleQuantity,
-//        int $quantityIncrements,
-//        bool $enableQuantityIncrements,
-//        bool $statusChangesAutomatically,
-//        bool $showDefaultNotificationMessage,
-//        int $lowQuantityNotificationThreshold,
-//        ?\DateTime $lowQuantityDate,
-//        bool $manageStock,
-//        int $minimalQuantity,
-//        int $backorders,
-//        bool $isDividableForShipping,
-//        bool $useConfigMinimalSaleQuantity,
-//        bool $useConfigMaximalSaleQuantity,
-//        bool $useConfigQuantityIncrements,
-//        bool $useConfigEnableQuantityIncrements,
-//        bool $useConfigMinimalQuantity,
-//        bool $useConfigLowQuantityNotificationThreshold,
-//        bool $useConfigBackorders,
-//        bool $useConfigManageStock
+        int $itemId,
+        bool $isInStock,
+        int $minimalSaleQuantity,
+        int $maximalSaleQuantity,
+        int $quantityIncrements,
+        bool $enableQuantityIncrements,
+        bool $statusChangesAutomatically,
+        bool $showDefaultNotificationMessage,
+        int $lowQuantityNotificationThreshold,
+        ?\DateTime $lowQuantityDate,
+        bool $manageStock,
+        int $minimalQuantity,
+        int $backorders,
+        bool $isDividableForShipping,
+        bool $useConfigMinimalSaleQuantity,
+        bool $useConfigMaximalSaleQuantity,
+        bool $useConfigQuantityIncrements,
+        bool $useConfigEnableQuantityIncrements,
+        bool $useConfigMinimalQuantity,
+        bool $useConfigLowQuantityNotificationThreshold,
+        bool $useConfigBackorders,
+        bool $useConfigManageStock
     ) {
         $this->id = $id;
         $this->quantity = $quantity;
         $this->productId = $productId;
         $this->itemId = $itemId;
-//        $this->isInStock = $isInStock;
-//        $this->minimalSaleQuantity = $minimalSaleQuantity;
-//        $this->maximalSaleQuantity = $maximalSaleQuantity;
-//        $this->quantityIncrements = $quantityIncrements;
-//        $this->enableQuantityIncrements = $enableQuantityIncrements;
-//        $this->statusChangesAutomatically = $statusChangesAutomatically;
-//        $this->showDefaultNotificationMessage = $showDefaultNotificationMessage;
-//        $this->lowQuantityNotificationThreshold = $lowQuantityNotificationThreshold;
-//        $this->lowQuantityDate = $lowQuantityDate;
-//        $this->manageStock = $manageStock;
-//        $this->minimalQuantity = $minimalQuantity;
-//        $this->backorders = $backorders;
-//        $this->isDividableForShipping = $isDividableForShipping;
-//        $this->useConfigMinimalSaleQuantity = $useConfigMinimalSaleQuantity;
-//        $this->useConfigMaximalSaleQuantity = $useConfigMaximalSaleQuantity;
-//        $this->useConfigQuantityIncrements = $useConfigQuantityIncrements;
-//        $this->useConfigEnableQuantityIncrements = $useConfigEnableQuantityIncrements;
-//        $this->useConfigMinimalQuantity = $useConfigMinimalQuantity;
-//        $this->useConfigLowQuantityNotificationThreshold = $useConfigLowQuantityNotificationThreshold;
-//        $this->useConfigBackorders = $useConfigBackorders;
-//        $this->useConfigManageStock = $useConfigManageStock;
+        $this->isInStock = $isInStock;
+        $this->minimalSaleQuantity = $minimalSaleQuantity;
+        $this->maximalSaleQuantity = $maximalSaleQuantity;
+        $this->quantityIncrements = $quantityIncrements;
+        $this->enableQuantityIncrements = $enableQuantityIncrements;
+        $this->statusChangesAutomatically = $statusChangesAutomatically;
+        $this->showDefaultNotificationMessage = $showDefaultNotificationMessage;
+        $this->lowQuantityNotificationThreshold = $lowQuantityNotificationThreshold;
+        $this->lowQuantityDate = $lowQuantityDate;
+        $this->manageStock = $manageStock;
+        $this->minimalQuantity = $minimalQuantity;
+        $this->backorders = $backorders;
+        $this->isDividableForShipping = $isDividableForShipping;
+        $this->useConfigMinimalSaleQuantity = $useConfigMinimalSaleQuantity;
+        $this->useConfigMaximalSaleQuantity = $useConfigMaximalSaleQuantity;
+        $this->useConfigQuantityIncrements = $useConfigQuantityIncrements;
+        $this->useConfigEnableQuantityIncrements = $useConfigEnableQuantityIncrements;
+        $this->useConfigMinimalQuantity = $useConfigMinimalQuantity;
+        $this->useConfigLowQuantityNotificationThreshold = $useConfigLowQuantityNotificationThreshold;
+        $this->useConfigBackorders = $useConfigBackorders;
+        $this->useConfigManageStock = $useConfigManageStock;
     }
 
     public function jsonSerialize(): array
