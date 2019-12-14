@@ -18,6 +18,7 @@ use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\InventoryT
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductAssociationsToLinksTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductDetailsTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOptionsToConfigurableOptionsTransformerInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantPricesTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\TaxonsToCategoriesTransformerInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -45,6 +46,9 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
     /** @var ProductAssociationsToLinksTransformerInterface */
     private $productAssociationsTransformer;
 
+    /** @var ProductVariantPricesTransformerInterface */
+    private $productVariantPricesTransformer;
+
     public function __construct(
         ProductDetailsTransformerInterface $productDetailsTransformer,
         InventoryToStockTransformerInterface $inventoryTransformer,
@@ -52,7 +56,8 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         TaxonsToCategoriesTransformerInterface $taxonsTransformer,
         ProductVariantsToConfigurableChildrenTransformerInterface $productVariantsTransformer,
         ProductOptionsToConfigurableOptionsTransformerInterface $productOptionsTransformer,
-        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer
+        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer,
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer
     ) {
         $this->productDetailsTransformer = $productDetailsTransformer;
         $this->inventoryTransformer = $inventoryTransformer;
@@ -61,6 +66,7 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         $this->productVariantsTransformer = $productVariantsTransformer;
         $this->productOptionsTransformer = $productOptionsTransformer;
         $this->productAssociationsTransformer = $productAssociationsTransformer;
+        $this->productVariantPricesTransformer = $productVariantPricesTransformer;
     }
 
     public function transform(ProductInterface $syliusProduct): Product
@@ -72,7 +78,7 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         $configurableChildren = $this->productVariantsTransformer->transform($syliusProduct->getVariants());
         $configurableOptions = $this->productOptionsTransformer->transform($syliusProduct->getOptions());
         $productLinks = $this->productAssociationsTransformer->transform($syliusProduct->getAssociations());
-        $price = new Product\Price();
+        $price = $this->productVariantPricesTransformer->transform($syliusProduct->getVariants()->first());
         $stockItem = new Product\StockItem();
 
         return new Product(

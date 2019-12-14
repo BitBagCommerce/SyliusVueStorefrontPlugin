@@ -13,19 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Details;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 
 final class ProductDetailsTransformer implements ProductDetailsTransformerInterface
 {
-    /** @var ChannelContextInterface */
-    private $channelContext;
-
-    public function __construct(ChannelContextInterface $channelContext)
-    {
-        $this->channelContext = $channelContext;
-    }
-
     public function transform(ProductInterface $product): Details
     {
         return new Details(
@@ -36,7 +27,6 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             $product->getCode(),
             $product->getSlug(),
             $product->getName(),
-            $product->getVariants()->first()->getChannelPricingForChannel($this->channelContext->getChannel())->getPrice(),
             null,
             null,
             $product->getCreatedAt(),

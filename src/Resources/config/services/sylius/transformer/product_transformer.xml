@@ -21,20 +21,30 @@
                       id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.options" />
             <argument type="service"
                       id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.associations" />
+            <argument type="service"
+                      id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.prices" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.details"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductDetailsTransformer">
-            <argument type="service" id="sylius.context.channel" />
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.prices"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantPricesTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.variants"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.prices" />
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.inventory"
                  class="\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\InventoryToStockTransformer" />
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.images"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ImagesToMediaGalleryTransformer" />
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.taxons"
                  class="\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\TaxonsToCategoriesTransformer" />
-        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.variants"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformer" />
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.options"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOptionsToConfigurableOptionsTransformer" />
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.associations"
