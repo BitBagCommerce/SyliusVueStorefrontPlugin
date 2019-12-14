@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest;
+use BitBag\SyliusVueStorefrontPlugin\Query\Cart\PullCart;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -71,12 +71,12 @@ final class PullCartAction
             ));
         }
 
-        /** @var PullCartRequest $pullCartRequest */
-        $pullCartRequest = $this->pullCartRequestProcessor->getRequest($request);
+        /** @var PullCart $pullCartRequest */
+        $pullCartRequest = $this->pullCartRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy([
-            'tokenValue' => $pullCartRequest->cartId,
+            'tokenValue' => $pullCartRequest->cartId(),
             'state' => OrderInterface::STATE_CART,
         ]);
 

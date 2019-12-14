@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
-
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;

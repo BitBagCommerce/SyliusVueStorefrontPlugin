@@ -15,7 +15,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingMethods;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 final class SetShippingMethodsRequest implements RequestCommandInterface
 {

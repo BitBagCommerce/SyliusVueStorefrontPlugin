@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Generator\UuidGeneratorInteface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -38,18 +40,23 @@ final class CreateCartAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
+    /** @var UuidGeneratorInteface */
+    private $uuidGenerator;
+
     public function __construct(
         RequestProcessorInterface $createCartRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        UuidGeneratorInteface $uuidGenerator
     ) {
         $this->createCartRequestProcessor = $createCartRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->uuidGenerator = $uuidGenerator;
     }
 
     public function __invoke(Request $request): Response
@@ -63,7 +70,9 @@ final class CreateCartAction
             ));
         }
 
+        /** @var CreateCart $createCartCommand */
         $createCartCommand = $this->createCartRequestProcessor->getCommand($request);
+        $createCartCommand->setCartId($this->uuidGenerator->generate());
 
         $this->bus->dispatch($createCartCommand);
 

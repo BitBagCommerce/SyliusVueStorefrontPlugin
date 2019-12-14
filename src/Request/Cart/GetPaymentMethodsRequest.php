@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
-use Symfony\Component\HttpFoundation\Request;
-
 final class GetPaymentMethodsRequest
 {
     /** @var string */

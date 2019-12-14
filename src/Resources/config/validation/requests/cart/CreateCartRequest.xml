@@ -9,11 +9,11 @@
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.token.not_null</option>
             </constraint>
         </property>
-        <property name="cartId">
-            <constraint name="NotNull">
-                <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_id.not_null</option>
-            </constraint>
-            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartTokenValueIsNotUsed" />
-        </property>
+<!--        <property name="cartId">-->
+<!--            <constraint name="NotNull">-->
+<!--                <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_id.not_null</option>-->
+<!--            </constraint>-->
+<!--            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartTokenValueIsNotUsed" />-->
+<!--        </property>-->
     </class>
 </constraint-mapping>

@@ -12,13 +12,20 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\Cart\PullCart;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class PullCartRequest
+final class PullCartRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;
 
     /** @var int|string */
     public $cartId;
+
+    public function getQuery(): QueryInterface
+    {
+        return new PullCart($this->token, $this->cartId);
+    }
 }

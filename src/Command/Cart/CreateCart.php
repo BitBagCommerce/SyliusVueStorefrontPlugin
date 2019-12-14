@@ -22,15 +22,19 @@ final class CreateCart implements CommandInterface
     /** @var string */
     private $cartId;
 
-    public function __construct(?string $token, string $cartId)
+    public function __construct(?string $token)
     {
         $this->token = $token;
-        $this->cartId = $cartId;
     }
 
     public function token(): ?string
     {
         return $this->token;
+    }
+
+    public function setCartId(string $cartId): void
+    {
+        $this->cartId = $cartId;
     }
 
     public function cartId(): string

@@ -14,33 +14,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
-use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CreateCartFactory;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
-use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\Request;
 
 final class CreateCartRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;
 
-    /** @var string */
-    public $cartId;
-
-    public function __construct(Request $request)
-    {
-        $this->token = $request->query->get('token');
-        //$this->cartId = Uuid::uuid4()->toString();
-    }
-
-    public static function fromHttpRequest(Request $request): self
-    {
-        return new self($request);
-    }
-
     public function getCommand(): CommandInterface
     {
-        //return new CreateCart($this->token, $this->cartId);
-        return (new CreateCartFactory())->createFromDTO($this);
+        return new CreateCart($this->token);
     }
 }
