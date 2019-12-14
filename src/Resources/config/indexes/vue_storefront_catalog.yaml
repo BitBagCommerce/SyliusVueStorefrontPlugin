@@ -1,10 +1,10 @@
 fos_elastica:
     clients:
-        default: { host: '%env(ELASTICSEARCH_HOST)%', port: 9200 }
+        default: { host: '%env(ELASTICSEARCH_HOST)%', port: '%env(ELASTICSEARCH_PORT)%' }
 
     indexes:
         bitbag_vue_storefront_catalog:
-            index_name: "vue_storefront_catalog"
+            index_name: "%env(ELASTICSEARCH_INDEX)%"
             types:
                 product:
                     indexable_callback: ['@bitbag_sylius_vue_storefront_plugin.checker.product_in_channel']
