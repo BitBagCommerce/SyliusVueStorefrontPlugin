@@ -8,6 +8,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "friendsofsymfony/elastica-bundle": "^5.0",
+        "ruflin/elastica": "^5.3",
         "sylius/sylius": "^1.6",
         "nelmio/cors-bundle": "^1.5",
         "symfony/messenger": "^4.4",
