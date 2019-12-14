@@ -22,3 +22,7 @@ guest_cart_module:
 image_module:
     resource: api/image.yml
     prefix: /image
+
+catalog_module:
+    resource: api/catalog.yml
+    prefix: /catalog

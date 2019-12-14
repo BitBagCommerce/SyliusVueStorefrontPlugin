@@ -1,0 +1,14 @@
+catalog_get_index:
+    path: /{index}/_search
+    methods: GET
+    controller: bitbag_sylius_vue_storefront_plugin.api.catalog.get_catalog
+    requirements:
+        index: '%elasticsearch_index%'
+
+catalog_get_type:
+    path: /{index}/{type}/_search
+    methods: GET
+    controller: bitbag_sylius_vue_storefront_plugin.api.catalog.get_catalog
+    requirements:
+        index: '%elasticsearch_index%'
+        type: product|category
