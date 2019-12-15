@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="false" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_extension_attributes_view_factory"
+                class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderExtensionAttributesViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_assignment_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_extension_attributes_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.payment_view_factory" />
+
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.payment_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\PaymentViewFactory">
+        </service>
+
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_assignment_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingAssignmentViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_total_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingTotalViewFactory">
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_total_view_factory" />
+        </service>
+    </services>
+</container>

@@ -1,5 +1,5 @@
 stock_check:
-    path: /check/{sku}
+    path: /check
     methods: GET
     controller: bitbag_sylius_vue_storefront_plugin.api.stock.check_stock
 

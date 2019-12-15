@@ -10,12 +10,18 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
+namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
-use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
-use Sylius\Component\Core\Model\CustomerInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
-interface OrderHistoryViewFactoryInterface
+final class ShippingView
 {
-    public function create(CustomerInterface $syliusCustomer): OrderHistoryView;
+    /** @var AddressView */
+    public $address;
+
+    /** @var string */
+    public $method;
+
+    /** @var ShippingTotalView */
+    public $total;
 }

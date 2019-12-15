@@ -22,11 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GetUserAction
 {
-    /** @var ViewHandlerInterface */
-    private $viewHandler;
-
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInShopUserProvider;
+
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
 
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
@@ -35,13 +35,13 @@ final class GetUserAction
     private $genericSuccessViewFactory;
 
     public function __construct(
-        ViewHandlerInterface $viewHandler,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
+        ViewHandlerInterface $viewHandler,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
-        $this->viewHandler = $viewHandler;
         $this->loggedInShopUserProvider = $loggedInShopUserProvider;
+        $this->viewHandler = $viewHandler;
         $this->userProfileViewFactory = $userProfileViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }

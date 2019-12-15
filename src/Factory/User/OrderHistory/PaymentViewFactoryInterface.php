@@ -10,12 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
+namespace BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory;
 
-use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
-use Sylius\Component\Core\Model\CustomerInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\PaymentView;
+use Sylius\Component\Core\Model\PaymentInterface;
 
-interface OrderHistoryViewFactoryInterface
+interface PaymentViewFactoryInterface
 {
-    public function create(CustomerInterface $syliusCustomer): OrderHistoryView;
+    public function create(PaymentInterface $syliusPayment): PaymentView;
 }

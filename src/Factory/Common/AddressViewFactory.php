@@ -31,7 +31,7 @@ final class AddressViewFactory implements AddressViewFactoryInterface
         $addressView = new AddressView();
         $addressView->id = $syliusAddress->getId();
         $addressView->region = $this->regionView->create($syliusAddress);
-        $addressView->customer_id = $syliusAddress->getCustomer()->getId();
+        $addressView->customer_id = $syliusAddress->getCustomer() ? $syliusAddress->getCustomer()->getId() : 0;
         $addressView->country_id = $syliusAddress->getCountryCode();
         $addressView->street = $syliusAddress->getStreet();
         $addressView->postcode = $syliusAddress->getPostcode();

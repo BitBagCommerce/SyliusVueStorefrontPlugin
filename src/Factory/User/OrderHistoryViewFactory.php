@@ -12,19 +12,36 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
 {
-    public function __construct()
-    {
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var OrderViewFactoryInterface */
+    private $orderViewFactory;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepository,
+        OrderViewFactoryInterface $orderViewFactory
+    ) {
+        $this->orderRepository = $orderRepository;
+        $this->orderViewFactory = $orderViewFactory;
     }
 
-    public function create(): OrderHistoryView
+    public function create(CustomerInterface $syliusCustomer): OrderHistoryView
     {
         $orderHistoryView = new OrderHistoryView();
-        $orderHistoryView->items = [];
-        $orderHistoryView->total_count = 0;
+
+        $customerOrders = $this->orderRepository->findByCustomer($syliusCustomer);
+
+        $orderHistoryView->items = $this->orderViewFactory->createList($customerOrders);
+        $orderHistoryView->total_count = count($customerOrders);
+        $orderHistoryView->search_criteria = [];
 
         return $orderHistoryView;
     }

@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistoryViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,18 +28,32 @@ final class GetOrderHistoryAction
     /** @var OrderHistoryViewFactoryInterface */
     private $orderHistoryViewFactory;
 
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     public function __construct(
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         ViewHandlerInterface $viewHandler,
-        OrderHistoryViewFactoryInterface $orderHistoryViewFactory
+        OrderHistoryViewFactoryInterface $orderHistoryViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->viewHandler = $viewHandler;
         $this->orderHistoryViewFactory = $orderHistoryViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
+        $user = $this->loggedInShopUserProvider->provide()->getCustomer();
+
         return $this->viewHandler->handle(View::create(
-            $this->orderHistoryViewFactory->create()
+            $this->genericSuccessViewFactory->create(
+                $this->orderHistoryViewFactory->create($user)),
+            Response::HTTP_OK
         ));
     }
 }
