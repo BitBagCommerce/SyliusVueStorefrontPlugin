@@ -23,6 +23,9 @@ final class UpdateCart implements CommandInterface
     /** @var string|null */
     private $cartId;
 
+    /** @var string */
+    private $orderItemUuid;
+
     /** @var CartItem */
     private $cartItem;
 
@@ -46,5 +49,15 @@ final class UpdateCart implements CommandInterface
     public function cartItem(): CartItem
     {
         return $this->cartItem;
+    }
+
+    public function getOrderItemUuid(): string
+    {
+        return $this->orderItemUuid;
+    }
+
+    public function setOrderItemUuid(string $orderItemUuid): void
+    {
+        $this->orderItemUuid = $orderItemUuid;
     }
 }

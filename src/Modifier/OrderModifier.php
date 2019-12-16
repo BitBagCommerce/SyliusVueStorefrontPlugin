@@ -46,18 +46,21 @@ final class OrderModifier implements OrderModifierInterface
         $this->orderManager = $orderManager;
     }
 
-    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity): void
+    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity, string $uuid): void
     {
         $cartItem = $this->getCartItemToModify($order, $productVariant);
         if (null !== $cartItem) {
             $this->orderItemQuantityModifier->modify($cartItem, $cartItem->getQuantity() + $quantity);
+            $cartItem->setUuid($uuid);
             $this->orderProcessor->process($order);
+            $this->orderManager->persist($order);
 
             return;
         }
 
         $cartItem = $this->cartItemFactory->createForCart($order);
         $cartItem->setVariant($productVariant);
+        $cartItem->setUuid($uuid);
         $this->orderItemQuantityModifier->modify($cartItem, $quantity);
 
         $order->addItem($cartItem);
