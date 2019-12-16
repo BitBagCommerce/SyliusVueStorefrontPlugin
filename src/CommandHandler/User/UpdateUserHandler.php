@@ -76,7 +76,7 @@ final class UpdateUserHandler implements MessageHandlerInterface
             $syliusAddress->setPhoneNumber($address->telephone);
             $syliusAddress->setPostcode($address->postcode);
             $syliusAddress->setCountryCode($address->country_id);
-            $syliusAddress->setStreet($address->street);
+            $syliusAddress->setStreet(\implode('', $address->street));
             $syliusAddress->setCity($address->city);
             $syliusAddress->setFirstName($address->firstname);
             $syliusAddress->setLastName($address->lastname);

@@ -4,22 +4,23 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address\Region">
-        <property name="region_code">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_code.not_blank</option>
-            </constraint>
-        </property>
-        <property name="region">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region.not_blank</option>
-            </constraint>
-        </property>
-        <property name="region_id">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_id.not_blank</option>
-            </constraint>
-        </property>
+<!--        <property name="region_code">-->
+<!--            <constraint name="NotBlank">-->
+<!--                <option name="allowNull">true</option>-->
+<!--                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_code.not_blank</option>-->
+<!--            </constraint>-->
+<!--        </property>-->
+<!--        <property name="region">-->
+<!--            <constraint name="NotBlank">-->
+<!--                <option name="allowNull">true</option>-->
+<!--                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region.not_blank</option>-->
+<!--            </constraint>-->
+<!--        </property>-->
+<!--        <property name="region_id">-->
+<!--            <constraint name="NotBlank">-->
+<!--                <option name="allowNull">true</option>-->
+<!--                <option name="message">bitbag.vue_storefront_api.sylius.user.address.region.region_id.not_blank</option>-->
+<!--            </constraint>-->
+<!--        </property>-->
     </class>
 </constraint-mapping>

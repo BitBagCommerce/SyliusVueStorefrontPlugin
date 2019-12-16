@@ -23,8 +23,7 @@
             </constraint>
         </property>
         <property name="default_shipping">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
+            <constraint name="NotNull">
                 <option name="message">bitbag.vue_storefront_api.sylius.user.default_shipping.not_blank</option>
             </constraint>
         </property>
@@ -40,6 +39,7 @@
         </property>
         <property name="created_in">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.created_in.not_blank</option>
             </constraint>
         </property>
@@ -50,7 +50,7 @@
             <constraint name="Email">
                 <option name="message">bitbag.vue_storefront_api.sylius.user.email.invalid</option>
             </constraint>
-            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ShopUserDoesNotExist" />
+            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CustomersEmailBelongsToCurrentShopUser" />
         </property>
         <property name="firstname">
             <constraint name="NotBlank">

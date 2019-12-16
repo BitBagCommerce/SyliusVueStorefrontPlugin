@@ -18,6 +18,7 @@ bitbag:
                     not_blank: Please enter your email.
                     invalid: Please enter valid email.
                     unique: This email is already in use.
+                    valid_email: Please provide valid email.
                 firstname:
                     not_blank: Please enter first name.
                 lastname:
