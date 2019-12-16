@@ -28,7 +28,7 @@ final class DeleteCartHandler implements MessageHandlerInterface
 
     public function __invoke(DeleteCart $deleteCart): void
     {
-        $orderItemToRemove = $this->orderItemRepository->findOneBy(['id' => $deleteCart->getCartItem()->itemId()]);
+        $orderItemToRemove = $this->orderItemRepository->findOneBy(['id' => $deleteCart->cartItem()->getItemId()]);
         if ($orderItemToRemove) {
             $this->orderItemRepository->remove($orderItemToRemove);
         }

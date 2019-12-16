@@ -13,28 +13,20 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 
 final class DeleteCart implements CommandInterface
 {
-    /** @var string|null */
-    private $token;
+    /** @var CartItem */
+    private $cartItem;
 
-    /** @var string|null */
-    private $cartId;
-
-    public function __construct(?string $token, ?string $cartId)
+    public function __construct(CartItem $cartItem)
     {
-        $this->token = $token;
-        $this->cartId = $cartId;
+        $this->cartItem = $cartItem;
     }
 
-    public function token(): ?string
+    public function cartItem(): CartItem
     {
-        return $this->token;
-    }
-
-    public function cartId(): ?string
-    {
-        return $this->cartId;
+        return $this->cartItem;
     }
 }

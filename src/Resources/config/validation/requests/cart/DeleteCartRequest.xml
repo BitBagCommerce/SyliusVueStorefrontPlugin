@@ -16,26 +16,8 @@
             </constraint >
             <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />
         </property >
-        <property name="cartItem" >
-            <constraint name="Collection" >
-                <option name="fields" >
-                    <value key="sku" >
-                        <constraint name="NotNull" >
-                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.sku.not_null</option >
-                        </constraint >
-                    </value >
-                    <value key="item_id" >
-                        <constraint name="NotNull" >
-                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.item_id.not_null</option >
-                        </constraint >
-                    </value >
-                    <value key="quoteId" >
-                        <constraint name="NotNull" >
-                            <option name="message" >bitbag.vue_storefront_api.sylius.cart.item.quote_id.not_null</option >
-                        </constraint >
-                    </value >
-                </option >
-            </constraint >
+        <property name="cartItem">
+            <constraint name="Valid" />
         </property >
     </class >
 </constraint-mapping >

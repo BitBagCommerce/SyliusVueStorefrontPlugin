@@ -34,12 +34,12 @@ final class OrderItemExistValidator extends ConstraintValidator
 
     public function validate($request, Constraint $constraint)
     {
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->getCartId()]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->cartId]);
 
         $orderItem = $cart->getItems()->matching(
             Criteria::create()
                 ->where(
-                    Criteria::expr()->eq('id', $request->getCartItem()['item_id'])
+                    Criteria::expr()->eq('id', $request->cartItem->item_id)
                 )
         )->first();
 
