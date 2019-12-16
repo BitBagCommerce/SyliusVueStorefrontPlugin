@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class UpdateCartRequest implements RequestCommandInterface
@@ -24,7 +25,7 @@ final class UpdateCartRequest implements RequestCommandInterface
     /** @var int|string */
     public $cartId;
 
-    /** @var array|null */
+    /** @var CartItem */
     public $cartItem;
 
     public function getCommand(): CommandInterface

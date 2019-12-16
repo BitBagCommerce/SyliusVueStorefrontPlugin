@@ -11,4 +11,4 @@ catalog_get_type:
     controller: bitbag_sylius_vue_storefront_plugin.api.catalog.get_catalog
     requirements:
         index: '%elasticsearch_index%'
-        type: product|category
+        type: product|category|attribute

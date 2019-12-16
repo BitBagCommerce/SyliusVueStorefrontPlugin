@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
 final class OrderView
 {
@@ -61,7 +62,7 @@ final class OrderView
     /** @var float */
     public $base_total_due;
 
-    /** @var BillingAddressView */
+    /** @var AddressView */
     public $billing_address;
 
     /** @var int */

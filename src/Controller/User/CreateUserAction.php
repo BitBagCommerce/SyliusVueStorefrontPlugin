@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor;
@@ -39,6 +40,9 @@ final class CreateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
 
@@ -50,6 +54,7 @@ final class CreateUserAction
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         CustomerRepositoryInterface $customerRepository
     ) {
@@ -57,6 +62,7 @@ final class CreateUserAction
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->userProfileViewFactory = $userProfileViewFactory;
         $this->customerRepository = $customerRepository;
     }
@@ -81,7 +87,9 @@ final class CreateUserAction
         $customer = $this->customerRepository->findOneBy(['email' => $createUserCommand->customer()->email]);
 
         return $this->viewHandler->handle(View::create(
-            $this->userProfileViewFactory->create($customer),
+            $this->genericSuccessViewFactory->create(
+                $this->userProfileViewFactory->create($customer)
+            ),
             Response::HTTP_OK
         ));
     }

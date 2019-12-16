@@ -96,7 +96,7 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->protect_code = '';
         $orderView->quote_id = $syliusOrder->getId();
         $orderView->shipping_amount = $syliusOrder->getShippingTotal();
-        $orderView->shipping_description = $syliusOrder->getShipments()->first()->getMethod()->getCalculator() ?: '';
+        $orderView->shipping_description = $syliusOrder->getShipments()->first()->getMethod()->getName() ?: '';
         $orderView->shipping_discount_amount = 0;
         $orderView->shipping_discount_tax_compensation_amount = 0;
         $orderView->shipping_incl_tax = $syliusOrder->getShippingTotal();

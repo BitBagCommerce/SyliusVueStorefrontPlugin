@@ -22,11 +22,4 @@ final class Region
 
     /** @var int|null */
     public $region_id;
-
-    public function __construct(?string $region_code, ?string $region, ?int $region_id)
-    {
-        $this->region_code = $region_code;
-        $this->region = $region;
-        $this->region_id = $region_id;
-    }
 }

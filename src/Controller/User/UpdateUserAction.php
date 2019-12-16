@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
@@ -38,6 +39,9 @@ final class UpdateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
@@ -49,6 +53,7 @@ final class UpdateUserAction
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
         CustomerRepositoryInterface $loggedInUserProvider
     ) {
@@ -56,6 +61,7 @@ final class UpdateUserAction
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->customerRepository = $loggedInUserProvider;
         $this->userProfileViewFactory = $userProfileViewFactory;
     }
@@ -80,7 +86,9 @@ final class UpdateUserAction
         $customer = $this->customerRepository->findOneBy(['id' => $updateUserCommand->customer()->id]);
 
         return $this->viewHandler->handle(View::create(
-            $this->userProfileViewFactory->create($customer),
+            $this->genericSuccessViewFactory->create(
+                $this->userProfileViewFactory->create($customer)
+            ),
             Response::HTTP_OK
         ));
     }

@@ -12,16 +12,19 @@
         </property>
         <property name="group_id">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.group_id.not_blank</option>
             </constraint>
         </property>
         <property name="default_billing">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.default_billing.not_blank</option>
             </constraint>
         </property>
         <property name="default_shipping">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.default_shipping.not_blank</option>
             </constraint>
         </property>

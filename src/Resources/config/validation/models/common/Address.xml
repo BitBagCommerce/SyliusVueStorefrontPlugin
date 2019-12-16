@@ -34,7 +34,7 @@
         </property>
         <property name="company">
             <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blankk</option>
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blank</option>
             </constraint>
         </property>
         <property name="postcode">

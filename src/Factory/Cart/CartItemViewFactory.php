@@ -40,10 +40,27 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->item_id = $syliusOrderItem->getId();
         $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
         $cartItemView->qty = $syliusOrderItem->getQuantity();
-        $cartItemView->name = $syliusOrderItem->getVariantName();
+        $cartItemView->name = $syliusOrderItem->getProductName();
         $cartItemView->price = $syliusOrderItem->getUnitPrice();
         $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
         $cartItemView->product_option = [];
+        $cartItemView->price_incl_tax = $syliusOrderItem->getUnitPrice();
+        $cartItemView->qty_ordered = $syliusOrderItem->getQuantity();
+        $cartItemView->row_total_incl_tax = $syliusOrderItem->getSubtotal();
+
+
+        return $cartItemView;
+    }
+
+    public function createUpdateResponse(SyliusOrderItemInterface $syliusOrderItem): CartItemView
+    {
+        $cartItemView = new CartItemView();
+        $cartItemView->item_id = $syliusOrderItem->getId();
+        $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
+        $cartItemView->qty = $syliusOrderItem->getQuantity();
+        $cartItemView->name = $syliusOrderItem->getVariantName();
+        $cartItemView->price = $syliusOrderItem->getUnitPrice();
+        $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
 
         return $cartItemView;
     }

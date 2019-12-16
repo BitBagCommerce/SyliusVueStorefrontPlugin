@@ -22,4 +22,6 @@ interface CartItemViewFactoryInterface
 
     /** @return array|CartItemView[] */
     public function createList(Collection $syliusOrderItems): array;
+
+    public function createUpdateResponse(SyliusOrderItemInterface $syliusOrderItem): CartItemView;
 }

@@ -10,18 +10,12 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Modifier;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ProductVariantInterface;
 
-final class CollectTotalsAction
+interface OrderModifierInterface
 {
-    public function __construct()
-    {
-    }
-
-    public function __invoke(Request $request): Response
-    {
-    }
+    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity): void;
 }

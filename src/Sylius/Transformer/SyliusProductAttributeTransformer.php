@@ -34,5 +34,6 @@ final class SyliusProductAttributeTransformer implements SyliusProductAttributeT
             'select',
             $syliusProductAttribute->getName()
         );
+
     }
 }

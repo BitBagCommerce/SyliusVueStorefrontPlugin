@@ -38,7 +38,7 @@ final class Address
     /** @var string */
     public $country_id;
 
-    /** @var string */
+    /** @var array */
     public $street;
 
     /** @var string */
@@ -61,23 +61,6 @@ final class Address
 
     /** @var string */
     public $vat_id;
-
-    public function __construct(int $id, int $customer_id, Region $region, int $region_id, string $country_id, string $street, string $company, ?string $telephone, string $postcode, string $city, string $firstname, string $lastname, string $vat_id)
-    {
-        $this->id = $id;
-        $this->customer_id = $customer_id;
-        $this->region = $region;
-        $this->region_id = $region_id;
-        $this->country_id = $country_id;
-        $this->street = $street;
-        $this->company = $company;
-        $this->telephone = $telephone;
-        $this->postcode = $postcode;
-        $this->city = $city;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->vat_id = $vat_id;
-    }
 
     public function region(): Region
     {

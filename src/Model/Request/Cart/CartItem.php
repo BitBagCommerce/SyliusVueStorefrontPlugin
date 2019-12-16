@@ -20,21 +20,46 @@ final class CartItem
     /** @var int */
     private $qty;
 
-    /** @var object */
-    private $product_option;
-
-    /** @var string */
-    private $quoteId;
-
     /** @var int|null */
     private $item_id;
 
-    public function __construct(string $sku, int $qty, object $product_option, string $quoteId, ?int $item_id)
-    {
+    /** @var string|null */
+    private $quoteId;
+
+    /** @var object|null */
+    private $product_option;
+
+    public function __construct(
+        string $sku,
+        int $qty,
+        ?int $item_id = null,
+        ?string $quoteId = null,
+        ?object $product_option = null
+    ) {
         $this->sku = $sku;
         $this->qty = $qty;
-        $this->product_option = $product_option;
-        $this->quoteId = $quoteId;
         $this->item_id = $item_id;
+        $this->quoteId = $quoteId;
+        $this->product_option = $product_option;
+    }
+
+    public function getItemId(): ?int
+    {
+        return $this->item_id;
+    }
+
+    public function setItemId(?int $item_id): void
+    {
+        $this->item_id = $item_id;
+    }
+
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->qty;
     }
 }

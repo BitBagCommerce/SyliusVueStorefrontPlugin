@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
-use BitBag\SyliusVueStorefrontPlugin\Model\CartItem;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 
 final class UpdateCart implements CommandInterface
 {
@@ -23,10 +23,10 @@ final class UpdateCart implements CommandInterface
     /** @var string|null */
     private $cartId;
 
-    /** @var CartItem|null */
+    /** @var CartItem */
     private $cartItem;
 
-    public function __construct(?string $token, ?string $cartId, ?CartItem $cartItem)
+    public function __construct(?string $token, ?string $cartId, CartItem $cartItem)
     {
         $this->token = $token;
         $this->cartId = $cartId;
@@ -43,7 +43,7 @@ final class UpdateCart implements CommandInterface
         return $this->cartId;
     }
 
-    public function cartItem(): ?CartItem
+    public function cartItem(): CartItem
     {
         return $this->cartItem;
     }
