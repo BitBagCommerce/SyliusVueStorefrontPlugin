@@ -60,6 +60,6 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
         Assert::true(in_array($cart->getChannel(), $product->getChannels()->toArray(), true), 'Product is not in same channel as cart');
 
-        $this->orderModifier->modify($cart, $productVariant, $updateCart->cartItem()->getQuantity());
+        $this->orderModifier->modify($cart, $productVariant, $updateCart->cartItem()->getQuantity(), $updateCart->getOrderItemUuid());
     }
 }

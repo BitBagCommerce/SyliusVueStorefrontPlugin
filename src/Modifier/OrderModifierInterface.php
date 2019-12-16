@@ -17,5 +17,5 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 
 interface OrderModifierInterface
 {
-    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity): void;
+    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity, string $uuid): void;
 }

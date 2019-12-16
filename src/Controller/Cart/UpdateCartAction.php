@@ -16,9 +16,13 @@ use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Generator\UuidGeneratorInteface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -38,26 +42,36 @@ final class UpdateCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var UuidGeneratorInteface */
+    private $uuidGenerator;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
 
+    /** @var OrderItemRepositoryInterface */
+    private $orderItemRepository;
+
     public function __construct(
         RequestProcessorInterface $updateCartRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        UuidGeneratorInteface $uuidGenerator,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        CartItemViewFactoryInterface $cartItemViewFactory
+        CartItemViewFactoryInterface $cartItemViewFactory,
+        OrderItemRepositoryInterface $orderItemRepository
     ) {
         $this->updateCartRequestProcessor = $updateCartRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->uuidGenerator = $uuidGenerator;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
+        $this->orderItemRepository = $orderItemRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -73,14 +87,16 @@ final class UpdateCartAction
 
         /** @var UpdateCart $updateCartCommand */
         $updateCartCommand = $this->updateCartRequestProcessor->getCommand($request);
+        $updateCartCommand->setOrderItemUuid($this->uuidGenerator->generate());
 
-        $lastCommand = $this->bus->dispatch($updateCartCommand);
+        $this->bus->dispatch($updateCartCommand);
 
-        $itemId = $lastCommand->last(HandledStamp::class)->getResult();
+        /** @var OrderItemInterface $orderItem */
+        $orderItem = $this->orderItemRepository->findOneByUuid($updateCartCommand->getOrderItemUuid());
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->cartItemViewFactory->createUpdateResponse($itemId)),
+                $this->cartItemViewFactory->createUpdateResponse($orderItem)),
             Response::HTTP_OK
         ));
     }

@@ -1,5 +1,15 @@
 imports:
   - { resource: "indexes/vue_storefront_catalog.yaml" }
+  - { resource: "doctrine.yaml" }
+
+parameters:
+  sylius.model.order_item.class: 'BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem'
+
+sylius_order:
+  resources:
+    order_item:
+      classes:
+        model: BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem
 
 framework:
   messenger:
