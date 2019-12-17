@@ -13,5 +13,10 @@
             </constraint>
             <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />
         </property>
+        <property name="addressInformation">
+            <constraint name="NotNull">
+                <option name="message">bitbag.vue_storefront_api.sylius.cart.address_information.not_null</option>
+            </constraint>
+        </property>
     </class>
 </constraint-mapping>

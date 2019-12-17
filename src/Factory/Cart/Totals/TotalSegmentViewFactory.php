@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentView;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\AdjustmentInterface as SyliusAdjustmentInterface;
+use Sylius\Component\Order\Model\AdjustmentInterface as SyliusAdjustmentInterface;
 
 final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 {
@@ -37,7 +37,10 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
     private function createFromAdjustment(SyliusAdjustmentInterface $syliusAdjustment): TotalSegmentView
     {
         $totalSegmentView = new TotalSegmentView();
+        $totalSegmentView->code = $syliusAdjustment->getType();
         $totalSegmentView->title = $syliusAdjustment->getLabel();
+        $totalSegmentView->value = $syliusAdjustment->getAmount();
+        $totalSegmentView->area = $syliusAdjustment->getType();
 
         return $totalSegmentView;
     }

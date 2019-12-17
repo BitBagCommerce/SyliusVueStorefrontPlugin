@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentView;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Core\Model\AdjustmentInterface as SyliusAdjustmentInterface;
+use Sylius\Component\Order\Model\AdjustmentInterface as SyliusAdjustmentInterface;
 
 interface TotalSegmentViewFactoryInterface
 {

@@ -78,6 +78,8 @@ bitbag:
                     not_null: Please provide coupon code.
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
+                address_information:
+                    not_null: Address information can not be null.
 
             stock:
                 sku:

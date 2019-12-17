@@ -13,5 +13,10 @@
             <argument type="service" id="sylius.order_processing.order_processor.composite" />
             <argument type="service" id="sylius.manager.order" />
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.default_address_modifier"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifier">
+            <argument type="service" id="sylius.manager.customer" />
+        </service>
     </services>
 </container>

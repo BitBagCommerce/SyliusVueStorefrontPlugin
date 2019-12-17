@@ -12,12 +12,15 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -41,10 +44,15 @@ final class SetShippingInformationAction
 
     /** @var ShippingInformationViewFactoryInterface */
     private $shippingInformationViewFactory;
+    /**
+     * @var OrderRepositoryInterface
+     */
+    private $orderRepository;
 
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
+        OrderRepositoryInterface $orderRepository,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
@@ -52,6 +60,7 @@ final class SetShippingInformationAction
     ) {
         $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
+        $this->orderRepository = $orderRepository;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -69,9 +78,17 @@ final class SetShippingInformationAction
             ));
         }
 
+        /** @var SetShippingInformation $setShippingInformationCommand */
+        $setShippingInformationCommand = $this->setShippingInformationRequestProcessor->getCommand($request);
+
+        $this->bus->dispatch($setShippingInformationCommand);
+
+        /** @var OrderInterface $cart */
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformationCommand->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
+
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->shippingInformationViewFactory->create()
+                $this->shippingInformationViewFactory->create([], $cart)
             ),
             Response::HTTP_OK
         ));
