@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart;
 
 use Doctrine\Common\Collections\Criteria;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
@@ -34,7 +35,7 @@ final class OrderItemExistValidator extends ConstraintValidator
 
     public function validate($request, Constraint $constraint)
     {
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->cartId]);
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->cartId, 'state' => OrderInterface::STATE_CART]);
 
         $orderItem = $cart->getItems()->matching(
             Criteria::create()
