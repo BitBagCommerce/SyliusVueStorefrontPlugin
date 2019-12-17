@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem\ProductOption;
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem\ProductOptionView;
 
 final class CartItemView
 {
@@ -109,7 +109,7 @@ final class CartItemView
     /** @var int */
     public $product_id;
 
-    /** @var ProductOption */
+    /** @var ProductOptionView */
     public $product_option;
 
     /** @var string */
