@@ -21,12 +21,10 @@ use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final class UpdateCartAction
 {
