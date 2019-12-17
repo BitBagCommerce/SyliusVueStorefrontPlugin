@@ -12,16 +12,71 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class GetAppliedCouponAction
 {
-    public function __construct()
-    {
+    /** @var RequestProcessorInterface */
+    private $getAppliedCouponProcessor;
+
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
+
+    /** @var ValidationErrorViewFactoryInterface */
+    private $validationErrorViewFactory;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    public function __construct(
+        RequestProcessorInterface $getAppliedCouponProcessor,
+        ViewHandlerInterface $viewHandler,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        OrderRepositoryInterface $orderRepository
+    ) {
+        $this->getAppliedCouponProcessor = $getAppliedCouponProcessor;
+        $this->viewHandler = $viewHandler;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(Request $request): Response
     {
+        $validationResults = $this->getAppliedCouponProcessor->validate($request);
+
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(View::create(
+                $this->validationErrorViewFactory->create($validationResults),
+                Response::HTTP_BAD_REQUEST
+            ));
+        }
+
+        $code = $this->getAppliedCouponProcessor->getQuery($request);
+
+        /** @var OrderInterface $cart */
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $code->cartId()]);
+
+        $promotionCoupon = $cart->getPromotionCoupon() ?? false;
+
+        if ($promotionCoupon) {
+            $promotionCoupon = $promotionCoupon->getCode();
+        }
+
+        return $this->viewHandler->handle(View::create(
+            $this->genericSuccessViewFactory->create($promotionCoupon)
+        ));
     }
 }
