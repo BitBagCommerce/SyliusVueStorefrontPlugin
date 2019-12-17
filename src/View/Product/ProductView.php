@@ -51,10 +51,4 @@ final class ProductView
 
     /** @var ProductCustomAttributesView[]*/
     public $custom_attributes;
-
-    /** @var SearchCriteriaView */
-    public $search_criteria;
-
-    /** @var int */
-    public $total_count;
 }
