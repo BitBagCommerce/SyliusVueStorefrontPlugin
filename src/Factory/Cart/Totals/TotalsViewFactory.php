@@ -68,14 +68,14 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
         /** @var Collection|OrderItemInterface[] $items */
         $items = $syliusOrder->getItems();
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT);
         }
 
         /** @var Collection|OrderItemUnitInterface[] $itemUnits */
         $itemUnits = $syliusOrder->getItemUnits();
 
-        foreach($itemUnits as $item) {
+        foreach ($itemUnits as $item) {
             $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT);
         }
 

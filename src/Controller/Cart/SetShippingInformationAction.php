@@ -46,13 +46,11 @@ final class SetShippingInformationAction
 
     /** @var ShippingInformationViewFactoryInterface */
     private $shippingInformationViewFactory;
-    /**
-     * @var OrderRepositoryInterface
-     */
+
+    /** @var OrderRepositoryInterface */
     private $orderRepository;
-    /**
-     * @var PaymentMethodRepositoryInterface
-     */
+
+    /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
 
     public function __construct(
