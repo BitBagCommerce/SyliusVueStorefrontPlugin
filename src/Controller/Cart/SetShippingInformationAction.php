@@ -20,7 +20,9 @@ use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -48,11 +50,16 @@ final class SetShippingInformationAction
      * @var OrderRepositoryInterface
      */
     private $orderRepository;
+    /**
+     * @var PaymentMethodRepositoryInterface
+     */
+    private $paymentMethodRepository;
 
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
         OrderRepositoryInterface $orderRepository,
+        PaymentMethodRepositoryInterface $paymentMethodRepository,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
@@ -61,6 +68,7 @@ final class SetShippingInformationAction
         $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
         $this->orderRepository = $orderRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
@@ -86,9 +94,12 @@ final class SetShippingInformationAction
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformationCommand->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
 
+        /** @var PaymentMethodInterface[] $cart */
+        $paymentMethods = $this->paymentMethodRepository->findAll();
+
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->shippingInformationViewFactory->create([], $cart)
+                $this->shippingInformationViewFactory->create($paymentMethods, $cart)
             ),
             Response::HTTP_OK
         ));

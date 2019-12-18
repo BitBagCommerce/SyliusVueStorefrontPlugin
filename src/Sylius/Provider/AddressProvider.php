@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
-use Sylius\Component\Core\Model\Address;
+use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
@@ -16,9 +16,13 @@ final class AddressProvider implements AddressProviderInterface
     /** @var AddressRepositoryInterface */
     private $addressRepository;
 
-    public function __construct(AddressRepositoryInterface $addressRepository)
+    /** @var AddressFactoryInterface */
+    private $addressFactory;
+
+    public function __construct(AddressRepositoryInterface $addressRepository, AddressFactoryInterface $addressFactory)
     {
         $this->addressRepository = $addressRepository;
+        $this->addressFactory = $addressFactory;
     }
 
     public function provide(CustomerInterface $customer, SetShippingInformation $command): AddressInterface
@@ -30,7 +34,7 @@ final class AddressProvider implements AddressProviderInterface
             return $address;
         }
 
-        $address = new Address();
+        $address = $this->addressFactory->createNew();
 
         $address->setStreet($command->addressInformation()->getShippingAddress()->getStreet());
         Assert::notNull(
