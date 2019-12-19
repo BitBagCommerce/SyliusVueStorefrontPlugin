@@ -101,6 +101,7 @@
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.matcher.zone_matcher" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
+            <argument type="service" id="sylius.registry.shipping_calculator" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_information"
