@@ -37,13 +37,13 @@ bitbag:
                     id:
                         not_blank: Please provide valid address id.
                     customer_id:
-                        not_blank:  Please provide valid customer id.
+                        not_blank: Please provide valid customer id.
                     region_id:
-                        not_blank:  Please provide valid region id.
+                        not_blank: Please provide valid region id.
                     country_id:
-                        not_blank:  Please provide valid country id.
+                        not_blank: Please provide valid country id.
                     street:
-                        not_blank:  Please provide valid street name.
+                        not_blank: Please provide valid street name.
                     company_id:
                         not_blank:  Please provide valid company id.
                     telephone:
@@ -82,6 +82,15 @@ bitbag:
                         not_blank: Shipping method can not be blank.
                     shipping_carrier_code:
                         not_blank: Shipping carrier can not be blank.
+                cart_item:
+                    sku:
+                        not_blank: Please provide valid SKU.
+                    qty:
+                        not_blank: Please provide valid quantity.
+                    item_id:
+                        not_blank: Please provide valid item id.
+                    quote_id:
+                        not_blank: Please provide valid quote id.
             stock:
                 sku:
                     not_blank: Please provide valid SKU.

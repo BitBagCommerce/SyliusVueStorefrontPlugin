@@ -9,5 +9,20 @@
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.country_id.not_blank</option>
             </constraint>
         </property>
+        <property name="street">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.street.not_blank</option>
+            </constraint>
+        </property>
+        <property name="postcode">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_blank</option>
+            </constraint>
+        </property>
+        <property name="city">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.address.city.not_blank</option>
+            </constraint>
+        </property>
     </class>
 </constraint-mapping>
