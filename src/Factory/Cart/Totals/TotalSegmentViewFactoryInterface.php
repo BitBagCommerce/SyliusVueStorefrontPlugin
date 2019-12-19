@@ -13,13 +13,14 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentView;
-use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Order\Model\AdjustmentInterface as SyliusAdjustmentInterface;
 
 interface TotalSegmentViewFactoryInterface
 {
-    public function create(SyliusAdjustmentInterface $syliusAdjustment): TotalSegmentView;
+    public function create(SyliusAdjustmentInterface $syliusAdjustment, ShippingMethodInterface $shippingMethod): TotalSegmentView;
 
     /** @return array|TotalSegmentView[] */
-    public function createList(Collection $syliusAdjustments): array;
+    public function createList(SyliusOrderInterface $syliusOrder): array;
 }

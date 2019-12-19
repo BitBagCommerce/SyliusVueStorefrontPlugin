@@ -65,7 +65,6 @@ bitbag:
                             not_blank:  Please provide valid region.
                         region_id:
                             not_blank:  Please provide valid region id.
-
             cart:
                 token_value:
                     unique: The cart id is already in use.
@@ -79,8 +78,10 @@ bitbag:
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
                 address_information:
-                    not_null: Address information can not be null.
-
+                    shipping_method_code:
+                        not_blank: Shipping method can not be blank.
+                    shipping_carrier_code:
+                        not_blank: Shipping carrier can not be blank.
             stock:
                 sku:
                     not_blank: Please provide valid SKU.

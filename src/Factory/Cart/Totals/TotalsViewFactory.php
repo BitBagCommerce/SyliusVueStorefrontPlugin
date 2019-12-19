@@ -56,7 +56,7 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
         $totalsView->quote_currency_code = $syliusOrder->getCurrencyCode();
         $totalsView->items_qty = $syliusOrder->getItems()->count();
         $totalsView->items = $this->cartItemViewFactory->createList($syliusOrder->getItems());
-        $totalsView->total_segments = $this->totalSegmentViewFactory->createList($syliusOrder->getAdjustments());
+        $totalsView->total_segments = $this->totalSegmentViewFactory->createList($syliusOrder);
 
         return $totalsView;
     }

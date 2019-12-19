@@ -10,5 +10,5 @@ use Sylius\Component\Core\Model\CustomerInterface;
 
 interface AddressProviderInterface
 {
-    public function provide(CustomerInterface $customer, SetShippingInformation $command): AddressInterface;
+    public function provide(CustomerInterface $customer, SetShippingInformation $command, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface;
 }

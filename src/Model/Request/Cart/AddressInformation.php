@@ -51,8 +51,8 @@ final class AddressInformation
         return $this->shipping_address;
     }
 
-    public function getShippingMethodCode(): string
+    public function getShippingCarrierCode(): string
     {
-        return $this->shipping_method_code;
+        return $this->shipping_carrier_code;
     }
 }

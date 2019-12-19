@@ -25,16 +25,18 @@ final class AddressProvider implements AddressProviderInterface
         $this->addressFactory = $addressFactory;
     }
 
-    public function provide(CustomerInterface $customer, SetShippingInformation $command): AddressInterface
+    public function provide(CustomerInterface $customer, SetShippingInformation $command, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface
     {
         /** @var AddressInterface|null $address */
         $address = $this->addressRepository->findOneBy(['customer' => $customer->getId()]);
 
-        if (null !== $address) {
+        if (null !== $address && true === $useDefaultSyliusAddressIfSpecified) {
             return $address;
         }
 
         $address = $this->addressFactory->createNew();
+
+        $address->setCreatedAt(new \DateTime());
 
         $address->setStreet($command->addressInformation()->getShippingAddress()->getStreet());
         Assert::notNull(
@@ -53,8 +55,6 @@ final class AddressProvider implements AddressProviderInterface
             $command->addressInformation()->getShippingAddress()->getCity(),
             sprintf('There is no default city for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
-
-        $address->setCreatedAt(new \DateTime());
 
         $address->setFirstName($customer->getFirstName());
         Assert::notNull($customer->getFirstName(), sprintf('Customer (id: %d) has not provided a valid first name.', $customer->getId()));

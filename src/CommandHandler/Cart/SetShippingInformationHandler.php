@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Handler\ShipmentHandlerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProviderInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -41,17 +42,22 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
     /** @var DefaultAddressModifierInterface */
     private $addressModifier;
 
+    /** @var ShipmentHandlerInterface */
+    private $shipmentHandler;
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         AddressProviderInterface $addressProvider,
         DefaultAddressModifierInterface $addressModifier,
+        ShipmentHandlerInterface $shipmentHandler,
         ObjectManager $entityManager
     ) {
         $this->orderRepository = $orderRepository;
         $this->shippingMethodRepository = $shippingMethodRepository;
         $this->addressProvider = $addressProvider;
         $this->addressModifier = $addressModifier;
+        $this->shipmentHandler = $shipmentHandler;
         $this->entityManager = $entityManager;
     }
 
@@ -60,10 +66,6 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformation->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
         Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $setShippingInformation->cartId()));
-
-        /** @var ShippingMethodInterface $shippingMethod */
-        $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $setShippingInformation->addressInformation()->getShippingMethodCode(), 'enabled' => 1]);
-        Assert::notNull($shippingMethod, sprintf('Shipping method with code value of %s has not been found.', $setShippingInformation->addressInformation()->getShippingMethodCode()));
 
         /** @var CustomerInterface $customer */
         $customer = $cart->getCustomer();
@@ -74,6 +76,12 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         $this->addressModifier->modify($customer, $address);
 
         $cart->setShippingAddress($address);
+
+        /** @var ShippingMethodInterface $shippingMethod */
+        $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $setShippingInformation->addressInformation()->getShippingCarrierCode(), 'enabled' => 1]);
+        Assert::notNull($shippingMethod, sprintf('Shipping method with code value of %s has not been found.', $setShippingInformation->addressInformation()->getShippingCarrierCode()));
+
+        $this->shipmentHandler->handle($cart, $shippingMethod);
 
         $this->entityManager->persist($cart);
         $this->entityManager->flush();
