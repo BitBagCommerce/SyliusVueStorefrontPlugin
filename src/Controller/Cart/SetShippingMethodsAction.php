@@ -15,21 +15,25 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingMethodsViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingMethodsRequest;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Matcher\ZoneMatcher;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Addressing\Model\ZoneInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class SetShippingMethodsAction
 {
+    /** @var RequestProcessorInterface */
+    private $setShippingInformationRequestProcessor;
+
     /** @var MessageBusInterface */
     private $bus;
-
-    /** @var ValidatorInterface */
-    private $validator;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -43,27 +47,45 @@ final class SetShippingMethodsAction
     /** @var ShippingMethodsViewFactoryInterface */
     private $shippingMethodsViewFactory;
 
+    /** @var ShippingMethodRepositoryInterface */
+    private $shippingMethodRepository;
+
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var ZoneMatcher */
+    private $zoneMatcher;
+
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
     public function __construct(
+        RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
-        ValidatorInterface $validator,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ShippingMethodsViewFactoryInterface $shippingMethodsViewFactory
+        ShippingMethodsViewFactoryInterface $shippingMethodsViewFactory,
+        ShippingMethodRepositoryInterface $shippingMethodRepository,
+        OrderRepositoryInterface $orderRepository,
+        ZoneMatcher $zoneMatcher,
+        ChannelProviderInterface $channelProvider
     ) {
+        $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
-        $this->validator = $validator;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->shippingMethodsViewFactory = $shippingMethodsViewFactory;
+        $this->shippingMethodRepository = $shippingMethodRepository;
+        $this->orderRepository = $orderRepository;
+        $this->zoneMatcher = $zoneMatcher;
+        $this->channelProvider = $channelProvider;
     }
 
     public function __invoke(Request $request): Response
     {
-        $shippingMethodsRequest = SetShippingMethodsRequest::fromHttpRequest($request);
-
-        $validationResults = $this->validator->validate($shippingMethodsRequest);
+        $validationResults = $this->setShippingInformationRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -72,10 +94,15 @@ final class SetShippingMethodsAction
             ));
         }
 
-        $this->bus->dispatch($shippingMethodsRequest->getCommand());
+        $query = $this->setShippingInformationRequestProcessor->getQuery($request);
+
+        $channel = $this->channelProvider->provide();
+
+        $zone = $this->zoneMatcher->match($query->address()->country_id, ZoneInterface::TYPE_COUNTRY);
+        $shipment = $this->shippingMethodRepository->findEnabledForZonesAndChannel([$zone], $channel);
 
         return $this->viewHandler->handle(View::create(
-            $this->genericSuccessViewFactory->create($this->shippingMethodsViewFactory->createList()),
+            $this->genericSuccessViewFactory->create($this->shippingMethodsViewFactory->createList(...$shipment)),
             Response::HTTP_OK
         ));
     }
