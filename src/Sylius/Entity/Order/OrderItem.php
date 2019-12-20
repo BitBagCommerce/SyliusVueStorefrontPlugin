@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order;
 
 use Sylius\Component\Core\Model\OrderItem as BaseOrderItem;
 
-final class OrderItem extends BaseOrderItem
+class OrderItem extends BaseOrderItem
 {
     /** @var string */
     protected $uuid;

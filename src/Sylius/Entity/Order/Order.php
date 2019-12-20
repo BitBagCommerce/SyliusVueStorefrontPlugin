@@ -14,6 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order;
 
 use Sylius\Component\Core\Model\Order as BaseOrder;
 
-final class Order extends BaseOrder
+class Order extends BaseOrder
 {
 }

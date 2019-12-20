@@ -19,5 +19,6 @@ doctrine:
             SyliusVueStorefrontPlugin:
                 is_bundle: true
                 type: xml
+                dir: 'Resources/config/doctrine'
                 prefix: 'BitBag\SyliusVueStorefrontPlugin\Sylius\Entity'
                 alias: BitBag
