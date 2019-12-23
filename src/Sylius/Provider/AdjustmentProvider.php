@@ -32,10 +32,8 @@ final class AdjustmentProvider implements AdjustmentProviderInterface
         $adjustment->setLabel($shippingMethod->getName());
 
         $channelCode = $this->channelContext->getChannel()->getCode();
-        //$configuration = json_decode(json_encode($shippingMethod->getConfiguration()), false);
         $configuration = $shippingMethod->getConfiguration();
 
-        //$adjustment->setAmount($configuration->$channelCode->amount);
         $adjustment->setAmount((int) $configuration[$channelCode]['amount']);
 
         return $adjustment;

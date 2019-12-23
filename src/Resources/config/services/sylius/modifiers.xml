@@ -18,7 +18,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.adjustment"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\AdjustmentModifier">
-            <argument type="service" id="sylius.context.channel.composite" />
+            <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.adjustment" />
             <argument type="service" id="sylius.manager.adjustment" />
         </service>

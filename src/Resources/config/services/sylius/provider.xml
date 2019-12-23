@@ -37,7 +37,7 @@
         <service id="bitbag_sylius_vue_storefront_plugin.provider.adjustment"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AdjustmentProvider">
             <argument type="service" id="sylius.custom_factory.adjustment" />
-            <argument type="service" id="sylius.context.channel.composite" />
+            <argument type="service" id="sylius.context.channel" />
         </service>
     </services>
 </container>
