@@ -37,15 +37,6 @@ final class AddressInformation
         $this->shipping_carrier_code = $shipping_carrier_code;
     }
 
-    public static function createFromArray(array $addressInformation): self
-    {
-        return new self(
-            ShippingAddress::createFromArray($addressInformation[self::SHIPPING_ADDRESS]),
-            $addressInformation[self::SHIPPING_METHOD_CODE],
-            $addressInformation[self::SHIPPING_CARRIER_CODE]
-        );
-    }
-
     public function getShippingAddress(): ShippingAddress
     {
         return $this->shipping_address;

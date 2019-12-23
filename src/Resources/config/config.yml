@@ -1,5 +1,4 @@
 imports:
-  - { resource: "@FidryAliceDataFixturesBundle/Resources/config/doctrine_orm.xml" }
   - { resource: "indexes/vue_storefront_catalog.yaml" }
   - { resource: "doctrine.yaml" }
 

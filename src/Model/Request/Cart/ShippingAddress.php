@@ -43,16 +43,6 @@ final class ShippingAddress
         $this->city = $city;
     }
 
-    public static function createFromArray(array $array): self
-    {
-        return new self(
-            $array[self::COUNTRY_ID],
-            $array[self::STREET],
-            $array[self::POSTCODE],
-            $array[self::CITY]
-        );
-    }
-
     public function getCountryId(): string
     {
         return $this->country_id;

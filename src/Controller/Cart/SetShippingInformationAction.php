@@ -23,7 +23,6 @@ use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -36,6 +35,12 @@ final class SetShippingInformationAction
     /** @var MessageBusInterface */
     private $bus;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var PaymentMethodRepositoryInterface */
+    private $paymentMethodRepository;
+
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
@@ -47,15 +52,6 @@ final class SetShippingInformationAction
 
     /** @var ShippingInformationViewFactoryInterface */
     private $shippingInformationViewFactory;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var ShippingMethodRepositoryInterface */
-    private $shippingMethodRepository;
 
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
@@ -94,7 +90,12 @@ final class SetShippingInformationAction
         $this->bus->dispatch($setShippingInformationCommand);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformationCommand->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
+        $cart = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $setShippingInformationCommand->cartId(),
+                'shippingState' => OrderInterface::STATE_CART,
+            ]
+        );
 
         /** @var PaymentMethodInterface[] $cart */
         $paymentMethods = $this->paymentMethodRepository->findAll();
