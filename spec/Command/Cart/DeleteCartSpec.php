@@ -18,7 +18,7 @@ use PhpSpec\ObjectBehavior;
 final class DeleteCartSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = 'delete-Cart-spec';
+    private const CART_ID = 'delete-cart-spec';
 
     function let(): void
     {

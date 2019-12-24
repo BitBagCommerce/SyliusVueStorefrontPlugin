@@ -34,11 +34,11 @@ final class DeleteCartHandlerSpec extends ObjectBehavior
         OrderRepositoryInterface $cartRepository,
         OrderInterface $cart
     ): void {
-        $deleteCart = new DeleteCart('token', 'Cart-id');
+        $deleteCart = new DeleteCart('token', 'cart-id');
 
         $cart->getState()->willReturn(OrderInterface::STATE_CART);
 
-        $cartRepository->findOneBy(['tokenValue' => 'Cart-id'])->willReturn($cart);
+        $cartRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);
 
         $cartRepository->remove($cart)->shouldBeCalled();
 

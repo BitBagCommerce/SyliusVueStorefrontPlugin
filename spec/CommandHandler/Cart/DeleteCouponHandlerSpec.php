@@ -38,9 +38,9 @@ final class DeleteCouponHandlerSpec extends ObjectBehavior
         OrderProcessorInterface $orderProcessor,
         OrderInterface $cart
     ): void {
-        $deleteCoupon = new DeleteCoupon('token', 'Cart-id');
+        $deleteCoupon = new DeleteCoupon('token', 'cart-id');
 
-        $orderRepository->findOneBy(['tokenValue' => 'Cart-id'])->willReturn($cart);
+        $orderRepository->findOneBy(['tokenValue' => 'cart-id'])->willReturn($cart);
 
         $cart->setPromotionCoupon(null)->shouldBeCalled();
 
