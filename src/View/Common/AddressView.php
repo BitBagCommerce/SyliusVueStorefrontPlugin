@@ -29,23 +29,32 @@ final class AddressView
     public $region_id;
 
     /** @var string */
+    public $country_id;
+
+    /** @var string */
     public $street;
 
     /** @var string */
     public $company;
 
     /** @var string */
-    public $city;
-
-    /** @var string */
-    public $country_id;
+    public $telephone;
 
     /** @var string */
     public $postcode;
 
     /** @var string */
+    public $city;
+
+    /** @var string */
     public $firstname;
+
+    /** @var bool */
+    public $default_shipping;
 
     /** @var string */
     public $lastname;
+
+    /** @var string */
+    public $vat_id;
 }

@@ -10,14 +10,13 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\User;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria\SearchCriteriaView;
-use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\OrderView;
 
-final class OrderHistoryView
+final class ProductListView
 {
-    /** @var array|OrderView[] */
+    /** @var array|ProductView[] */
     public $items;
 
     /** @var SearchCriteriaView */

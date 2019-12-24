@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
