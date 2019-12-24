@@ -6,6 +6,8 @@ imports:
 
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
 
+    - { resource: "@SyliusVueStorefrontPlugin/Resources/config/config.yml" }
+
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
 

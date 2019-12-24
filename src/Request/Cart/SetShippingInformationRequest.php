@@ -12,9 +12,12 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
+use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
+use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class SetShippingInformationRequest
+final class SetShippingInformationRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;
@@ -24,4 +27,9 @@ final class SetShippingInformationRequest
 
     /** @var AddressInformation */
     public $addressInformation;
+
+    public function getCommand(): CommandInterface
+    {
+        return new SetShippingInformation($this->token, $this->cartId, $this->addressInformation);
+    }
 }

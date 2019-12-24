@@ -48,7 +48,6 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->qty_ordered = $syliusOrderItem->getQuantity();
         $cartItemView->row_total_incl_tax = $syliusOrderItem->getSubtotal();
 
-
         return $cartItemView;
     }
 

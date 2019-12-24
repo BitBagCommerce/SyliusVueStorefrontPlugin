@@ -56,7 +56,7 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
         $totalsView->quote_currency_code = $syliusOrder->getCurrencyCode();
         $totalsView->items_qty = $syliusOrder->getItems()->count();
         $totalsView->items = $this->cartItemViewFactory->createList($syliusOrder->getItems());
-        $totalsView->total_segments = $this->totalSegmentViewFactory->createList($syliusOrder->getAdjustments());
+        $totalsView->total_segments = $this->totalSegmentViewFactory->createList($syliusOrder);
 
         return $totalsView;
     }
@@ -68,14 +68,14 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
         /** @var Collection|OrderItemInterface[] $items */
         $items = $syliusOrder->getItems();
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT);
         }
 
         /** @var Collection|OrderItemUnitInterface[] $itemUnits */
         $itemUnits = $syliusOrder->getItemUnits();
 
-        foreach($itemUnits as $item) {
+        foreach ($itemUnits as $item) {
             $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT);
         }
 

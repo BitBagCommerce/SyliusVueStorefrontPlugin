@@ -99,11 +99,12 @@
             <argument type="service"
                       id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.set_shipping_information" />
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.payment_method" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
-            <argument type="service"
-                      id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory" />
         </service>
     </services>
 </container>

@@ -52,8 +52,11 @@
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.set_shipping_information_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\SetShippingInformationHandler">
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius.factory.address" />
-            <argument type="service" id="sm.factory" />
+            <argument type="service" id="sylius.repository.shipping_method" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.sylius.provider.address_provider" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.modifier.default_address" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.handler.shipment_handler" />
+            <argument type="service" id="sylius.manager.order" />
             <tag name="messenger.message_handler" />
         </service>
     </services>

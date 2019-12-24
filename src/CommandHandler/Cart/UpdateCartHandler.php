@@ -23,7 +23,6 @@ use Webmozart\Assert\Assert;
 
 final class UpdateCartHandler implements MessageHandlerInterface
 {
-
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
@@ -38,7 +37,6 @@ final class UpdateCartHandler implements MessageHandlerInterface
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier
     ) {
-
         $this->cartRepository = $cartRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderModifier = $orderModifier;
