@@ -83,7 +83,7 @@ final class PullCartActionSpec extends ObjectBehavior
         $orderRepository->findOneBy(
             [
                 'tokenValue' => '12345',
-                'state' => 'cart',
+                'state' => 'Cart',
             ]
         )->willReturn($cart);
 

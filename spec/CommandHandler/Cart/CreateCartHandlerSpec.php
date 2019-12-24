@@ -52,14 +52,14 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         CurrencyInterface $currency,
         LocaleInterface $locale
     ): void {
-        $createCart = new CreateCart('token', 'cart-id');
+        $createCart = new CreateCart('token', 'Cart-id');
 
         $channel->getBaseCurrency()->willReturn($currency);
         $channel->getDefaultLocale()->willReturn($locale);
 
         $channelProvider->provide()->willReturn($channel);
 
-        $customerProvider->provide('cart-id')->willReturn($customer);
+        $customerProvider->provide('Cart-id')->willReturn($customer);
 
         $cartFactory->createNew()->willReturn($cart);
 

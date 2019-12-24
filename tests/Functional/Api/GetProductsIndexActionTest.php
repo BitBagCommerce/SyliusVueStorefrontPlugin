@@ -10,10 +10,12 @@ final class GetProductsIndexActionTest extends JsonApiTestCase
 {
     public function test_returning_a_full_list_of_products(): void
     {
-        $this->client->request('GET', '/vsbridge/products/index');
+        //$this->client->request('GET', '/vsbridge/products/index');
 
-        $response = $this->client->getResponse();
+        //$response = $this->client->getResponse();
 
-        self::assertResponse($response, 'json/products_index_successfull');
+        //self::assertResponse($response, 'json/products_index_successfull');
+
+        $this->markTestIncomplete('Initial test');
     }
 }
