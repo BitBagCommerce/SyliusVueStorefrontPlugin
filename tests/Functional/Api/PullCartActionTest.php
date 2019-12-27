@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api;
+namespace Functional\Api;
 
 use ApiTestCase\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
 
-final class DeleteCouponActionTest extends JsonApiTestCase
+final class PullCartActionTest extends JsonApiTestCase
 {
-    public function test_deleting_coupon(): void
+    public function test_pulling_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -27,37 +27,33 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+        $this->client->request('GET', sprintf(
+            '/vsbridge/cart/pull?token=%d&cartId=%d',
             $content->result,
             12345
-        );
-
-        $this->client->request('POST', $uri);
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/delete_coupon_successful');
+        self::assertResponse($response, 'Controller/Cart/pull_cart_successful');
     }
 
-    public function test_deleting_for_invalid_token(): void
+    public function test_pulling_cart_for_invalid_token(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+        $this->client->request('GET', sprintf(
+            '/vsbridge/cart/pull?token=%d&cartId=%d',
             12345,
             12345
-        );
-
-        $this->client->request('POST', $uri);
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
         self::assertResponse($response, 'Controller/Cart/Common/invalid_token', 401);
     }
 
-    public function test_deleting_for_invalid_cart(): void
+    public function test_pulling_cart_for_invalid_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -75,13 +71,11 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+        $this->client->request('GET', sprintf(
+            '/vsbridge/cart/pull?token=%d&cartId=%d',
             $content->result,
             123
-        );
-
-        $this->client->request('POST', $uri);
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

@@ -49,14 +49,14 @@ final class ValidCouponValidator extends ConstraintValidator
         Assert::isInstanceOf($request, ApplyCouponRequest::class);
 
         /** @var OrderInterface|null $cart */
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $request->getCartId(), 'state' => OrderInterface::STATE_CART]);
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $request->cartId, 'state' => OrderInterface::STATE_CART]);
 
         if (null === $cart) {
             return;
         }
 
         /** @var PromotionCouponInterface|null $coupon */
-        $coupon = $this->couponRepository->findOneBy(['code' => $request->getCoupon()]);
+        $coupon = $this->couponRepository->findOneBy(['code' => $request->coupon]);
 
         if (null === $coupon || !$this->couponEligibilityChecker->isEligible($cart, $coupon->getPromotion())) {
             $this->context->addViolation($constraint->message);

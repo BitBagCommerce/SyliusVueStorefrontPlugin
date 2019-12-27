@@ -1,7 +1,0 @@
-ApiTestCase\Test\Entity\Book:
-  book1:
-    title: "Lord of The Rings"
-    author: "J. R. R. Tolkien"
-  book2:
-    title: "Game of Thrones"
-    price: "George R. R. Martin"
