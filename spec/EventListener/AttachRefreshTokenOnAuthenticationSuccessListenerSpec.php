@@ -15,7 +15,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\EventListener;
 use BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthenticationSuccessListener;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
-use Gesdinet\JWTRefreshTokenBundle\Request\RequestRefreshToken;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
@@ -70,7 +69,8 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
         UserInterface $user,
         RefreshTokenInterface $refreshToken,
         PropertyAccessorInterface $accessor,
-        ConstraintViolationInterface $constraintViolation
+        ConstraintViolationInterface $constraintViolation,
+        Request $request
     ): void {
         $this->beConstructedWith(
             $refreshTokenManager,
@@ -81,18 +81,12 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
             true
         );
 
-        $request = new Request([
-            'refreshToken' => 'token',
-        ]);
+        $request->get('refreshToken')->willReturn('token');
+        $request->getPathInfo()->willReturn('/vsbridge/user/login');
 
         /** @var AuthenticationSuccessEvent $event */
         $event = new AuthenticationSuccessEvent([], $user->getWrappedObject(), new Response());
         $requestStack->getCurrentRequest()->willReturn($request);
-
-        $refreshTokenString = RequestRefreshToken::getRefreshToken($request, 'refreshToken');
-
-        $refreshTokenManager->get($refreshTokenString)->willReturn($refreshToken);
-        $refreshTokenManager->delete($refreshToken)->shouldBeCalled();
 
         $refreshTokenManager->create()->willReturn($refreshToken);
 
@@ -100,12 +94,14 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
 
         $refreshToken->setUsername(Argument::any())->shouldBeCalled();
         $refreshToken->setRefreshToken()->shouldBeCalled();
-        $refreshToken->setValid(Argument::any())->shouldBeCalled();
+        $refreshToken->setValid(Argument::type(\DateTime::class))->shouldBeCalled();
 
         $violationList = new ConstraintViolationList([$constraintViolation->getWrappedObject()]);
 
         $validator->validate($refreshToken)->willReturn($violationList);
+
         $refreshTokenManager->save($refreshToken)->shouldBeCalled();
+
         $refreshToken->getRefreshToken()->shouldBeCalled();
 
         $this->attachRefreshToken($event);
