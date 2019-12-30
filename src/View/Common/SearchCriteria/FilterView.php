@@ -12,8 +12,14 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria;
 
-final class FilterGroupsView
+final class FilterView
 {
-    /** @var array|FiltersView[] */
-    public $filters;
+    /** @var string */
+    public $field;
+
+    /** @var string */
+    public $value;
+
+    /** @var string */
+    public $condition_type;
 }

@@ -10,16 +10,16 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria;
+namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem;
 
-final class FiltersView
+final class ProductOptionExtensionAttributeView
 {
-    /** @var string */
-    public $field;
+    /** @var array */
+    public $custom_options;
 
-    /** @var string */
-    public $value;
+    /** @var ConfigurableItemOptionView[] */
+    public $configurable_item_options;
 
-    /** @var string */
-    public $condition_type;
+    /** @var array */
+    public $bundle_options;
 }

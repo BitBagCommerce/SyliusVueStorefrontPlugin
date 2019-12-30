@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-final class ProductCustomAttributesView
+final class ProductCustomAttributeView
 {
     /** @var string */
     public $attribute_code;

@@ -49,6 +49,6 @@ final class ProductView
     /** @var array */
     public $tier_prices;
 
-    /** @var ProductCustomAttributesView[]*/
+    /** @var ProductCustomAttributeView[]*/
     public $custom_attributes;
 }

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem;
 
-final class ConfigurableItemOptionsView
+final class ConfigurableItemOptionView
 {
     /** @var string|int */
     public $option_id;

@@ -14,7 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria;
 
 final class SearchCriteriaView
 {
-    /** @var array|FilterGroupsView[] */
+    /** @var array|FilterGroupView[] */
     public $filter_groups;
-
 }
