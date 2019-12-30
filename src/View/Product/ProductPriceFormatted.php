@@ -26,10 +26,10 @@ final class ProductPriceFormatted
     /** @var string */
     public $max_regular_price;
 
-    /** @var null|string */
+    /** @var string|null */
     public $minimal_regular_price;
 
-    /** @var null|string */
+    /** @var string|null */
     public $special_price;
 
     /** @var string */

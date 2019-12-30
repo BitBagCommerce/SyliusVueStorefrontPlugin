@@ -26,7 +26,7 @@ final class ProductPriceInfoView
     /** @var float */
     public $minimal_regular_price;
 
-    /** @var null|int */
+    /** @var int|null */
     public $special_price;
 
     /** @var float */
@@ -40,5 +40,4 @@ final class ProductPriceInfoView
 
     /** @var ProductPriceExtensionAttributeView */
     public $extension_attributes;
-
 }

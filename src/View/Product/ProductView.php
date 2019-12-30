@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-use BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria\SearchCriteriaView;
-
 final class ProductView
 {
     /** @var int */
@@ -49,6 +47,6 @@ final class ProductView
     /** @var array */
     public $tier_prices;
 
-    /** @var ProductCustomAttributeView[]*/
+    /** @var ProductCustomAttributeView[] */
     public $custom_attributes;
 }

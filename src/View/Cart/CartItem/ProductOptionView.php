@@ -15,5 +15,5 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem;
 final class ProductOptionView
 {
     /** @var ProductOptionExtensionAttributeView */
-   public $extension_attributes;
+    public $extension_attributes;
 }

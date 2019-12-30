@@ -19,7 +19,6 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo SPEC
  * Class UpdateUserSpec
- * @package spec\BitBag\SyliusVueStorefrontPlugin\Command\User
  */
 final class UpdateUserSpec extends ObjectBehavior
 {

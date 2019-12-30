@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\Common;
 
-
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address\RegionViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\Common\Address\RegionView;
