@@ -38,7 +38,7 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/create?token=%d', $content->result), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf('/vsbridge/cart/create?token=%s', $content->result), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

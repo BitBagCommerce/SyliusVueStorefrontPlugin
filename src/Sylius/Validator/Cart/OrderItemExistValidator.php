@@ -33,9 +33,13 @@ final class OrderItemExistValidator extends ConstraintValidator
         $this->cartRepository = $cartRepository;
     }
 
-    public function validate($request, Constraint $constraint)
+    public function validate($request, Constraint $constraint): void
     {
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->cartId, 'state' => OrderInterface::STATE_CART]);
+
+        if (null === $cart) {
+            return;
+        }
 
         $orderItem = $cart->getItems()->matching(
             Criteria::create()

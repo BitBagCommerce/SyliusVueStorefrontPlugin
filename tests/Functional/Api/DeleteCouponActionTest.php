@@ -28,7 +28,7 @@ JSON;
         $content = json_decode($response->getContent());
 
         $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+            '/vsbridge/cart/delete-coupon?token=%s&cartId=%d',
             $content->result,
             12345
         );
@@ -45,7 +45,7 @@ JSON;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
         $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+            '/vsbridge/cart/delete-coupon?token=%s&cartId=%d',
             12345,
             12345
         );
@@ -76,7 +76,7 @@ JSON;
         $content = json_decode($response->getContent());
 
         $uri = sprintf(
-            '/vsbridge/cart/delete-coupon?token=%d&cartId=%d',
+            '/vsbridge/cart/delete-coupon?token=%s&cartId=%d',
             $content->result,
             123
         );

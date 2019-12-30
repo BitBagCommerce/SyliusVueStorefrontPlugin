@@ -43,7 +43,7 @@ JSON;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
         $this->client->request('GET', sprintf(
-            '/vsbridge/cart/pull?token=%d&cartId=%d',
+            '/vsbridge/cart/pull?token=%s&cartId=%d',
             12345,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER);
@@ -72,7 +72,7 @@ JSON;
         $content = json_decode($response->getContent());
 
         $this->client->request('GET', sprintf(
-            '/vsbridge/cart/pull?token=%d&cartId=%d',
+            '/vsbridge/cart/pull?token=%s&cartId=%d',
             $content->result,
             123
         ), [], [], Configuration::CONTENT_TYPE_HEADER);

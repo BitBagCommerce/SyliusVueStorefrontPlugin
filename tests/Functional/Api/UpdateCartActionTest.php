@@ -38,7 +38,7 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%d&cartId=%d&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%s&cartId=%d&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -74,7 +74,7 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%d&cartId=%d&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%s&cartId=%d&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -86,7 +86,7 @@ JSON;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
         $uri = sprintf(
-            '/vsbridge/cart/update?token=%d&cartId=%d&coupon=SOMETHING',
+            '/vsbridge/cart/update?token=%s&cartId=%d&coupon=SOMETHING',
             12345,
             12345
         );
@@ -117,7 +117,7 @@ JSON;
         $content = json_decode($response->getContent());
 
         $uri = sprintf(
-            '/vsbridge/cart/update?token=%d&cartId=%d&coupon=SOMETHING',
+            '/vsbridge/cart/update?token=%s&cartId=%d&coupon=SOMETHING',
             $content->result,
             123
         );
