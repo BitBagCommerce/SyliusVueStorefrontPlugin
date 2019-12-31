@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
 
 use ApiTestCase\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
@@ -27,7 +27,11 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/apply-coupon?token=%s&cartId=%d&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=SOMETHING',
+            $content->result,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -39,7 +43,7 @@ JSON;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
         $uri = sprintf(
-            '/vsbridge/cart/apply-coupon?token=%s&cartId=%d&coupon=SOMETHING',
+            '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=SOMETHING',
             12345,
             12345
         );
@@ -70,7 +74,7 @@ JSON;
         $content = json_decode($response->getContent());
 
         $uri = sprintf(
-            '/vsbridge/cart/apply-coupon?token=%s&cartId=%d&coupon=SOMETHING',
+            '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=SOMETHING',
             $content->result,
             123
         );
@@ -100,7 +104,11 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/apply-coupon?token=%s&cartId=%d', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/apply-coupon?token=%s&cartId=%s',
+            $content->result,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -125,7 +133,11 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/apply-coupon?token=%s&cartId=%d&coupon=INVALID', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=INVALID',
+            $content->result,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

@@ -6,10 +6,10 @@ Sylius\Component\Core\Model\ShippingMethod:
         configuration:
             WEB_GB:
                 amount: 500
-        zone: "@zone_gb_scotland"
+        zone: "@zone_gb"
         currentLocale: "en_GB"
         translations: ["@ups_translation"]
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
     dhl:
         code: "DHL"
         enabled: true
@@ -20,7 +20,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         zone: "@zone_gb"
         currentLocale: "en_GB"
         translations: ["@dhl_translation"]
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
     fedEx:
         code: "FED-EX"
         enabled: true
@@ -31,7 +31,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         zone: "@zone_gb"
         currentLocale: "en_GB"
         translations: ["@fed_ex_translation"]
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
     free:
         code: "FREE"
         enabled: true
@@ -42,7 +42,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         zone: "@zone_gb"
         currentLocale: "en_GB"
         translations: ["@free_translation"]
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
 
 Sylius\Component\Shipping\Model\ShippingMethodTranslation:
     ups_translation:
@@ -68,14 +68,14 @@ Sylius\Component\Shipping\Model\ShippingMethodTranslation:
 
 Sylius\Component\Addressing\Model\Zone:
     zone_gb_scotland:
-        code: "SCOTLAND_ZONE"
+        code: "SCOTLAND"
         name: "Scotland Zone"
-        type: "province"
+        type: "country"
         scope: "all"
         members: ["@scotland_zone_member"]
     zone_gb:
-        code: "GB_ZONE"
-        name: "Great Brittan"
+        code: "GB"
+        name: "Great Brittain"
         type: "country"
         scope: "all"
         members: ["@gb_zone_member"]

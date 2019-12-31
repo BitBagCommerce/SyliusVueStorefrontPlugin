@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Functional\Api;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
 
 use ApiTestCase\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;

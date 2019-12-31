@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Functional\Api;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
 
 use ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -53,7 +53,7 @@ JSON;
 JSON;
 
         $this->client->request('POST', sprintf(
-            '/vsbridge/cart/delete?token=%s&cartId=%d',
+            '/vsbridge/cart/delete?token=%s&cartId=%s',
             $content->result,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
@@ -81,7 +81,7 @@ JSON;
 
         $content = json_decode($response->getContent());
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/delete?token=%s&cartId=%d', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf('/vsbridge/cart/delete?token=%s&cartId=%s', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -119,7 +119,7 @@ JSON;
 JSON;
 
         $this->client->request('POST', sprintf(
-            '/vsbridge/cart/delete?token=%s&cartId=%d',
+            '/vsbridge/cart/delete?token=%s&cartId=%s',
             $content->result,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
@@ -134,7 +134,7 @@ JSON;
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
         $this->client->request('POST', sprintf(
-            '/vsbridge/cart/delete?token=%s&cartId=%d',
+            '/vsbridge/cart/delete?token=%s&cartId=%s',
             12345,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER);
@@ -175,7 +175,7 @@ JSON;
 JSON;
 
         $this->client->request('POST', sprintf(
-            '/vsbridge/cart/delete?token=%s&cartId=%d',
+            '/vsbridge/cart/delete?token=%s&cartId=%s',
             $content->result,
             123
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);

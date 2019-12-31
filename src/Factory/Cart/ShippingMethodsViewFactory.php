@@ -23,7 +23,7 @@ final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInte
         return $shippingMethodList;
     }
 
-    private function creteFromShippingMethod(): ShippingMethodsView
+    private function createFromShippingMethod(): ShippingMethodsView
     {
         $shippingMethodsView = new ShippingMethodsView();
 

@@ -108,9 +108,7 @@ final class SetShippingMethodsAction
         $query = $this->setShippingInformationRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(
-            ['tokenValue' => $query->cartId()]
-        );
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $query->cartId()]);
 
         $channel = $this->channelProvider->provide();
 

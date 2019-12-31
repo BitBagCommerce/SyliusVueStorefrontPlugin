@@ -4,13 +4,13 @@ Sylius\Component\Core\Model\PaymentMethod:
         enabled: true
         gatewayConfig: '@offline'
         currentLocale: "en_GB"
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
     pay_by_check:
         code: "PBC"
         enabled: true
         gatewayConfig: '@offline'
         currentLocale: "en_GB"
-        channels: ["@gb_web_channel"]
+        channels: ["@fashion_web"]
 
 Sylius\Bundle\PayumBundle\Model\GatewayConfig:
     offline:
