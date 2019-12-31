@@ -42,7 +42,7 @@ JSON;
                               "region_id": 0
                             },
                             "region_id": 0,
-                            "country_id": "PL",
+                            "country_id": "GB",
                             "street": "GoodStreet",
                             "company": "BestCompany",
                             "telephone": "987654321",
@@ -102,7 +102,7 @@ JSON;
                               "region_id": 0
                             },
                             "region_id": 0,
-                            "country_id": "PL",
+                            "country_id": "GB",
                             "street": "GoodStreet",
                             "company": "BestCompany",
                             "telephone": "987654321",
