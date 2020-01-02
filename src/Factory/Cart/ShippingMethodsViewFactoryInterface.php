@@ -12,10 +12,14 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\View\Cart\ShippingMethodsView;
+use Sylius\Component\Core\Model\ShippingMethodInterface;
 
 interface ShippingMethodsViewFactoryInterface
 {
-    /** @return ShippingMethodsView[] */
-    public function createList(): array;
+    /**
+     * @param ShippingMethodInterface[] $shippingMethods
+     *
+     * @return  array|ShippingMethodInterface[]
+     */
+    public function createList(ShippingMethodInterface ...$shippingMethods): array;
 }
