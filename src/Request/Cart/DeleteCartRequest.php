@@ -30,6 +30,6 @@ final class DeleteCartRequest implements RequestCommandInterface
 
     public function getCommand(): CommandInterface
     {
-        return new DeleteCart($this->cartItem);
+        return new DeleteCart($this->cartItem, $this->cartId);
     }
 }
