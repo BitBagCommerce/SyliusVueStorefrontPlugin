@@ -6,26 +6,17 @@ namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
 
 use ApiTestCase\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
 
 final class UpdateCartActionTest extends JsonApiTestCase
 {
+    use UserLoginTrait;
+
     public function test_updating_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'product_with_attributes.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $data =
 <<<JSON
@@ -38,7 +29,11 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',
+            $this->token,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -49,22 +44,10 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
+
         $data =
 <<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
-
-        $data =
-            <<<JSON
         { "cartItem": 
             { 
                 "sku": "Non-existent item",
@@ -74,7 +57,11 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf('/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',
+            $this->token,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -102,23 +89,11 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $uri = sprintf(
             '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',
-            $content->result,
+            $this->token,
             123
         );
 

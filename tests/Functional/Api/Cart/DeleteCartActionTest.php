@@ -8,26 +8,17 @@ use ApiTestCase\JsonApiTestCase;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
 
 final class DeleteCartActionTest extends JsonApiTestCase
 {
+    use UserLoginTrait;
+
     public function test_deleting_cart_item(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'order_item.yml', 'coupon_based_promotion.yml', 'product_with_attributes.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $orderRepository = $this->client->getContainer()->get('sylius.repository.order');
         $orderItemRepository = $this->client->getContainer()->get('sylius.repository.order_item');
@@ -54,7 +45,7 @@ JSON;
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/delete?token=%s&cartId=%s',
-            $content->result,
+            $this->token,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
@@ -67,21 +58,13 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
-
-        $this->client->request('POST', sprintf('/vsbridge/cart/delete?token=%s&cartId=%s', $content->result, 12345), [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', sprintf(
+            '/vsbridge/cart/delete?token=%s&cartId=%s',
+            $this->token,
+            12345
+        ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -92,19 +75,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $data =
 <<<JSON
@@ -120,7 +91,7 @@ JSON;
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/delete?token=%s&cartId=%s',
-            $content->result,
+            $this->token,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 
@@ -148,19 +119,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $data =
 <<<JSON
@@ -176,7 +135,7 @@ JSON;
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/delete?token=%s&cartId=%s',
-            $content->result,
+            $this->token,
             123
         ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
 

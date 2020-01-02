@@ -6,30 +6,21 @@ namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
 
 use ApiTestCase\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
 
 final class SyncTotalsActionTest extends JsonApiTestCase
 {
+    use UserLoginTrait;
+
     public function test_synchronizing_totals(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $this->client->request('GET', sprintf(
             '/vsbridge/cart/totals?token=%s&cartId=%s',
-            $content->result,
+            $this->token,
             12345
         ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
@@ -57,23 +48,11 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $data =
-<<<JSON
-        {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
-        }
-JSON;
-
-        $this->client->request('POST', '/vsbridge/user/login', [], [], Configuration::CONTENT_TYPE_HEADER, $data);
-
-        $response = $this->client->getResponse();
-
-        $content = json_decode($response->getContent());
+        $this->authenticateUser("test@example.com", "MegaSafePassword");
 
         $this->client->request('GET', sprintf(
             '/vsbridge/cart/totals?token=%s&cartId=%s',
-            $content->result,
+            $this->token,
             123
         ), [], [], Configuration::CONTENT_TYPE_HEADER);
 
