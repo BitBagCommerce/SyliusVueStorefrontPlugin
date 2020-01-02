@@ -20,13 +20,22 @@ final class DeleteCart implements CommandInterface
     /** @var CartItem */
     private $cartItem;
 
-    public function __construct(CartItem $cartItem)
+    /** @var string */
+    private $cartId;
+
+    public function __construct(CartItem $cartItem, string $cartId)
     {
         $this->cartItem = $cartItem;
+        $this->cartId = $cartId;
     }
 
     public function cartItem(): CartItem
     {
         return $this->cartItem;
+    }
+
+    public function cartId(): string
+    {
+        return $this->cartId;
     }
 }

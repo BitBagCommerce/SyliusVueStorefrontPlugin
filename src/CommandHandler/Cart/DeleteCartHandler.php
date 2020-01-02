@@ -13,6 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCart;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Order\Model\OrderInterface;
+use Sylius\Component\Order\Processor\OrderProcessorInterface;
 use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
@@ -21,16 +25,36 @@ final class DeleteCartHandler implements MessageHandlerInterface
     /** @var OrderItemRepositoryInterface */
     private $orderItemRepository;
 
-    public function __construct(OrderItemRepositoryInterface $orderItemRepository)
-    {
+    /** @var OrderProcessorInterface */
+    private $orderProcessor;
+
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    public function __construct(
+        OrderItemRepositoryInterface $orderItemRepository,
+        OrderProcessorInterface $orderProcessor,
+        OrderRepositoryInterface $orderRepository
+    ) {
         $this->orderItemRepository = $orderItemRepository;
+        $this->orderProcessor = $orderProcessor;
+        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(DeleteCart $deleteCart): void
     {
-        $orderItemToRemove = $this->orderItemRepository->findOneBy(['id' => $deleteCart->cartItem()->getItemId()]);
-        if ($orderItemToRemove) {
-            $this->orderItemRepository->remove($orderItemToRemove);
+        /** @var OrderInterface $order */
+        $order = $order = $this->orderRepository->findOneBy(
+            ['tokenValue' => $deleteCart->cartId(), 'state' => OrderInterface::STATE_CART]
+        );
+
+        /** @var OrderItem|null $orderItem */
+        $orderItem = $this->orderItemRepository->findOneBy(['id' => $deleteCart->cartItem()->getItemId()]);
+
+        if ($orderItem) {
+            $order->removeItem($orderItem);
+            $this->orderItemRepository->remove($orderItem);
         }
+        $this->orderProcessor->process($order);
     }
 }
