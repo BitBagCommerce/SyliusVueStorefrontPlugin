@@ -53,8 +53,12 @@ final class GetCatalogAction
 
         $queryParameters = $request->query->all();
 
-        $requestBody = $queryParameters['request'];
-        unset($queryParameters['request']);
+        $requestBody = [];
+
+        if (isset($queryParameters['request'])) {
+            $requestBody = $queryParameters['request'];
+            unset($queryParameters['request']);
+        }
 
         $elasticsearchResponse = $client->request($requestPath, Request::METHOD_GET, $requestBody, $queryParameters);
 
