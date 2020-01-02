@@ -37,7 +37,9 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
     {
         $orderHistoryView = new OrderHistoryView();
 
-        $customerOrders = $this->orderRepository->findByCustomer($syliusCustomer);
+        //$customerOrders = $this->orderRepository->findByCustomer($syliusCustomer);
+
+        $customerOrders = $this->orderRepository->findBy(['customer' => $syliusCustomer]);
 
         $orderHistoryView->items = $this->orderViewFactory->createList($customerOrders);
         $orderHistoryView->total_count = count($customerOrders);

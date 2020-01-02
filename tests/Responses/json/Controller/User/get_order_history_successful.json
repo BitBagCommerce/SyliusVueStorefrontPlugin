@@ -1,0 +1,8 @@
+{
+    "code": 200,
+    "result": {
+        "items": "@array@",
+        "search_criteria": "@array@",
+        "total_count": "@integer@"
+    }
+}

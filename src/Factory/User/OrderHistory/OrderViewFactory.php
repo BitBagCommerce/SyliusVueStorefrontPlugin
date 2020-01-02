@@ -15,7 +15,9 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\OrderView;
+use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\PaymentView;
 use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderViewFactory implements OrderViewFactoryInterface
@@ -96,7 +98,12 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->protect_code = '';
         $orderView->quote_id = $syliusOrder->getId();
         $orderView->shipping_amount = $syliusOrder->getShippingTotal();
-        $orderView->shipping_description = $syliusOrder->getShipments()->first()->getMethod()->getName() ?: '';
+
+        $orderView->shipping_description = '';
+        if ($syliusOrder->getShipments()->first()) {
+            $orderView->shipping_description = $syliusOrder->getShipments()->first()->getMethod()->getName();
+        }
+
         $orderView->shipping_discount_amount = 0;
         $orderView->shipping_discount_tax_compensation_amount = 0;
         $orderView->shipping_incl_tax = $syliusOrder->getShippingTotal();
@@ -117,8 +124,19 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->updated_at = $syliusOrder->getUpdatedAt()->format(DateHelper::DATE_TIME_FORMAT);
         $orderView->weight = 5;
         $orderView->items = $this->cartItemViewFactory->createList($syliusOrder->getItems());
-        $orderView->billing_address = $this->addressViewFactory->create($syliusOrder->getBillingAddress());
-        $orderView->payment = $this->paymentViewFactory->create($syliusOrder->getPayments()->first());
+
+        if ($syliusOrder->getBillingAddress()) {
+            $orderView->billing_address = $this->addressViewFactory->create($syliusOrder->getBillingAddress());
+        } else {
+            $orderView->billing_address = new AddressView();
+        }
+
+        if ($syliusOrder->getPayments()->first()) {
+            $orderView->payment = $this->paymentViewFactory->create($syliusOrder->getPayments()->first());
+        } else {
+            $orderView->payment = new PaymentView();
+        }
+
         $orderView->status_histories = [];
         $orderView->extension_attributes = $this->orderExtensionAttributesViewFactory->create($syliusOrder);
 

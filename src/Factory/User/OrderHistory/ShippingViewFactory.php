@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\ShippingView;
 use Sylius\Component\Core\Model\OrderInterface;
 
@@ -51,8 +52,18 @@ final class ShippingViewFactory implements ShippingViewFactoryInterface
     private function createFromOrder(OrderInterface $syliusOrder): ShippingView
     {
         $shippingView = new ShippingView();
-        $shippingView->address = $this->addressViewFactory->create($syliusOrder->getShippingAddress());
-        $shippingView->method = $syliusOrder->getPayments()->first()->getMethod()->getName();
+
+        if ($syliusOrder->getShippingAddress()) {
+            $shippingView->address = $this->addressViewFactory->create($syliusOrder->getShippingAddress());
+        } else {
+            $shippingView->address = new AddressView();
+        }
+
+        $shippingView->method = '';
+        if ($syliusOrder->getPayments()->first()) {
+            $shippingView->method = $syliusOrder->getPayments()->first()->getMethod()->getName();
+        }
+
         $shippingView->total = $this->shippingTotalViewFactory->create($syliusOrder);
 
         return $shippingView;

@@ -22,7 +22,7 @@ final class ShippingAddress
     /** @var string */
     private $country_id;
 
-    /** @var string|null */
+    /** @var string[] */
     private $street;
 
     /** @var string|null */
@@ -33,7 +33,7 @@ final class ShippingAddress
 
     public function __construct(
         string $country_id,
-        ?string $street,
+        array $street,
         ?string $postcode,
         ?string $city
     ) {
@@ -50,7 +50,7 @@ final class ShippingAddress
 
     public function getStreet(): ?string
     {
-        return $this->street;
+        return \implode(' ', $this->street);
     }
 
     public function getPostcode(): ?string

@@ -9,6 +9,7 @@
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactory">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history_view_factory"
