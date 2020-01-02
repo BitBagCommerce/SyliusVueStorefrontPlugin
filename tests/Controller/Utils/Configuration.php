@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils;
 
 final class Configuration
 {
