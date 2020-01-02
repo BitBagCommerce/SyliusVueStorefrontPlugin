@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class UpdateCartActionTest extends JsonApiTestCase
@@ -29,7 +28,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -43,7 +42,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -67,7 +66,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -91,7 +90,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 

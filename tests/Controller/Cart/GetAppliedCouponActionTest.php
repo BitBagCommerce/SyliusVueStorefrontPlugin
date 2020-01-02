@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class GetAppliedCouponActionTest extends JsonApiTestCase
@@ -22,7 +21,7 @@ final class GetAppliedCouponActionTest extends JsonApiTestCase
             '/vsbridge/cart/coupon?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -37,7 +36,7 @@ final class GetAppliedCouponActionTest extends JsonApiTestCase
             '/vsbridge/cart/coupon?token=%s&cartId=%s',
             12345,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -54,7 +53,7 @@ final class GetAppliedCouponActionTest extends JsonApiTestCase
             '/vsbridge/cart/coupon?token=%s&cartId=%s',
             $this->token,
             123
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

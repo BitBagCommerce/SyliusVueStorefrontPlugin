@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\Configuration;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class UpdateCartActionTest extends JsonApiTestCase
@@ -33,7 +32,7 @@ JSON;
             '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -61,7 +60,7 @@ JSON;
             '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
