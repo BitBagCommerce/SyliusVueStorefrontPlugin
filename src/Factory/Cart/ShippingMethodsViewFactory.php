@@ -22,13 +22,13 @@ final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInte
         $shippingMethodList = [];
 
         foreach ($shippingMethods as $shippingMethod) {
-            $shippingMethodList[] = $this->creteFromShippingMethod($shippingMethod);
+            $shippingMethodList[] = $this->createFromShippingMethod($shippingMethod);
         }
 
         return $shippingMethodList;
     }
 
-    private function creteFromShippingMethod(ShippingMethodInterface $shippingMethod): ShippingMethodsView
+    private function createFromShippingMethod(ShippingMethodInterface $shippingMethod): ShippingMethodsView
     {
         $shippingMethodsView = new ShippingMethodsView();
         $shippingMethodsView->carrier_code = $shippingMethod->getCode();
