@@ -4,17 +4,20 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentExtensionAttributeViewFactory">
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TaxGrandtotalDetailsViewFactory">
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.total_segments_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentViewFactory">
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalsViewFactory">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
