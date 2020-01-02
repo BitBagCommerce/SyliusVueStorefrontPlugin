@@ -10,40 +10,38 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
+namespace BitBag\SyliusVueStorefrontPlugin\Query\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Address\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
+use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 
-final class SetShippingMethods implements CommandInterface
+final class ShippingMethod implements QueryInterface
 {
-    /** @var string|null */
+    /** @var string */
     private $token;
 
-    /** @var string|null */
+    /** @var int|string */
     private $cartId;
 
     /** @var Address */
     private $address;
 
-    public function __construct(?string $token, ?string $cartId, Address $address)
-    {
+    public function __construct(
+        string $token,
+        $cartId,
+        Address $address
+    ) {
         $this->token = $token;
         $this->cartId = $cartId;
         $this->address = $address;
     }
 
-    public function token(): ?string
-    {
-        return $this->token;
-    }
-
-    public function cartId(): ?string
+    public function cartId()
     {
         return $this->cartId;
     }
 
-    public function address(): Address
+    public function Address(): Address
     {
         return $this->address;
     }

@@ -16,15 +16,15 @@ use Sylius\Component\Core\Model\OrderItem as BaseOrderItem;
 
 class OrderItem extends BaseOrderItem
 {
-    /** @var string */
+    /** @var string|null */
     protected $uuid;
 
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }
 
-    public function setUuid(string $uuid): void
+    public function setUuid(?string $uuid): void
     {
         $this->uuid = $uuid;
     }

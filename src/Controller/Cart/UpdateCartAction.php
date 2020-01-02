@@ -40,9 +40,6 @@ final class UpdateCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var UuidGeneratorInteface */
-    private $uuidGenerator;
-
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
@@ -52,24 +49,27 @@ final class UpdateCartAction
     /** @var OrderItemRepositoryInterface */
     private $orderItemRepository;
 
+    /** @var UuidGeneratorInteface */
+    private $uuidGenerator;
+
     public function __construct(
         RequestProcessorInterface $updateCartRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        UuidGeneratorInteface $uuidGenerator,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         CartItemViewFactoryInterface $cartItemViewFactory,
-        OrderItemRepositoryInterface $orderItemRepository
+        OrderItemRepositoryInterface $orderItemRepository,
+        UuidGeneratorInteface $uuidGenerator
     ) {
         $this->updateCartRequestProcessor = $updateCartRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->uuidGenerator = $uuidGenerator;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
         $this->orderItemRepository = $orderItemRepository;
+        $this->uuidGenerator = $uuidGenerator;
     }
 
     public function __invoke(Request $request): Response

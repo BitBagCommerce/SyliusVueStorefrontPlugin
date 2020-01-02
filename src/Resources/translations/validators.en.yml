@@ -25,6 +25,8 @@ bitbag:
                     not_blank: Please enter last name.
                 password:
                     not_blank: Please enter password.
+                    not_blank_new_password: Please enter new password.
+                    invalid: Please enter valid password.
                 created_in:
                     not_blank: CreatedIn property can not be blank.
                 store_id:

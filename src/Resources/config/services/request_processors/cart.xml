@@ -59,5 +59,10 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
             <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SyncTotalsRequest</argument>
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_applied_coupon"
+                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetAppliedCouponRequest</argument>
+        </service>
     </services>
 </container>

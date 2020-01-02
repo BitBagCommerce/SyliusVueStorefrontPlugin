@@ -1,9 +1,0 @@
-{
-    "status": 200,
-    "result": [
-        {
-            "product_id": "@integer@",
-            "item_id": "@string@"
-        }
-    ]
-}

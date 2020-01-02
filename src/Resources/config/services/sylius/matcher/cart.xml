@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+        <service id="bitbag_sylius_vue_storefront_plugin.matcher.zone_matcher"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Matcher\ZoneMatcher">
+            <argument type="service" id="sylius.repository.zone" />
+        </service>
+    </services>
+</container>

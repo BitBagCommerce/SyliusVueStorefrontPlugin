@@ -17,5 +17,8 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory" />
         </service>
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_methods_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingMethodsViewFactory">
+        </service>
     </services>
 </container>
