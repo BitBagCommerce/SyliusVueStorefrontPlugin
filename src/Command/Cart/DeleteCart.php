@@ -21,12 +21,12 @@ final class DeleteCart implements CommandInterface
     private $cartItem;
 
     /** @var string */
-    private $orderToken;
+    private $cartId;
 
-    public function __construct(CartItem $cartItem, string $tokenValue)
+    public function __construct(CartItem $cartItem, string $cartId)
     {
         $this->cartItem = $cartItem;
-        $this->orderToken = $tokenValue;
+        $this->cartId = $cartId;
     }
 
     public function cartItem(): CartItem
@@ -34,8 +34,8 @@ final class DeleteCart implements CommandInterface
         return $this->cartItem;
     }
 
-    public function orderToken(): string
+    public function cartId(): string
     {
-        return $this->orderToken;
+        return $this->cartId;
     }
 }

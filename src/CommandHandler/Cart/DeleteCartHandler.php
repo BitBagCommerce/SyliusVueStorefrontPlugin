@@ -45,7 +45,7 @@ final class DeleteCartHandler implements MessageHandlerInterface
     {
         /** @var OrderInterface $order */
         $order = $order = $this->orderRepository->findOneBy(
-            ['tokenValue' => $deleteCart->orderToken(), 'state' => OrderInterface::STATE_CART]
+            ['tokenValue' => $deleteCart->cartId(), 'state' => OrderInterface::STATE_CART]
         );
 
         /** @var OrderItem|null $orderItem */
