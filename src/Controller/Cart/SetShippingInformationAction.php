@@ -35,12 +35,6 @@ final class SetShippingInformationAction
     /** @var MessageBusInterface */
     private $bus;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
     /** @var ViewHandlerInterface */
     private $viewHandler;
 
@@ -53,24 +47,30 @@ final class SetShippingInformationAction
     /** @var ShippingInformationViewFactoryInterface */
     private $shippingInformationViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var PaymentMethodRepositoryInterface */
+    private $paymentMethodRepository;
+
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
-        OrderRepositoryInterface $orderRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ShippingInformationViewFactoryInterface $shippingInformationViewFactory
+        ShippingInformationViewFactoryInterface $shippingInformationViewFactory,
+        OrderRepositoryInterface $orderRepository,
+        PaymentMethodRepositoryInterface $paymentMethodRepository
     ) {
         $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
-        $this->orderRepository = $orderRepository;
-        $this->paymentMethodRepository = $paymentMethodRepository;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->shippingInformationViewFactory = $shippingInformationViewFactory;
+        $this->orderRepository = $orderRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     public function __invoke(Request $request): Response

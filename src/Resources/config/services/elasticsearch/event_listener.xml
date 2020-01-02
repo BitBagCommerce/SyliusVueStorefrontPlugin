@@ -3,7 +3,7 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.event_listener.resource_index"
                  class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\EventListener\ResourceIndexListener">

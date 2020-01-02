@@ -18,7 +18,7 @@ use PhpSpec\ObjectBehavior;
 final class UpdateCartSpec extends ObjectBehavior
 {
     private const TOKEN = 'token';
-    private const CART_ID = 'update-cart-spec';
+    private const CART_ID = 'update-Cart-spec';
     private const CART_ITEM = null;
 
     function let(): void

@@ -21,6 +21,7 @@ final class DefaultAddressModifier implements DefaultAddressModifierInterface
     public function modify(CustomerInterface $customer, AddressInterface $address): void
     {
         $defaultAddress = $customer->getDefaultAddress();
+
         if (null === $defaultAddress) {
             $customer->setDefaultAddress($address);
 

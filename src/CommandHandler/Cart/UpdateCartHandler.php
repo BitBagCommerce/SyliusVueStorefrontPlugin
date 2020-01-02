@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use BitBag\SyliusVueStorefrontPlugin\Modifier\OrderModifierInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -46,18 +46,25 @@ final class UpdateCartHandler implements MessageHandlerInterface
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $updateCart->cartId()]);
-        Assert::notNull($cart, 'Cart has not been found');
+
+        Assert::notNull($cart, 'Cart has not been found.');
 
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $this->productVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
 
-        Assert::notNull($productVariant, 'Product variant has not been found');
+        Assert::notNull($productVariant, 'Product variant has not been found.');
+
         $product = $productVariant->getProduct();
 
         Assert::notNull($product);
 
-        Assert::true(in_array($cart->getChannel(), $product->getChannels()->toArray(), true), 'Product is not in same channel as cart');
+        Assert::true(
+            in_array($cart->getChannel(), $product->getChannels()->toArray(), true),
+            'Product is not in same channel as cart.'
+        );
 
-        $this->orderModifier->modify($cart, $productVariant, $updateCart->cartItem()->getQuantity(), $updateCart->getOrderItemUuid());
+        $this->orderModifier->modify(
+            $cart, $productVariant, $updateCart->cartItem()->getQuantity(), $updateCart->getOrderItemUuid()
+        );
     }
 }

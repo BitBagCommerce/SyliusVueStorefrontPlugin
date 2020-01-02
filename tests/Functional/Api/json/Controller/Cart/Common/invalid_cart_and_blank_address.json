@@ -1,0 +1,4 @@
+{
+    "code": 400,
+    "result": "The cart does not exist. This value should not be blank."
+}

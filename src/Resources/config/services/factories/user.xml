@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.user_profile_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactory">

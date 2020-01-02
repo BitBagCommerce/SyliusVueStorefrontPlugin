@@ -1,6 +1,6 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <services>
-        <defaults public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.create_cart_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\CreateCartHandler">
@@ -38,14 +38,6 @@
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\DeleteCouponHandler">
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="sylius.order_processing.order_processor" />
-            <tag name="messenger.message_handler" />
-        </service>
-
-        <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.set_shipping_methods_handler"
-                 class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\SetShippingMethodsHandler">
-            <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius.factory.address" />
-            <argument type="service" id="sm.factory" />
             <tag name="messenger.message_handler" />
         </service>
 

@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="false" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.default_address"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifier">
@@ -21,6 +21,14 @@
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.adjustment" />
             <argument type="service" id="sylius.manager.adjustment" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.order_modifier"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifier">
+            <argument type="service" id="sylius.custom_factory.order_item" />
+            <argument type="service" id="sylius.order_item_quantity_modifier" />
+            <argument type="service" id="sylius.order_processing.order_processor.composite" />
+            <argument type="service" id="sylius.manager.order" />
         </service>
     </services>
 </container>
