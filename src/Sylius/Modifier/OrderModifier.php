@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Modifier;
+namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier;
 
 use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
@@ -49,10 +49,14 @@ final class OrderModifier implements OrderModifierInterface
     public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $quantity, string $uuid): void
     {
         $cartItem = $this->getCartItemToModify($order, $productVariant);
+
         if (null !== $cartItem) {
             $this->orderItemQuantityModifier->modify($cartItem, $cartItem->getQuantity() + $quantity);
+
             $cartItem->setUuid($uuid);
+
             $this->orderProcessor->process($order);
+
             $this->orderManager->persist($order);
 
             return;
@@ -61,6 +65,7 @@ final class OrderModifier implements OrderModifierInterface
         $cartItem = $this->cartItemFactory->createForCart($order);
         $cartItem->setVariant($productVariant);
         $cartItem->setUuid($uuid);
+
         $this->orderItemQuantityModifier->modify($cartItem, $quantity);
 
         $order->addItem($cartItem);
