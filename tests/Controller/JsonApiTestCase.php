@@ -14,13 +14,4 @@ abstract class JsonApiTestCase extends \ApiTestCase\JsonApiTestCase
         $this->dataFixturesPath = __DIR__ . '/../DataFixtures/ORM';
         $this->expectedResponsesPath = __DIR__ . '/../Responses/json';
     }
-
-    protected function get($id)
-    {
-        if (property_exists(static::class, 'container')) {
-            return static::$container->get($id);
-        }
-
-        return parent::get($id);
-    }
 }
