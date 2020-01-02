@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -76,7 +76,7 @@ final class UpdateUserHandler implements MessageHandlerInterface
             $syliusAddress->setPhoneNumber($address->telephone);
             $syliusAddress->setPostcode($address->postcode);
             $syliusAddress->setCountryCode($address->country_id);
-            $syliusAddress->setStreet(\implode('', $address->street));
+            $syliusAddress->setStreet(\implode(' ', $address->street));
             $syliusAddress->setCity($address->city);
             $syliusAddress->setFirstName($address->firstname);
             $syliusAddress->setLastName($address->lastname);

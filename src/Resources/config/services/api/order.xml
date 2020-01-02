@@ -6,7 +6,7 @@
         <defaults autowire="false" autoconfigure="false" public="true" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.order.create_order"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\CreateOrderAction">
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Order\CreateOrderAction">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
         </service>
     </services>

@@ -18,7 +18,6 @@ use PhpSpec\ObjectBehavior;
 /**
  * @todo
  * Class CollectTotalsHandlerSpec
- * @package spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart
  */
 final class CollectTotalsHandlerSpec extends ObjectBehavior
 {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults autowire="false" autoconfigure="false" public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
-        <service id="bitbag_sylius_vue_storefront_plugin.checker.product_in_channel" class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Checker\ProductInChannelChecker">
+        <service id="bitbag_sylius_vue_storefront_plugin.checker.product_in_channel"
+                 class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Checker\ProductInChannelChecker">
             <argument type="service" id="sylius.repository.channel" />
             <argument>%env(APP_CHANNEL_CODE)%</argument>
         </service>

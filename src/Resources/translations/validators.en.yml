@@ -25,6 +25,8 @@ bitbag:
                     not_blank: Please enter last name.
                 password:
                     not_blank: Please enter password.
+                    not_blank_new_password: Please enter new password.
+                    invalid: Please enter valid password.
                 created_in:
                     not_blank: CreatedIn property can not be blank.
                 store_id:
@@ -38,13 +40,13 @@ bitbag:
                     id:
                         not_blank: Please provide valid address id.
                     customer_id:
-                        not_blank:  Please provide valid customer id.
+                        not_blank: Please provide valid customer id.
                     region_id:
-                        not_blank:  Please provide valid region id.
+                        not_blank: Please provide valid region id.
                     country_id:
-                        not_blank:  Please provide valid country id.
+                        not_blank: Please provide valid country id.
                     street:
-                        not_blank:  Please provide valid street name.
+                        not_blank: Please provide valid street name.
                     company_id:
                         not_blank:  Please provide valid company id.
                     telephone:
@@ -66,7 +68,6 @@ bitbag:
                             not_blank:  Please provide valid region.
                         region_id:
                             not_blank:  Please provide valid region id.
-
             cart:
                 token_value:
                     unique: The cart id is already in use.
@@ -79,7 +80,25 @@ bitbag:
                     not_null: Please provide coupon code.
                     not_blank: Coupon code can not be blank.
                     valid: Provided coupon code is not valid.
-
+                item:
+                    item_id:
+                        not_null: Please provide valid item id.
+                    id:
+                        exist: The order item does not exist.
+                address_information:
+                    shipping_method_code:
+                        not_blank: Shipping method can not be blank.
+                    shipping_carrier_code:
+                        not_blank: Shipping carrier can not be blank.
+                cart_item:
+                    sku:
+                        not_blank: Please provide valid SKU.
+                    qty:
+                        not_blank: Please provide valid quantity.
+                    item_id:
+                        not_blank: Please provide valid item id.
+                    quote_id:
+                        not_blank: Please provide valid quote id.
             stock:
                 sku:
                     not_blank: Please provide valid SKU.

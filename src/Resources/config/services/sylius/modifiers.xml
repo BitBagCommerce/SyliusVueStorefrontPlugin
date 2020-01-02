@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.default_address"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifier">
+            <argument type="service" id="sylius.manager.customer" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.shipment"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\ShipmentModifier">
+            <argument type="service" id="sylius.manager.adjustment" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.adjustment"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\AdjustmentModifier">
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.adjustment" />
+            <argument type="service" id="sylius.manager.adjustment" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.modifier.order_modifier"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifier">
+            <argument type="service" id="sylius.custom_factory.order_item" />
+            <argument type="service" id="sylius.order_item_quantity_modifier" />
+            <argument type="service" id="sylius.order_processing.order_processor.composite" />
+            <argument type="service" id="sylius.manager.order" />
+        </service>
+    </services>
+</container>

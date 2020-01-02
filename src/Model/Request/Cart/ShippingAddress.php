@@ -15,19 +15,51 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 final class ShippingAddress
 {
     private const COUNTRY_ID = 'country_id';
+    private const STREET = 'street';
+    private const POSTCODE = 'postcode';
+    private const CITY = 'city';
 
     /** @var string */
-    private $countryId;
+    private $country_id;
 
-    public function __construct(string $countryId)
-    {
-        $this->countryId = $countryId;
+    /** @var string|null */
+    private $street;
+
+    /** @var string|null */
+    private $postcode;
+
+    /** @var string|null */
+    private $city;
+
+    public function __construct(
+        string $country_id,
+        ?string $street,
+        ?string $postcode,
+        ?string $city
+    ) {
+        $this->country_id = $country_id;
+        $this->street = $street;
+        $this->postcode = $postcode;
+        $this->city = $city;
     }
 
-    public static function createFromArray(array $array): self
+    public function getCountryId(): string
     {
-        return new self(
-            $array[self::COUNTRY_ID]
-        );
+        return $this->country_id;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
     }
 }

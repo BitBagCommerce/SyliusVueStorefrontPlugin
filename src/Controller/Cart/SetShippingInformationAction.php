@@ -12,12 +12,17 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
+use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -42,13 +47,21 @@ final class SetShippingInformationAction
     /** @var ShippingInformationViewFactoryInterface */
     private $shippingInformationViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var PaymentMethodRepositoryInterface */
+    private $paymentMethodRepository;
+
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ShippingInformationViewFactoryInterface $shippingInformationViewFactory
+        ShippingInformationViewFactoryInterface $shippingInformationViewFactory,
+        OrderRepositoryInterface $orderRepository,
+        PaymentMethodRepositoryInterface $paymentMethodRepository
     ) {
         $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
@@ -56,6 +69,8 @@ final class SetShippingInformationAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->shippingInformationViewFactory = $shippingInformationViewFactory;
+        $this->orderRepository = $orderRepository;
+        $this->paymentMethodRepository = $paymentMethodRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -69,9 +84,25 @@ final class SetShippingInformationAction
             ));
         }
 
+        /** @var SetShippingInformation $setShippingInformationCommand */
+        $setShippingInformationCommand = $this->setShippingInformationRequestProcessor->getCommand($request);
+
+        $this->bus->dispatch($setShippingInformationCommand);
+
+        /** @var OrderInterface $cart */
+        $cart = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $setShippingInformationCommand->cartId(),
+                'shippingState' => OrderInterface::STATE_CART,
+            ]
+        );
+
+        /** @var PaymentMethodInterface[] $cart */
+        $paymentMethods = $this->paymentMethodRepository->findAll();
+
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->shippingInformationViewFactory->create()
+                $this->shippingInformationViewFactory->create($paymentMethods, $cart)
             ),
             Response::HTTP_OK
         ));

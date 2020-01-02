@@ -31,10 +31,10 @@
             <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.generator.uuid" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
             <argument type="service" id="sylius.repository.order_item" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.generator.uuid" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.delete_cart"
@@ -65,7 +65,13 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.get_applied_coupon"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\GetAppliedCouponAction" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\GetAppliedCouponAction" >
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_applied_coupon" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+            <argument type="service" id="sylius.repository.order" />
+        </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.cart.sync_totals"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\Cart\SyncTotalsAction">
@@ -111,6 +117,9 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.repository.payment_method" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory" />
         </service>
     </services>

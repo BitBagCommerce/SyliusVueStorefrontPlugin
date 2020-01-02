@@ -38,7 +38,7 @@ final class Address
     /** @var string */
     public $country_id;
 
-    /** @var array */
+    /** @var string[] */
     public $street;
 
     /** @var string */

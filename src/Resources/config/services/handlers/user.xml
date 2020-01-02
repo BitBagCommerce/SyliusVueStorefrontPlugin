@@ -1,6 +1,6 @@
 <container xmlns="http://symfony.com/schema/dic/services">
     <services>
-        <defaults public="true"/>
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.create_user_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\CreateUserHandler">

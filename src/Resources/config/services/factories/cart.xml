@@ -4,18 +4,22 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="true" />
+        <defaults autowire="false" autoconfigure="false" public="false" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory">
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactory">
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactory">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory" />
         </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_methods_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingMethodsViewFactory">
         </service>

@@ -28,7 +28,7 @@ final class CustomerIsCurrentShopUserValidator extends ConstraintValidator
 
     public function validate($id, Constraint $constraint): void
     {
-        if ($id !== $this->loggedInShopUserProvider->provide()->getId()) {
+        if ($id !== $this->loggedInShopUserProvider->provide()->getCustomer()->getId()) {
             $this->context->addViolation($constraint->message);
         }
     }
