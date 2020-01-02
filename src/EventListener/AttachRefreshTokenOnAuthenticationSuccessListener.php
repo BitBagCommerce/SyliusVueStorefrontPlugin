@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\EventListener;
 
-use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
-use Gesdinet\JWTRefreshTokenBundle\Request\RequestRefreshToken;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -23,6 +21,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AttachRefreshTokenOnAuthenticationSuccessListener
 {
+    private const ROUTE_LOGIN = '/vsbridge/user/login';
+
     /** @var RefreshTokenManagerInterface */
     protected $refreshTokenManager;
 
@@ -38,28 +38,18 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
     /** @var string */
     protected $userIdentityField;
 
-    /** @var bool */
-    protected $singleUse;
-
-    /** @var string */
-    protected $tokenParameterName;
-
     public function __construct(
         RefreshTokenManagerInterface $refreshTokenManager,
         int $ttl,
         ValidatorInterface $validator,
         RequestStack $requestStack,
-        string $userIdentityField,
-        bool $singleUse,
-        string $tokenParameterName = 'refreshToken'
+        string $userIdentityField
     ) {
         $this->refreshTokenManager = $refreshTokenManager;
         $this->ttl = $ttl;
         $this->validator = $validator;
         $this->requestStack = $requestStack;
         $this->userIdentityField = $userIdentityField;
-        $this->singleUse = $singleUse;
-        $this->tokenParameterName = $tokenParameterName;
     }
 
     public function attachRefreshToken(AuthenticationSuccessEvent $event): void
@@ -68,52 +58,38 @@ class AttachRefreshTokenOnAuthenticationSuccessListener
         $user = $event->getUser();
         $request = $this->requestStack->getCurrentRequest();
 
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof UserInterface || self::ROUTE_LOGIN !== $request->getPathInfo()) {
             return;
         }
 
-        $refreshTokenString = RequestRefreshToken::getRefreshToken($request, $this->tokenParameterName);
+        $datetime = new \DateTime();
+        $datetime->modify('+' . $this->ttl . ' seconds');
 
-        if ($refreshTokenString && true === $this->singleUse) {
-            $refreshToken = $this->refreshTokenManager->get($refreshTokenString);
-            $refreshTokenString = null;
-            if ($refreshToken instanceof RefreshTokenInterface) {
-                $this->refreshTokenManager->delete($refreshToken);
-            }
-        }
+        $refreshToken = $this->refreshTokenManager->create();
 
-        if ($refreshTokenString) {
-            $data[$this->tokenParameterName] = $refreshTokenString;
-        } else {
-            $datetime = new \DateTime();
-            $datetime->modify('+' . $this->ttl . ' seconds');
+        $accessor = new PropertyAccessor();
+        $userIdentityFieldValue = $accessor->getValue($user, $this->userIdentityField);
 
-            $refreshToken = $this->refreshTokenManager->create();
+        $refreshToken->setUsername($userIdentityFieldValue);
+        $refreshToken->setRefreshToken();
+        $refreshToken->setValid($datetime);
 
-            $accessor = new PropertyAccessor();
-            $userIdentityFieldValue = $accessor->getValue($user, $this->userIdentityField);
-
-            $refreshToken->setUsername($userIdentityFieldValue);
-            $refreshToken->setRefreshToken();
-            $refreshToken->setValid($datetime);
-
-            $valid = false;
-            while (false === $valid) {
-                $valid = true;
-                $errors = $this->validator->validate($refreshToken);
-                if ($errors->count() > 0) {
-                    foreach ($errors as $error) {
-                        if ('refreshToken' === $error->getPropertyPath()) {
-                            $valid = false;
-                            $refreshToken->setRefreshToken();
-                        }
+        $valid = false;
+        while (false === $valid) {
+            $valid = true;
+            $errors = $this->validator->validate($refreshToken);
+            if ($errors->count() > 0) {
+                foreach ($errors as $error) {
+                    if ('refreshToken' === $error->getPropertyPath()) {
+                        $valid = false;
+                        $refreshToken->setRefreshToken();
                     }
                 }
             }
-
-            $this->refreshTokenManager->save($refreshToken);
-            $data['meta'][$this->tokenParameterName] = $refreshToken->getRefreshToken();
         }
+
+        $this->refreshTokenManager->save($refreshToken);
+        $data['meta']['refreshToken'] = $refreshToken->getRefreshToken();
 
         $event->setData($data);
     }

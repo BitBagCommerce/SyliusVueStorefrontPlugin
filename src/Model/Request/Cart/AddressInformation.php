@@ -19,7 +19,7 @@ final class AddressInformation
     private const SHIPPING_CARRIER_CODE = 'shipping_carrier_code';
 
     /** @var ShippingAddress */
-    private $shippingAddress;
+    private $shipping_address;
 
     /** @var string */
     private $shipping_method_code;
@@ -28,21 +28,22 @@ final class AddressInformation
     private $shipping_carrier_code;
 
     public function __construct(
-        ShippingAddress $shippingAddress,
+        ShippingAddress $shipping_address,
         string $shipping_method_code,
         string $shipping_carrier_code
     ) {
-        $this->shippingAddress = $shippingAddress;
+        $this->shipping_address = $shipping_address;
         $this->shipping_method_code = $shipping_method_code;
         $this->shipping_carrier_code = $shipping_carrier_code;
     }
 
-    public static function createFromArray(array $addressInformation): self
+    public function getShippingAddress(): ShippingAddress
     {
-        return new self(
-            ShippingAddress::createFromArray($addressInformation[self::SHIPPING_ADDRESS]),
-            $addressInformation[self::SHIPPING_METHOD_CODE],
-            $addressInformation[self::SHIPPING_CARRIER_CODE]
-        );
+        return $this->shipping_address;
+    }
+
+    public function getShippingCarrierCode(): string
+    {
+        return $this->shipping_carrier_code;
     }
 }

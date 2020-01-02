@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class DeleteCartRequest implements RequestCommandInterface
@@ -24,8 +25,11 @@ final class DeleteCartRequest implements RequestCommandInterface
     /** @var int|string */
     public $cartId;
 
+    /** @var CartItem */
+    public $cartItem;
+
     public function getCommand(): CommandInterface
     {
-        return new DeleteCart($this->token, $this->cartId);
+        return new DeleteCart($this->cartItem);
     }
 }

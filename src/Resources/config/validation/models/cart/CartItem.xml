@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem">
+        <property name="sku">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_item.sku.not_blank</option>
+            </constraint>
+        </property>
+        <property name="qty">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_item.qty.not_blank</option>
+            </constraint>
+        </property>
+        <property name="quoteId">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_item.quote_id.not_blank</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

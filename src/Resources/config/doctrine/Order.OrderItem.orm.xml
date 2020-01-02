@@ -3,6 +3,6 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
     <mapped-superclass name="BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem" table="sylius_order_item">
-        <field name="uuid" type="string" length="40"/>
+        <field name="uuid" type="string" length="40" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

@@ -20,8 +20,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler
 {
-    private const EVENT_NAME = 'bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success';
-
     public function handleAuthenticationSuccess(UserInterface $user, $jwt = null): JWTAuthenticationSuccessResponse
     {
         if (null === $jwt) {
@@ -39,7 +37,7 @@ final class AuthenticationSuccessHandler extends BaseAuthenticationSuccessHandle
             $response
         );
 
-        $this->dispatcher->dispatch($event, self::EVENT_NAME);
+        $this->dispatcher->dispatch($event);
 
         return $response->setData($event->getData());
     }

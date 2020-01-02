@@ -15,33 +15,19 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 final class CartItem
 {
     /** @var string */
-    private $sku;
+    public $sku;
 
     /** @var int */
-    private $qty;
+    public $qty;
 
     /** @var int|null */
-    private $item_id;
+    public $item_id;
 
     /** @var string|null */
-    private $quoteId;
+    public $quoteId;
 
     /** @var object|null */
-    private $product_option;
-
-    public function __construct(
-        string $sku,
-        int $qty,
-        ?int $item_id = null,
-        ?string $quoteId = null,
-        ?object $product_option = null
-    ) {
-        $this->sku = $sku;
-        $this->qty = $qty;
-        $this->item_id = $item_id;
-        $this->quoteId = $quoteId;
-        $this->product_option = $product_option;
-    }
+    public $product_option;
 
     public function getItemId(): ?int
     {

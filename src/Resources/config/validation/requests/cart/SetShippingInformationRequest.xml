@@ -13,5 +13,8 @@
             </constraint>
             <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />
         </property>
+        <property name="addressInformation">
+            <constraint name="Valid"/>
+        </property>
     </class>
 </constraint-mapping>

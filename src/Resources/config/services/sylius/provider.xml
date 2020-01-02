@@ -5,6 +5,12 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="false" />
 
+        <service id="bitbag_sylius_vue_storefront_plugin.sylius.provider.address_provider"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProvider">
+            <argument type="service" id="sylius.repository.address" />
+            <argument type="service" id="sylius.custom_factory.address" />
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.provider.channel"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProvider">
             <argument type="service" id="sylius.repository.channel" />
@@ -21,6 +27,17 @@
             <argument type="service" id="sylius.repository.customer" />
             <argument type="service" id="sylius.factory.customer" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.shipment"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ShipmentProvider">
+            <argument type="service" id="sylius.factory.shipment" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.adjustment"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AdjustmentProvider">
+            <argument type="service" id="sylius.custom_factory.adjustment" />
+            <argument type="service" id="sylius.context.channel" />
         </service>
     </services>
 </container>
