@@ -18,8 +18,8 @@ trait UserLoginTrait
         $data =
 <<<JSON
         {
-            "username": "test@example.com",
-            "password": "MegaSafePassword"
+            "username": $username,
+            "password": $password
         }
 JSON;
 
