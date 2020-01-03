@@ -13,8 +13,8 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Mailer\Emails;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
+use Sylius\Bundle\UserBundle\Mailer\Emails;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -63,9 +63,9 @@ final class ResetPasswordHandler implements MessageHandlerInterface
         Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
 
         $this->sender->send(
-            Emails::EMAIL_RESET_PASSWORD_TOKEN,
+            Emails::RESET_PASSWORD_TOKEN,
             [$email],
-            ['user' => $user, 'channelCode' => $this->channelProvider->provide()]
+            ['user' => $user, 'channel' => $this->channelProvider->provide()]
         );
     }
 }

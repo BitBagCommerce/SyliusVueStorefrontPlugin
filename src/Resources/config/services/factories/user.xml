@@ -14,8 +14,8 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistoryViewFactory">
-            <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_view_factory" />
+            <argument type="service" id="sylius.repository.order" />
         </service>
     </services>
 </container>

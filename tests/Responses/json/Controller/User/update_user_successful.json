@@ -1,0 +1,18 @@
+{
+    "code": 200,
+    "result": {
+        "id": "@integer@",
+        "group_id": "@integer@",
+        "default_shipping": "@string@",
+        "created_at": "@string@",
+        "updated_at": "@string@",
+        "created_in": "@string@",
+        "email": "@string@",
+        "firstname": "Johny",
+        "lastname": "Doe",
+        "store_id": "@integer@",
+        "website_id": "@integer@",
+        "addresses": "@array@",
+        "disable_auto_group_change": "@integer@"
+    }
+}

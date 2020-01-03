@@ -15,16 +15,17 @@ final class UpdateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'product_with_attributes.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
-        { "cartItem": 
-            { 
-                "sku": "RANDOM_JACKET_CODE",
-                "qty": 2,
-                "quoteId": "12345" 
-            }
+        { 
+            "cartItem": 
+                { 
+                    "sku": "RANDOM_JACKET_CODE",
+                    "qty": 2,
+                    "quoteId": "12345" 
+                }
         }
 JSON;
 
@@ -43,7 +44,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -88,7 +89,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
             '/vsbridge/cart/update?token=%s&cartId=%s&coupon=SOMETHING',

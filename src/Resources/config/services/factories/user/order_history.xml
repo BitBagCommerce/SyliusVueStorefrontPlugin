@@ -29,7 +29,8 @@
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_assignment_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingAssignmentViewFactory">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
+            <argument type="service" id="sylius.repository.order" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_total_view_factory"

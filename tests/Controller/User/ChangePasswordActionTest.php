@@ -7,7 +7,7 @@ namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
-final class UpdateCartActionTest extends JsonApiTestCase
+final class ChangePasswordActionTest extends JsonApiTestCase
 {
     use UserLoginTrait;
 
@@ -15,7 +15,7 @@ final class UpdateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -53,7 +53,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -77,7 +77,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON

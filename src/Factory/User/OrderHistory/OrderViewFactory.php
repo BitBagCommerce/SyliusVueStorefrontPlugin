@@ -92,7 +92,12 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->global_currency_code = $syliusOrder->getCurrencyCode();
         $orderView->grand_total = $syliusOrder->getTotal();
         $orderView->discount_tax_compensation_amount = 0;
-        $orderView->increment_id = $syliusOrder->getNumber();
+
+        $orderView->increment_id = '000000000';
+        if ($syliusOrder->getNumber()) {
+            $orderView->increment_id = $syliusOrder->getNumber();
+        }
+
         $orderView->is_virtual = 0;
         $orderView->order_currency_code = $syliusOrder->getCurrencyCode();
         $orderView->protect_code = '';

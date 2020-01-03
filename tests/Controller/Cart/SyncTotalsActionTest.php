@@ -15,7 +15,7 @@ final class SyncTotalsActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('GET', sprintf(
             '/vsbridge/cart/totals?token=%s&cartId=%s',
@@ -47,7 +47,7 @@ final class SyncTotalsActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('GET', sprintf(
             '/vsbridge/cart/totals?token=%s&cartId=%s',

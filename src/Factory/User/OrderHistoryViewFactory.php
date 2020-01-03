@@ -19,18 +19,18 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
 {
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     /** @var OrderViewFactoryInterface */
     private $orderViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
     public function __construct(
-        OrderRepositoryInterface $orderRepository,
-        OrderViewFactoryInterface $orderViewFactory
+        OrderViewFactoryInterface $orderViewFactory,
+        OrderRepositoryInterface $orderRepository
     ) {
-        $this->orderRepository = $orderRepository;
         $this->orderViewFactory = $orderViewFactory;
+        $this->orderRepository = $orderRepository;
     }
 
     public function create(CustomerInterface $syliusCustomer): OrderHistoryView

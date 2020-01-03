@@ -12,10 +12,13 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
+
 final class ShippingAssignmentView
 {
     /** @var ShippingView */
     public $shipping;
 
-//    public $items;
+    /** @var array|CartItemView[] */
+    public $items;
 }

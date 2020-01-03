@@ -15,7 +15,7 @@ final class DeleteCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
             '/vsbridge/cart/delete-coupon?token=%s&cartId=%s',
@@ -51,7 +51,7 @@ final class DeleteCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
             '/vsbridge/cart/delete-coupon?token=%s&cartId=%s',
