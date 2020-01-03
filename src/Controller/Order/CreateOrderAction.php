@@ -12,24 +12,69 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Order;
 
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-/**
- * @todo
- */
 final class CreateOrderAction
 {
-    /** @var LoggedInShopUserProviderInterface */
-    private $loggedInUserProvider;
+    /** @var RequestProcessorInterface */
+    private $createOrderRequestProcessor;
 
-    public function __construct(LoggedInShopUserProviderInterface $loggedInUserProvider)
+    /** @var MessageBusInterface */
+    private $bus;
+
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
+
+    /** @var ValidationErrorViewFactoryInterface */
+    private $validationErrorViewFactory;
+
+    /** @var StockViewFactoryInterface */
+    private $stockViewFactory;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
+    public function __construct(
+        RequestProcessorInterface $createOrderRequestProcessor,
+        MessageBusInterface $bus,
+        ViewHandlerInterface $viewHandler,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        StockViewFactoryInterface $stockViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory)
     {
-        $this->loggedInUserProvider = $loggedInUserProvider;
+        $this->createOrderRequestProcessor = $createOrderRequestProcessor;
+        $this->bus = $bus;
+        $this->viewHandler = $viewHandler;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->stockViewFactory = $stockViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
+        $validationResults = $this->createOrderRequestProcessor->validate($request);
+
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(
+                View::create(
+                    $this->validationErrorViewFactory->create($validationResults),
+                    Response::HTTP_BAD_REQUEST
+                )
+            );
+        }
+
+        $this->bus->dispatch($this->createOrderRequestProcessor->getCommand($request));
+
+        return $this->viewHandler->handle(View::create(
+            $this->genericSuccessViewFactory->create('OK'),
+            Response::HTTP_OK));
     }
 }

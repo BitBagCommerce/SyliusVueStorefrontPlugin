@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd">
-    <services>
+           xsi:schemaLocation="http://symfony.com/schema/dic/services  http://symfony.com/schema/dic/services/services-1.0.xsd" >
+    <services >
         <defaults autowire="false" autoconfigure="false" public="true" />
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.order.create_order"
-                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Order\CreateOrderAction">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
-        </service>
-    </services>
-</container>
+                 class="BitBag\SyliusVueStorefrontPlugin\Controller\Order\CreateOrderAction" >
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.order.create_order" />
+            <argument type="service" id="bitbag_vue_storefront_plugin.command_bus" />
+            <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+        </service >
+    </services >
+</container >

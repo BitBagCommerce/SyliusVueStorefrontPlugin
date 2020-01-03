@@ -31,6 +31,6 @@ final class ChannelProvider implements ChannelProviderInterface
 
     public function provide(): ChannelInterface
     {
-        return $this->channelRepository->findOneByCode($this->channelCode);
+        return $this->channelRepository->findOneByCode('US_WEB');
     }
 }
