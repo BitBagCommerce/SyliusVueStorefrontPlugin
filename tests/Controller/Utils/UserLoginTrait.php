@@ -11,15 +11,16 @@ trait UserLoginTrait
 {
     /** @var Client */
     protected $client;
+
     private $token;
 
-    private function authenticateUser(string $username, string $password)
+    private function authenticateUser(string $username, string $password): void
     {
         $data =
 <<<JSON
         {
-            "username": $username,
-            "password": $password
+            "username": "$username",
+            "password": "$password"
         }
 JSON;
 
