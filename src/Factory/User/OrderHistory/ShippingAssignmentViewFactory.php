@@ -26,17 +26,12 @@ final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFacto
     /** @var CartItemViewFactory */
     private $cartItemViewFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     public function __construct(
         ShippingViewFactoryInterface $shippingViewFactory,
-        CartItemViewFactory $cartItemViewFactory,
-        OrderRepositoryInterface $orderRepository
+        CartItemViewFactory $cartItemViewFactory
     ) {
         $this->shippingViewFactory = $shippingViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
-        $this->orderRepository = $orderRepository;
     }
 
     public function create(OrderInterface $syliusOrder): ShippingAssignmentView
