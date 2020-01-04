@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class CreateCartActionTest extends JsonApiTestCase
 {
@@ -16,7 +15,7 @@ final class CreateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->client->request('POST', '/vsbridge/cart/create', [], [], Configuration::CONTENT_TYPE_HEADER);
+        $this->client->request('POST', '/vsbridge/cart/create', [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -27,12 +26,12 @@ final class CreateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/create?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

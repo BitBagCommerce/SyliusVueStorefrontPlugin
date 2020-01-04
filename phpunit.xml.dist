@@ -14,7 +14,7 @@
     </testsuites>
 
     <php>
-        <server name="EXPECTED_RESPONSE_DIR" value="../../tests/Functional/Api/json" />
+        <server name="EXPECTED_RESPONSE_DIR" value="../../tests/Responses/json" />
 
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
     </php>

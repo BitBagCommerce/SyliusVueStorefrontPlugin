@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class SetShippingInformationActionTest extends JsonApiTestCase
 {
@@ -16,7 +15,7 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'shipping.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -34,7 +33,7 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
                             },
                             "region_id": 0,
                             "country_id": "GB",
-                            "street": "GoodStreet",
+                            "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
                             "postcode": "22-567",
@@ -53,7 +52,7 @@ JSON;
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -64,7 +63,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -82,7 +81,7 @@ JSON;
                             },
                             "region_id": 0,
                             "country_id": "GB",
-                            "street": "GoodStreet",
+                            "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
                             "postcode": "22-567",
@@ -101,7 +100,7 @@ JSON;
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -112,13 +111,13 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -133,7 +132,7 @@ JSON;
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             12345,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -144,7 +143,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -162,7 +161,7 @@ JSON;
                             },
                             "region_id": 0,
                             "country_id": "GB",
-                            "street": "GoodStreet",
+                            "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
                             "postcode": "22-567",
@@ -181,7 +180,7 @@ JSON;
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             123
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -192,13 +191,13 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             123
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

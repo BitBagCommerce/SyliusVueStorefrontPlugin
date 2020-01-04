@@ -83,7 +83,7 @@ final class UpdateUserAction
         $this->bus->dispatch($updateUserCommand);
 
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['id' => $updateUserCommand->customer()->id]);
+        $customer = $this->customerRepository->findOneBy(['email' => $updateUserCommand->customer()->email]);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

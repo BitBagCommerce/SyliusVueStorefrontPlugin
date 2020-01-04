@@ -12,17 +12,26 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\ShippingAssignmentView;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFactoryInteface
 {
     /** @var ShippingViewFactoryInterface */
     private $shippingViewFactory;
 
-    public function __construct(ShippingViewFactoryInterface $shippingViewFactory)
-    {
+    /** @var CartItemViewFactory */
+    private $cartItemViewFactory;
+
+    public function __construct(
+        ShippingViewFactoryInterface $shippingViewFactory,
+        CartItemViewFactory $cartItemViewFactory
+    ) {
         $this->shippingViewFactory = $shippingViewFactory;
+        $this->cartItemViewFactory = $cartItemViewFactory;
     }
 
     public function create(OrderInterface $syliusOrder): ShippingAssignmentView
@@ -45,6 +54,12 @@ final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFacto
     {
         $shippingAssignmentView = new ShippingAssignmentView();
         $shippingAssignmentView->shipping = $this->shippingViewFactory->create($syliusOrder);
+
+        if ($syliusOrder->getItems()) {
+            $shippingAssignmentView->items = $this->cartItemViewFactory->createList($syliusOrder->getItems());
+        } else {
+            $shippingAssignmentView->items = $this->cartItemViewFactory->createList(new ArrayCollection());
+        }
 
         return $shippingAssignmentView;
     }

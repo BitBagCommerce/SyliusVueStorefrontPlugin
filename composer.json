@@ -52,7 +52,7 @@
     "autoload-dev": {
         "psr-4": {
             "spec\\BitBag\\SyliusVueStorefrontPlugin\\": "spec/",
-            "Tests\\BitBag\\SyliusVueStorefrontPlugin\\Functional\\": "tests/Functional/"
+            "Tests\\BitBag\\SyliusVueStorefrontPlugin\\Controller\\": "tests/Controller/"
         },
         "classmap": ["tests/Application/Kernel.php"]
     },

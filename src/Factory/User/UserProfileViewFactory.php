@@ -14,6 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;
 use Sylius\Component\Core\Model\CustomerInterface as SyliusCustomerInterface;
 
@@ -22,9 +23,13 @@ final class UserProfileViewFactory implements UserProfileViewFactoryInterface
     /** @var AddressViewFactoryInterface */
     private $addressViewFactory;
 
-    public function __construct(AddressViewFactoryInterface $addressViewFactory)
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
+    public function __construct(AddressViewFactoryInterface $addressViewFactory, ChannelProviderInterface $channelProvider)
     {
         $this->addressViewFactory = $addressViewFactory;
+        $this->channelProvider = $channelProvider;
     }
 
     public function create(SyliusCustomerInterface $syliusCustomer): UserProfileView
@@ -35,17 +40,16 @@ final class UserProfileViewFactory implements UserProfileViewFactoryInterface
         $userProfileView->default_shipping = $syliusCustomer->getDefaultAddress() ? $syliusCustomer->getDefaultAddress()->getId() : '';
         $userProfileView->created_at = $syliusCustomer->getCreatedAt()->format(DateHelper::DATE_TIME_FORMAT);
         $userProfileView->updated_at = $syliusCustomer->getUpdatedAt()->format(DateHelper::DATE_TIME_FORMAT);
+        $userProfileView->created_in = $this->channelProvider->provide()->getName();
         $userProfileView->email = $syliusCustomer->getEmail();
         $userProfileView->firstname = $syliusCustomer->getFirstName();
         $userProfileView->lastname = $syliusCustomer->getLastName();
-
         $userProfileView->store_id = 1;
         $userProfileView->website_id = 1;
-
+        $userProfileView->addresses = [];
         foreach ($syliusCustomer->getAddresses() as $address) {
             $userProfileView->addresses[] = $this->addressViewFactory->create($address);
         }
-
         $userProfileView->disable_auto_group_change = 0;
 
         return $userProfileView;

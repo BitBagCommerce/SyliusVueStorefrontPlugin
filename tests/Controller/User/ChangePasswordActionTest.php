@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\User;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
-final class UpdateCartActionTest extends JsonApiTestCase
+final class ChangePasswordActionTest extends JsonApiTestCase
 {
     use UserLoginTrait;
 
@@ -16,7 +15,7 @@ final class UpdateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -29,7 +28,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -43,7 +42,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -54,7 +53,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -67,7 +66,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 
@@ -78,7 +77,7 @@ JSON;
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $data =
 <<<JSON
@@ -91,7 +90,7 @@ JSON;
         $this->client->request('POST', sprintf(
             '/vsbridge/user/change-password?token=%s',
             $this->token
-        ), [], [], Configuration::CONTENT_TYPE_HEADER, $data);
+        ), [], [], self::CONTENT_TYPE_HEADER, $data);
 
         $response = $this->client->getResponse();
 

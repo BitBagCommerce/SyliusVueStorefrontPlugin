@@ -51,7 +51,7 @@ final class UpdateUserHandler implements MessageHandlerInterface
     public function __invoke(UpdateUser $command): void
     {
         /** @var CustomerInterface $customer */
-        $customer = $this->customerRepository->findOneBy(['id' => $command->customer()->id]);
+        $customer = $this->customerRepository->findOneBy(['email' => $command->customer()->email]);
 
         $customer->setFirstName($command->customer()->firstname);
         $customer->setLastName($command->customer()->lastname);

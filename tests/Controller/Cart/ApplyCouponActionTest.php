@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Api\Cart;
+namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
-use ApiTestCase\JsonApiTestCase;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\Configuration;
-use Tests\BitBag\SyliusVueStorefrontPlugin\Functional\UserLoginTrait;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
+use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
 final class ApplyCouponActionTest extends JsonApiTestCase
 {
@@ -16,13 +15,13 @@ final class ApplyCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=SOMETHING',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -50,7 +49,7 @@ final class ApplyCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
             '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=SOMETHING',
@@ -69,13 +68,13 @@ final class ApplyCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/apply-coupon?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 
@@ -86,13 +85,13 @@ final class ApplyCouponActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->authenticateUser("test@example.com", "MegaSafePassword");
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $this->client->request('POST', sprintf(
             '/vsbridge/cart/apply-coupon?token=%s&cartId=%s&coupon=INVALID',
             $this->token,
             12345
-        ), [], [], Configuration::CONTENT_TYPE_HEADER);
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

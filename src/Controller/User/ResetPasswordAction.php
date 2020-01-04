@@ -56,8 +56,11 @@ final class ResetPasswordAction
                 Response::HTTP_BAD_REQUEST
             ));
         }
+
         $this->bus->dispatch($this->resetPasswordRequestProcessor->getCommand($request));
 
-        return $this->viewHandler->handle(View::create(null, Response::HTTP_OK));
+        return $this->viewHandler->handle(View::create(
+            Response::HTTP_OK
+        ));
     }
 }
