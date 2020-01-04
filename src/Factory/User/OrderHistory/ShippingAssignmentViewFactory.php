@@ -16,7 +16,6 @@ use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\ShippingAssignmentView;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFactoryInteface
 {
