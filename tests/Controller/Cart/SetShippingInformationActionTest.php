@@ -1,9 +1,19 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
@@ -17,7 +27,13 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $data =
+        $uri = sprintf(
+            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
+            $this->token,
+            12345
+        );
+
+        $requestBody =
 <<<JSON
         {
             "addressInformation":
@@ -48,15 +64,11 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
         }
 JSON;
 
-        $this->client->request('POST', sprintf(
-            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
-            $this->token,
-            12345
-        ), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS, $requestBody);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/set_shipping_information_successful', 200);
+        $this->assertResponse($response, 'Controller/Cart/set_shipping_information_successful', Response::HTTP_OK);
     }
 
     public function test_setting_shipping_information_for_non_existent_method(): void
@@ -65,7 +77,13 @@ JSON;
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $data =
+        $uri = sprintf(
+            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
+            $this->token,
+            12345
+        );
+
+        $requestBody =
 <<<JSON
         {
             "addressInformation":
@@ -96,15 +114,15 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf(
-            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
-            $this->token,
-            12345
-        ), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS, $requestBody);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/set_shipping_information_for_non_existent_method', 500);
+        $this->assertResponse(
+            $response,
+            'Controller/Cart/set_shipping_information_for_non_existent_method',
+            Response::HTTP_INTERNAL_SERVER_ERROR
+        );
     }
 
     public function test_setting_shipping_information_for_blank_address(): void
@@ -113,30 +131,34 @@ JSON;
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('POST', sprintf(
+        $uri = sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             12345
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/Common/blank_address', 400);
+        $this->assertResponse($response, 'Controller/Cart/Common/blank_address', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_setting_shipping_information_for_invalid_token(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->client->request('POST', sprintf(
+        $uri = sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             12345,
             12345
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/Common/invalid_token', 401);
+        $this->assertResponse($response, 'Controller/Cart/Common/invalid_token', Response::HTTP_UNAUTHORIZED);
     }
 
     public function test_setting_shipping_information_for_invalid_cart(): void
@@ -145,7 +167,13 @@ JSON;
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $data =
+        $uri = sprintf(
+            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
+            $this->token,
+            123
+        );
+
+        $requestBody =
 <<<JSON
         {
             "addressInformation":
@@ -176,15 +204,11 @@ JSON;
         }
 JSON;
 
-        $this->client->request('POST', sprintf(
-            '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
-            $this->token,
-            123
-        ), [], [], self::CONTENT_TYPE_HEADER, $data);
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS, $requestBody);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/Common/invalid_cart', 400);
+        $this->assertResponse($response, 'Controller/Cart/Common/invalid_cart', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_setting_shipping_information_for_invalid_cart_and_blank_address(): void
@@ -193,14 +217,16 @@ JSON;
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('POST', sprintf(
+        $uri = sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
             $this->token,
             123
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/Common/invalid_cart_and_blank_address', 400);
+        $this->assertResponse($response, 'Controller/Cart/Common/invalid_cart_and_blank_address', Response::HTTP_BAD_REQUEST);
     }
 }
