@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,13 +37,16 @@ final class UpdateUserActionTest extends JsonApiTestCase
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
 
-        $id = $userRepository->findOneByEmail('test@example.com')->getId();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $userRepository->findOneByEmail('test@example.com');
+
+        $customerId = $shopUser->getCustomer()->getId();
 
         $requestBody =
 <<<JSON
         {
             "customer": {
-                "id": $id,
+                "id": $customerId,
                 "group_id": 1,
                 "default_billing": "10",
                 "default_shipping": "10",
@@ -161,13 +165,16 @@ JSON;
         /** @var UserRepositoryInterface $userRepository */
         $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
 
-        $id = $userRepository->findOneByEmail('test@example.com')->getId();
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $userRepository->findOneByEmail('test@example.com');
+
+        $customerId = $shopUser->getCustomer()->getId();
 
         $requestBody =
 <<<JSON
         {
             "customer": {
-                "id": $id,
+                "id": $customerId,
                 "group_id": 1,
                 "default_billing": "10",
                 "default_shipping": "10",
