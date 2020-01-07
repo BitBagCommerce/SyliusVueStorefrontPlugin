@@ -1,9 +1,18 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Cart;
 
+use Symfony\Component\HttpFoundation\Request;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
@@ -15,11 +24,11 @@ final class CreateCartActionTest extends JsonApiTestCase
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
-        $this->client->request('POST', '/vsbridge/cart/create', [], [], self::CONTENT_TYPE_HEADER);
+        $this->request(Request::METHOD_POST, '/vsbridge/cart/create', self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/create_cart_successful');
+        $this->assertResponse($response, 'Controller/Cart/create_cart_successful');
     }
 
     public function test_creating_cart_for_authorized_user(): void
@@ -28,13 +37,15 @@ final class CreateCartActionTest extends JsonApiTestCase
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('POST', sprintf(
+        $uri = sprintf(
             '/vsbridge/cart/create?token=%s',
             $this->token
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/create_cart_successful');
+        $this->assertResponse($response, 'Controller/Cart/create_cart_successful');
     }
 }

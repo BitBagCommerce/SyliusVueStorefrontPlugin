@@ -1,9 +1,19 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
+
 declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
@@ -17,14 +27,16 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('GET', sprintf(
+        $uri = sprintf(
             '/vsbridge/user/order-history?token=%s',
             $this->token
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_GET, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/User/get_order_history_successful');
+        $this->assertResponse($response, 'Controller/User/get_order_history_successful');
     }
 
     public function test_getting_order_history_for_invalid_token(): void
@@ -33,13 +45,15 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('GET', sprintf(
+        $uri = sprintf(
             '/vsbridge/user/order-history?token=%s',
             12345
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request('GET', $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/User/Common/invalid_token', 401);
+        $this->assertResponse($response, 'Controller/User/Common/invalid_token', Response::HTTP_UNAUTHORIZED);
     }
 }
