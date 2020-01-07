@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
@@ -18,9 +19,9 @@ final class UpdateUserActionTest extends JsonApiTestCase
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
-        $id = $userRepository->findOneByEmail('test@example.com')->getId();
+        /** @var CustomerRepositoryInterface $customerRepository */
+        $customerRepository = $this->client->getContainer()->get('sylius.repository.customer');
+        $id = $customerRepository->findOneBy(['email' => 'test@example.com'])->getId();
 
         $data =
 <<<JSON
@@ -126,6 +127,22 @@ JSON;
             '/vsbridge/user/me?token=%s',
             $this->token
         ), [], [], self::CONTENT_TYPE_HEADER, $data);
+
+        $response = $this->client->getResponse();
+
+        self::assertResponse($response, 'Controller/User/update_user_invalid_user', 400);
+    }
+
+    public function test_updating_user_for_blank_information(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
+
+        $this->client->request('POST', sprintf(
+            '/vsbridge/user/me?token=%s',
+            $this->token
+        ), [], [], self::CONTENT_TYPE_HEADER);
 
         $response = $this->client->getResponse();
 

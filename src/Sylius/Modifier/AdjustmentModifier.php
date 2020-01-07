@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier;
 
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AdjustmentProviderInterface;
-use Doctrine\Persistence\ObjectManager;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
@@ -14,23 +13,18 @@ use Webmozart\Assert\Assert;
 
 final class AdjustmentModifier implements AdjustmentModifierInterface
 {
-    /** @var ChannelContextInterface */
-    private $channelContext;
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
 
     /** @var AdjustmentProviderInterface */
     private $adjustmentProvider;
 
-    /** @var ObjectManager */
-    private $entityManager;
-
     public function __construct(
-        ChannelContextInterface $channelContext,
-        AdjustmentProviderInterface $adjustmentProvider,
-        ObjectManager $entityManager
+        ChannelProviderInterface $channelProvider,
+        AdjustmentProviderInterface $adjustmentProvider
     ) {
-        $this->channelContext = $channelContext;
+        $this->channelProvider = $channelProvider;
         $this->adjustmentProvider = $adjustmentProvider;
-        $this->entityManager = $entityManager;
     }
 
     public function modify(OrderInterface $cart, ShippingMethodInterface $shippingMethod): void
@@ -47,12 +41,9 @@ final class AdjustmentModifier implements AdjustmentModifierInterface
         $adjustment->setType(AdjustmentInterface::SHIPPING_ADJUSTMENT);
         $adjustment->setLabel($shippingMethod->getName());
 
-        $channelCode = $this->channelContext->getChannel()->getCode();
+        $channelCode = $this->channelProvider->provide()->getCode();
         $configuration = $shippingMethod->getConfiguration();
 
         $adjustment->setAmount((int) $configuration[$channelCode]['amount']);
-
-        $this->entityManager->persist($adjustment);
-        $this->entityManager->flush();
     }
 }

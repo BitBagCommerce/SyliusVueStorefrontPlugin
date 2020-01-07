@@ -12,11 +12,20 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\ShippingMethodsView;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 
 final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInterface
 {
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
+    public function __construct(ChannelProviderInterface $channelProvider)
+    {
+        $this->channelProvider = $channelProvider;
+    }
+
     public function createList(ShippingMethodInterface ...$shippingMethods): array
     {
         $shippingMethodList = [];
@@ -35,8 +44,13 @@ final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInte
         $shippingMethodsView->method_code = $shippingMethod->getCode();
         $shippingMethodsView->carrier_title = $shippingMethod->getTranslation()->getName();
         $shippingMethodsView->method_title = $shippingMethod->getTranslation()->getName();
-        $shippingMethodsView->amount = $shippingMethod->getConfiguration();
-        $shippingMethodsView->base_amount = null;
+
+        $configuration = $shippingMethod->getConfiguration();
+        $channelCode = $this->channelProvider->provide()->getCode();
+
+        $shippingMethodsView->amount = (int) $configuration[$channelCode]['amount'];
+        $shippingMethodsView->base_amount = (int) $configuration[$channelCode]['amount'];
+
         $shippingMethodsView->available = $shippingMethod->isEnabled();
         $shippingMethodsView->error_message = '';
         $shippingMethodsView->price_excl_tax = 0;

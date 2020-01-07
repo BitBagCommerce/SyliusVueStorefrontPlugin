@@ -104,10 +104,10 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/set_shipping_information_for_non_existent_method', 500);
+        self::assertResponse($response, 'Controller/Cart/set_shipping_information_non_existent_method', 500);
     }
 
-    public function test_setting_shipping_information_for_blank_address(): void
+    public function test_setting_shipping_information_for_blank_customer_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -121,7 +121,7 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/Cart/Common/blank_address', 400);
+        self::assertResponse($response, 'Controller/Cart/set_shipping_information_blank_customer_data', 400);
     }
 
     public function test_setting_shipping_information_for_invalid_token(): void

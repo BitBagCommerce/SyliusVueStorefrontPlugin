@@ -1,4 +1,53 @@
 {
     "code": 200,
-    "result": true
+    "result": [
+        {
+            "carrier_code": "@string@",
+            "method_code": "@string@",
+            "carrier_title": "@string@",
+            "method_title": "@string@",
+            "amount": "@integer@",
+            "base_amount": "@integer@",
+            "available": true,
+            "error_message": "@string@",
+            "price_excl_tax": "@integer@",
+            "price_incl_tax": "@integer@"
+        },
+        {
+            "carrier_code": "@string@",
+            "method_code": "@string@",
+            "carrier_title": "@string@",
+            "method_title": "@string@",
+            "amount": "@integer@",
+            "base_amount": "@integer@",
+            "available": true,
+            "error_message": "@string@",
+            "price_excl_tax": "@integer@",
+            "price_incl_tax": "@integer@"
+        },
+        {
+            "carrier_code": "@string@",
+            "method_code": "@string@",
+            "carrier_title": "@string@",
+            "method_title": "@string@",
+            "amount": "@integer@",
+            "base_amount": "@integer@",
+            "available": true,
+            "error_message": "@string@",
+            "price_excl_tax": "@integer@",
+            "price_incl_tax": "@integer@"
+        },
+        {
+            "carrier_code": "@string@",
+            "method_code": "@string@",
+            "carrier_title": "@string@",
+            "method_title": "@string@",
+            "amount": "@integer@",
+            "base_amount": "@integer@",
+            "available": true,
+            "error_message": "@string@",
+            "price_excl_tax": "@integer@",
+            "price_incl_tax": "@integer@"
+        }
+    ]
 }

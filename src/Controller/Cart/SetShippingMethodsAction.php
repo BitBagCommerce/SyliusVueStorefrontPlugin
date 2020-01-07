@@ -118,6 +118,10 @@ final class SetShippingMethodsAction
         $shipmentMethods = $this->shippingMethodRepository->findEnabledForZonesAndChannel([$zone], $channel);
 
         foreach ($shipmentMethods as $shipmentMethod) {
+            if (!$cart->getShipments()->first()) {
+                continue;
+            }
+
             /** @var CalculatorInterface $calculator */
             $calculator = $this->serviceRegistry->get($shipmentMethod->getCalculator());
             $calculator->calculate($cart->getShipments()->first(), $shipmentMethod->getConfiguration());

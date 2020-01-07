@@ -4,7 +4,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         enabled: true
         calculator: "flat_rate"
         configuration:
-            WEB_GB:
+            FASHION_WEB:
                 amount: 500
         zone: "@zone_gb"
         currentLocale: "en_GB"
@@ -15,7 +15,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         enabled: true
         calculator: "flat_rate"
         configuration:
-            WEB_GB:
+            FASHION_WEB:
                 amount: 1500
         zone: "@zone_gb"
         currentLocale: "en_GB"
@@ -26,7 +26,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         enabled: true
         calculator: "per_unit_rate"
         configuration:
-            WEB_GB:
+            FASHION_WEB:
                 amount: 500
         zone: "@zone_gb"
         currentLocale: "en_GB"
@@ -37,7 +37,7 @@ Sylius\Component\Core\Model\ShippingMethod:
         enabled: true
         calculator: "flat_rate"
         configuration:
-            WEB_GB:
+            FASHION_WEB:
                 amount: 0
         zone: "@zone_gb"
         currentLocale: "en_GB"

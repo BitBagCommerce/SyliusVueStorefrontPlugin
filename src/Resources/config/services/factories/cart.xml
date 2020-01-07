@@ -22,6 +22,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_methods_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingMethodsViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
     </services>
 </container>

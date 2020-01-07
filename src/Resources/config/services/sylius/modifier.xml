@@ -8,19 +8,16 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.default_address"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifier">
-            <argument type="service" id="sylius.manager.customer" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.shipment"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\ShipmentModifier">
-            <argument type="service" id="sylius.manager.adjustment" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.adjustment"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\AdjustmentModifier">
-            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.adjustment" />
-            <argument type="service" id="sylius.manager.adjustment" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.order_modifier"
