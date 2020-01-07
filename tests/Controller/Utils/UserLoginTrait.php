@@ -38,7 +38,7 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $content = json_decode($response->getContent());
+        $content = json_decode($response->getContent(), false);
 
         $this->token = $content->result;
     }
