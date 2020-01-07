@@ -28,7 +28,7 @@ final class UpdateCartActionTest extends JsonApiTestCase
             'customer.yml',
             'order.yml',
             'coupon_based_promotion.yml',
-            'product_with_attributes.yml'
+            'product_with_attributes.yml',
         ]);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
