@@ -157,14 +157,63 @@ JSON;
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
-        $this->client->request('POST', sprintf(
+        $uri = sprintf(
             '/vsbridge/user/me?token=%s',
             $this->token
-        ), [], [], self::CONTENT_TYPE_HEADER);
+        );
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS);
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/User/update_user_invalid_user', 400);
+        self::assertResponse($response, 'Controller/User/update_user_blank_information', Response::HTTP_BAD_REQUEST);
+    }
+
+    public function test_updating_user_for_blank_addresses(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
+
+        $uri = sprintf(
+            '/vsbridge/user/me?token=%s',
+            $this->token
+        );
+
+        /** @var UserRepositoryInterface $userRepository */
+        $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
+
+        /** @var ShopUserInterface $shopUser */
+        $shopUser = $userRepository->findOneByEmail('test@example.com');
+
+        $customerId = $shopUser->getCustomer()->getId();
+
+        $requestBody =
+<<<JSON
+        {
+            "customer": {
+                "id": $customerId,
+                "group_id": 1,
+                "default_billing": "10",
+                "default_shipping": "10",
+                "created_at": "2018-03-16 19:01:18",
+                "updated_at": "2018-04-03 12:59:13",
+                "created_in": "Fashion Web",
+                "email": "test@example.com",
+                "firstname": "Johny",
+                "lastname": "Doe",
+                "store_id": 1,
+                "website_id": 1,
+                "disable_auto_group_change": 0
+            }
+        }
+JSON;
+
+        $this->request(Request::METHOD_POST, $uri, self::JSON_REQUEST_HEADERS, $requestBody);
+
+        $response = $this->client->getResponse();
+
+        self::assertResponse($response, 'Controller/User/update_user_blank_addresses', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_updating_user_for_invalid_token(): void

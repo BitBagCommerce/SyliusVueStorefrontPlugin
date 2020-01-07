@@ -2,6 +2,8 @@ bitbag:
     vue_storefront_api:
         sylius:
             user:
+                addresses:
+                    not_blank: Addresses can not be blank.
                 customer:
                     not_null: Please provide customer data.
                     missing_fields: Customer object has missing properties.
