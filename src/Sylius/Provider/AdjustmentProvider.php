@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
-use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
@@ -15,13 +14,13 @@ final class AdjustmentProvider implements AdjustmentProviderInterface
     /** @var AdjustmentFactoryInterface $adjustmentFactory */
     private $adjustmentFactory;
 
-    /** @var ChannelContextInterface */
-    private $channelContext;
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
 
-    public function __construct(AdjustmentFactoryInterface $adjustmentFactory, ChannelContextInterface $channelContext)
+    public function __construct(AdjustmentFactoryInterface $adjustmentFactory, ChannelProviderInterface $channelProvider)
     {
         $this->adjustmentFactory = $adjustmentFactory;
-        $this->channelContext = $channelContext;
+        $this->channelProvider = $channelProvider;
     }
 
     public function provide(ShippingMethodInterface $shippingMethod): BaseAdjustmentInterface
@@ -31,7 +30,7 @@ final class AdjustmentProvider implements AdjustmentProviderInterface
         $adjustment->setType(AdjustmentInterface::SHIPPING_ADJUSTMENT);
         $adjustment->setLabel($shippingMethod->getName());
 
-        $channelCode = $this->channelContext->getChannel()->getCode();
+        $channelCode = $this->channelProvider->provide()->getCode();
         $configuration = $shippingMethod->getConfiguration();
 
         $adjustment->setAmount((int) $configuration[$channelCode]['amount']);

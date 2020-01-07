@@ -16,7 +16,6 @@ use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Handler\ShipmentHandlerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProviderInterface;
-use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
@@ -33,9 +32,6 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
     /** @var ShippingMethodRepositoryInterface $shippingMethodRepository */
     private $shippingMethodRepository;
 
-    /** @var ObjectManager $entityManager */
-    private $entityManager;
-
     /** @var AddressProviderInterface */
     private $addressProvider;
 
@@ -50,15 +46,13 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         ShippingMethodRepositoryInterface $shippingMethodRepository,
         AddressProviderInterface $addressProvider,
         DefaultAddressModifierInterface $addressModifier,
-        ShipmentHandlerInterface $shipmentHandler,
-        ObjectManager $entityManager
+        ShipmentHandlerInterface $shipmentHandler
     ) {
         $this->orderRepository = $orderRepository;
         $this->shippingMethodRepository = $shippingMethodRepository;
         $this->addressProvider = $addressProvider;
         $this->addressModifier = $addressModifier;
         $this->shipmentHandler = $shipmentHandler;
-        $this->entityManager = $entityManager;
     }
 
     public function __invoke(SetShippingInformation $setShippingInformation): void
@@ -82,8 +76,5 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         Assert::notNull($shippingMethod, sprintf('Shipping method with code value of %s has not been found.', $setShippingInformation->addressInformation()->getShippingCarrierCode()));
 
         $this->shipmentHandler->handle($cart, $shippingMethod);
-
-        $this->entityManager->persist($cart);
-        $this->entityManager->flush();
     }
 }

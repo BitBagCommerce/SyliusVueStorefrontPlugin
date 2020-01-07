@@ -23,8 +23,6 @@ final class SetShippingMethodsActionTest extends JsonApiTestCase
 
     public function test_setting_shipping_methods(): void
     {
-        $this->markTestIncomplete();
-
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'shipping.yml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');

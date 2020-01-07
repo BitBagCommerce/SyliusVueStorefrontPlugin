@@ -151,6 +151,22 @@ JSON;
         $this->assertResponse($response, 'Controller/User/update_user_invalid_user', Response::HTTP_BAD_REQUEST);
     }
 
+    public function test_updating_user_for_blank_information(): void
+    {
+        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+
+        $this->authenticateUser('test@example.com', 'MegaSafePassword');
+
+        $this->client->request('POST', sprintf(
+            '/vsbridge/user/me?token=%s',
+            $this->token
+        ), [], [], self::CONTENT_TYPE_HEADER);
+
+        $response = $this->client->getResponse();
+
+        self::assertResponse($response, 'Controller/User/update_user_invalid_user', 400);
+    }
+
     public function test_updating_user_for_invalid_token(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);

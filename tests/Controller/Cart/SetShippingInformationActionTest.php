@@ -120,12 +120,12 @@ JSON;
 
         $this->assertResponse(
             $response,
-            'Controller/Cart/set_shipping_information_for_non_existent_method',
+            'Controller/Cart/set_shipping_information_non_existent_method',
             Response::HTTP_INTERNAL_SERVER_ERROR
         );
     }
 
-    public function test_setting_shipping_information_for_blank_address(): void
+    public function test_setting_shipping_information_for_blank_customer_data(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -141,7 +141,7 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/Cart/Common/blank_address', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'Controller/Cart/set_shipping_information_blank_customer_data', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_setting_shipping_information_for_invalid_token(): void
