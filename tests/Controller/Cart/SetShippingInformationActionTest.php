@@ -125,7 +125,7 @@ JSON;
         );
     }
 
-    public function test_setting_shipping_information_for_blank_customer_data(): void
+    public function test_setting_shipping_information_for_blank_address(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -141,7 +141,7 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/Cart/set_shipping_information_blank_customer_data', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse($response, 'Controller/Cart/Common/blank_address', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_setting_shipping_information_for_invalid_token(): void
