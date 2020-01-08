@@ -38,26 +38,26 @@ final class PullCartAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
+
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
 
     public function __construct(
         RequestProcessorInterface $pullCartRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        OrderRepositoryInterface $orderRepository,
-        CartItemViewFactoryInterface $cartItemViewFactory
+        CartItemViewFactoryInterface $cartItemViewFactory,
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->pullCartRequestProcessor = $pullCartRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->orderRepository = $orderRepository;
         $this->cartItemViewFactory = $cartItemViewFactory;
+        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -75,10 +75,12 @@ final class PullCartAction
         $pullCartRequest = $this->pullCartRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy([
-            'tokenValue' => $pullCartRequest->cartId(),
-            'state' => OrderInterface::STATE_CART,
-        ]);
+        $cart = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $pullCartRequest->cartId(),
+                'state' => OrderInterface::STATE_CART,
+            ]
+        );
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

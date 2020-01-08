@@ -37,31 +37,31 @@ final class GetPaymentMethodsAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
-    /** @var ChannelProviderInterface */
-    private $channelProvider;
+    /** @var PaymentMethodViewFactoryInterface */
+    private $paymentMethodViewFactory;
 
     /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
 
-    /** @var PaymentMethodViewFactoryInterface */
-    private $paymentMethodViewFactory;
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
 
     public function __construct(
         RequestProcessorInterface $getPaymentMethodsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ChannelProviderInterface $channelProvider,
+        PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        PaymentMethodViewFactoryInterface $paymentMethodViewFactory
+        ChannelProviderInterface $channelProvider
     ) {
         $this->getPaymentMethodsRequestProcessor = $getPaymentMethodsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->channelProvider = $channelProvider;
-        $this->paymentMethodRepository = $paymentMethodRepository;
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
+        $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->channelProvider = $channelProvider;
     }
 
     public function __invoke(Request $request): Response

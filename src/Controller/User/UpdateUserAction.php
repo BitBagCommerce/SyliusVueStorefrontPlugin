@@ -42,11 +42,11 @@ final class UpdateUserAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
-    /** @var CustomerRepositoryInterface */
-    private $customerRepository;
-
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
+
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
 
     public function __construct(
         RequestProcessorInterface $updateUserRequestProcessor,
@@ -55,15 +55,15 @@ final class UpdateUserAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         UserProfileViewFactoryInterface $userProfileViewFactory,
-        CustomerRepositoryInterface $loggedInUserProvider
+        CustomerRepositoryInterface $customerRepository
     ) {
         $this->updateUserRequestProcessor = $updateUserRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->customerRepository = $loggedInUserProvider;
         $this->userProfileViewFactory = $userProfileViewFactory;
+        $this->customerRepository = $customerRepository;
     }
 
     public function __invoke(Request $request): Response

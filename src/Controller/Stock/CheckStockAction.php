@@ -38,26 +38,26 @@ final class CheckStockAction
     /** @var StockViewFactoryInterface */
     private $stockViewFactory;
 
-    /** @var ProductVariantRepositoryInterface */
-    private $productVariantRepository;
-
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
+
+    /** @var ProductVariantRepositoryInterface */
+    private $productVariantRepository;
 
     public function __construct(
         RequestProcessorInterface $checkStockRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         StockViewFactoryInterface $stockViewFactory,
-        ProductVariantRepositoryInterface $productVariantRepository,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        ProductVariantRepositoryInterface $productVariantRepository
     ) {
         $this->checkStockRequestProcessor = $checkStockRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->stockViewFactory = $stockViewFactory;
-        $this->productVariantRepository = $productVariantRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->productVariantRepository = $productVariantRepository;
     }
 
     public function __invoke(Request $request): Response

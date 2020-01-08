@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
@@ -34,16 +35,21 @@ final class ResetPasswordAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
     public function __construct(
         RequestProcessorInterface $resetPasswordRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
-        ValidationErrorViewFactoryInterface $validationErrorViewFactory
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
         $this->resetPasswordRequestProcessor = $resetPasswordRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response
@@ -60,6 +66,7 @@ final class ResetPasswordAction
         $this->bus->dispatch($this->resetPasswordRequestProcessor->getCommand($request));
 
         return $this->viewHandler->handle(View::create(
+            $this->genericSuccessViewFactory->create('OK'),
             Response::HTTP_OK
         ));
     }

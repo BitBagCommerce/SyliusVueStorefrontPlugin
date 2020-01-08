@@ -67,7 +67,7 @@ final class GetAppliedCouponAction
         $code = $this->getAppliedCouponProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $code->cartId()]);
+        $cart = $this->orderRepository->findOneBy(['tokenValue' => $code->cartId(), 'state' => OrderInterface::STATE_CART]);
 
         $promotionCoupon = $cart->getPromotionCoupon() ?? false;
 

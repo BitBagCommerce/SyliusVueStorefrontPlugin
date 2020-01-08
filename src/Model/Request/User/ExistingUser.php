@@ -58,38 +58,6 @@ final class ExistingUser
     /** @var int */
     public $disable_auto_group_change;
 
-//    public function __construct(
-//        int $id,
-//        int $group_id,
-//        ?string $default_billing,
-//        ?string $default_shipping,
-//        \DateTime $created_at,
-//        \DateTime $updated_at,
-//        string $created_in,
-//        string $email,
-//        string $firstname,
-//        string $lastname,
-//        int $store_id,
-//        int $website_id,
-//        array $addresses,
-//        int $disable_auto_group_change
-//    ) {
-//        $this->id = $id;
-//        $this->group_id = $group_id;
-//        $this->default_billing = $default_billing;
-//        $this->default_shipping = $default_shipping;
-//        $this->created_at = $created_at;
-//        $this->updated_at = $updated_at;
-//        $this->created_in = $created_in;
-//        $this->email = $email;
-//        $this->firstname = $firstname;
-//        $this->lastname = $lastname;
-//        $this->store_id = $store_id;
-//        $this->website_id = $website_id;
-//        $this->addresses = $addresses;
-//        $this->disable_auto_group_change = $disable_auto_group_change;
-//    }
-
     public function addresses(): array
     {
         return $this->addresses;

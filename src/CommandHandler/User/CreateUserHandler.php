@@ -26,25 +26,25 @@ final class CreateUserHandler implements MessageHandlerInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
     /** @var FactoryInterface */
     private $userFactory;
 
     /** @var FactoryInterface */
     private $customerFactory;
 
-    /** @var CustomerRepositoryInterface */
-    private $customerRepository;
-
     public function __construct(
         UserRepositoryInterface $userRepository,
+        CustomerRepositoryInterface $customerRepository,
         FactoryInterface $userFactory,
-        FactoryInterface $customerFactory,
-        CustomerRepositoryInterface $customerRepository
+        FactoryInterface $customerFactory
     ) {
         $this->userRepository = $userRepository;
+        $this->customerRepository = $customerRepository;
         $this->userFactory = $userFactory;
         $this->customerFactory = $customerFactory;
-        $this->customerRepository = $customerRepository;
     }
 
     public function __invoke(CreateUser $command): void

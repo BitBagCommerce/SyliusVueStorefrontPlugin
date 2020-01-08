@@ -28,22 +28,22 @@ final class GetOrderHistoryAction
     /** @var OrderHistoryViewFactoryInterface */
     private $orderHistoryViewFactory;
 
-    /** @var LoggedInShopUserProviderInterface */
-    private $loggedInShopUserProvider;
-
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
+
     public function __construct(
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         ViewHandlerInterface $viewHandler,
         OrderHistoryViewFactoryInterface $orderHistoryViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider
     ) {
-        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->viewHandler = $viewHandler;
         $this->orderHistoryViewFactory = $orderHistoryViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
     }
 
     public function __invoke(Request $request): Response

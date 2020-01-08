@@ -38,26 +38,26 @@ final class SyncTotalsAction
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     /** @var TotalsViewFactory */
     private $totalsViewFactory;
+
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
 
     public function __construct(
         RequestProcessorInterface $syncTotalsActionRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        OrderRepositoryInterface $orderRepository,
-        TotalsViewFactory $totalsViewFactory
+        TotalsViewFactory $totalsViewFactory,
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->syncTotalsActionRequestProcessor = $syncTotalsActionRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->orderRepository = $orderRepository;
         $this->totalsViewFactory = $totalsViewFactory;
+        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(Request $request): Response
@@ -75,10 +75,12 @@ final class SyncTotalsAction
         $syncTotalsQuery = $this->syncTotalsActionRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $order */
-        $order = $this->orderRepository->findOneBy([
-            'tokenValue' => $syncTotalsQuery->cartId(),
-            'state' => OrderInterface::STATE_CART,
-        ]);
+        $order = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $syncTotalsQuery->cartId(),
+                'state' => OrderInterface::STATE_CART,
+            ]
+        );
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
