@@ -19,11 +19,13 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
 {
     public function transform(ProductInterface $product): Details
     {
+        $productVariantsCount = $product->getVariants()->count();
+
         return new Details(
             $product->getId(),
             null,
             null,
-            count($product->getVariants()) > 1 ? 'configurable' : 'simple',
+            $productVariantsCount > 1 ? 'configurable' : 'simple',
             $product->getCode(),
             $product->getSlug(),
             $product->getName(),
@@ -45,7 +47,8 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             [],//productLinks
             [],//colorOptions,
             [],//sizeOptions
-            false
+            false,
+            $product->getCode()
         //            [],//configurableOptions
         //            []//configurableChildren
         );

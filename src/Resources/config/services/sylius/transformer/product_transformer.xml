@@ -34,9 +34,14 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
 
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.option_values"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantOptionValuesToCustomAttributesTransformer">
+        </service>
+
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.variants"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformer">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.prices" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_variant.option_values" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product.inventory"

@@ -261,7 +261,7 @@ final class Details
     private $parentSku = 'WS08-XXL';
 
     /** @var string */
-    private $color = '58';
+    private $color = null;
 
     /** @var string */
     private $size = '156';
@@ -309,7 +309,7 @@ final class Details
         ?int $entityTypeId,
         ?int $attributeSetId,
         ?string $type,
-        string $sku,
+        ?string $sku,
         string $urlKey,
         string $name,
         ?int $status,
@@ -330,7 +330,8 @@ final class Details
         array $productLinks,
         array $colorOptions,
         array $sizeOptions,
-        ?bool $isReccuring
+        ?bool $isReccuring,
+        string $parentSku
     ) {
         $this->entityId = $entityId;
         $this->entityTypeId = $entityTypeId ?? self::DEFAULT_ENTITY_TYPE_ID;
@@ -360,6 +361,7 @@ final class Details
         $this->isReccuring = $isReccuring;
         $this->urlPath = $urlKey;
         $this->slug = $urlKey;
+        $this->parentSku = $parentSku;
     }
 
     public function toArray(): array
@@ -430,6 +432,7 @@ final class Details
             self::SPECIAL_TO_DATE => $this->specialToDate,
             self::IS_RECURRING => $this->isReccuring,
             self::URL_PATH => $this->urlPath,
+            'jeans_size' => null,
         ];
     }
 }

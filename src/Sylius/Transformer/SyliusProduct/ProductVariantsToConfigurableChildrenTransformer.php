@@ -22,9 +22,15 @@ final class ProductVariantsToConfigurableChildrenTransformer implements ProductV
     /** @var ProductVariantPricesTransformerInterface */
     private $productVariantPricesTransformer;
 
-    public function __construct(ProductVariantPricesTransformerInterface $productVariantPricesTransformer)
-    {
+    /** @var ProductVariantOptionValuesToCustomAttributesTransformerInterface */
+    private $productVariantOptionValuesToCustomAttributesTransformer;
+
+    public function __construct(
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer,
+        ProductVariantOptionValuesToCustomAttributesTransformerInterface $productVariantOptionValuesToCustomAttributesTransformer
+    ) {
         $this->productVariantPricesTransformer = $productVariantPricesTransformer;
+        $this->productVariantOptionValuesToCustomAttributesTransformer = $productVariantOptionValuesToCustomAttributesTransformer;
     }
 
     /** @param Collection|ProductVariantInterface[] $syliusProductVariants */
@@ -36,7 +42,8 @@ final class ProductVariantsToConfigurableChildrenTransformer implements ProductV
             $configurableChildren[] = new Child(
                 $this->productVariantPricesTransformer->transform($productVariant),
                 $productVariant->getName(),
-                $productVariant->getCode()
+                $productVariant->getCode(),
+                $this->productVariantOptionValuesToCustomAttributesTransformer->transform($productVariant)
             );
         }
 

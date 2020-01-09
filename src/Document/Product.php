@@ -60,8 +60,8 @@ final class Product implements ProductInterface
         Stock $stock,
         Category $category,
         MediaGallery $mediaGallery,
-        ConfigurableChildren $configurableChildren,
-        ConfigurableOptions $configurableOptions,
+        ?ConfigurableChildren $configurableChildren,
+        ?ConfigurableOptions $configurableOptions,
         ProductLinks $productLinks,
         Price $price,
         StockItem $stockItem
@@ -93,8 +93,8 @@ final class Product implements ProductInterface
             $this->details->toArray(),
             $this->category->toArray(),
             $this->mediaGallery->toArray(),
-            $this->configurableChildren->toArray(),
-            $this->configurableOptions->toArray(),
+            $this->configurableChildren ? $this->configurableChildren->toArray() : [],
+            $this->configurableOptions ? $this->configurableOptions->toArray() : [],
             $this->productLinks->toArray(),
             $this->price->toArray()
         );

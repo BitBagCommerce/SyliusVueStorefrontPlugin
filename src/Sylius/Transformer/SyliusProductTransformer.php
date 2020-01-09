@@ -75,8 +75,15 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         $stock = $this->inventoryTransformer->transform($syliusProduct->getVariants()->first());
         $mediaGallery = $this->imagesTransformer->transform($syliusProduct->getImages());
         $category = $this->taxonsTransformer->transform($syliusProduct->getTaxons());
-        $configurableChildren = $this->productVariantsTransformer->transform($syliusProduct->getVariants());
-        $configurableOptions = $this->productOptionsTransformer->transform($syliusProduct->getOptions());
+
+        $configurableChildren = null;
+        $configurableOptions = null;
+
+        if ($syliusProduct->getVariants()->count() > 1) {
+            $configurableChildren = $this->productVariantsTransformer->transform($syliusProduct->getVariants());
+            $configurableOptions = $this->productOptionsTransformer->transform($syliusProduct->getOptions());
+        }
+
         $productLinks = $this->productAssociationsTransformer->transform($syliusProduct->getAssociations());
         $price = $this->productVariantPricesTransformer->transform($syliusProduct->getVariants()->first());
         $stockItem = new Product\StockItem();

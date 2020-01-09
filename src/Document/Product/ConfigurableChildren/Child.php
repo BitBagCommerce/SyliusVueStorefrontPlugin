@@ -45,13 +45,13 @@ final class Child implements \JsonSerializable
     public function __construct(
         Price $price,
         string $name,
-        string $sku
-        //        array $customAttributes
+        string $sku,
+        array $customAttributes
     ) {
         $this->price = $price;
         $this->name = $name;
         $this->sku = $sku;
-        //        $this->customAttributes = $customAttributes;
+        $this->customAttributes = $customAttributes;
     }
 
     public function jsonSerialize(): array
