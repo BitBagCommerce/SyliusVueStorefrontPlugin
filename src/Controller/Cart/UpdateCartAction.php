@@ -40,36 +40,36 @@ final class UpdateCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var UuidGeneratorInteface */
+    private $uuidGenerator;
+
+    /** @var OrderItemRepositoryInterface */
+    private $orderItemRepository;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
 
-    /** @var OrderItemRepositoryInterface */
-    private $orderItemRepository;
-
-    /** @var UuidGeneratorInteface */
-    private $uuidGenerator;
-
     public function __construct(
         RequestProcessorInterface $updateCartRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        CartItemViewFactoryInterface $cartItemViewFactory,
+        UuidGeneratorInteface $uuidGenerator,
         OrderItemRepositoryInterface $orderItemRepository,
-        UuidGeneratorInteface $uuidGenerator
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        CartItemViewFactoryInterface $cartItemViewFactory
     ) {
         $this->updateCartRequestProcessor = $updateCartRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->uuidGenerator = $uuidGenerator;
+        $this->orderItemRepository = $orderItemRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
-        $this->orderItemRepository = $orderItemRepository;
-        $this->uuidGenerator = $uuidGenerator;
     }
 
     public function __invoke(Request $request): Response

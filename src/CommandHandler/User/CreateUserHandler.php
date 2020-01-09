@@ -23,28 +23,28 @@ use Webmozart\Assert\Assert;
 
 final class CreateUserHandler implements MessageHandlerInterface
 {
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
-    /** @var FactoryInterface */
-    private $userFactory;
-
     /** @var FactoryInterface */
     private $customerFactory;
 
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
 
+    /** @var FactoryInterface */
+    private $userFactory;
+
+    /** @var UserRepositoryInterface */
+    private $userRepository;
+
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        FactoryInterface $userFactory,
         FactoryInterface $customerFactory,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        FactoryInterface $userFactory,
+        UserRepositoryInterface $userRepository
     ) {
-        $this->userRepository = $userRepository;
-        $this->userFactory = $userFactory;
         $this->customerFactory = $customerFactory;
         $this->customerRepository = $customerRepository;
+        $this->userFactory = $userFactory;
+        $this->userRepository = $userRepository;
     }
 
     public function __invoke(CreateUser $command): void

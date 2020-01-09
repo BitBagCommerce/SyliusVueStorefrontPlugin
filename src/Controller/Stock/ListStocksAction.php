@@ -34,29 +34,29 @@ final class ListStocksAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var StockViewFactoryInterface */
-    private $stockViewFactory;
-
     /** @var ProductVariantRepositoryInterface */
     private $productVariantRepository;
 
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
+    /** @var StockViewFactoryInterface */
+    private $stockViewFactory;
+
     public function __construct(
         RequestProcessorInterface $listStocksRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        StockViewFactoryInterface $stockViewFactory,
         ProductVariantRepositoryInterface $productVariantRepository,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        StockViewFactoryInterface $stockViewFactory
     ) {
         $this->listStocksRequestProcessor = $listStocksRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->stockViewFactory = $stockViewFactory;
         $this->productVariantRepository = $productVariantRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->stockViewFactory = $stockViewFactory;
     }
 
     public function __invoke(Request $request): Response

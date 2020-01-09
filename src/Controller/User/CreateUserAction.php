@@ -40,31 +40,31 @@ final class CreateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var CustomerRepositoryInterface */
+    private $customerRepository;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
 
-    /** @var CustomerRepositoryInterface */
-    private $customerRepository;
-
     public function __construct(
         RequestProcessorInterface $createUserRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CustomerRepositoryInterface $customerRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        UserProfileViewFactoryInterface $userProfileViewFactory,
-        CustomerRepositoryInterface $customerRepository
+        UserProfileViewFactoryInterface $userProfileViewFactory
     ) {
         $this->createUserRequestProcessor = $createUserRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->customerRepository = $customerRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->userProfileViewFactory = $userProfileViewFactory;
-        $this->customerRepository = $customerRepository;
     }
 
     public function __invoke(Request $request): Response

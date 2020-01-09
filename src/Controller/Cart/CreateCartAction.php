@@ -37,26 +37,26 @@ final class CreateCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var UuidGeneratorInteface */
     private $uuidGenerator;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     public function __construct(
         RequestProcessorInterface $createCartRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        UuidGeneratorInteface $uuidGenerator
+        UuidGeneratorInteface $uuidGenerator,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
         $this->createCartRequestProcessor = $createCartRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->uuidGenerator = $uuidGenerator;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response

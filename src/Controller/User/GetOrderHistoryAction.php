@@ -22,28 +22,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GetOrderHistoryAction
 {
-    /** @var ViewHandlerInterface */
-    private $viewHandler;
-
-    /** @var OrderHistoryViewFactoryInterface */
-    private $orderHistoryViewFactory;
-
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInShopUserProvider;
+
+    /** @var ViewHandlerInterface */
+    private $viewHandler;
 
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
+    /** @var OrderHistoryViewFactoryInterface */
+    private $orderHistoryViewFactory;
+
     public function __construct(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         ViewHandlerInterface $viewHandler,
-        OrderHistoryViewFactoryInterface $orderHistoryViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        OrderHistoryViewFactoryInterface $orderHistoryViewFactory
     ) {
         $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->viewHandler = $viewHandler;
-        $this->orderHistoryViewFactory = $orderHistoryViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->orderHistoryViewFactory = $orderHistoryViewFactory;
     }
 
     public function __invoke(Request $request): Response

@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class SyncTotalsAction
 {
     /** @var RequestProcessorInterface */
-    private $syncTotalsActionRequestProcessor;
+    private $syncTotalsRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -35,34 +35,34 @@ final class SyncTotalsAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var OrderRepositoryInterface */
     private $orderRepository;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     /** @var TotalsViewFactory */
     private $totalsViewFactory;
 
     public function __construct(
-        RequestProcessorInterface $syncTotalsActionRequestProcessor,
+        RequestProcessorInterface $syncTotalsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         OrderRepositoryInterface $orderRepository,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         TotalsViewFactory $totalsViewFactory
     ) {
-        $this->syncTotalsActionRequestProcessor = $syncTotalsActionRequestProcessor;
+        $this->syncTotalsRequestProcessor = $syncTotalsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->orderRepository = $orderRepository;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->totalsViewFactory = $totalsViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
-        $validationResults = $this->syncTotalsActionRequestProcessor->validate($request);
+        $validationResults = $this->syncTotalsRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(View::create(
@@ -72,13 +72,15 @@ final class SyncTotalsAction
         }
 
         /** @var SyncTotals $syncTotalsQuery */
-        $syncTotalsQuery = $this->syncTotalsActionRequestProcessor->getQuery($request);
+        $syncTotalsQuery = $this->syncTotalsRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $order */
-        $order = $this->orderRepository->findOneBy([
-            'tokenValue' => $syncTotalsQuery->cartId(),
-            'state' => OrderInterface::STATE_CART,
-        ]);
+        $order = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $syncTotalsQuery->cartId(),
+                'state' => OrderInterface::STATE_CART,
+            ]
+        );
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

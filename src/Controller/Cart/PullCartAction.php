@@ -35,11 +35,11 @@ final class PullCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var OrderRepositoryInterface */
     private $orderRepository;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
@@ -48,15 +48,15 @@ final class PullCartAction
         RequestProcessorInterface $pullCartRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         OrderRepositoryInterface $orderRepository,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         CartItemViewFactoryInterface $cartItemViewFactory
     ) {
         $this->pullCartRequestProcessor = $pullCartRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->orderRepository = $orderRepository;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
     }
 
@@ -75,10 +75,12 @@ final class PullCartAction
         $pullCartRequest = $this->pullCartRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy([
-            'tokenValue' => $pullCartRequest->cartId(),
-            'state' => OrderInterface::STATE_CART,
-        ]);
+        $cart = $this->orderRepository->findOneBy(
+            [
+                'tokenValue' => $pullCartRequest->cartId(),
+                'state' => OrderInterface::STATE_CART,
+            ]
+        );
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

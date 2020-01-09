@@ -22,31 +22,29 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class DeleteCartHandler implements MessageHandlerInterface
 {
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
     /** @var OrderItemRepositoryInterface */
     private $orderItemRepository;
 
     /** @var OrderProcessorInterface */
     private $orderProcessor;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     public function __construct(
+        OrderRepositoryInterface $orderRepository,
         OrderItemRepositoryInterface $orderItemRepository,
-        OrderProcessorInterface $orderProcessor,
-        OrderRepositoryInterface $orderRepository
+        OrderProcessorInterface $orderProcessor
     ) {
+        $this->orderRepository = $orderRepository;
         $this->orderItemRepository = $orderItemRepository;
         $this->orderProcessor = $orderProcessor;
-        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(DeleteCart $deleteCart): void
     {
         /** @var OrderInterface $order */
-        $order = $order = $this->orderRepository->findOneBy(
-            ['tokenValue' => $deleteCart->cartId(), 'state' => OrderInterface::STATE_CART]
-        );
+        $order = $this->orderRepository->findOneBy(['tokenValue' => $deleteCart->cartId(), 'state' => OrderInterface::STATE_CART]);
 
         /** @var OrderItem|null $orderItem */
         $orderItem = $this->orderItemRepository->findOneBy(['id' => $deleteCart->cartItem()->getItemId()]);

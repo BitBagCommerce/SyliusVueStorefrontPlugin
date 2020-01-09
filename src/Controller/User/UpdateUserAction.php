@@ -39,11 +39,11 @@ final class UpdateUserAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     /** @var UserProfileViewFactoryInterface */
     private $userProfileViewFactory;
@@ -53,16 +53,16 @@ final class UpdateUserAction
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        CustomerRepositoryInterface $customerRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        UserProfileViewFactoryInterface $userProfileViewFactory,
-        CustomerRepositoryInterface $loggedInUserProvider
+        UserProfileViewFactoryInterface $userProfileViewFactory
     ) {
         $this->updateUserRequestProcessor = $updateUserRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->customerRepository = $customerRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->customerRepository = $loggedInUserProvider;
         $this->userProfileViewFactory = $userProfileViewFactory;
     }
 

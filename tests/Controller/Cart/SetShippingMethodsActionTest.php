@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\Utils\UserLoginTrait;
 
-final class SetShippingMethodsActionTest extends JsonApiTestCase
+final class GetShippingMethodsActionTest extends JsonApiTestCase
 {
     use UserLoginTrait;
 

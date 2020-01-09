@@ -55,7 +55,12 @@ final class OrderViewFactory implements OrderViewFactoryInterface
     {
         $ordersList = [];
 
+        /** @var OrderInterface $syliusOrder */
         foreach ($syliusOrders as $syliusOrder) {
+            if (!$syliusOrder->getTokenValue()) {
+                continue;
+            }
+
             $ordersList[] = $this->createFromOrder($syliusOrder);
         }
 

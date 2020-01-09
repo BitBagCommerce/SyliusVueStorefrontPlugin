@@ -34,14 +34,14 @@ final class GetPaymentMethodsAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var ChannelProviderInterface */
     private $channelProvider;
 
     /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
@@ -50,17 +50,17 @@ final class GetPaymentMethodsAction
         RequestProcessorInterface $getPaymentMethodsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ChannelProviderInterface $channelProvider,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         PaymentMethodViewFactoryInterface $paymentMethodViewFactory
     ) {
         $this->getPaymentMethodsRequestProcessor = $getPaymentMethodsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->channelProvider = $channelProvider;
         $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
     }
 
