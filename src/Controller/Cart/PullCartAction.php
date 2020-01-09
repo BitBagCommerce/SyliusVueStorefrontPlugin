@@ -35,29 +35,29 @@ final class PullCartAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
 
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
     public function __construct(
         RequestProcessorInterface $pullCartRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        OrderRepositoryInterface $orderRepository,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        CartItemViewFactoryInterface $cartItemViewFactory,
-        OrderRepositoryInterface $orderRepository
+        CartItemViewFactoryInterface $cartItemViewFactory
     ) {
         $this->pullCartRequestProcessor = $pullCartRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->orderRepository = $orderRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
-        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(Request $request): Response

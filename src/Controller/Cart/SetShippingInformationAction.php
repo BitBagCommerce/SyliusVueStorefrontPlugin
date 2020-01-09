@@ -41,36 +41,36 @@ final class SetShippingInformationAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
-    /** @var ShippingInformationViewFactoryInterface */
-    private $shippingInformationViewFactory;
-
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
     /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
 
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
+
+    /** @var ShippingInformationViewFactoryInterface */
+    private $shippingInformationViewFactory;
+
     public function __construct(
         RequestProcessorInterface $setShippingInformationRequestProcessor,
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ShippingInformationViewFactoryInterface $shippingInformationViewFactory,
         OrderRepositoryInterface $orderRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
+        PaymentMethodRepositoryInterface $paymentMethodRepository,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        ShippingInformationViewFactoryInterface $shippingInformationViewFactory
     ) {
         $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
-        $this->shippingInformationViewFactory = $shippingInformationViewFactory;
         $this->orderRepository = $orderRepository;
         $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
+        $this->shippingInformationViewFactory = $shippingInformationViewFactory;
     }
 
     public function __invoke(Request $request): Response

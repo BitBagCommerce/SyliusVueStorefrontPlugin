@@ -29,15 +29,11 @@ use Sylius\Component\Registry\ServiceRegistry;
 use Sylius\Component\Shipping\Calculator\CalculatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 
-final class SetShippingMethodsAction
+final class GetShippingMethodsAction
 {
     /** @var RequestProcessorInterface */
-    private $setShippingInformationRequestProcessor;
-
-    /** @var MessageBusInterface */
-    private $bus;
+    private $getShippingMethodsRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
@@ -45,56 +41,54 @@ final class SetShippingMethodsAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var OrderRepositoryInterface */
+    private $orderRepository;
+
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
+    /** @var ZoneMatcher */
+    private $zoneMatcher;
+
+    /** @var ShippingMethodRepositoryInterface */
+    private $shippingMethodRepository;
+
+    /** @var ServiceRegistry */
+    private $serviceRegistry;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var ShippingMethodsViewFactoryInterface */
     private $shippingMethodsViewFactory;
 
-    /** @var ShippingMethodRepositoryInterface */
-    private $shippingMethodRepository;
-
-    /** @var OrderRepositoryInterface */
-    private $orderRepository;
-
-    /** @var ZoneMatcher */
-    private $zoneMatcher;
-
-    /** @var ChannelProviderInterface */
-    private $channelProvider;
-
-    /** @var ServiceRegistry */
-    private $serviceRegistry;
-
     public function __construct(
-        RequestProcessorInterface $setShippingInformationRequestProcessor,
-        MessageBusInterface $bus,
+        RequestProcessorInterface $getShippingMethodsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        ShippingMethodsViewFactoryInterface $shippingMethodsViewFactory,
-        ShippingMethodRepositoryInterface $shippingMethodRepository,
         OrderRepositoryInterface $orderRepository,
-        ZoneMatcher $zoneMatcher,
         ChannelProviderInterface $channelProvider,
-        ServiceRegistry $serviceRegistry
+        ZoneMatcher $zoneMatcher,
+        ShippingMethodRepositoryInterface $shippingMethodRepository,
+        ServiceRegistry $serviceRegistry,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        ShippingMethodsViewFactoryInterface $shippingMethodsViewFactory
     ) {
-        $this->setShippingInformationRequestProcessor = $setShippingInformationRequestProcessor;
-        $this->bus = $bus;
+        $this->getShippingMethodsRequestProcessor = $getShippingMethodsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->orderRepository = $orderRepository;
+        $this->channelProvider = $channelProvider;
+        $this->zoneMatcher = $zoneMatcher;
+        $this->shippingMethodRepository = $shippingMethodRepository;
+        $this->serviceRegistry = $serviceRegistry;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->shippingMethodsViewFactory = $shippingMethodsViewFactory;
-        $this->shippingMethodRepository = $shippingMethodRepository;
-        $this->orderRepository = $orderRepository;
-        $this->zoneMatcher = $zoneMatcher;
-        $this->channelProvider = $channelProvider;
-        $this->serviceRegistry = $serviceRegistry;
     }
 
     public function __invoke(Request $request): Response
     {
-        $validationResults = $this->setShippingInformationRequestProcessor->validate($request);
+        $validationResults = $this->getShippingMethodsRequestProcessor->validate($request);
 
         if (0 !== count($validationResults)) {
             return $this->viewHandler->handle(
@@ -105,7 +99,7 @@ final class SetShippingMethodsAction
             );
         }
 
-        $query = $this->setShippingInformationRequestProcessor->getQuery($request);
+        $query = $this->getShippingMethodsRequestProcessor->getQuery($request);
 
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(
@@ -134,7 +128,9 @@ final class SetShippingMethodsAction
 
         return $this->viewHandler->handle(
             View::create(
-                $this->genericSuccessViewFactory->create($this->shippingMethodsViewFactory->createList(...$shipmentMethods)),
+                $this->genericSuccessViewFactory->create(
+                    $this->shippingMethodsViewFactory->createList(...$shipmentMethods)
+                ),
                 Response::HTTP_OK
             )
         );

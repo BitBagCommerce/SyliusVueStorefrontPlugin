@@ -20,23 +20,23 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class ChangePasswordHandler implements MessageHandlerInterface
 {
-    /** @var UserRepositoryInterface */
-    private $shopUserRepository;
-
     /** @var LoggedInShopUserProviderInterface */
     private $loggedInShopUserProvider;
 
     /** @var UserPasswordEncoderInterface */
     private $userPasswordEncoder;
 
+    /** @var UserRepositoryInterface */
+    private $shopUserRepository;
+
     public function __construct(
-        UserRepositoryInterface $shopUserRepository,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserRepositoryInterface $shopUserRepository
     ) {
-        $this->shopUserRepository = $shopUserRepository;
         $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->shopUserRepository = $shopUserRepository;
     }
 
     public function __invoke(ChangePassword $changePassword): void

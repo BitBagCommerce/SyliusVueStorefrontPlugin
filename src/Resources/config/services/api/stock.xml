@@ -10,9 +10,9 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.stock.check_stock" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
             <argument type="service" id="sylius.repository.product_variant" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.stock.check_product_list"
@@ -20,9 +20,9 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.list_stocks" />
             <argument type="service" id="fos_rest.view_handler" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
             <argument type="service" id="sylius.repository.product_variant" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory" />
         </service>
     </services>
 </container>

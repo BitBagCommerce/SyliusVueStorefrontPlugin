@@ -33,24 +33,24 @@ final class GetAppliedCouponAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var GenericSuccessViewFactoryInterface */
-    private $genericSuccessViewFactory;
-
     /** @var OrderRepositoryInterface */
     private $orderRepository;
+
+    /** @var GenericSuccessViewFactoryInterface */
+    private $genericSuccessViewFactory;
 
     public function __construct(
         RequestProcessorInterface $getAppliedCouponProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory
     ) {
         $this->getAppliedCouponProcessor = $getAppliedCouponProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->orderRepository = $orderRepository;
+        $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
     public function __invoke(Request $request): Response

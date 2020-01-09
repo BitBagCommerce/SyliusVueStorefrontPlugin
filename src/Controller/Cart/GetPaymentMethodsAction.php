@@ -34,34 +34,34 @@ final class GetPaymentMethodsAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
+    /** @var PaymentMethodRepositoryInterface */
+    private $paymentMethodRepository;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
     /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
-
-    /** @var ChannelProviderInterface */
-    private $channelProvider;
-
     public function __construct(
         RequestProcessorInterface $getPaymentMethodsRequestProcessor,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
-        PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
+        ChannelProviderInterface $channelProvider,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
-        ChannelProviderInterface $channelProvider
+        GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
+        PaymentMethodViewFactoryInterface $paymentMethodViewFactory
     ) {
         $this->getPaymentMethodsRequestProcessor = $getPaymentMethodsRequestProcessor;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->channelProvider = $channelProvider;
+        $this->paymentMethodRepository = $paymentMethodRepository;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->channelProvider = $channelProvider;
     }
 
     public function __invoke(Request $request): Response
