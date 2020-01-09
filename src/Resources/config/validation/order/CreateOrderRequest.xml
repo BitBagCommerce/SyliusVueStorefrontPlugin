@@ -8,7 +8,7 @@
             <constraint name="NotNull">
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_id.not_null</option>
             </constraint>
-            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />
+<!--            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CartExists" />-->
         </property>
         <property name="addressInformation">
             <constraint name="Valid"/>

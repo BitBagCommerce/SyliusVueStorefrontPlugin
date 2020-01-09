@@ -139,7 +139,6 @@ final class CreateOrderHandler implements MessageHandlerInterface
         }
 
         if (!empty($order->getItems()->getValues())) {
-
             /** @var ShipmentInterface $shipment */
             $shipment = $this->shipmentFactory->createNew();
 

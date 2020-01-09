@@ -32,7 +32,6 @@ final class AddressInformation
     /** @var string */
     public $payment_method_code;
 
-
     public function getShippingAddress(): ShippingAddress
     {
         return $this->shippingAddress;

@@ -124,7 +124,6 @@ final class GetShippingMethodsAction
             /** @var CalculatorInterface $calculator */
             $calculator = $this->serviceRegistry->get($shipmentMethod->getCalculator());
             $calculator->calculate($cart->getShipments()->first(), $shipmentMethod->getConfiguration());
-
         }
 
         return $this->viewHandler->handle(
