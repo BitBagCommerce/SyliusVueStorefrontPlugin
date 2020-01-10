@@ -14,10 +14,11 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
@@ -25,6 +26,9 @@ final class UpdateCartHandler implements MessageHandlerInterface
 {
     /** @var OrderRepositoryInterface */
     private $cartRepository;
+
+    /** @var BaseProductVariantRepositoryInterface */
+    private $baseProductVariantRepository;
 
     /** @var ProductVariantRepositoryInterface */
     private $productVariantRepository;
@@ -34,10 +38,12 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
     public function __construct(
         OrderRepositoryInterface $cartRepository,
+        BaseProductVariantRepositoryInterface $baseProductVariantRepository,
         ProductVariantRepositoryInterface $productVariantRepository,
         OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
+        $this->baseProductVariantRepository = $baseProductVariantRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->orderModifier = $orderModifier;
     }
@@ -49,8 +55,16 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
         Assert::notNull($cart, 'Cart has not been found.');
 
-        /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->productVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
+        /** @var BaseProductVariantRepositoryInterface $productVariant */
+        $productVariant = $this->baseProductVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
+
+        if ($productVariant === null) {
+            /** @var ProductVariantInterface $productVariant */
+            $productVariant = $this->productVariantRepository->getVariantForOptionValuesBySku(
+                $updateCart->cartItem()->getSku(),
+                $updateCart->cartItem()->product_option->extension_attributes->configurable_item_options
+            );
+        }
 
         Assert::notNull($productVariant, 'Product variant has not been found.');
 

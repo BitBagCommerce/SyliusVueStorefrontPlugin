@@ -9,5 +9,10 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductTaxonRepository">
             <argument type="service" id="sylius.repository.product_taxon" />
         </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.repository.product_variant"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepository">
+            <argument type="service" id="sylius.repository.product" />
+        </service>
     </services>
 </container>
