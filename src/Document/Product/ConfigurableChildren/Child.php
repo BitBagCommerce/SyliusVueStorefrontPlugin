@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableChildren;
 
-use BitBag\SyliusVueStorefrontPlugin\Document\Product\Attribute;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Price;
 
 final class Child implements \JsonSerializable

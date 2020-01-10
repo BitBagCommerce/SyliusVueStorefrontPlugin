@@ -8,9 +8,9 @@ use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem\ConfigurableIte
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
+use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 final class ProductVariantProvider implements ProductVariantProviderInterface

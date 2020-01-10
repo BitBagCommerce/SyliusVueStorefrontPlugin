@@ -260,7 +260,7 @@ final class Details
     private $parentSku;
 
     /** @var string */
-    private $color = null;
+    private $color;
 
     /** @var string */
     private $size = '156';
