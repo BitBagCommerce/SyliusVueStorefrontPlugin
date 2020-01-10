@@ -17,5 +17,5 @@ use Doctrine\Common\Collections\Collection;
 
 interface ProductOptionsToConfigurableOptionsTransformerInterface
 {
-    public function transform(Collection $productOptions): ConfigurableOptions;
+    public function transform(Collection $productOptions, $syliusProduct): ConfigurableOptions;
 }

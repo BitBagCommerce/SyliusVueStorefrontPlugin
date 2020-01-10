@@ -81,7 +81,7 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
 
         if ($syliusProduct->getVariants()->count() > 1) {
             $configurableChildren = $this->productVariantsTransformer->transform($syliusProduct->getVariants());
-            $configurableOptions = $this->productOptionsTransformer->transform($syliusProduct->getOptions());
+            $configurableOptions = $this->productOptionsTransformer->transform($syliusProduct->getOptions(), $syliusProduct);
         }
 
         $productLinks = $this->productAssociationsTransformer->transform($syliusProduct->getAssociations());

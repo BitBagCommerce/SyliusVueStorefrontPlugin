@@ -5,8 +5,13 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="false" />
 
-        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_attribute"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformer">
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_option"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductOptionToAttributeTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_option.option_values" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_option.option_values"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductOption\ProductOptionsValuesTransformer">
         </service>
     </services>
 </container>

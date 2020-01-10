@@ -13,16 +13,17 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
-use BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductAttributeToVueStorefrontDocumentTransformer;
+use BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductOptionToVueStorefrontDocumentTransformer;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformerInterface;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 
+/** todo */
 final class ProductAttributeToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
-        $this->shouldHaveType(ProductAttributeToVueStorefrontDocumentTransformer::class);
+        $this->shouldHaveType(ProductOptionToVueStorefrontDocumentTransformer::class);
     }
 
     function let(SyliusProductAttributeTransformerInterface $syliusProductAttributeTransformer): void

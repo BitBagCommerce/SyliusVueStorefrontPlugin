@@ -13,15 +13,16 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformer;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductOptionToAttributeTransformer;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Product\Model\ProductAttributeInterface;
 
+/** todo */
 final class SyliusProductAttributeTransformerSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
-        $this->shouldHaveType(SyliusProductAttributeTransformer::class);
+        $this->shouldHaveType(SyliusProductOptionToAttributeTransformer::class);
     }
 
     function it_transforms(ProductAttributeInterface $syliusProductAttribute): void

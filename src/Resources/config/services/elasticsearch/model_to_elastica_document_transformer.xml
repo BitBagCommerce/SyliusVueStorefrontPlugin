@@ -16,8 +16,8 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.attribute"
-                 class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductAttributeToVueStorefrontDocumentTransformer">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_attribute" />
+                 class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductOptionToVueStorefrontDocumentTransformer">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.transformer.sylius.product_option" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.transformer.tax_rule"

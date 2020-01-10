@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
-use Sylius\Component\Product\Model\ProductAttributeInterface;
+use Sylius\Component\Product\Model\ProductOptionInterface;
 
-interface SyliusProductAttributeTransformerInterface
+interface SyliusProductOptionToAttributeTransformerInterface
 {
-    public function transform(ProductAttributeInterface $syliusProductAttribute): Attribute;
+    public function transform(ProductOptionInterface $syliusProductOption): Attribute;
 }

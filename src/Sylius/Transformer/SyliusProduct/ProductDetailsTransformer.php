@@ -26,7 +26,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             null,
             null,
             $productVariantsCount > 1 ? 'configurable' : 'simple',
-            $product->getCode(),
+            $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode(),
             $product->getSlug(),
             $product->getName(),
             null,
@@ -48,7 +48,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             [],//colorOptions,
             [],//sizeOptions
             false,
-            $product->getCode()
+            $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode()
         //            [],//configurableOptions
         //            []//configurableChildren
         );

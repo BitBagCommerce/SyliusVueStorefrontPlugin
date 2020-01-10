@@ -22,7 +22,7 @@ use Sylius\Component\Product\Model\ProductOptionValueInterface;
 final class ProductOptionsToConfigurableOptionsTransformer implements ProductOptionsToConfigurableOptionsTransformerInterface
 {
     /** @param Collection|ProductOptionInterface[] $syliusProductOptions */
-    public function transform(Collection $syliusProductOptions): ConfigurableOptions
+    public function transform(Collection $syliusProductOptions, $syliusProduct): ConfigurableOptions
     {
         $configurableOptions = [];
 
@@ -32,10 +32,10 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
             $configurableOptions[] = new Option(
                 $syliusProductOption->getId(),
                 $configurableOptionValues,
-                5, //product_id ,
+                $syliusProduct->getId(), //product_id ,
                 $syliusProductOption->getName(),
                 $syliusProductOption->getPosition(),
-                5, //attribute_id
+                $syliusProductOption->getId(), //attribute_id
                 $syliusProductOption->getCode() //attribute_code
             );
         }
@@ -50,7 +50,7 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
         /** @var ProductOptionValueInterface $syliusProductOptionValue */
         foreach ($syliusProductOptionValues as $syliusProductOptionValue) {
             //            TODO OPTION VALUE STRING TO INT
-            $configurableOptionValues[] = new OptionValue($syliusProductOptionValue->getId(), $syliusProductOptionValue->getName());
+            $configurableOptionValues[] = new OptionValue($syliusProductOptionValue->getId(), $syliusProductOptionValue->getValue());
         }
 
         return $configurableOptionValues;

@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct;
 
-use BitBag\SyliusVueStorefrontPlugin\Document\Product\Attribute;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
@@ -24,7 +23,7 @@ final class ProductVariantOptionValuesToCustomAttributesTransformer implements P
 
         /** @var ProductOptionValueInterface $optionValue */
         foreach ($syliusProductVariant->getOptionValues() as $optionValue) {
-            $customAttributes[] = new Attribute($optionValue->getOptionCode(), $optionValue->getValue());
+            $customAttributes[$optionValue->getOptionCode()] = $optionValue->getId();
         }
 
         return $customAttributes;
