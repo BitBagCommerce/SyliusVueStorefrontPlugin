@@ -6,6 +6,8 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem\ConfigurableItemOption;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
@@ -57,5 +59,17 @@ final class ProductVariantProvider implements ProductVariantProviderInterface
         Assert::notNull($productVariant, 'Product variant has not been found.');
 
         return $productVariant;
+    }
+
+    public function provideForCartItemId(OrderInterface $cart, int $itemId): ?ProductVariantInterface
+    {
+        /** @var OrderItemInterface $cartItem */
+        foreach ($cart->getItems() as $cartItem) {
+            if ($itemId === $cartItem->getId()) {
+                return $cartItem->getVariant();
+            }
+        }
+
+        return null;
     }
 }

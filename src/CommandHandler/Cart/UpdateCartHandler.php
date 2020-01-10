@@ -16,6 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariantProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -50,13 +51,18 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
         Assert::notNull($cart, 'Cart has not been found.');
 
-        $options = $updateCart->cartItem()->product_option->extension_attributes->configurable_item_options ?? [];
+        if ($updateCart->cartItem()->getItemId())
+        {
+            $productVariant = $this->productVariantProvider->provideForCartItemId($cart, $updateCart->cartItem()->getItemId());
+        } else {
+            /** @var ProductVariantInterface $productVariant */
+            $productVariant = $this->productVariantProvider->provideForOptionValuesBySku(
+                $updateCart->cartItem()->getSku(),
+                $updateCart->productOptions()
+            );
+        }
 
-        /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->productVariantProvider->provideForOptionValuesBySku(
-            $updateCart->cartItem()->getSku(),
-            $options
-        );
+        Assert::notNull($productVariant, 'Product variant has not been found.');
 
         /** @var ProductInterface $product */
         $product = $productVariant->getProduct();
