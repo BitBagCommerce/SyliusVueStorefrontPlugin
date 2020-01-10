@@ -14,11 +14,11 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariantProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Webmozart\Assert\Assert;
 
@@ -27,24 +27,19 @@ final class UpdateCartHandler implements MessageHandlerInterface
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /** @var BaseProductVariantRepositoryInterface */
-    private $baseProductVariantRepository;
-
-    /** @var ProductVariantRepositoryInterface */
-    private $productVariantRepository;
+    /** @var ProductVariantProviderInterface */
+    private $productVariantProvider;
 
     /** @var OrderModifierInterface */
     private $orderModifier;
 
     public function __construct(
         OrderRepositoryInterface $cartRepository,
-        BaseProductVariantRepositoryInterface $baseProductVariantRepository,
-        ProductVariantRepositoryInterface $productVariantRepository,
+        ProductVariantProviderInterface $productVariantProvider,
         OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
-        $this->baseProductVariantRepository = $baseProductVariantRepository;
-        $this->productVariantRepository = $productVariantRepository;
+        $this->productVariantProvider = $productVariantProvider;
         $this->orderModifier = $orderModifier;
     }
 
@@ -55,22 +50,16 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
         Assert::notNull($cart, 'Cart has not been found.');
 
-        /** @var BaseProductVariantRepositoryInterface $productVariant */
-        $productVariant = $this->baseProductVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
+        $options = $updateCart->cartItem()->product_option->extension_attributes->configurable_item_options ?? [];
 
-        if ($productVariant === null) {
-            /** @var ProductVariantInterface $productVariant */
-            $productVariant = $this->productVariantRepository->getVariantForOptionValuesBySku(
-                $updateCart->cartItem()->getSku(),
-                $updateCart->cartItem()->product_option->extension_attributes->configurable_item_options
-            );
-        }
+        /** @var ProductVariantInterface $productVariant */
+        $productVariant = $this->productVariantProvider->provideForOptionValuesBySku(
+            $updateCart->cartItem()->getSku(),
+            $options
+        );
 
-        Assert::notNull($productVariant, 'Product variant has not been found.');
-
+        /** @var ProductInterface $product */
         $product = $productVariant->getProduct();
-
-        Assert::notNull($product);
 
         Assert::true(
             in_array($cart->getChannel(), $product->getChannels()->toArray(), true),
