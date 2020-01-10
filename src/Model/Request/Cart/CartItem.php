@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem\ProductOption;
+
 final class CartItem
 {
     /** @var string */
@@ -26,7 +28,7 @@ final class CartItem
     /** @var string|null */
     public $quoteId;
 
-    /** @var object|null */
+    /** @var ProductOption */
     public $product_option;
 
     public function getItemId(): ?int
