@@ -39,8 +39,8 @@ final class Child implements \JsonSerializable
     /** @var string */
     private $sku;
 
-    /** @var Attribute[] */
-    private $customAttributes = [];
+    /** @var array */
+    private $customAttributes;
 
     public function __construct(
         Price $price,
@@ -61,8 +61,8 @@ final class Child implements \JsonSerializable
             [
                 self::NAME => $this->name,
                 self::SKU => $this->sku,
-                self::CUSTOM_ATTRIBUTES => $this->customAttributes,
-            ]
+            ],
+            $this->customAttributes
         );
     }
 }

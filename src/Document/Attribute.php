@@ -145,7 +145,7 @@ final class Attribute
     private $isRequired = false;
 
     /** @var string */
-    private $defaultFrontendLabel = 'Display Product Options In';
+    private $defaultFrontendLabel;
 
     /** @var array|null */
     private $frontendLabels;
@@ -193,6 +193,7 @@ final class Attribute
         $this->isVisibleOnFrontend = $isVisibleOnFrontend;
         $this->frontendInput = $frontendInput;
         $this->frontendLabel = $frontendLabel;
+        $this->defaultFrontendLabel = $frontendLabel;
     }
 
     public function getDocumentId(): int

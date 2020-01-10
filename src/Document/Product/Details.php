@@ -252,13 +252,12 @@ final class Details
 
     /** @var string */
     private $slug;
-//    private $slug = 'minerva-lumatech-and-trade-v-tee-1497';
 
     /** @var int */
     private $tsk = 1551705236617;
 
     /** @var string */
-    private $parentSku = 'WS08-XXL';
+    private $parentSku;
 
     /** @var string */
     private $color = null;
@@ -432,7 +431,7 @@ final class Details
             self::SPECIAL_TO_DATE => $this->specialToDate,
             self::IS_RECURRING => $this->isReccuring,
             self::URL_PATH => $this->urlPath,
-            'jeans_size' => null,
+//            'jeans_size' => null,
         ];
     }
 }
