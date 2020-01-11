@@ -40,8 +40,19 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.provider.product_variant"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariantProvider">
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.composite_product_variant"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\CompositeProductVariantProvider">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.already_in_cart_product_variant" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.new_in_cart_product_variant"/>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.already_in_cart_product_variant"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\AlreadyInCartProductVariantProvider">
+            <argument type="service" id="sylius.repository.order" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.new_in_cart_product_variant"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\NewInCartProductVariantProvider">
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.repository.product_variant" />
