@@ -93,8 +93,8 @@ final class Product implements ProductInterface
             $this->details->toArray(),
             $this->category->toArray(),
             $this->mediaGallery->toArray(),
-            $this->configurableChildren ? $this->configurableChildren->toArray() : [],
-            $this->configurableOptions ? $this->configurableOptions->toArray() : [],
+            $this->details->isConfigurableProduct() ? $this->configurableChildren->toArray() : [],
+            $this->details->isConfigurableProduct() ? $this->configurableOptions->toArray() : [],
             $this->productLinks->toArray(),
             $this->price->toArray()
         );

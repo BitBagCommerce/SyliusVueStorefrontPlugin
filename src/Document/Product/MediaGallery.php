@@ -16,7 +16,6 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\MediaGallery\Media;
 
 final class MediaGallery
 {
-//    TODO media_gallery doesnt appear in VS Docs, is present only in demo app
     private const MEDIA_GALLERY = 'media_gallery';
 
     /** @var Media[] */

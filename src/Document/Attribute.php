@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute\Option;
 
-final class Attribute
+final class Attribute implements Indexable
 {
     private const ENTITY_ID = 'id';
     private const ID = 'attribute_id';
@@ -53,7 +53,6 @@ final class Attribute
     private const SOURCE_MODEL = 'source_model';
     private const DEFAULT_VALUE = 'default_value';
     private const VALIDATION_RULES = 'validation_rules';
-    private const TSK = 'tsk';
 
     /** @var int */
     private $documentId;
@@ -162,9 +161,6 @@ final class Attribute
     /** @var array */
     private $validationRules = [];
 
-    /** @var int */
-    private $tsk = 1556379391784;
-
     public function __construct(
         int $documentId,
         int $entityId,
@@ -238,7 +234,6 @@ final class Attribute
             self::SOURCE_MODEL => $this->sourceModel,
             self::DEFAULT_VALUE => $this->defaultValue,
             self::VALIDATION_RULES => $this->validationRules,
-            self::TSK => $this->tsk,
         ];
     }
 }

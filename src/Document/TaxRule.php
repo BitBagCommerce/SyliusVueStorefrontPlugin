@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\Rates;
 
-final class TaxRule
+final class TaxRule implements Indexable
 {
     private const ENTITY_ID = 'id';
     private const CODE = 'code';
@@ -25,7 +25,6 @@ final class TaxRule
     private const TAX_RATE_IDS = 'tax_rate_ids';
     private const CALCULATE_SUBTOTAL = 'calculate_subtotal';
     private const TAX_RATES = 'rates';
-//    private const TSK = 'tsk';
 
     /** @var int */
     private $documentId;
@@ -57,9 +56,6 @@ final class TaxRule
     /** @var Rates */
     private $taxRates;
 
-//    /** @var int */
-//    private $tsk;
-
     public function __construct(
         int $documentId,
         int $entityId,
@@ -71,7 +67,6 @@ final class TaxRule
         array $taxRateIds,
         bool $calculateSubtotal,
         Rates $taxRates
-//        int $tsk
     ) {
         $this->documentId = $documentId;
         $this->entityId = $entityId;
@@ -83,7 +78,6 @@ final class TaxRule
         $this->taxRateIds = $taxRateIds;
         $this->calculateSubtotal = $calculateSubtotal;
         $this->taxRates = $taxRates;
-//        $this->tsk = $tsk;
     }
 
     public function getDocumentId(): int
@@ -103,7 +97,6 @@ final class TaxRule
             self::TAX_RATE_IDS => $this->taxRateIds,
             self::CALCULATE_SUBTOTAL => $this->calculateSubtotal,
             self::TAX_RATES => $this->taxRates,
-//            self::TSK => $this->tsk,
         ];
     }
 }

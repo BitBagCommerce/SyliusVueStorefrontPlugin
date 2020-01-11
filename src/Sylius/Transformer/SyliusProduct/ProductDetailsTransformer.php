@@ -33,8 +33,6 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             null,
             $product->getCreatedAt(),
             $product->getUpdatedAt(),
-            5, //weight
-            $product->getCode(),
             $product->getImages()->first()->getPath(),
             $product->getVariants()->first()->getOnHand() > 0,
             null,
@@ -47,10 +45,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             [],//productLinks
             [],//colorOptions,
             [],//sizeOptions
-            false,
             $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode()
-        //            [],//configurableOptions
-        //            []//configurableChildren
         );
     }
 }
