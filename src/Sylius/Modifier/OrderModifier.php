@@ -13,18 +13,13 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier;
 
 use Doctrine\Persistence\ObjectManager;
-use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
 
 final class OrderModifier implements OrderModifierInterface
 {
-    /** @var CartItemFactoryInterface */
-    private $cartItemFactory;
-
     /** @var OrderItemQuantityModifierInterface */
     private $orderItemQuantityModifier;
 
@@ -35,55 +30,27 @@ final class OrderModifier implements OrderModifierInterface
     private $orderManager;
 
     public function __construct(
-        CartItemFactoryInterface $cartItemFactory,
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
         ObjectManager $orderManager
     ) {
-        $this->cartItemFactory = $cartItemFactory;
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;
         $this->orderProcessor = $orderProcessor;
         $this->orderManager = $orderManager;
     }
 
-    public function modify(OrderInterface $order, ProductVariantInterface $productVariant, int $newQuantity, string $uuid): void
-    {
-        $cartItem = $this->getCartItemToModify($order, $productVariant);
-
-        if (null !== $cartItem) {
-            $this->orderItemQuantityModifier->modify($cartItem, $newQuantity);
-
-            $cartItem->setUuid($uuid);
-
-            $this->orderProcessor->process($order);
-
-            $this->orderManager->persist($order);
-
-            return;
-        }
-
-        $cartItem = $this->cartItemFactory->createForCart($order);
-        $cartItem->setVariant($productVariant);
-        $cartItem->setUuid($uuid);
-
+    public function modify(
+        OrderInterface $order,
+        OrderItemInterface $cartItem,
+        int $newQuantity,
+        string $uuid
+    ): void {
         $this->orderItemQuantityModifier->modify($cartItem, $newQuantity);
 
-        $order->addItem($cartItem);
+        $cartItem->setUuid($uuid);
 
         $this->orderProcessor->process($order);
 
         $this->orderManager->persist($order);
-    }
-
-    private function getCartItemToModify(OrderInterface $cart, ProductVariantInterface $productVariant): ?OrderItemInterface
-    {
-        /** @var OrderItemInterface $cartItem */
-        foreach ($cart->getItems() as $cartItem) {
-            if ($productVariant === $cartItem->getVariant()) {
-                return $cartItem;
-            }
-        }
-
-        return null;
     }
 }

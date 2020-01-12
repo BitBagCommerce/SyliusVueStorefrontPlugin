@@ -41,21 +41,23 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.provider.composite_product_variant"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\CompositeProductVariantProvider">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.already_in_cart_product_variant" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.new_in_cart_product_variant"/>
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\CompositeOrderItemProvider">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.existing_order_item" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.new_order_item"/>
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.provider.already_in_cart_product_variant"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\AlreadyInCartProductVariantProvider">
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.existing_order_item"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\ExistingOrderItemProvider">
             <argument type="service" id="sylius.repository.order" />
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.provider.new_in_cart_product_variant"
-                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\NewInCartProductVariantProvider">
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.new_order_item"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\NewOrderItemProvider">
             <argument type="service" id="sylius.repository.product" />
             <argument type="service" id="sylius.repository.product_variant"/>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.repository.product_variant" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="sylius.custom_factory.order_item" />
         </service>
     </services>
 </container>

@@ -22,7 +22,6 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.modifier.order_modifier"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifier">
-            <argument type="service" id="sylius.custom_factory.order_item" />
             <argument type="service" id="sylius.order_item_quantity_modifier" />
             <argument type="service" id="sylius.order_processing.order_processor.composite" />
             <argument type="service" id="sylius.manager.order" />

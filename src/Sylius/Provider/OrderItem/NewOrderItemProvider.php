@@ -1,17 +1,30 @@
 <?php
 
+/*
+ * This file has been created by developers from BitBag.
+ * Feel free to contact us once you face any issues or want to start
+ * another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
+
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant;
+namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
+use Sylius\Component\Core\Factory\CartItemFactoryInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface as BaseProductVariantRepositoryInterface;
 use Webmozart\Assert\Assert;
 
-final class NewInCartProductVariantProvider implements ProductVariantProviderInterface
+final class NewOrderItemProvider implements OrderItemProviderInterface
 {
     /** @var ProductRepositoryInterface */
     private $productRepository;
@@ -22,29 +35,41 @@ final class NewInCartProductVariantProvider implements ProductVariantProviderInt
     /** @var ProductVariantRepositoryInterface */
     private $productVariantRepository;
 
+    /** @var OrderRepositoryInterface */
+    private $cartRepository;
+
+    /** @var CartItemFactoryInterface */
+    private $cartItemFactory;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         BaseProductVariantRepositoryInterface $baseProductVariantRepository,
-        ProductVariantRepositoryInterface $productVariantRepository
+        ProductVariantRepositoryInterface $productVariantRepository,
+        OrderRepositoryInterface $cartRepository,
+        CartItemFactoryInterface $cartItemFactory
     ) {
         $this->productRepository = $productRepository;
         $this->baseProductVariantRepository = $baseProductVariantRepository;
         $this->productVariantRepository = $productVariantRepository;
+        $this->cartRepository = $cartRepository;
+        $this->cartItemFactory = $cartItemFactory;
     }
 
-    public function provide(CommandInterface $command): ProductVariantInterface
+    /** @param UpdateCart $command */
+    public function provide(CommandInterface $command): OrderItemInterface
     {
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $this->baseProductVariantRepository->findOneByCode($command->cartItem()->getSku());
 
         if ($productVariant) {
-            return $productVariant;
+            return $this->createOrderItem($command->cartId(), $productVariant);
         }
 
         /** @var ProductRepositoryInterface $productVariant */
         $product = $this->productRepository->findOneByCode($command->cartItem()->getSku());
 
         Assert::notNull($product, 'Product variant has not been found.');
+
         Assert::notEmpty($command->productOptions(), 'Product variant has not been found.');
 
         /** @var ProductVariantInterface $productVariant */
@@ -55,6 +80,22 @@ final class NewInCartProductVariantProvider implements ProductVariantProviderInt
 
         Assert::notNull($productVariant, 'Product variant has not been found.');
 
-        return $productVariant;
+        return $this->createOrderItem($command->cartId(), $productVariant);
+    }
+
+    private function createOrderItem(string $cartId, ProductVariantInterface $productVariant): OrderItemInterface
+    {
+        /** @var OrderInterface $cart */
+        $cart = $this->cartRepository->findOneBy([
+            'tokenValue' => $cartId,
+            'state' => OrderInterface::STATE_CART,
+        ]);
+
+        $cartItem = $this->cartItemFactory->createForCart($cart);
+        $cartItem->setVariant($productVariant);
+
+        $cart->addItem($cartItem);
+
+        return $cartItem;
     }
 }

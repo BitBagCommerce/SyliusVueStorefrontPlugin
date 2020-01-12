@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ProductVariant\ProductVariantProviderInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\OrderItemProviderInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -26,7 +26,7 @@ final class UpdateCartHandler implements MessageHandlerInterface
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /** @var ProductVariantProviderInterface */
+    /** @var OrderItemProviderInterface */
     private $productVariantProvider;
 
     /** @var OrderModifierInterface */
@@ -34,7 +34,7 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
     public function __construct(
         OrderRepositoryInterface $cartRepository,
-        ProductVariantProviderInterface $productVariantProvider,
+        OrderItemProviderInterface $productVariantProvider,
         OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
@@ -45,16 +45,17 @@ final class UpdateCartHandler implements MessageHandlerInterface
     public function __invoke(UpdateCart $updateCart): void
     {
         /** @var OrderInterface $cart */
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $updateCart->cartId()]);
+        $cart = $this->cartRepository->findOneBy([
+            'tokenValue' => $updateCart->cartId(),
+            'state' => OrderInterface::STATE_CART,
+        ]);
 
         Assert::notNull($cart, 'Cart has not been found.');
 
-        $productVariant = $this->productVariantProvider->provide($updateCart);
-
-        Assert::notNull($productVariant, 'Product variant has not been found.');
+        $cartItem = $this->productVariantProvider->provide($updateCart);
 
         /** @var ProductInterface $product */
-        $product = $productVariant->getProduct();
+        $product = $cartItem->getProduct();
 
         Assert::true(
             in_array($cart->getChannel(), $product->getChannels()->toArray(), true),
@@ -62,7 +63,7 @@ final class UpdateCartHandler implements MessageHandlerInterface
         );
 
         $this->orderModifier->modify(
-            $cart, $productVariant, $updateCart->cartItem()->getQuantity(), $updateCart->getOrderItemUuid()
+            $cart, $cartItem, $updateCart->cartItem()->getQuantity(), $updateCart->getOrderItemUuid()
         );
     }
 }
