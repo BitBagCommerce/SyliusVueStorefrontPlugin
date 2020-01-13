@@ -51,6 +51,11 @@ final class UpdateCart implements CommandInterface
         return $this->cartItem;
     }
 
+    public function productOptions(): array
+    {
+        return $this->cartItem()->product_option->extension_attributes->configurable_item_options ?? [];
+    }
+
     public function getOrderItemUuid(): string
     {
         return $this->orderItemUuid;

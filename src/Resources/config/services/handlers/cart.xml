@@ -14,8 +14,7 @@
         <service id="bitbag_sylius_vue_storefront_plugin.handler.cart.update_cart_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\UpdateCartHandler">
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="sylius.repository.product_variant" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.repository.product_variant" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.composite_product_variant" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.modifier.order_modifier" />
             <tag name="messenger.message_handler" />
         </service>

@@ -83,6 +83,7 @@ final class ProductVariantRepository implements ProductVariantRepositoryInterfac
                 return false;
             }
         }
+
         return true;
     }
 }

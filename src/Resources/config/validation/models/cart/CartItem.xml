@@ -11,6 +11,7 @@
         </property>
         <property name="qty">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.cart_item.qty.not_blank</option>
             </constraint>
         </property>
