@@ -37,6 +37,7 @@ final class StockViewFactory implements StockViewFactoryInterface
     {
         $stockView = new StockView();
         $stockView->product_id = $productVariant->getProduct()->getId();
+        $stockView->item_id = $productVariant->getId();
         $stockView->qty = $productVariant->getOnHand();
         $stockView->is_in_stock = $productVariant->getOnHand() > 0;
 
