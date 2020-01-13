@@ -65,7 +65,7 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         $customer = $cart->getCustomer();
         Assert::notNull($customer, sprintf('Cart `%s` has no valid customer assigned.', $cart->getTokenValue()));
 
-        $address = $this->addressProvider->provide($customer, $setShippingInformation);
+        $address = $this->addressProvider->provide($customer, $setShippingInformation, true);
 
         $this->addressModifier->modify($customer, $address);
 

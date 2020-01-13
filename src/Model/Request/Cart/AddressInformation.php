@@ -14,36 +14,22 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 
 final class AddressInformation
 {
-    private const SHIPPING_ADDRESS = 'shipping_address';
-    private const SHIPPING_METHOD_CODE = 'shipping_method_code';
-    private const SHIPPING_CARRIER_CODE = 'shipping_carrier_code';
-
     /** @var ShippingAddress */
-    private $shipping_address;
+    public $shippingAddress;
 
     /** @var string */
-    private $shipping_method_code;
+    public $shippingMethodCode;
 
     /** @var string */
-    private $shipping_carrier_code;
-
-    public function __construct(
-        ShippingAddress $shipping_address,
-        string $shipping_method_code,
-        string $shipping_carrier_code
-    ) {
-        $this->shipping_address = $shipping_address;
-        $this->shipping_method_code = $shipping_method_code;
-        $this->shipping_carrier_code = $shipping_carrier_code;
-    }
+    public $shippingCarrierCode;
 
     public function getShippingAddress(): ShippingAddress
     {
-        return $this->shipping_address;
+        return $this->shippingAddress;
     }
 
     public function getShippingCarrierCode(): string
     {
-        return $this->shipping_carrier_code;
+        return $this->shippingCarrierCode;
     }
 }
