@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
-final class CmsPage
+final class CmsPage implements Indexable
 {
+    public function toElasticArray(): array
+    {
+    }
 }

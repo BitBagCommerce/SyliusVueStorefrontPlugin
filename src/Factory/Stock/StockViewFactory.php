@@ -36,28 +36,9 @@ final class StockViewFactory implements StockViewFactoryInterface
     private function createFromProductVariant(ProductVariantInterface $productVariant): StockView
     {
         $stockView = new StockView();
-        $stockView->item_id = $productVariant->getId();
         $stockView->product_id = $productVariant->getProduct()->getId();
-        $stockView->stock_id = $productVariant->getId();
         $stockView->qty = $productVariant->getOnHand();
         $stockView->is_in_stock = $productVariant->getOnHand() > 0;
-        $stockView->is_qty_decimal = false;
-        $stockView->show_default_notification_message = false;
-        $stockView->use_config_max_sale_qty = true;
-        $stockView->min_sale_qty = 1;
-        $stockView->use_config_backorders = true;
-        $stockView->backorders = 0;
-        $stockView->use_config_notify_stock_qty = true;
-        $stockView->notify_stock_qty = 1;
-        $stockView->use_config_qty_increments = true;
-        $stockView->qty_increments = 0;
-        $stockView->use_config_enable_qty_inc = true;
-        $stockView->enable_qty_increments = false;
-        $stockView->use_config_manage_stock = true;
-        $stockView->manage_stock = true;
-        $stockView->low_stock_date = null;
-        $stockView->is_decimal_divided = false;
-        $stockView->stock_status_changed_auto = 0;
 
         return $stockView;
     }

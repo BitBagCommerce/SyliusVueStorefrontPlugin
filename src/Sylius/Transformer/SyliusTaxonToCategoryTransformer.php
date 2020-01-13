@@ -39,19 +39,10 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
             $taxon->getLevel() + 2,
             $this->productTaxonRepository->getAmountOfProductVariants($taxon),
             $this->processChildren($taxon->getChildren()),
-            $this->buildChildrenIds($taxon->getChildren()),
-            new \DateTime(),
-            new \DateTime(),
-            $taxon->getName(),
-            [], //sortBy
-            true,
-            null,
-            false,
-            null,
+            $this->buildPath($taxon),
             count($taxon->getChildren()),
-            \strtolower($taxon->getName()),
-            \strtolower(\str_replace(' ', '', $taxon->getFullname())),
-            \strtolower(\str_replace(' ', '', $taxon->getFullname())) . '.html'
+            \strtolower(sprintf('%s-%d', $taxon->getName(), $taxon->getId())),
+            \strtolower(\str_replace(' ', '', $taxon->getFullname()))
         );
     }
 
@@ -66,11 +57,15 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
         return $childrenData;
     }
 
-    /** @param Collection|TaxonInterface[] $childTaxons */
-    private function buildChildrenIds(Collection $childTaxons): string
+    private function buildPath(TaxonInterface $taxon): string
     {
-        return \implode(', ', \array_map(static function (TaxonInterface $taxon) {
-            return $taxon->getId();
-        }, $childTaxons->toArray()));
+        $path = (string) ($taxon->getId());
+
+        while ($taxon->getParent()) {
+            $path = sprintf('%s/%s', $taxon->getParent()->getId(), $path);
+            $taxon = $taxon->getParent();
+        }
+
+        return $path;
     }
 }

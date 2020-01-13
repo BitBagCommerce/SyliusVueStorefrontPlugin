@@ -45,8 +45,6 @@ final class TaxonToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
             1,
             [],
             'children',
-            new \DateTime('yesterday'),
-            new \DateTime('yesterday'),
             'some/path/to/something',
             ['position', 'name', 'price'],
             true,
