@@ -26,6 +26,7 @@ final class Category implements Indexable
     private const CHILDREN_COUNT = 'children_count';
     private const URL_KEY = 'url_key';
     private const URL_PATH = 'url_path';
+    private const SLUG = 'slug';
 
     /** @var int */
     private $documentId;
@@ -116,6 +117,7 @@ final class Category implements Indexable
             self::CHILDREN_COUNT => (string) $this->childrenCount,
             self::URL_KEY => $this->urlKey,
             self::URL_PATH => $this->urlPath,
+            self::SLUG => $this->urlKey,
         ];
     }
 }

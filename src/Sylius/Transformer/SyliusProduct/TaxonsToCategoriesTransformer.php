@@ -34,7 +34,7 @@ final class TaxonsToCategoriesTransformer implements TaxonsToCategoriesTransform
                 $taxon->getSlug(),
                 \strtolower(\str_replace(' ', '', $taxon->getFullname()))
             );
-            $categoriesIds[] = $taxon->getId();
+            $categoriesIds[] = (string) $taxon->getId();
         }
 
         return new Category($categories, $categoriesIds);
