@@ -39,9 +39,9 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
             $taxon->getLevel() + 2,
             $this->productTaxonRepository->getAmountOfProductVariants($taxon),
             $this->processChildren($taxon->getChildren()),
-            $taxon->getName(),
+            $this->buildPath($taxon),
             count($taxon->getChildren()),
-            \strtolower($taxon->getName()),
+            \strtolower(sprintf('%s-%d', $taxon->getName(), $taxon->getId())),
             \strtolower(\str_replace(' ', '', $taxon->getFullname()))
         );
     }
@@ -55,5 +55,17 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
         }
 
         return $childrenData;
+    }
+
+    private function buildPath(TaxonInterface $taxon): string
+    {
+        $path = (string) ($taxon->getId());
+
+        while ($taxon->getParent()) {
+            $path = sprintf('%s/%s', $taxon->getParent()->getId(), $path);
+            $taxon = $taxon->getParent();
+        }
+
+        return $path;
     }
 }
