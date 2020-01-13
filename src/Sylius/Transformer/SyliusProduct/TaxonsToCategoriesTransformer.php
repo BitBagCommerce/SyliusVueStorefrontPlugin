@@ -31,7 +31,7 @@ final class TaxonsToCategoriesTransformer implements TaxonsToCategoriesTransform
                 $taxon->getId(),
                 $taxon->hasChildren(),
                 $taxon->getName(),
-                $taxon->getSlug(),
+                \strtolower(sprintf('%s_%d', $taxon->getName(), $taxon->getId())),
                 \strtolower(\str_replace(' ', '', $taxon->getFullname()))
             );
             $categoriesIds[] = (string) $taxon->getId();

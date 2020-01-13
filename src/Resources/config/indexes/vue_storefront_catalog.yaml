@@ -3,8 +3,8 @@ fos_elastica:
         default: { host: '%env(ELASTICSEARCH_HOST)%', port: '%env(ELASTICSEARCH_PORT)%' }
 
     indexes:
-        bitbag_vue_storefront_catalog:
-            index_name: "%env(ELASTICSEARCH_INDEX)%"
+        bitbag_vue_storefront_catalog_product:
+            index_name: "%env(ELASTICSEARCH_INDEX)%_product"
             types:
                 product:
                     indexable_callback: ['@bitbag_sylius_vue_storefront_plugin.checker.product_in_channel']
@@ -17,7 +17,7 @@ fos_elastica:
                         size: { type: integer }
                         size_options: { type: integer }
                         price: { type: float }
-                        has_options: { type: boolean }
+#                        has_options: { type: boolean }
                         special_price: { type: float }
                         color: { type: integer }
                         color_options: { type: integer }
@@ -68,6 +68,9 @@ fos_elastica:
                             logger: true
                             defer: true
 
+        bitbag_vue_storefront_catalog_category:
+            index_name: "%env(ELASTICSEARCH_INDEX)%_category"
+            types:
                 category:
                     properties:
                         enabled: ~
@@ -84,6 +87,9 @@ fos_elastica:
                             logger: true
                             defer: true
 
+        bitbag_vue_storefront_catalog_attribute:
+            index_name: "%env(ELASTICSEARCH_INDEX)%_attribute"
+            types:
                 attribute:
                     properties:
                         enabled: ~
@@ -92,7 +98,7 @@ fos_elastica:
                         options:
                             type: nested
                             properties:
-                                value: { type: text, index: not_analyzed }
+                                value: { type: text }
                     persistence:
                         driver: orm
                         model: "%sylius.model.product_option.class%"
