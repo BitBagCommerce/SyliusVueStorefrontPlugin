@@ -14,12 +14,12 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 final class Stock implements \JsonSerializable
 {
-    private const ID = 'stock_id';
+    private const PRODUCT_ID = 'product_id';
     private const QUANTITY = 'qty';
     private const IS_IN_STOCK = 'is_in_stock';
 
     /** @var int */
-    private $id;
+    private $productId;
 
     /** @var int */
     private $quantity;
@@ -28,11 +28,11 @@ final class Stock implements \JsonSerializable
     private $isInStock;
 
     public function __construct(
-        int $id,
+        int $productId,
         int $quantity,
         bool $isInStock
     ) {
-        $this->id = $id;
+        $this->productId = $productId;
         $this->quantity = $quantity;
         $this->isInStock = $isInStock;
     }
@@ -40,7 +40,7 @@ final class Stock implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            self::ID => $this->id,
+            self::PRODUCT_ID => $this->productId,
             self::QUANTITY => $this->quantity,
             self::IS_IN_STOCK => $this->isInStock,
         ];

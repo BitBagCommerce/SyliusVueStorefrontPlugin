@@ -20,7 +20,7 @@ final class InventoryToStockTransformer implements InventoryToStockTransformerIn
     public function transform(ProductVariantInterface $productVariant): Stock
     {
         return new Stock(
-            $productVariant->getId(),
+            $productVariant->getProduct()->getId(),
             $productVariant->getOnHand(),
             $productVariant->getOnHand() > 0
         );
