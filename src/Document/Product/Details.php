@@ -12,11 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
+use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
+
 final class Details
 {
-//    private const DATE_FORMAT = 'Y-m-d H:i:s';
-    private const DATE_FORMAT = 'Y-m-d';
-
     private const ENTITY_ID = 'id';
     private const ENTITY_TYPE_ID = 'entity_type_id';
     private const SKU = 'sku';
@@ -35,40 +34,22 @@ final class Details
     private const IMAGE = 'image';
     private const SMALL_IMAGE = 'small_image';
     private const THUMBNAIL = 'thumbnail';
-    private const OPTIONS_CONTAINER = 'options_container';
     private const REQUIRED_OPTIONS = 'required_options';
     private const HAS_OPTIONS = 'has_options';
     private const URL_KEY = 'url_key';
     private const TAX_CLASS_ID = 'tax_class_id';
-    private const ACTIVITY = 'activity';
-    private const MATERIAL = 'material';
-    private const GENDER = 'gender';
-    private const CATEGORY_GEAR = 'category_gear';
     private const ERIN_RECOMMENDS = 'erin_recommends';
     private const NEW = 'new';
-    private const PATTERN = 'pattern';
-    private const ECO_COLLECTION = 'eco_collection';
-    //https://docs.magento.com/m1/ce/user_guide/catalog/product-prices.html
-    private const DISPLAY_PRICE_TYPE = 'msrp_display_actual_price_type';
-    private const CLIMATE = 'climate';
-    private const PERFORMANCE_FABRIC = 'performance_fabric';
     private const SALE = 'sale';
     private const CHILDREN_DATA = 'children_data';
-    private const IS_RECURRING = 'is_recurring';
 
     // TODO DEMO APP ONLY
-    private const STYLE_GENERAL = 'style_general';
     private const SLUG = 'slug';
-    private const TSK = 'tsk';
     private const PARENT_SKU = 'parentSku';
-    private const COLOR = 'color';
-    private const SIZE = 'size';
     private const IS_CONFIGURED = 'is_configured';
 
     // TODO PROPERTIES BELOW APPEAR ONLY IN CORESHOP VS BRIDGE
 
-    private const WEIGHT = 'weight';
-    private const EAN = 'ean';
     private const AVAILABILITY = 'availability';
     private const TEXT_STATUS = 'option_text_status';
     private const TAX_CLASS_NAME = 'option_text_tax_class_id';
@@ -77,14 +58,9 @@ final class Details
     private const SIZE_OPTIONS = 'size_options';
 
     //    INTEGRATION BOILERPLATE
-    private const ACCESSORIES_SIZE = 'accessories_size';
-    private const META_KEYWORD = 'meta_keyword';
     private const META_TITLE = 'meta_title';
     private const META_DESCRIPTION = 'meta_description';
     private const GIFT_MESSAGE_AVAILABLE = 'gift_message_available';
-    private const GIFT_WRAPPING_AVAILABLE = 'gift_wrapping_available';
-    private const NEWS_FROM_DATE = 'news_from_date';
-    private const NEWS_TO_DATE = 'news_to_date';
     private const SPECIAL_FROM_DATE = 'special_from_date';
     private const SPECIAL_TO_DATE = 'special_to_date';
 
@@ -111,8 +87,8 @@ final class Details
     private const URL_PATH = 'url_path';
     /** @var string */
     private $urlPath;
-
 //    END OF NODEAPP COMPARISON
+
     /** @var int */
     private $entityId;
 
@@ -145,12 +121,6 @@ final class Details
 
     /** @var \DateTime */
     private $updatedAt;
-
-    /** @var int */
-    private $weight;
-
-    /** @var string */
-    private $ean;
 
     /** @var string */
     private $image;
@@ -205,41 +175,11 @@ final class Details
     /** @var string */
     private $thumbnail = '/a/b/small.jpg';
 
-    /** @var string */
-    private $optionsContainer = 'container2';
-
-    /** @var string */
-    private $activity = '16,11';
-
-    /** @var string */
-    private $material = '16,11';
-
-    /** @var string */
-    private $gender = '16,11';
-
-    /** @var string */
-    private $categoryGear = '16,11';
-
     /** @var bool */
     private $erinRecommends = true;
 
     /** @var bool */
     private $new = true;
-
-    /** @var string */
-    private $pattern = '195';
-
-    /** @var bool */
-    private $ecoCollection = true;
-
-    /** @var int */
-    private $displayPriceType = 0;
-
-    /** @var string */
-    private $climate = '202,205,207';
-
-    /** @var string */
-    private $performanceFabric = '0';
 
     /** @var bool */
     private $sale = true;
@@ -248,33 +188,15 @@ final class Details
     private $childrenData = [];
 
     /** @var string */
-    private $styleGeneral = '136';
-
-    /** @var string */
     private $slug;
-
-    /** @var int */
-    private $tsk = 1551705236617;
 
     /** @var string */
     private $parentSku;
-
-    /** @var string */
-    private $color;
-
-    /** @var string */
-    private $size = '156';
 
     /** @var bool */
     private $isConfigured = true;
 
     //    TODO INTEGRATION BOILERPLATE ONLY
-
-    /** @var string|null */
-    private $accessoriesSize;
-
-    /** @var string|null */
-    private $metaKeyword;
 
     /** @var string|null */
     private $metaTitle;
@@ -285,23 +207,11 @@ final class Details
     /** @var bool|null */
     private $giftMessageAvailable;
 
-    /** @var bool|null */
-    private $giftWrappingAvailable = false;
-
-    /** @var \DateTime|null */
-    private $newsFromDate;
-
-    /** @var \DateTime|null */
-    private $newsToDate;
-
     /** @var \DateTime|null */
     private $specialFromDate;
 
     /** @var \DateTime|null */
     private $specialToDate;
-
-    /** @var bool */
-    private $isReccuring = false;
 
     public function __construct(
         int $entityId,
@@ -315,8 +225,6 @@ final class Details
         ?int $visibility,
         \DateTimeInterface $createdAt,
         \DateTimeInterface $updatedAt,
-        int $weight,
-        string $ean,
         ?string $image,
         bool $availability,
         ?string $textStatus,
@@ -329,7 +237,6 @@ final class Details
         array $productLinks,
         array $colorOptions,
         array $sizeOptions,
-        ?bool $isReccuring,
         string $parentSku
     ) {
         $this->entityId = $entityId;
@@ -343,8 +250,6 @@ final class Details
         $this->visibility = $visibility ?? self::DEFAULT_VISIBILITY;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
-        $this->weight = $weight;
-        $this->ean = $ean;
         $this->image = $image;
         $this->availability = $availability;
         $this->textStatus = $textStatus ?? self::DEFAULT_OPTION_STATUS;
@@ -357,7 +262,6 @@ final class Details
         $this->productLinks = $productLinks;
         $this->colorOptions = $colorOptions;
         $this->sizeOptions = $sizeOptions;
-        $this->isReccuring = $isReccuring;
         $this->urlPath = $urlKey;
         $this->slug = $urlKey;
         $this->parentSku = $parentSku;
@@ -375,12 +279,8 @@ final class Details
             self::NAME => $this->name,
             self::STATUS => $this->status,
             self::VISIBILITY => $this->visibility,
-//            self::CREATED_AT => $this->createdAt,
-            self::CREATED_AT => $this->createdAt->format(self::DATE_FORMAT),
-//            self::UPDATED_AT => $this->updatedAt,
-            self::UPDATED_AT => $this->updatedAt->format(self::DATE_FORMAT),
-            self::WEIGHT => $this->weight,
-            self::EAN => $this->ean,
+            self::CREATED_AT => $this->createdAt->format(DateHelper::DATE_FORMAT),
+            self::UPDATED_AT => $this->updatedAt->format(DateHelper::DATE_FORMAT),
             self::IMAGE => $this->image,
             self::AVAILABILITY => (string) $this->availability,
             self::TEXT_STATUS => $this->textStatus,
@@ -398,40 +298,24 @@ final class Details
             self::CUSTOM_ATTRIBUTES => $this->customAttributes,
             self::SMALL_IMAGE => $this->smallImage,
             self::THUMBNAIL => $this->thumbnail,
-            self::OPTIONS_CONTAINER => $this->optionsContainer,
-            self::ACTIVITY => $this->activity,
-            self::MATERIAL => $this->material,
-            self::GENDER => $this->gender,
-            self::CATEGORY_GEAR => $this->categoryGear,
             self::ERIN_RECOMMENDS => (string) (int) $this->erinRecommends,
             self::NEW => (string) (int) $this->new,
-            self::PATTERN => $this->pattern,
-            self::ECO_COLLECTION => (string) (int) $this->ecoCollection,
-            self::DISPLAY_PRICE_TYPE => (string) $this->displayPriceType,
-            self::CLIMATE => $this->climate,
-            self::PERFORMANCE_FABRIC => $this->performanceFabric,
             self::SALE => (string) (int) $this->sale,
             self::CHILDREN_DATA => $this->childrenData,
-            self::STYLE_GENERAL => $this->styleGeneral,
             self::SLUG => $this->slug,
-            self::TSK => $this->tsk,
             self::PARENT_SKU => $this->parentSku,
-            self::COLOR => $this->color,
-            self::SIZE => $this->size,
             self::IS_CONFIGURED => $this->isConfigured,
-            self::ACCESSORIES_SIZE => $this->accessoriesSize,
-            self::META_KEYWORD => $this->metaKeyword,
             self::META_TITLE => $this->metaTitle,
             self::META_DESCRIPTION => $this->metaDescription,
             self::GIFT_MESSAGE_AVAILABLE => (int) $this->giftMessageAvailable,
-            self::GIFT_WRAPPING_AVAILABLE => (int) $this->giftWrappingAvailable,
-            self::NEWS_FROM_DATE => $this->newsFromDate,
-            self::NEWS_TO_DATE => $this->newsToDate,
             self::SPECIAL_FROM_DATE => $this->specialFromDate,
             self::SPECIAL_TO_DATE => $this->specialToDate,
-            self::IS_RECURRING => $this->isReccuring,
             self::URL_PATH => $this->urlPath,
-//            'jeans_size' => null,
         ];
+    }
+
+    public function isConfigurableProduct(): bool
+    {
+        return $this->type === self::TYPE_CONFIGURABLE;
     }
 }

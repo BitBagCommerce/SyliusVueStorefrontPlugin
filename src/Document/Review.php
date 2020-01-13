@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
-final class Review
+final class Review implements Indexable
 {
+    public function toElasticArray(): array
+    {
+    }
 }
