@@ -14,9 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Handler\ShipmentHandlerInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProviderInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
