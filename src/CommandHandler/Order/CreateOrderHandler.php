@@ -13,156 +13,74 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Order;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Order\CreateOrder;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\CustomerProviderInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProviderInterface;
+use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\PaymentInterface;
-use Sylius\Component\Core\Model\PaymentMethodInterface;
-use Sylius\Component\Core\Model\ProductVariant;
-use Sylius\Component\Core\Model\ShipmentInterface;
+use Sylius\Component\Core\OrderCheckoutTransitions;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
-use Sylius\Component\Core\Repository\ProductVariantRepositoryInterface;
-use Sylius\Component\Core\Repository\ShippingMethodRepositoryInterface;
-use Sylius\Component\Currency\Context\CurrencyContextInterface;
-use Sylius\Component\Locale\Context\LocaleContextInterface;
-use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
-use Sylius\Component\Order\Processor\OrderProcessorInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
-use Sylius\Component\Shipping\Model\ShippingMethod;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Webmozart\Assert\Assert;
 
 final class CreateOrderHandler implements MessageHandlerInterface
 {
-    /** @var FactoryInterface */
-    private $orderFactory;
-
-    /** @var FactoryInterface */
-    private $orderItemFactory;
-
-    /** @var FactoryInterface */
-    private $shipmentFactory;
-
-    /** @var FactoryInterface */
-    private $paymentFactory;
-
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    /** @var ChannelProviderInterface */
-    private $channelProvider;
+    /** @var AddressProviderInterface */
+    private $addressProvider;
 
-    /** @var CustomerProviderInterface */
-    private $customerProvider;
+    /** @var DefaultAddressModifierInterface */
+    private $addressModifier;
 
-    /** @var CurrencyContextInterface */
-    private $currency;
-
-    /** @var LocaleContextInterface */
-    private $localContext;
-
-    /** @var OrderProcessorInterface */
-    private $orderProcessor;
-
-    /** @var ProductVariantRepositoryInterface */
-    private $productVariantRepository;
-
-    /** @var OrderItemQuantityModifierInterface */
-    private $orderItemQuantityModifier;
-
-    /** @var ShippingMethodRepositoryInterface */
-    private $shippingMethodRepository;
-
-    /** @var PaymentMethodRepositoryInterface */
-    private $paymentMethodRepository;
+    /** @var StateMachineFactoryInterface */
+    private $stateMachineFactory;
 
     public function __construct(
-        FactoryInterface $orderFactory,
-        FactoryInterface $orderItemFactory,
-        FactoryInterface $shipmentFactory,
-        FactoryInterface $paymentFactory,
         OrderRepositoryInterface $cartRepository,
-        ChannelProviderInterface $channelProvider,
-        CustomerProviderInterface $customerProvider,
-        CurrencyContextInterface $currency,
-        LocaleContextInterface $localContext,
-        OrderProcessorInterface $orderProcessor,
-        ProductVariantRepositoryInterface $productVariantRepository,
-        OrderItemQuantityModifierInterface $orderItemQuantityModifier,
-        ShippingMethodRepositoryInterface $shippingMethodRepository,
-        PaymentMethodRepositoryInterface $paymentMethodRepository
+        AddressProviderInterface $addressProvider,
+        DefaultAddressModifierInterface $addressModifier,
+        StateMachineFactoryInterface $stateMachineFactory
     ) {
-        $this->orderFactory = $orderFactory;
-        $this->orderItemFactory = $orderItemFactory;
-        $this->shipmentFactory = $shipmentFactory;
-        $this->paymentFactory = $paymentFactory;
         $this->cartRepository = $cartRepository;
-        $this->channelProvider = $channelProvider;
-        $this->customerProvider = $customerProvider;
-        $this->currency = $currency;
-        $this->localContext = $localContext;
-        $this->orderProcessor = $orderProcessor;
-        $this->productVariantRepository = $productVariantRepository;
-        $this->orderItemQuantityModifier = $orderItemQuantityModifier;
-        $this->shippingMethodRepository = $shippingMethodRepository;
-        $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->addressProvider = $addressProvider;
+        $this->addressModifier = $addressModifier;
+        $this->stateMachineFactory = $stateMachineFactory;
     }
 
     public function __invoke(CreateOrder $createOrder): void
     {
-        $channel = $this->channelProvider->provide();
+        /** @var OrderInterface $cart */
+        $cart = $this->cartRepository->findOneBy(['tokenValue' => $createOrder->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
+        Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $createOrder->cartId()));
 
-        /** @var OrderInterface $order */
-        $order = $this->orderFactory->createNew();
-        $order->setChannel($channel);
-        $order->setCurrencyCode($this->currency->getCurrencyCode());
-        $order->setLocaleCode($this->localContext->getLocaleCode());
+        /** @var CustomerInterface $customer */
+        $customer = $cart->getCustomer();
+        Assert::notNull($customer, sprintf('Cart `%s` has no valid customer assigned.', $cart->getTokenValue()));
 
-        foreach ($createOrder->products() as $product) {
-            /** @var ProductVariant $productVariant */
-            $productVariant = $this->productVariantRepository->findOneBy(
-                ['code' => $product->sku]
-            );
-            if (null !== $productVariant) {
-                /** @var OrderItemInterface $orderItem */
-                $orderItem = $this->orderItemFactory->createNew();
-                $orderItem->setProductName($productVariant->getProduct()->getName());
-                $orderItem->setVariantName($productVariant->getName());
-                $orderItem->setVariant($productVariant);
+        $shippingAddress = $this->addressProvider->provide($customer, $createOrder->addressInformation()->getShippingAddress());
+        $this->addressModifier->modify($customer, $shippingAddress);
+        $cart->setShippingAddress($shippingAddress);
 
-                if ($product->qty <= $productVariant->getOnHand()) {
-                    $this->orderItemQuantityModifier->modify($orderItem, $productVariant->getOnHand());
-                    $order->addItem($orderItem);
-                }
-            }
-        }
+        $billingAddress = $this->addressProvider->provide($customer, $createOrder->addressInformation()->getBillingAddress());
+        $cart->setBillingAddress($billingAddress);
 
-        if (!empty($order->getItems()->getValues())) {
-            /** @var ShipmentInterface $shipment */
-            $shipment = $this->shipmentFactory->createNew();
+        $stateMachine = $this->stateMachineFactory->get($cart, OrderCheckoutTransitions::GRAPH);
 
-            /** @var ShippingMethod $methodShipment */
-            $methodShipment = $this->shippingMethodRepository->findOneBy(
-                ['code' => $createOrder->addressInformation()->shipping_method_code]
-            );
-            $shipment->setMethod($methodShipment);
+        Assert::true(
+            $stateMachine->can(OrderCheckoutTransitions::TRANSITION_ADDRESS),
+            sprintf('Order with %s token cannot be addressed.', $createOrder->cartId())
+        );
+        $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_ADDRESS);
 
-            /** @var PaymentInterface $payment */
-            $payment = $this->paymentFactory->createNew();
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING), 'Order cannot have shipment method assigned.');
+        $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_SHIPPING);
 
-            /** @var PaymentMethodInterface $paymentMethod */
-            $paymentMethod = $this->paymentMethodRepository->findOneBy(
-                ['code' => $createOrder->addressInformation()->payment_method_code]
-            );
-            $payment->setCurrencyCode($this->currency->getCurrencyCode());
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT), 'Order cannot have payment method assigned.');
+        $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_SELECT_PAYMENT);
 
-            $payment->setMethod($paymentMethod);
-            $order->addShipment($shipment);
-            $order->addPayment($payment);
-            $order->setCustomer($this->customerProvider->provide($createOrder->CartId()));
-            $this->orderProcessor->process($order);
-            $this->cartRepository->add($order);
-        }
+        Assert::true($stateMachine->can(OrderCheckoutTransitions::TRANSITION_COMPLETE), sprintf('Order with %s token cannot be completed.', $createOrder->cartId()));
+        $stateMachine->apply(OrderCheckoutTransitions::TRANSITION_COMPLETE);
     }
 }

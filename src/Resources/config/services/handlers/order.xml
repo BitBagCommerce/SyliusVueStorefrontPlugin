@@ -3,20 +3,10 @@
         <defaults autowire="false" autoconfigure="false" public="false" />
         <service id="bitbag_sylius_vue_storefront_plugin.handler.order.create_order_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Order\CreateOrderHandler" >
-            <argument type="service" id="sylius.factory.order" />
-            <argument type="service" id="sylius.factory.order_item" />
-            <argument type="service" id="sylius.factory.shipment" />
-            <argument type="service" id="sylius.factory.payment" />
             <argument type="service" id="sylius.repository.order" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.customer" />
-            <argument type="service" id="sylius.context.currency" />
-            <argument type="service" id="sylius.context.locale" />
-            <argument type="service" id="sylius.order_processing.order_processor" />
-            <argument type="service" id="sylius.repository.product_variant" />
-            <argument type="service" id="sylius.order_item_quantity_modifier" />
-            <argument type="service" id="sylius.repository.shipping_method" />
-            <argument type="service" id="sylius.repository.payment_method" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.sylius.provider.address_provider" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.modifier.default_address" />
+            <argument type="service" id="sm.factory"/>
             <tag name="messenger.message_handler" />
         </service >
 
