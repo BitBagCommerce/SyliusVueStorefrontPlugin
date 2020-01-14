@@ -39,7 +39,6 @@ final class AddressProvider implements AddressProviderInterface
         $address = $this->addressRepository->findOneBy(['customer' => $customer->getId()]);
 
         if (null !== $address && true === $useDefaultSyliusAddressIfSpecified) {
-
             /** @var AddressInterface $newAddress */
             $newAddress = $this->addressFactory->createNew();
             $newAddress->setCreatedAt(new \DateTime());
