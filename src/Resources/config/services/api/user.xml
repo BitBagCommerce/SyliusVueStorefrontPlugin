@@ -62,10 +62,21 @@
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success"
-                 class="BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler"
+                 class="BitBag\SyliusVueStorefrontPlugin\Authentication\AuthenticationSuccessHandler"
                  decorates="lexik_jwt_authentication.handler.authentication_success">
             <argument type="service" id="lexik_jwt_authentication.jwt_manager" />
             <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_failure"
+                 class="BitBag\SyliusVueStorefrontPlugin\Authentication\AuthenticationFailureHandler"
+                 decorates="lexik_jwt_authentication.handler.authentication_failure">
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.event_listener.exception"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\ExceptionListener"
+        >
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="-100" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"
