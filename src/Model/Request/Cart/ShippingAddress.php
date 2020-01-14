@@ -17,9 +17,9 @@ use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
 final class ShippingAddress implements OrderAddressInterface
 {
     /** @var string */
-    public $country_id;
+    public $countryId;
 
-    /** @var string[] */
+    /** @var string[]|null */
     public $street;
 
     /** @var string|null */
@@ -30,11 +30,15 @@ final class ShippingAddress implements OrderAddressInterface
 
     public function getCountryId(): string
     {
-        return $this->country_id;
+        return $this->countryId;
     }
 
     public function getStreet(): ?string
     {
+        if (!$this->street) {
+            return null;
+        }
+
         return \implode(' ', $this->street);
     }
 

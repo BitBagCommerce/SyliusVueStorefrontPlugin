@@ -12,9 +12,12 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem\ProductOptionExtensionAttributeView;
+use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem\ProductOptionView;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\OrderItemInterface as SyliusOrderItemInterface;
+use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
 final class CartItemViewFactory implements CartItemViewFactoryInterface
 {
@@ -60,6 +63,23 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->name = $syliusOrderItem->getVariantName();
         $cartItemView->price = $syliusOrderItem->getUnitPrice();
         $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
+
+        $cartItemView->product_option = new ProductOptionView();
+        $cartItemView->product_option->extension_attributes = new ProductOptionExtensionAttributeView();
+        $cartItemView->product_option->extension_attributes->bundle_options = [];
+        $cartItemView->product_option->extension_attributes->configurable_item_options = [];
+        $cartItemView->product_option->extension_attributes->custom_options = [];
+        $productVariant = $syliusOrderItem->getVariant();
+
+        if ($productVariant) {
+            $cartItemView->product_option->extension_attributes->configurable_item_options = $productVariant->getOptionValues()->map(
+                static function (ProductOptionValueInterface $productOptionValue) {
+                    return [
+                        'option_value' => $productOptionValue->getId(),
+                        'option_id' => (string) $productOptionValue->getOption()->getId(),
+                    ];
+                });
+        }
 
         return $cartItemView;
     }

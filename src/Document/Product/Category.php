@@ -19,7 +19,7 @@ final class Category
     private const CATEGORY = 'category';
     private const CATEGORY_IDS = 'category_ids';
 
-    /** @var int[] */
+    /** @var string[] */
     private $ids;
 
     /** @var Entity[] */

@@ -48,7 +48,7 @@ final class GetCatalogAction
         if (null === $type) {
             $requestPath = sprintf('%s/_search', $index);
         } else {
-            $requestPath = sprintf('%s/%s/_search', $index, $type);
+            $requestPath = sprintf('%s_%s/%s/_search', $index, $type, $type);
         }
 
         $queryParameters = $request->query->all();

@@ -23,13 +23,13 @@ final class AddressInformation
     public $billingAddress;
 
     /** @var string */
-    public $shipping_method_code;
-
-    /** @var string */
-    public $shipping_carrier_code;
-
-    /** @var string */
     public $payment_method_code;
+
+    /** @var string */
+    public $shippingMethodCode;
+
+    /** @var string */
+    public $shippingCarrierCode;
 
     public function getShippingAddress(): ShippingAddress
     {
@@ -38,7 +38,7 @@ final class AddressInformation
 
     public function getShippingCarrierCode(): string
     {
-        return $this->shipping_carrier_code;
+        return $this->shippingCarrierCode;
     }
 
     public function getBillingAddress(): BillingAddress

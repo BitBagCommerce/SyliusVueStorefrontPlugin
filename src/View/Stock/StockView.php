@@ -18,6 +18,9 @@ final class StockView
     public $product_id;
 
     /** @var int */
+    public $item_id;
+
+    /** @var int */
     public $qty;
 
     /** @var bool */

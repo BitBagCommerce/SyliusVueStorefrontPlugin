@@ -35,7 +35,7 @@ final class ShippingInformationViewFactory implements ShippingInformationViewFac
     public function create(array $syliusPaymentMethods, SyliusOrderInterface $syliusOrder): ShippingInformationView
     {
         $shippingInformationView = new ShippingInformationView();
-        $shippingInformationView->payments_methods = $this->paymentMethodViewFactory->createList($syliusPaymentMethods);
+        $shippingInformationView->payment_methods = $this->paymentMethodViewFactory->createList($syliusPaymentMethods);
         $shippingInformationView->totals = $this->totalsViewFactory->create($syliusOrder);
 
         return $shippingInformationView;

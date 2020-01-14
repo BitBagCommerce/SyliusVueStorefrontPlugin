@@ -4,23 +4,26 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\ShippingAddress">
-        <property name="country_id">
+        <property name="countryId">
             <constraint name="NotBlank">
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.country_id.not_blank</option>
             </constraint>
         </property>
         <property name="street">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.street.not_blank</option>
             </constraint>
         </property>
         <property name="postcode">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_blank</option>
             </constraint>
         </property>
         <property name="city">
             <constraint name="NotBlank">
+                <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.city.not_blank</option>
             </constraint>
         </property>

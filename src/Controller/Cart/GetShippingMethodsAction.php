@@ -113,23 +113,23 @@ final class GetShippingMethodsAction
 
         $zone = $this->zoneMatcher->match($query->address()->country_id, ZoneInterface::TYPE_COUNTRY);
 
-        /** @var ShippingMethodInterface[] $shipmentMethods */
-        $shipmentMethods = $this->shippingMethodRepository->findEnabledForZonesAndChannel([$zone], $channel);
+        /** @var ShippingMethodInterface[] $shippingMethods */
+        $shippingMethods = $this->shippingMethodRepository->findEnabledForZonesAndChannel([$zone], $channel);
 
-        foreach ($shipmentMethods as $shipmentMethod) {
+        foreach ($shippingMethods as $shippingMethod) {
             if (!$cart->getShipments()->first()) {
                 continue;
             }
 
             /** @var CalculatorInterface $calculator */
-            $calculator = $this->serviceRegistry->get($shipmentMethod->getCalculator());
-            $calculator->calculate($cart->getShipments()->first(), $shipmentMethod->getConfiguration());
+            $calculator = $this->serviceRegistry->get($shippingMethod->getCalculator());
+            $calculator->calculate($cart->getShipments()->first(), $shippingMethod->getConfiguration());
         }
 
         return $this->viewHandler->handle(
             View::create(
                 $this->genericSuccessViewFactory->create(
-                    $this->shippingMethodsViewFactory->createList(...$shipmentMethods)
+                    $this->shippingMethodsViewFactory->createList(...$shippingMethods)
                 ),
                 Response::HTTP_OK
             )
