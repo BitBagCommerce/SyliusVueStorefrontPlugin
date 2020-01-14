@@ -14,9 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Handler\ShipmentHandlerInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProviderInterface;
-use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -32,26 +29,16 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
     /** @var ShippingMethodRepositoryInterface $shippingMethodRepository */
     private $shippingMethodRepository;
 
-    /** @var AddressProviderInterface */
-    private $addressProvider;
-
-    /** @var DefaultAddressModifierInterface */
-    private $addressModifier;
-
     /** @var ShipmentHandlerInterface */
     private $shipmentHandler;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         ShippingMethodRepositoryInterface $shippingMethodRepository,
-        AddressProviderInterface $addressProvider,
-        DefaultAddressModifierInterface $addressModifier,
         ShipmentHandlerInterface $shipmentHandler
     ) {
         $this->orderRepository = $orderRepository;
         $this->shippingMethodRepository = $shippingMethodRepository;
-        $this->addressProvider = $addressProvider;
-        $this->addressModifier = $addressModifier;
         $this->shipmentHandler = $shipmentHandler;
     }
 
@@ -60,16 +47,6 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
         /** @var OrderInterface $cart */
         $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformation->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
         Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $setShippingInformation->cartId()));
-
-        /** @var CustomerInterface $customer */
-        $customer = $cart->getCustomer();
-        Assert::notNull($customer, sprintf('Cart `%s` has no valid customer assigned.', $cart->getTokenValue()));
-
-        $address = $this->addressProvider->provide($customer, $setShippingInformation, true);
-
-        $this->addressModifier->modify($customer, $address);
-
-        $cart->setShippingAddress($address);
 
         /** @var ShippingMethodInterface $shippingMethod */
         $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $setShippingInformation->addressInformation()->getShippingCarrierCode(), 'enabled' => 1]);

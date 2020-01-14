@@ -17,8 +17,10 @@ use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactory
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -47,6 +49,9 @@ final class SetShippingInformationAction
     /** @var PaymentMethodRepositoryInterface */
     private $paymentMethodRepository;
 
+    /** @var ChannelProviderInterface */
+    private $channelProvider;
+
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
@@ -60,6 +65,7 @@ final class SetShippingInformationAction
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
         OrderRepositoryInterface $orderRepository,
         PaymentMethodRepositoryInterface $paymentMethodRepository,
+        ChannelProviderInterface $channelProvider,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         ShippingInformationViewFactoryInterface $shippingInformationViewFactory
     ) {
@@ -69,6 +75,7 @@ final class SetShippingInformationAction
         $this->validationErrorViewFactory = $validationErrorViewFactory;
         $this->orderRepository = $orderRepository;
         $this->paymentMethodRepository = $paymentMethodRepository;
+        $this->channelProvider = $channelProvider;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->shippingInformationViewFactory = $shippingInformationViewFactory;
     }
@@ -97,8 +104,11 @@ final class SetShippingInformationAction
             ]
         );
 
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelProvider->provide();
+
         /** @var PaymentMethodInterface[] $cart */
-        $paymentMethods = $this->paymentMethodRepository->findAll();
+        $paymentMethods = $this->paymentMethodRepository->findEnabledForChannel($channel);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

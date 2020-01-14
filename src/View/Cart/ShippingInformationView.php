@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalsView;
 class ShippingInformationView
 {
     /** @var array|PaymentMethodView[] */
-    public $payments_methods;
+    public $payment_methods;
 
     /** @var TotalsView */
     public $totals;
