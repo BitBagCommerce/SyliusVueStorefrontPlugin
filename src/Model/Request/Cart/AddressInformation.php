@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\BillingAddress;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\ShippingAddress;
 
 final class AddressInformation
 {
@@ -40,5 +39,10 @@ final class AddressInformation
     public function getShippingCarrierCode(): string
     {
         return $this->shipping_carrier_code;
+    }
+
+    public function getBillingAddress(): BillingAddress
+    {
+        return $this->billingAddress;
     }
 }

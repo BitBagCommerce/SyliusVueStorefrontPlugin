@@ -12,10 +12,39 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Order;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
 
-final class BillingAddress
+final class BillingAddress implements OrderAddressInterface
 {
-    /** @var Address */
-    public $address;
+    /** @var string */
+    public $country_id;
+
+    /** @var string[] */
+    public $street;
+
+    /** @var string|null */
+    public $postcode;
+
+    /** @var string|null */
+    public $city;
+
+    public function getCountryId(): string
+    {
+        return $this->country_id;
+    }
+
+    public function getStreet(): ?string
+    {
+        return \implode(' ', $this->street);
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
 }

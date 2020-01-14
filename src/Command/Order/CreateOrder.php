@@ -37,7 +37,7 @@ final class CreateOrder implements CommandInterface
         $this->addressInformation = $addressInformation;
     }
 
-    public function CartId(): ?string
+    public function cartId(): ?string
     {
         return $this->cartId;
     }

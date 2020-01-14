@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -33,7 +33,7 @@ final class AddressProvider implements AddressProviderInterface
         $this->addressFactory = $addressFactory;
     }
 
-    public function provide(CustomerInterface $customer, SetShippingInformation $command, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface
+    public function provide(CustomerInterface $customer, OrderAddressInterface $receivedAddress, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface
     {
         /** @var AddressInterface|null $address */
         $address = $this->addressRepository->findOneBy(['customer' => $customer->getId()]);
@@ -46,21 +46,21 @@ final class AddressProvider implements AddressProviderInterface
 
         $address->setCreatedAt(new \DateTime());
 
-        $address->setStreet($command->addressInformation()->getShippingAddress()->getStreet());
+        $address->setStreet($receivedAddress->getStreet());
         Assert::notNull(
-            $command->addressInformation()->getShippingAddress()->getStreet(),
+            $receivedAddress->getStreet(),
             sprintf('There is no default street for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
-        $address->setPostcode($command->addressInformation()->getShippingAddress()->getPostcode());
+        $address->setPostcode($receivedAddress->getPostcode());
         Assert::notNull(
-            $command->addressInformation()->getShippingAddress()->getPostcode(),
+            $receivedAddress->getPostcode(),
             sprintf('There is no default postcode for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
-        $address->setCity($command->addressInformation()->getShippingAddress()->getPostcode());
+        $address->setCity($receivedAddress->getPostcode());
         Assert::notNull(
-            $command->addressInformation()->getShippingAddress()->getCity(),
+            $receivedAddress->getCity(),
             sprintf('There is no default city for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
@@ -70,7 +70,7 @@ final class AddressProvider implements AddressProviderInterface
         $address->setLastName($customer->getLastName());
         Assert::notNull($customer->getLastName(), sprintf('Customer (id: %d) has not provided a valid last name.', $customer->getId()));
 
-        $address->setCountryCode($command->addressInformation()->getShippingAddress()->getCountryId());
+        $address->setCountryCode($receivedAddress->getCountryId());
 
         return $address;
     }

@@ -12,36 +12,21 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 
-final class ShippingAddress
-{
-    private const COUNTRY_ID = 'country_id';
-    private const STREET = 'street';
-    private const POSTCODE = 'postcode';
-    private const CITY = 'city';
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
 
+final class ShippingAddress implements OrderAddressInterface
+{
     /** @var string */
-    private $country_id;
+    public $country_id;
 
     /** @var string[] */
-    private $street;
+    public $street;
 
     /** @var string|null */
-    private $postcode;
+    public $postcode;
 
     /** @var string|null */
-    private $city;
-
-    public function __construct(
-        string $country_id,
-        array $street,
-        ?string $postcode,
-        ?string $city
-    ) {
-        $this->country_id = $country_id;
-        $this->street = $street;
-        $this->postcode = $postcode;
-        $this->city = $city;
-    }
+    public $city;
 
     public function getCountryId(): string
     {
