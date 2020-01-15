@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 
 interface AddressProviderInterface
 {
-    public function provide(CustomerInterface $customer, OrderAddressInterface $receivedAddress, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface;
+    public function provide(CustomerInterface $customer, Address $requestAddress, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface;
 }

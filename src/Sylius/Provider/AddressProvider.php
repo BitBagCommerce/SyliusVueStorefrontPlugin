@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\OrderAddressInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
@@ -33,8 +33,11 @@ final class AddressProvider implements AddressProviderInterface
         $this->addressFactory = $addressFactory;
     }
 
-    public function provide(CustomerInterface $customer, OrderAddressInterface $receivedAddress, bool $useDefaultSyliusAddressIfSpecified = false): AddressInterface
-    {
+    public function provide(
+        CustomerInterface $customer,
+        Address $requestAddress,
+        bool $useDefaultSyliusAddressIfSpecified = false
+    ): AddressInterface {
         /** @var AddressInterface|null $address */
         $address = $this->addressRepository->findOneBy(['customer' => $customer->getId()]);
 
@@ -56,31 +59,35 @@ final class AddressProvider implements AddressProviderInterface
 
         $address->setCreatedAt(new \DateTime());
 
-        $address->setStreet($receivedAddress->getStreet());
+        $address->setStreet($requestAddress->getStreet());
         Assert::notNull(
-            $receivedAddress->getStreet(),
+            $requestAddress->getStreet(),
             sprintf('There is no default street for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
-        $address->setPostcode($receivedAddress->getPostcode());
+        $address->setPostcode($requestAddress->getPostcode());
         Assert::notNull(
-            $receivedAddress->getPostcode(),
+            $requestAddress->getPostcode(),
             sprintf('There is no default postcode for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
-        $address->setCity($receivedAddress->getPostcode());
+        $address->setCity($requestAddress->getPostcode());
         Assert::notNull(
-            $receivedAddress->getCity(),
+            $requestAddress->getCity(),
             sprintf('There is no default city for customer (id: %d). You have to provide it in request.', $customer->getId())
         );
 
         $address->setFirstName($customer->getFirstName());
-        Assert::notNull($customer->getFirstName(), sprintf('Customer (id: %d) has not provided a valid first name.', $customer->getId()));
+        Assert::notNull(
+            $customer->getFirstName(),
+            sprintf('Customer (id: %d) has not provided a valid first name.', $customer->getId()));
 
         $address->setLastName($customer->getLastName());
-        Assert::notNull($customer->getLastName(), sprintf('Customer (id: %d) has not provided a valid last name.', $customer->getId()));
+        Assert::notNull(
+            $customer->getLastName(),
+            sprintf('Customer (id: %d) has not provided a valid last name.', $customer->getId()));
 
-        $address->setCountryCode($receivedAddress->getCountryId());
+        $address->setCountryCode($requestAddress->getCountryId());
 
         return $address;
     }

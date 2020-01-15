@@ -10,12 +10,12 @@
         <property name="billingAddress">
             <constraint name="Valid" />
         </property>
-        <property name="shippingMethodCode">
+        <property name="shipping_method_code">
             <constraint name="NotBlank">
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.address_information.shipping_method_code.not_blank</option>
             </constraint>
         </property>
-        <property name="shippingCarrierCode">
+        <property name="shipping_carrier_code">
             <constraint name="NotBlank">
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.address_information.shipping_carrier_code.not_blank</option>
             </constraint>
