@@ -23,7 +23,7 @@ final class ChangePasswordActionTest extends JsonApiTestCase
 
     public function test_changing_password(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -49,7 +49,7 @@ JSON;
 
     public function test_changing_password_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $uri = sprintf(
             '/vsbridge/user/change-password?token=%s',
@@ -65,7 +65,7 @@ JSON;
 
     public function test_changing_password_for_invalid_current_password(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -91,7 +91,7 @@ JSON;
 
     public function test_changing_password_for_blank_new_password(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 

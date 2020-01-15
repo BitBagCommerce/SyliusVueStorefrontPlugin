@@ -20,7 +20,7 @@ final class ResetPasswordActionTest extends JsonApiTestCase
 {
     public function test_resetting_password(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $requestBody =
 <<<JSON
@@ -38,7 +38,7 @@ JSON;
 
     public function test_resetting_password_for_invalid_user(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $requestBody =
 <<<JSON

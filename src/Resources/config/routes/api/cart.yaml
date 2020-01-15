@@ -57,4 +57,3 @@ cart_collect_totals:
     path: /collect-totals
     methods: POST
     controller: bitbag_sylius_vue_storefront_plugin.api.cart.collect_totals
-

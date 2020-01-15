@@ -22,7 +22,7 @@ final class CreateCartActionTest extends JsonApiTestCase
 
     public function test_creating_cart_for_guest_user(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->request(Request::METHOD_POST, '/vsbridge/cart/create', self::JSON_REQUEST_HEADERS);
 
@@ -33,7 +33,7 @@ final class CreateCartActionTest extends JsonApiTestCase
 
     public function test_creating_cart_for_authorized_user(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
