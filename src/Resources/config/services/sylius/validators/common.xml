@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+    <services>
+        <defaults public="true" />
+
+        <service id="bitbag_sylius_vue_storefront_plugin.validator.common.valid_address_information_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Common\ValidAddressInformationValidator">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="validator"/>
+            <tag name="validator.constraint_validator" alias="vue_storefront_valid_address_information_validator" />
+        </service>
+    </services>
+</container>

@@ -32,13 +32,12 @@ final class CompositeOrderItemProvider implements OrderItemProviderInterface
         $this->newOrderItemProvider = $newOrderItemProvider;
     }
 
-    /** @param UpdateCart $command */
-    public function provide(CommandInterface $command): OrderItemInterface
+    public function provide(UpdateCart $updateCart): OrderItemInterface
     {
-        if ($command->cartItem()->getItemId()) {
-            return $this->existingOrderItemProvider->provide($command);
+        if ($updateCart->cartItem()->getItemId()) {
+            return $this->existingOrderItemProvider->provide($updateCart);
         }
 
-        return $this->newOrderItemProvider->provide($command);
+        return $this->newOrderItemProvider->provide($updateCart);
     }
 }

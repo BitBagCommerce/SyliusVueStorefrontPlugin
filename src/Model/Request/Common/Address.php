@@ -58,9 +58,12 @@ final class Address
     /** @var string|null */
     public $vat_id;
 
+    /** workaround for /cart/shipping-information invalid variables' case */
+    public $countryId;
+
     public function getCountryId(): string
     {
-        return $this->country_id;
+        return $this->country_id ?? $this->countryId;
     }
 
     public function getStreet(): ?string
@@ -80,6 +83,16 @@ final class Address
     public function getCity(): ?string
     {
         return $this->city;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstname;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastname;
     }
 
 //    public function region(): Region

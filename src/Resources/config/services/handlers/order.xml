@@ -5,7 +5,6 @@
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\Order\CreateOrderHandler" >
             <argument type="service" id="sylius.repository.order" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.sylius.provider.address_provider" />
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.modifier.default_address" />
             <argument type="service" id="sm.factory"/>
             <tag name="messenger.message_handler" />
         </service >

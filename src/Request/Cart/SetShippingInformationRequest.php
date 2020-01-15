@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\SetShippingInformation;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
 final class SetShippingInformationRequest implements RequestCommandInterface

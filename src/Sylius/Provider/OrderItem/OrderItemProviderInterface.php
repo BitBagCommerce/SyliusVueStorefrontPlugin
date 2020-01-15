@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
+use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use Sylius\Component\Core\Model\OrderItemInterface;
 
 interface OrderItemProviderInterface
 {
-    public function provide(CommandInterface $command): OrderItemInterface;
+    public function provide(UpdateCart $updateCart): OrderItemInterface;
 }

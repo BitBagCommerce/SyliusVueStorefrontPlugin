@@ -40,11 +40,13 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
     public function provide(?string $cartId = null): CustomerInterface
     {
         if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
+            dump('abc');
             $loggedInUser = $this->loggedInShopUserProvider->provide();
 
             return $loggedInUser->getCustomer();
         }
 
+        dump('niezalogowany');
         /** @var CustomerInterface $customer */
         $customer = $this->customerFactory->createNew();
         $customer->setEmail(sprintf('%s@guest.example', $cartId));

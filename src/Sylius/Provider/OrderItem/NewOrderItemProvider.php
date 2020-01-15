@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -55,32 +54,31 @@ final class NewOrderItemProvider implements OrderItemProviderInterface
         $this->cartItemFactory = $cartItemFactory;
     }
 
-    /** @param UpdateCart $command */
-    public function provide(CommandInterface $command): OrderItemInterface
+    public function provide(UpdateCart $updateCart): OrderItemInterface
     {
         /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->baseProductVariantRepository->findOneByCode($command->cartItem()->getSku());
+        $productVariant = $this->baseProductVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
 
         if ($productVariant) {
-            return $this->createOrderItem($command->cartId(), $productVariant);
+            return $this->createOrderItem($updateCart->cartId(), $productVariant);
         }
 
         /** @var ProductRepositoryInterface $productVariant */
-        $product = $this->productRepository->findOneByCode($command->cartItem()->getSku());
+        $product = $this->productRepository->findOneByCode($updateCart->cartItem()->getSku());
 
         Assert::notNull($product, 'Product variant has not been found.');
 
-        Assert::notEmpty($command->productOptions(), 'Product variant has not been found.');
+        Assert::notEmpty($updateCart->productOptions(), 'Product variant has not been found.');
 
         /** @var ProductVariantInterface $productVariant */
         $productVariant = $this->productVariantRepository->getVariantForOptionValuesBySku(
-            $command->cartItem()->getSku(),
-            $command->productOptions()
+            $updateCart->cartItem()->getSku(),
+            $updateCart->productOptions()
         );
 
         Assert::notNull($productVariant, 'Product variant has not been found.');
 
-        return $this->createOrderItem($command->cartId(), $productVariant);
+        return $this->createOrderItem($updateCart->cartId(), $productVariant);
     }
 
     private function createOrderItem(string $cartId, ProductVariantInterface $productVariant): OrderItemInterface

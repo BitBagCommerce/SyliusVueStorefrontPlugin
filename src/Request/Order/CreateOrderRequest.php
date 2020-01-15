@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Order;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\Order\CreateOrder;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\Product;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 

@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -28,18 +27,17 @@ final class ExistingOrderItemProvider implements OrderItemProviderInterface
         $this->cartRepository = $cartRepository;
     }
 
-    /** @param UpdateCart $command */
-    public function provide(CommandInterface $command): OrderItemInterface
+    public function provide(UpdateCart $updateCart): OrderItemInterface
     {
         /** @var OrderInterface $cart */
         $cart = $this->cartRepository->findOneBy([
-            'tokenValue' => $command->cartId(),
+            'tokenValue' => $updateCart->cartId(),
             'state' => OrderInterface::STATE_CART,
         ]);
 
         /** @var OrderItemInterface $cartItem */
         foreach ($cart->getItems() as $cartItem) {
-            if ($command->cartItem()->getItemId() === $cartItem->getId()) {
+            if ($updateCart->cartItem()->getItemId() === $cartItem->getId()) {
                 return $cartItem;
             }
         }

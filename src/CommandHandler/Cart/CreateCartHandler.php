@@ -51,6 +51,13 @@ final class CreateCartHandler implements MessageHandlerInterface
         $channel = $this->channelProvider->provide();
         $customer = $this->customerProvider->provide($createCart->cartId());
 
+        $cart = $this->cartRepository->findLatestCartByChannelAndCustomer($channel, $customer);
+
+        if ($cart) {
+            $cart->setTokenValue($createCart->cartId());
+            return;
+        }
+
         /** @var OrderInterface $cart */
         $cart = $this->cartFactory->createNew();
         $cart->setCustomer($customer);

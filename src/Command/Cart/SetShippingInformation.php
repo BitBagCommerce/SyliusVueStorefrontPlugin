@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\AddressInformation;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 
 final class SetShippingInformation implements CommandInterface
 {

@@ -41,7 +41,7 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
             $this->processChildren($taxon->getChildren()),
             $this->buildPath($taxon),
             count($taxon->getChildren()),
-            \strtolower(sprintf('%s_%d', $taxon->getName(), $taxon->getId())),
+            \strtolower(sprintf('%d_%s', $taxon->getId(), \str_replace([' ', '-'], '_',$taxon->getName()))),
             \strtolower(\str_replace(' ', '', $taxon->getFullname()))
         );
     }

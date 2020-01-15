@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file has been created by developers from BitBag.
+ *  Feel free to contact us once you face any issues or want to start
+ *  another great project.
+ * You can find more information about us on https://bitbag.io and write us
+ * an email on hello@bitbag.io.
+ */
 
 /*
  * This file has been created by developers from BitBag.
@@ -10,9 +17,7 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
-
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
+namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Common;
 
 final class AddressInformation
 {
@@ -31,6 +36,13 @@ final class AddressInformation
     /** @var string */
     public $shipping_carrier_code;
 
+    /** workaround for /cart/shipping-information invalid variables' case */
+    /** @var string|null */
+    public $shippingMethodCode;
+
+    /** @var string|null */
+    public $shippingCarrierCode;
+
     public function getShippingAddress(): Address
     {
         return $this->shippingAddress;
@@ -38,7 +50,7 @@ final class AddressInformation
 
     public function getShippingCarrierCode(): string
     {
-        return $this->shipping_carrier_code;
+        return $this->shipping_carrier_code ?? $this->shippingCarrierCode;
     }
 
     public function getBillingAddress(): Address

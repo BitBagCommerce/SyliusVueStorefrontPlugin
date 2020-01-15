@@ -7,7 +7,6 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.sylius.provider.address_provider"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\AddressProvider">
-            <argument type="service" id="sylius.repository.address" />
             <argument type="service" id="sylius.custom_factory.address" />
         </service>
 

@@ -15,6 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
 use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
@@ -37,7 +38,10 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
     {
         $orderHistoryView = new OrderHistoryView();
 
-        $customerOrders = $this->orderRepository->findBy(['customer' => $syliusCustomer]);
+        $customerOrders = $this->orderRepository->findBy([
+            'customer' => $syliusCustomer,
+            'checkoutState' => OrderCheckoutStates::STATE_COMPLETED
+        ]);
 
         $orderHistoryView->items = $this->orderViewFactory->createList($customerOrders);
         $orderHistoryView->total_count = count($customerOrders);
