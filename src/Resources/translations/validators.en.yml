@@ -70,7 +70,6 @@ bitbag:
                             not_blank:  Please provide valid region.
                         region_id:
                             not_blank:  Please provide valid region id.
-                    not_blank: Address should not be blank.
             cart:
                 token_value:
                     unique: The cart id is already in use.
