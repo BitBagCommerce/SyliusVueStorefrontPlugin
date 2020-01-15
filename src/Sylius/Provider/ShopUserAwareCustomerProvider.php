@@ -48,6 +48,8 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
         /** @var CustomerInterface $customer */
         $customer = $this->customerFactory->createNew();
         $customer->setEmail(sprintf('%s@guest.example', $cartId));
+        $customer->setFirstName('Guest');
+        $customer->setLastName('Customer');
 
         $this->customerRepository->add($customer);
 

@@ -19,14 +19,17 @@ final class Address
     /** @var int */
     public $id;
 
-    /** @var int */
+    /** @var int|null */
     public $customer_id;
 
-    /** @var Region */
-    public $region;
+//    /** @var string|Region */
+//    public $region;
 
     /** @var int */
     public $region_id;
+
+    /** @var string */
+    public $region_code;
 
     /** @var string */
     public $country_id;
@@ -52,11 +55,35 @@ final class Address
     /** @var string */
     public $lastname;
 
-    /** @var string */
+    /** @var string|null */
     public $vat_id;
 
-    public function region(): Region
+    public function getCountryId(): string
     {
-        return $this->region;
+        return $this->country_id;
     }
+
+    public function getStreet(): ?string
+    {
+        if (!$this->street) {
+            return null;
+        }
+
+        return \implode(' ', $this->street);
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+//    public function region(): Region
+//    {
+//        return $this->region;
+//    }
 }
