@@ -71,7 +71,10 @@ final class UpdateUserHandler implements MessageHandlerInterface
             }
 
             $syliusAddress->setProvinceCode((string) $address->region_id);
-            $syliusAddress->setProvinceName((string) $address->region()->region);
+
+            // Cannot be used for now because it's inconsistently passed (as string or as an object) by Vue Storefront
+            //$syliusAddress->setProvinceName((string) $address->region()->region);
+
             $syliusAddress->setCompany($address->company);
             $syliusAddress->setPhoneNumber($address->telephone);
             $syliusAddress->setPostcode($address->postcode);

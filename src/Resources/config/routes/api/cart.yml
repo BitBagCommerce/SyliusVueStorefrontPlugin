@@ -43,10 +43,10 @@ cart_get_payment_methods:
     methods: GET
     controller: bitbag_sylius_vue_storefront_plugin.api.cart.get_payment_methods
 
-cart_set_shipping_methods:
+cart_get_shipping_methods:
     path: /shipping-methods
     methods: POST
-    controller: bitbag_sylius_vue_storefront_plugin.api.cart.set_shipping_methods
+    controller: bitbag_sylius_vue_storefront_plugin.api.cart.get_shipping_methods
 
 cart_set_shipping_information:
     path: /shipping-information

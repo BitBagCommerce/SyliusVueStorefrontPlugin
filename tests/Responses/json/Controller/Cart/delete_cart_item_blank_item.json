@@ -1,4 +1,4 @@
 {
     "code": 500,
-    "message": "Notice: Trying to get property 'item_id' of non-object"
+    "result": "Notice: Trying to get property 'item_id' of non-object"
 }

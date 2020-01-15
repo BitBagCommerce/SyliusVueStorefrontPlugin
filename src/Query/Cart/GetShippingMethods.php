@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Query\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 
-final class ShippingMethod implements QueryInterface
+final class GetShippingMethods implements QueryInterface
 {
     /** @var string */
     private $token;

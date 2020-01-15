@@ -13,11 +13,11 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
-use BitBag\SyliusVueStorefrontPlugin\Query\Cart\ShippingMethod;
+use BitBag\SyliusVueStorefrontPlugin\Query\Cart\GetShippingMethods;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class SetShippingMethodsRequest implements RequestQueryInterface
+final class GetShippingMethodsRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;
@@ -30,7 +30,7 @@ final class SetShippingMethodsRequest implements RequestQueryInterface
 
     public function getQuery(): QueryInterface
     {
-        return new ShippingMethod(
+        return new GetShippingMethods(
             $this->token,
             $this->cartId,
             $this->address

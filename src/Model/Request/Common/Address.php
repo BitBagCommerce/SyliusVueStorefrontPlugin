@@ -22,6 +22,7 @@ final class Address
     /** @var int|null */
     public $customer_id;
 
+//    Cannot be used for now because it's inconsistently passed (as string or as an object) by Vue Storefront
 //    /** @var string|Region */
 //    public $region;
 
@@ -58,7 +59,7 @@ final class Address
     /** @var string|null */
     public $vat_id;
 
-    /** workaround for /cart/shipping-information invalid variables' case */
+    /* Workaround to Vue Storefront case inconsistency */
     public $countryId;
 
     public function getCountryId(): string
@@ -95,6 +96,7 @@ final class Address
         return $this->lastname;
     }
 
+//    Cannot be used for now because it's inconsistently passed (as string or as an object) by Vue Storefront
 //    public function region(): Region
 //    {
 //        return $this->region;

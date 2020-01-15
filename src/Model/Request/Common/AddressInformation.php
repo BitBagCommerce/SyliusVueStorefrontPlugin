@@ -36,7 +36,7 @@ final class AddressInformation
     /** @var string */
     public $shipping_carrier_code;
 
-    /** workaround for /cart/shipping-information invalid variables' case */
+    /* Workaround to Vue Storefront case inconsistency */
     /** @var string|null */
     public $shippingMethodCode;
 
