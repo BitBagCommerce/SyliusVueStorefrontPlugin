@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
 final class ValidAddressInformation extends Constraint
 {
     /** @var string */
-    public $message = 'bitbag.vue_storefront_api.vue_stefront.address_information.invalid';
+    public $message = 'bitbag.vue_storefront_api.sylius.cart.address_information.invalid';
 
     public function getTargets(): string
     {

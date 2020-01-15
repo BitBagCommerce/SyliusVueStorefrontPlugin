@@ -12,18 +12,13 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Common;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address\Region;
-
-final class Address
+class Address
 {
     /** @var int */
     public $id;
 
     /** @var int|null */
     public $customer_id;
-
-//    /** @var string|Region */
-//    public $region;
 
     /** @var int */
     public $region_id;
@@ -94,9 +89,4 @@ final class Address
     {
         return $this->lastname;
     }
-
-//    public function region(): Region
-//    {
-//        return $this->region;
-//    }
 }

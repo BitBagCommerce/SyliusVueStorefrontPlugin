@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
-use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
 
 final class CompositeOrderItemProvider implements OrderItemProviderInterface

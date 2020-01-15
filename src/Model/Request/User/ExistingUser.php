@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
-
 final class ExistingUser
 {
     /** @var int */
@@ -52,7 +50,7 @@ final class ExistingUser
     /** @var int */
     public $website_id;
 
-    /** @var Address[] */
+    /** @var UserAddress[] */
     public $addresses;
 
     /** @var int */

@@ -49,5 +49,4 @@ final class ValidAddressInformationValidator extends ConstraintValidator
             }
         }
     }
-
 }

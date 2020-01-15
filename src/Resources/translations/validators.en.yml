@@ -94,6 +94,7 @@ bitbag:
                         not_blank: Shipping carrier can not be blank.
                     payment_method_code:
                             not_blank: Payment code can not be blank.
+                    invalid: Provided address information is invalid.
                 cart_item:
                     sku:
                         not_blank: Please provide valid SKU.

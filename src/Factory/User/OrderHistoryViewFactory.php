@@ -40,7 +40,7 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
 
         $customerOrders = $this->orderRepository->findBy([
             'customer' => $syliusCustomer,
-            'checkoutState' => OrderCheckoutStates::STATE_COMPLETED
+            'checkoutState' => OrderCheckoutStates::STATE_COMPLETED,
         ]);
 
         $orderHistoryView->items = $this->orderViewFactory->createList($customerOrders);
