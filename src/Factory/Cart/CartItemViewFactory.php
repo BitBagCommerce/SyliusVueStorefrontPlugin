@@ -77,7 +77,6 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->product_option->extension_attributes->configurable_item_options = [];
         $cartItemView->product_option->extension_attributes->custom_options = [];
 
-
         if ($productVariant) {
             $cartItemView->product_option->extension_attributes->configurable_item_options = $productVariant->getOptionValues()->map(
                 static function (ProductOptionValueInterface $productOptionValue) {
