@@ -109,7 +109,7 @@ final class CartItemView
     /** @var int */
     public $product_id;
 
-    /** @var ProductOptionView */
+    /** @var ProductOptionView|null */
     public $product_option;
 
     /** @var string */

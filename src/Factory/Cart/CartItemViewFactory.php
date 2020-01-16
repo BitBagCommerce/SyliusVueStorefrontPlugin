@@ -64,12 +64,19 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->price = $syliusOrderItem->getUnitPrice();
         $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
 
+        $productVariant = $syliusOrderItem->getVariant();
+        $variantsCount = $productVariant->getProduct()->getVariants()->count();
+
+        if ($variantsCount === 1) {
+            return $cartItemView;
+        }
+
         $cartItemView->product_option = new ProductOptionView();
         $cartItemView->product_option->extension_attributes = new ProductOptionExtensionAttributeView();
         $cartItemView->product_option->extension_attributes->bundle_options = [];
         $cartItemView->product_option->extension_attributes->configurable_item_options = [];
         $cartItemView->product_option->extension_attributes->custom_options = [];
-        $productVariant = $syliusOrderItem->getVariant();
+
 
         if ($productVariant) {
             $cartItemView->product_option->extension_attributes->configurable_item_options = $productVariant->getOptionValues()->map(
