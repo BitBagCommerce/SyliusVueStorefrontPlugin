@@ -27,18 +27,18 @@ final class UpdateCartHandler implements MessageHandlerInterface
     private $cartRepository;
 
     /** @var OrderItemProviderInterface */
-    private $productVariantProvider;
+    private $orderItemProvider;
 
     /** @var OrderModifierInterface */
     private $orderModifier;
 
     public function __construct(
         OrderRepositoryInterface $cartRepository,
-        OrderItemProviderInterface $productVariantProvider,
+        OrderItemProviderInterface $orderItemProvider,
         OrderModifierInterface $orderModifier
     ) {
         $this->cartRepository = $cartRepository;
-        $this->productVariantProvider = $productVariantProvider;
+        $this->orderItemProvider = $orderItemProvider;
         $this->orderModifier = $orderModifier;
     }
 
@@ -52,7 +52,7 @@ final class UpdateCartHandler implements MessageHandlerInterface
 
         Assert::notNull($cart, 'Cart has not been found.');
 
-        $cartItem = $this->productVariantProvider->provide($updateCart);
+        $cartItem = $this->orderItemProvider->provide($updateCart);
 
         /** @var ProductInterface $product */
         $product = $cartItem->getProduct();

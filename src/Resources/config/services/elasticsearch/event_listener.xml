@@ -9,13 +9,16 @@
                  class="BitBag\SyliusVueStorefrontPlugin\Elasticsearch\EventListener\ResourceIndexListener">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.refresher.resource" />
             <argument type="collection">
-                <argument key="fos_elastica.object_persister.bitbag_vue_storefront_catalog.product">%sylius.model.product.class%</argument>
-                <argument key="fos_elastica.object_persister.bitbag_vue_storefront_catalog.category">%sylius.model.taxon.class%</argument>
+                <argument key="fos_elastica.object_persister.bitbag_vue_storefront_catalog_attribute.attribute">%sylius.model.product_option.class%</argument>
+                <argument key="fos_elastica.object_persister.bitbag_vue_storefront_catalog_category.category">%sylius.model.taxon.class%</argument>
+                <argument key="fos_elastica.object_persister.bitbag_vue_storefront_catalog_product.product">%sylius.model.product.class%</argument>
             </argument>
+            <tag name="kernel.event_listener" event="sylius.product_option.post_update" method="updateIndex" />
+            <tag name="kernel.event_listener" event="sylius.product_option.post_create" method="updateIndex" />
+            <tag name="kernel.event_listener" event="sylius.taxon.post_update" method="updateIndex" />
+            <tag name="kernel.event_listener" event="sylius.taxon.post_update" method="updateIndex" />
             <tag name="kernel.event_listener" event="sylius.product.post_create" method="updateIndex" />
             <tag name="kernel.event_listener" event="sylius.product.post_update" method="updateIndex" />
-            <tag name="kernel.event_listener" event="sylius.taxon.post_update" method="updateIndex" />
-            <tag name="kernel.event_listener" event="sylius.taxon.post_update" method="updateIndex" />
         </service>
     </services>
 </container>

@@ -39,7 +39,7 @@
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.provider.composite_product_variant"
+        <service id="bitbag_sylius_vue_storefront_plugin.provider.composite_order_item"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\CompositeOrderItemProvider">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.existing_order_item" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.new_order_item"/>

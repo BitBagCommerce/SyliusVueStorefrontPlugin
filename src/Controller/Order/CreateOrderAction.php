@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Controller\Order;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
-use BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
 use FOS\RestBundle\View\View;
@@ -36,9 +35,6 @@ final class CreateOrderAction
     /** @var ValidationErrorViewFactoryInterface */
     private $validationErrorViewFactory;
 
-    /** @var StockViewFactoryInterface */
-    private $stockViewFactory;
-
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
 
@@ -47,14 +43,12 @@ final class CreateOrderAction
         MessageBusInterface $bus,
         ViewHandlerInterface $viewHandler,
         ValidationErrorViewFactoryInterface $validationErrorViewFactory,
-        StockViewFactoryInterface $stockViewFactory,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory)
     {
         $this->createOrderRequestProcessor = $createOrderRequestProcessor;
         $this->bus = $bus;
         $this->viewHandler = $viewHandler;
         $this->validationErrorViewFactory = $validationErrorViewFactory;
-        $this->stockViewFactory = $stockViewFactory;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
     }
 
