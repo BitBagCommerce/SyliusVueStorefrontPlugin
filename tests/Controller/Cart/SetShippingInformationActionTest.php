@@ -38,17 +38,13 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
         {
             "addressInformation":
                 {
-                    "shipping_address":
+                    "shippingAddress":
                         {
                             "id": 123,
                             "customer_id": 123,
-                            "region": {
-                              "region_code": null,
-                              "region": null,
-                              "region_id": 0
-                            },
+                            "region": "",
                             "region_id": 0,
-                            "country_id": "GB",
+                            "countryId": "GB",
                             "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
@@ -58,8 +54,8 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
                             "lastname": "Doe",
                             "vat_id": "PL987654321"
                         },
-                        "shipping_method_code":"FED-EX",
-                        "shipping_carrier_code":"FED-EX"
+                        "shippingMethodCode":"FED-EX",
+                        "shippingCarrierCode":"FED-EX"
                 }
         }
 JSON;
@@ -88,17 +84,13 @@ JSON;
         {
             "addressInformation":
                 {
-                    "shipping_address":
+                    "shippingAddress":
                         {
                             "id": 123,
                             "customer_id": 123,
-                            "region": {
-                              "region_code": null,
-                              "region": null,
-                              "region_id": 0
-                            },
+                            "region": "",
                             "region_id": 0,
-                            "country_id": "GB",
+                            "countryId": "GB",
                             "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
@@ -108,8 +100,8 @@ JSON;
                             "lastname": "Doe",
                             "vat_id": "PL987654321"
                         },
-                        "shipping_method_code":"fedex",
-                        "shipping_carrier_code":"fedex"
+                        "shippingMethodCode":"fedex",
+                        "shippingCarrierCode":"fedex"
                 }
         }
 JSON;
@@ -178,17 +170,13 @@ JSON;
         {
             "addressInformation":
                 {
-                    "shipping_address":
+                    "shippingAddress":
                         {
                             "id": 123,
                             "customer_id": 123,
-                            "region": {
-                              "region_code": null,
-                              "region": null,
-                              "region_id": 0
-                            },
+                            "region": "",
                             "region_id": 0,
-                            "country_id": "GB",
+                            "countryId": "GB",
                             "street": ["GoodStreet","10"],
                             "company": "BestCompany",
                             "telephone": "987654321",
@@ -198,8 +186,8 @@ JSON;
                             "lastname": "Doe",
                             "vat_id": "PL987654321"
                         },
-                        "shipping_method_code":"fedex",
-                        "shipping_carrier_code":"fedex"
+                        "shippingMethodCode":"fedex",
+                        "shippingCarrierCode":"fedex"
                 }
         }
 JSON;

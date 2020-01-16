@@ -2,7 +2,7 @@
     "code": 200,
     "result":
     {
-        "payments_methods": "@array@",
+        "payment_methods": "@array@",
         "totals": {
             "grand_total": "@integer@",
             "subtotal": "@integer@",

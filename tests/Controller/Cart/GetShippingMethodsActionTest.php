@@ -21,7 +21,7 @@ final class GetShippingMethodsActionTest extends JsonApiTestCase
 {
     use UserLoginTrait;
 
-    public function test_setting_shipping_methods(): void
+    public function test_getting_shipping_methods(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'shipping.yml']);
 
@@ -63,10 +63,10 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/Cart/set_shipping_methods_successful', Response::HTTP_OK);
+        $this->assertResponse($response, 'Controller/Cart/get_shipping_methods_successful', Response::HTTP_OK);
     }
 
-    public function test_setting_shipping_methods_for_blank_address(): void
+    public function test_getting_shipping_methods_for_blank_address(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -85,7 +85,7 @@ JSON;
         $this->assertResponse($response, 'Controller/Cart/Common/blank_address', Response::HTTP_BAD_REQUEST);
     }
 
-    public function test_setting_shipping_methods_for_invalid_token(): void
+    public function test_getting_shipping_methods_for_invalid_token(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -102,7 +102,7 @@ JSON;
         $this->assertResponse($response, 'Controller/Cart/Common/invalid_token', Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_setting_shipping_methods_for_invalid_cart(): void
+    public function test_getting_shipping_methods_for_invalid_cart(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 
@@ -147,7 +147,7 @@ JSON;
         $this->assertResponse($response, 'Controller/Cart/Common/invalid_cart', Response::HTTP_BAD_REQUEST);
     }
 
-    public function test_setting_shipping_information_for_invalid_cart_and_blank_address(): void
+    public function test_getting_shipping_information_for_invalid_cart_and_blank_address(): void
     {
         $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
 

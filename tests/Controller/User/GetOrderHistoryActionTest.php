@@ -23,7 +23,14 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
 
     public function test_getting_order_history(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles([
+            'channel.yml',
+            'customer.yml',
+            'order.yml',
+            'order_item.yml',
+            'coupon_based_promotion.yml',
+            'product_with_attributes.yml',
+        ]);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
