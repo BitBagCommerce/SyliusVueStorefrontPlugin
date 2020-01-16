@@ -1,0 +1,66 @@
+fos_elastica:
+    indexes:
+        bitbag_vue_storefront_catalog_product:
+            index_name: "%env(ELASTICSEARCH_INDEX)%_product"
+            types:
+                product:
+                    indexable_callback: ['@bitbag_sylius_vue_storefront_plugin.checker.product_in_channel']
+                    properties:
+                        enabled: ~
+                        slug: { type: keyword }
+                        url_key: { type: keyword }
+                        url_path: { type: keyword }
+                        sku: { type: keyword }
+                        size: { type: integer }
+                        size_options: { type: integer }
+                        price: { type: float }
+#                        has_options: { type: boolean }
+                        special_price: { type: float }
+                        color: { type: integer }
+                        color_options: { type: integer }
+                        id: { type: long }
+                        status: { type: integer }
+                        visibility: { type: integer }
+                        updated_at: { type: date, format: yyyy-MM-dd }
+                        created_at: { type: date, format: yyyy-MM-dd }
+                        special_from_date: { type: date, format: yyyy-MM-dd }
+                        special_to_date: { type: date, format: yyyy-MM-dd }
+                        description: { type: text }
+                        name: { type: text }
+                        configurable_children:
+                            type: nested
+                            properties:
+                                url_key: { type: keyword }
+                                has_options: { type: boolean }
+                                price: { type: float }
+                                sku: { type: keyword }
+                                special_price: { type: float }
+                        configurable_options:
+                            type: nested
+                            properties:
+                                attribute_id: { type: long }
+                                default_label: { type: text }
+                                label: { type: text }
+                                frontend_label: { type: text }
+                                store_label: { type: text }
+                                values:
+                                    type: nested
+                                    properties:
+                                        default_label: { type: text }
+                                        label: { type: text }
+                                        frontend_label: { type: text }
+                                        store_label: { type: text }
+                                        value_index:  { type: keyword }
+                        category_ids: { type: long }
+                        erin_recommends: { type: integer }
+                        tax_class_id: { type: long }
+                    persistence:
+                        driver: orm
+                        model: "%sylius.model.product.class%"
+                        identifier: documentId
+                        model_to_elastica_transformer:
+                            service: bitbag_sylius_vue_storefront_plugin.transformer.product
+                        provider: ~
+                        listener:
+                            logger: true
+                            defer: true

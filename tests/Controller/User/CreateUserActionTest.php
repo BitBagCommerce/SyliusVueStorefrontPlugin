@@ -20,7 +20,7 @@ final class CreateUserActionTest extends JsonApiTestCase
 {
     public function test_creating_user(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml']);
 
         $requestBody =
 <<<JSON
@@ -43,7 +43,7 @@ JSON;
 
     public function test_creating_user_for_existing_account(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $requestBody =
 <<<JSON
@@ -66,7 +66,7 @@ JSON;
 
     public function test_creating_user_for_invalid_customer(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml']);
 
         $requestBody =
 <<<JSON
@@ -85,7 +85,7 @@ JSON;
 
     public function test_creating_user_for_blank_password(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml']);
 
         $requestBody =
 <<<JSON

@@ -23,7 +23,7 @@ final class DeleteCouponActionTest extends JsonApiTestCase
 
     public function test_deleting_coupon(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -42,7 +42,7 @@ final class DeleteCouponActionTest extends JsonApiTestCase
 
     public function test_deleting_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $uri = sprintf(
             '/vsbridge/cart/delete-coupon?token=%s&cartId=%s',
@@ -59,7 +59,7 @@ final class DeleteCouponActionTest extends JsonApiTestCase
 
     public function test_deleting_for_invalid_cart(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 

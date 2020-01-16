@@ -1,0 +1,20 @@
+fos_elastica:
+    indexes:
+        bitbag_vue_storefront_catalog_category:
+            index_name: "%env(ELASTICSEARCH_INDEX)%_category"
+            types:
+                category:
+                    properties:
+                        enabled: ~
+                        updated_at: { type: date, format: yyyy-MM-dd }
+                        created_at: { type: date, format: yyyy-MM-dd }
+                    persistence:
+                        driver: orm
+                        model: "%sylius.model.taxon.class%"
+                        identifier: documentId
+                        model_to_elastica_transformer:
+                            service: bitbag_sylius_vue_storefront_plugin.transformer.category
+                        provider: ~
+                        listener:
+                            logger: true
+                            defer: true

@@ -26,12 +26,12 @@ final class DeleteCartActionTest extends JsonApiTestCase
     public function test_deleting_cart_item(): void
     {
         $this->loadFixturesFromFiles([
-            'channel.yml',
-            'customer.yml',
-            'order.yml',
-            'order_item.yml',
-            'coupon_based_promotion.yml',
-            'product_with_attributes.yml',
+            'channel.yaml',
+            'customer.yaml',
+            'order.yaml',
+            'order_item.yaml',
+            'coupon_based_promotion.yaml',
+            'product_with_attributes.yaml',
         ]);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
@@ -75,7 +75,7 @@ JSON;
 
     public function test_deleting_cart_item_for_blank_item(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -94,7 +94,7 @@ JSON;
 
     public function test_deleting_cart_item_for_non_existent_item(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -125,7 +125,7 @@ JSON;
 
     public function test_deleting_cart_item_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $uri = sprintf(
             '/vsbridge/cart/delete?token=%s&cartId=%s',
@@ -142,7 +142,7 @@ JSON;
 
     public function test_deleting_cart_item_for_invalid_cart(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 

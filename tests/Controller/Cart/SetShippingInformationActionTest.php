@@ -23,7 +23,7 @@ final class SetShippingInformationActionTest extends JsonApiTestCase
 
     public function test_setting_shipping_information(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml', 'shipping.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml', 'shipping.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -69,7 +69,7 @@ JSON;
 
     public function test_setting_shipping_information_for_non_existent_method(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -119,7 +119,7 @@ JSON;
 
     public function test_setting_shipping_information_for_blank_address(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -138,7 +138,7 @@ JSON;
 
     public function test_setting_shipping_information_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $uri = sprintf(
             '/vsbridge/cart/shipping-information?token=%s&cartId=%s',
@@ -155,7 +155,7 @@ JSON;
 
     public function test_setting_shipping_information_for_invalid_cart(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -201,7 +201,7 @@ JSON;
 
     public function test_setting_shipping_information_for_invalid_cart_and_blank_address(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml', 'order.yml', 'coupon_based_promotion.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 

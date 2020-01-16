@@ -1,0 +1,23 @@
+#fos_elastica:
+#    indexes:
+#        bitbag_vue_storefront_catalog_taxrule:
+#            index_name: "%env(ELASTICSEARCH_INDEX)%_taxrule"
+#            types:
+#                taxrule:
+#                    properties:
+#                        enabled: ~
+#                        id: { type: long }
+#                        rates:
+#                            type: nested
+#                            properties:
+#                                rate: { type: float }
+#                    persistence:
+#                        driver: orm
+#                        model: "%sylius.model.tax_category.class%"
+#                        identifier: documentId
+#                        model_to_elastica_transformer:
+#                            service: bitbag_sylius_vue_storefront_plugin.transformer.tax_rule
+#                        provider: ~
+#                        listener:
+#                            logger: true
+#                            defer: true

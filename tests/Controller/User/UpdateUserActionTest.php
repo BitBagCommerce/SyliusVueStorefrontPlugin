@@ -25,7 +25,7 @@ final class UpdateUserActionTest extends JsonApiTestCase
 
     public function test_updating_user(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -93,7 +93,7 @@ JSON;
 
     public function test_updating_user_if_invalid(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -153,7 +153,7 @@ JSON;
 
     public function test_updating_user_for_blank_information(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -171,7 +171,7 @@ JSON;
 
     public function test_updating_user_for_blank_addresses(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
@@ -218,7 +218,7 @@ JSON;
 
     public function test_updating_user_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yml', 'customer.yml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
