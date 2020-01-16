@@ -26,7 +26,7 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
         $this->loadFixturesFromFiles([
             'channel.yaml',
             'customer.yaml',
-            'order.yaml',
+            'order_completed.yaml',
             'order_item.yaml',
             'coupon_based_promotion.yaml',
             'product_with_attributes.yaml',
@@ -48,7 +48,7 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
 
     public function test_getting_order_history_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order.yaml', 'coupon_based_promotion.yaml']);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order_completed.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
