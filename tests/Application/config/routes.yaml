@@ -1,2 +1,2 @@
 sylius_vue_storefront_plugin:
-    resource: "@SyliusVueStorefrontPlugin/Resources/config/routing.yml"
+    resource: "@SyliusVueStorefrontPlugin/Resources/config/routing.yaml"
