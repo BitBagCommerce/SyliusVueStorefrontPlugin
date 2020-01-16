@@ -45,9 +45,9 @@
             <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingInformationRequest</argument>
         </service>
 
-        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.set_shipping_methods"
+        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_shipping_methods"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingMethodsRequest</argument>
+            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetShippingMethodsRequest</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.update_cart"

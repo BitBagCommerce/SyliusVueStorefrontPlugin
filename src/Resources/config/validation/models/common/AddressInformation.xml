@@ -34,7 +34,7 @@
                 <option name="message">bitbag.vue_storefront_api.sylius.cart.address_information.payment_method_code.not_blank</option>
             </constraint>
         </property>
-        <!--workaround for /cart/shipping-information invalid variables' case-->
+        <!--workaround for /cart/shipping-information case inconsistency in vsf-->
         <property name="shippingMethodCode">
             <constraint name="NotBlank">
                 <option name="allowNull">true</option>

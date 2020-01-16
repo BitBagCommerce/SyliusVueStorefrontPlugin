@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ValidAddressInformationValidator extends ConstraintValidator
 {
-    private const ROUTE_SET_SHIPPING_INFORMATION = 'bitbag_vue_storefront_plugin_cart_set_shipping_information';
     private const ROUTE_CREATE_ORDER = 'bitbag_vue_storefront_plugin_order_create_order';
 
     /** @var RequestStack */
@@ -40,8 +39,7 @@ final class ValidAddressInformationValidator extends ConstraintValidator
 
         $routeName = $httpRequest->attributes->get('_route');
 
-        if ($routeName === self::ROUTE_SET_SHIPPING_INFORMATION) {
-        } elseif ($routeName === self::ROUTE_CREATE_ORDER) {
+        if ($routeName === self::ROUTE_CREATE_ORDER) {
             if (!$request->billingAddress) {
                 $this->context->addViolation($constraint->message);
             } else {

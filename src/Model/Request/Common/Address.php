@@ -53,7 +53,7 @@ class Address
     /** @var string|null */
     public $vat_id;
 
-    /** workaround for /cart/shipping-information invalid variables' case */
+    /** workaround for /cart/shipping-information case inconsistency in vsf */
     public $countryId;
 
     public function getCountryId(): string

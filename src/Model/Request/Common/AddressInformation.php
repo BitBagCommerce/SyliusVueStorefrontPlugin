@@ -31,7 +31,7 @@ final class AddressInformation
     /** @var string */
     public $shipping_carrier_code;
 
-    /** workaround for /cart/shipping-information invalid variables' case */
+    /** workaround for /cart/shipping-information case inconsistency in vsf */
     /** @var string|null */
     public $shippingMethodCode;
 
