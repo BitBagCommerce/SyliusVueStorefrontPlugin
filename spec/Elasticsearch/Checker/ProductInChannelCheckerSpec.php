@@ -31,7 +31,7 @@ final class ProductInChannelCheckerSpec extends ObjectBehavior
         $this->beConstructedWith($channelRepository, 'channel-code');
     }
 
-    function it_checks_is_product_in_channel(
+    function it_checks_whether_product_is_in_channel(
         ChannelRepositoryInterface $channelRepository,
         ProductInterface $syliusProduct,
         ChannelInterface $channel,

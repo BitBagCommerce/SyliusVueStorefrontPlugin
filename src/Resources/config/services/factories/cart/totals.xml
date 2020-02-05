@@ -8,6 +8,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentExtensionAttributeViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory"
@@ -16,6 +17,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.total_segments_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentViewFactory">
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="BitBag\SyliusVueStorefrontPlugin\Request\User\GetOrderHistoryRequest">
+        <property name="token">
+            <constraint name="NotNull">
+                <option name="message">bitbag.vue_storefront_api.sylius.user.token.not_null</option>
+            </constraint>
+        </property>
+        <property name="pageSize">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.common.pagination.page_size.not_blank</option>
+            </constraint>
+        </property>
+        <property name="currentPage">
+            <constraint name="NotBlank">
+                <option name="message">bitbag.vue_storefront_api.common.pagination.current_page.not_blank</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

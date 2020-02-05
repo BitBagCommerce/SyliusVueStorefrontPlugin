@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
-        "friendsofsymfony/elastica-bundle": "^5.0",
+        "friendsofsymfony/elastica-bundle": "^5.1",
         "ruflin/elastica": "^6.1",
         "sylius/sylius": "^1.6",
         "nelmio/cors-bundle": "^1.5",
@@ -25,16 +25,16 @@
         "phpstan/phpstan-shim": "^0.11",
         "phpstan/phpstan-symfony": "^0.11",
         "phpstan/phpstan-webmozart-assert": "^0.11",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^8.5",
         "roave/security-advisories": "dev-master",
         "sensiolabs/security-checker": "^5.0",
         "sylius-labs/coding-standard": "^2.0",
-        "symfony/browser-kit": "^3.4|^4.1",
-        "symfony/debug-bundle": "^3.4|^4.1",
-        "symfony/dotenv": "^4.2",
-        "symfony/intl": "^3.4|^4.1",
-        "symfony/web-profiler-bundle": "^3.4|^4.1",
-        "symfony/web-server-bundle": "^3.4|^4.1"
+        "symfony/browser-kit": "^4.4",
+        "symfony/debug-bundle": "^4.4",
+        "symfony/dotenv": "^4.4",
+        "symfony/intl": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4",
+        "symfony/web-server-bundle": "^4.4"
     },
     "conflict": {
         "symfony/symfony": "4.1.8",
@@ -64,7 +64,7 @@
         ],
         "php:analyse": [
             "vendor/bin/ecs check --ansi --no-progress-bar spec src tests",
-            "vendor/bin/phpstan analyse --ansi --no-progress -c phpstan.neon -l 5 src tests"
+            "vendor/bin/phpstan analyse --ansi --no-progress -l 1 src tests"
         ],
         "php:tests": [
             "vendor/bin/phpspec run --ansi",

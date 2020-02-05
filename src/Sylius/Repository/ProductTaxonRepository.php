@@ -21,22 +21,33 @@ final class ProductTaxonRepository
     /** @var BaseProductTaxonRepositoryInterface */
     private $baseProductTaxonRepository;
 
+    /** @var int[] */
+    private $childrenIds = [];
+
     public function __construct(BaseProductTaxonRepositoryInterface $baseProductTaxonRepository)
     {
         $this->baseProductTaxonRepository = $baseProductTaxonRepository;
     }
 
-    public function getAmountOfProductVariants(TaxonInterface $taxon): int
+    public function getAmountOfProducts(TaxonInterface $taxon): int
     {
+        $this->childrenIds = [];
+        $this->getChildrenIdsRecursive($taxon);
+
         /** @var ProductTaxonInterface[] $productTaxons */
-        $productTaxons = $this->baseProductTaxonRepository->findBy(['taxon' => $taxon]);
+        $productTaxons = $this->baseProductTaxonRepository->findBy(['taxon' => $this->childrenIds]);
 
-        $productVariantsCounter = 0;
+        return count($productTaxons);
+    }
 
-        foreach ($productTaxons as $productTaxon) {
-            $productVariantsCounter += count($productTaxon->getProduct()->getVariants());
+    private function getChildrenIdsRecursive(TaxonInterface $taxon): void
+    {
+        $this->childrenIds[] = $taxon;
+
+        foreach ($taxon->getChildren() as $child) {
+            if ($child->hasChildren()) {
+                $this->getChildrenIdsRecursive($child);
+            }
         }
-
-        return $productVariantsCounter;
     }
 }

@@ -14,6 +14,8 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\Catalog;
 
 use Elastica\Client;
 use Elastica\Connection;
+use Elastica\Query\BoolQuery;
+use Elastica\QueryBuilder\DSL\Query;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +58,38 @@ final class GetCatalogAction
         $requestBody = [];
 
         if (isset($queryParameters['request'])) {
-            $requestBody = $queryParameters['request'];
+            $requestBody = \json_decode($queryParameters['request'], true);
+
+            $boolQueryTerms = $requestBody['query']['bool']['filter']['terms'] ?? null;
+
+            if (isset($boolQueryTerms['configurable_children.sku'])) {
+                $sku = $boolQueryTerms['configurable_children.sku'][0];
+            } elseif (isset($boolQueryTerms['sku'])) {
+                $sku = $boolQueryTerms['sku'][0];
+            }
+
+            if (isset($sku)) {
+                $boolQuery = new BoolQuery();
+
+                $boolQuery->addShould(
+                    (new Query())
+                        ->term()->setParam('sku', $sku)
+                );
+
+                $boolQuery->addShould(
+                    (new Query())
+                        ->nested()
+                        ->setPath('configurable_children')
+                        ->setQuery((new Query())
+                            ->term()->setParam('configurable_children.sku', $sku)
+                        )
+                );
+
+                $requestBody['query'] = $boolQuery->toArray();
+            }
+
+            $requestBody = \json_encode($requestBody);
+
             unset($queryParameters['request']);
         }
 

@@ -18,19 +18,11 @@ use PhpSpec\ObjectBehavior;
 
 final class CreateUserSpec extends ObjectBehavior
 {
-    private const PASSWORD = 'sylius';
-
-    /** @var NewCustomer */
-    private $customer;
-
     function let(): void
     {
-        $this->customer = $this->getCustomerMock();
+        $customer = new NewCustomer();
 
-        $this->beConstructedWith(
-            $this->customer,
-            self::PASSWORD
-        );
+        $this->beConstructedWith($customer, 'password');
     }
 
     function it_is_initializable(): void
@@ -38,18 +30,9 @@ final class CreateUserSpec extends ObjectBehavior
         $this->shouldHaveType(CreateUser::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_properties_via_getters(): void
     {
-        $this->customer()->shouldReturn($this->customer);
-        $this->password()->shouldReturn(self::PASSWORD);
-    }
-
-    private function getCustomerMock(): NewCustomer
-    {
-        return NewCustomer::createFromArray([
-            'email' => 'shop@example.com',
-            'firstname' => 'Katarzyna',
-            'lastname' => 'Nosowska',
-        ]);
+        $this->customer()->shouldReturnAnInstanceOf(NewCustomer::class);
+        $this->password()->shouldReturn('password');
     }
 }

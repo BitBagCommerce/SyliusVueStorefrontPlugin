@@ -2,9 +2,10 @@
     "code": 200,
     "result": {
         "item_id": "@integer@",
-        "name": "Random Jacket",
         "price": "@integer@",
         "qty": "@integer@",
-        "sku": "RANDOM_JACKET_CODE"
+        "sku": "RANDOM_JACKET_CODE",
+        "quote_id": "@string@",
+        "product_type": "@string@"
     }
 }

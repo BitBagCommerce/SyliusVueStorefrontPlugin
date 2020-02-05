@@ -1,4 +1,4 @@
 {
-    "code": 500,
-    "result": "Notice: Trying to get property 'item_id' of non-object"
+    "code": 400,
+    "result": "The order item does not exist."
 }

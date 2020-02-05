@@ -36,15 +36,10 @@ final class ApplyCouponHandlerSpec extends ObjectBehavior
         OrderProcessorInterface $orderProcessor,
         PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
     ): void {
-        $this->beConstructedWith(
-            $orderRepository,
-            $couponRepository,
-            $orderProcessor,
-            $couponEligibilityChecker
-        );
+        $this->beConstructedWith($orderRepository, $couponRepository, $orderProcessor, $couponEligibilityChecker);
     }
 
-    function it_applies_coupon(
+    function it_applies_coupon_to_cart(
         OrderInterface $cart,
         OrderRepository $orderRepository,
         PromotionCouponInterface $coupon,

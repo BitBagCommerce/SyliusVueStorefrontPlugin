@@ -15,10 +15,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks;
 final class Link implements \JsonSerializable
 {
     private const ALLOWED_TYPES = ['related', 'upsell', 'crosssell', 'associated'];
+
     private const SKU = 'sku';
+
     private const TYPE = 'link_type';
+
     private const POSITION = 'position';
+
     private const PRODUCT_SKU = 'linked_product_sku';
+
     private const PRODUCT_TYPE = 'linked_product_type';
 
     /** @var string */

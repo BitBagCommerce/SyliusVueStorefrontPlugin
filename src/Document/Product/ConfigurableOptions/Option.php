@@ -15,11 +15,17 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
 final class Option implements \JsonSerializable
 {
     private const ID = 'id';
+
     private const VALUES = 'values';
+
     private const PRODUCT_ID = 'product_id';
+
     private const LABEL = 'label';
+
     private const POSITION = 'position';
+
     private const ATTRIBUTE_ID = 'attribute_id';
+
     private const ATTRIBUTE_CODE = 'attribute_code';
 
     /** @var int */

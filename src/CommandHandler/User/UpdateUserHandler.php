@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Addressing\Model\AddressInterface;
@@ -36,16 +37,21 @@ final class UpdateUserHandler implements MessageHandlerInterface
     /** @var ObjectManager */
     private $objectManager;
 
+    /** @var DefaultAddressModifierInterface */
+    private $defaultAddressModifier;
+
     public function __construct(
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
         AddressFactoryInterface $addressFactory,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        DefaultAddressModifierInterface $defaultAddressModifier
     ) {
         $this->customerRepository = $customerRepository;
         $this->addressRepository = $addressRepository;
         $this->addressFactory = $addressFactory;
         $this->objectManager = $objectManager;
+        $this->defaultAddressModifier = $defaultAddressModifier;
     }
 
     public function __invoke(UpdateUser $command): void
@@ -61,10 +67,11 @@ final class UpdateUserHandler implements MessageHandlerInterface
         foreach ($addresses as $address) {
             /** @var AddressInterface $syliusAddress */
             $syliusAddress = $customer->getAddresses()
-                ->matching(Criteria::create()
-                    ->where(Criteria::expr()->eq('id', $address->id)))
-                ->first()
-            ;
+                ->matching(
+                    Criteria::create()
+                        ->where(Criteria::expr()->eq('id', $address->id))
+                )
+                ->first();
 
             if (false === $syliusAddress) {
                 $syliusAddress = $this->addressFactory->createForCustomer($customer);
@@ -82,6 +89,8 @@ final class UpdateUserHandler implements MessageHandlerInterface
             $syliusAddress->setLastName($address->lastname);
 
             $this->addressRepository->add($syliusAddress);
+
+            $this->defaultAddressModifier->modify($customer, $syliusAddress);
         }
 
         $this->objectManager->flush();

@@ -45,12 +45,25 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
     public function __invoke(SetShippingInformation $setShippingInformation): void
     {
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(['tokenValue' => $setShippingInformation->cartId(), 'shippingState' => OrderInterface::STATE_CART]);
+        $cart = $this->orderRepository->findOneBy([
+            'tokenValue' => $setShippingInformation->cartId(),
+            'shippingState' => OrderInterface::STATE_CART,
+        ]);
+
         Assert::notNull($cart, sprintf('Cart with token value of %s has not been found.', $setShippingInformation->cartId()));
 
         /** @var ShippingMethodInterface $shippingMethod */
-        $shippingMethod = $this->shippingMethodRepository->findOneBy(['code' => $setShippingInformation->addressInformation()->getShippingCarrierCode(), 'enabled' => 1]);
-        Assert::notNull($shippingMethod, sprintf('Shipping method with code value of %s has not been found.', $setShippingInformation->addressInformation()->getShippingCarrierCode()));
+        $shippingMethod = $this->shippingMethodRepository->findOneBy([
+            'code' => $setShippingInformation->addressInformation()->getShippingCarrierCode(),
+            'enabled' => 1,
+        ]);
+
+        Assert::notNull(
+            $shippingMethod,
+            sprintf('Shipping method with code value of %s has not been found.',
+                $setShippingInformation->addressInformation()->getShippingCarrierCode()
+            )
+        );
 
         $this->shipmentHandler->handle($cart, $shippingMethod);
     }

@@ -25,7 +25,7 @@ final class TaxonsToCategoriesTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(TaxonsToCategoriesTransformer::class);
     }
 
-    function it_transforms(TaxonInterface $taxon): void
+    function it_transforms_taxons_to_categories(TaxonInterface $taxon): void
     {
         $taxon->getId()->willReturn(1);
         $taxon->hasChildren()->willReturn(true);
@@ -33,12 +33,7 @@ final class TaxonsToCategoriesTransformerSpec extends ObjectBehavior
         $taxon->getSlug()->willReturn('example-slug');
         $taxon->getFullname()->willReturn('fullname');
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                    $taxon->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(Category::class);
+        $this->transform(new ArrayCollection([$taxon->getWrappedObject()]))
+            ->shouldReturnAnInstanceOf(Category::class);
     }
 }

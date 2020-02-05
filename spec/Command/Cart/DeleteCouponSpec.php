@@ -17,15 +17,9 @@ use PhpSpec\ObjectBehavior;
 
 final class DeleteCouponSpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-    private const CART_ID = 'delete-coupon-spec';
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN,
-            self::CART_ID
-        );
+        $this->beConstructedWith('token', 'cart-id');
     }
 
     function it_is_initializable(): void
@@ -33,9 +27,9 @@ final class DeleteCouponSpec extends ObjectBehavior
         $this->shouldHaveType(DeleteCoupon::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_properties_via_getters(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
-        $this->cartId()->shouldReturn(self::CART_ID);
+        $this->token()->shouldReturn('token');
+        $this->cartId()->shouldReturn('cart-id');
     }
 }

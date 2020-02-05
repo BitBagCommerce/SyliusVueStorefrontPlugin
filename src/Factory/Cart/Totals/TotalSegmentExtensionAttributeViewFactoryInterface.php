@@ -13,8 +13,9 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentExtensionAttributeView;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
 interface TotalSegmentExtensionAttributeViewFactoryInterface
 {
-    public function create(): TotalSegmentExtensionAttributeView;
+    public function create(SyliusOrderInterface $syliusOrder): TotalSegmentExtensionAttributeView;
 }

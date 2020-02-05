@@ -17,13 +17,9 @@ use PhpSpec\ObjectBehavior;
 
 final class ResetPasswordSpec extends ObjectBehavior
 {
-    private const EMAIL = 'email';
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::EMAIL
-        );
+        $this->beConstructedWith('email');
     }
 
     function it_is_initializable(): void
@@ -31,8 +27,8 @@ final class ResetPasswordSpec extends ObjectBehavior
         $this->shouldHaveType(ResetPassword::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_emaiL_via_getter(): void
     {
-        $this->email()->shouldReturn(self::EMAIL);
+        $this->email()->shouldReturn('email');
     }
 }

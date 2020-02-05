@@ -17,77 +17,127 @@ use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
 final class Details
 {
     private const ENTITY_ID = 'id';
+
     private const ENTITY_TYPE_ID = 'entity_type_id';
+
     private const SKU = 'sku';
+
     private const NAME = 'name';
+
     private const ATTRIBUTE_SET_ID = 'attribute_set_id';
+
     private const STATUS = 'status';
+
     private const VISIBILITY = 'visibility';
+
     private const TYPE = 'type_id';
+
     private const CREATED_AT = 'created_at';
+
     private const UPDATED_AT = 'updated_at';
+
     private const EXTENSION_ATTRIBUTES = 'extension_attributes';
+
     private const PRODUCT_LINKS = 'product_links';
+
     private const TIER_PRICES = 'tier_prices';
+
     private const CUSTOM_ATTRIBUTES = 'custom_attributes';
+
     private const DESCRIPTION = 'description';
+
     private const IMAGE = 'image';
+
     private const SMALL_IMAGE = 'small_image';
+
     private const THUMBNAIL = 'thumbnail';
+
     private const REQUIRED_OPTIONS = 'required_options';
+
     private const HAS_OPTIONS = 'has_options';
+
     private const URL_KEY = 'url_key';
+
     private const TAX_CLASS_ID = 'tax_class_id';
+
     private const ERIN_RECOMMENDS = 'erin_recommends';
+
     private const NEW = 'new';
+
     private const SALE = 'sale';
+
     private const CHILDREN_DATA = 'children_data';
 
     // TODO DEMO APP ONLY
     private const SLUG = 'slug';
+
     private const PARENT_SKU = 'parentSku';
+
     private const IS_CONFIGURED = 'is_configured';
 
     // TODO PROPERTIES BELOW APPEAR ONLY IN CORESHOP VS BRIDGE
 
     private const AVAILABILITY = 'availability';
+
     private const TEXT_STATUS = 'option_text_status';
+
     private const TAX_CLASS_NAME = 'option_text_tax_class_id';
+
     private const SHORT_DESCRIPTION = 'short_description';
+
     private const COLOR_OPTIONS = 'color_options';
+
     private const SIZE_OPTIONS = 'size_options';
 
     //    INTEGRATION BOILERPLATE
     private const META_TITLE = 'meta_title';
+
     private const META_DESCRIPTION = 'meta_description';
+
     private const GIFT_MESSAGE_AVAILABLE = 'gift_message_available';
+
     private const SPECIAL_FROM_DATE = 'special_from_date';
+
     private const SPECIAL_TO_DATE = 'special_to_date';
 
     private const TYPE_SIMPLE = 'simple';
+
     private const TYPE_CONFIGURABLE = 'configurable';
 
     /** https://docs.magento.com/m2/ce/user_guide/system/data-attributes-product.html */
     private const TYPES_IN_MAGENTO2 = [self::TYPE_SIMPLE, self::TYPE_CONFIGURABLE, 'grouped', 'virtual', 'bundle'];
 
     private const DEFAULT_ENTITY_TYPE_ID = 4;
+
     private const DEFAULT_ATTRIBUTE_SET_ID = 11;
+
     private const DEFAULT_STATUS = 1;
+
     private const DEFAULT_VISIBILITY = 4;
+
     private const DEFAULT_TYPE = self::TYPE_SIMPLE;
+
     private const DEFAULT_CATEGORY_ID = 2;
+
     private const DEFAULT_AVAILABILITY = '1';
+
     private const DEFAULT_OPTION_STATUS = 'Enabled';
+
     private const DEFAULT_TAX_CLASS_ID = 2;
+
     private const DEFAULT_TAX_CLASS_NAME = 'Taxable Goods';
+
     private const DEFAULT_CATEGORY = 'Default category';
+
     private const DEFAULT_MEDIA_TYPE = 'image';
 
     //   NODEAPP MAPPING COMPARISON
     private const URL_PATH = 'url_path';
+
     /** @var string */
     private $urlPath;
-//    END OF NODEAPP COMPARISON
+
+    //    END OF NODEAPP COMPARISON
 
     /** @var int */
     private $entityId;

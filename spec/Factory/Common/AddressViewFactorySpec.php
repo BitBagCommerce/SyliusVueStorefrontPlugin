@@ -47,6 +47,8 @@ final class AddressViewFactorySpec extends ObjectBehavior
         $syliusAddress->getCity()->shouldBeCalled();
         $syliusAddress->getFirstName()->shouldBeCalled();
         $syliusAddress->getLastName()->shouldBeCalled();
+        $syliusAddress->getPhoneNumber()->shouldBeCalled();
+
         $this->create($syliusAddress)->shouldBeAnInstanceOf(AddressView::class);
     }
 }

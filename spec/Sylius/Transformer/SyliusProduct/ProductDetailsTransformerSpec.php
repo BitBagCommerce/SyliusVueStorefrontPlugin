@@ -30,12 +30,7 @@ final class ProductDetailsTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(ProductDetailsTransformer::class);
     }
 
-    function let(ChannelContextInterface $channelContext): void
-    {
-        $this->beConstructedWith($channelContext);
-    }
-
-    function it_transforms(
+    function it_transforms_product_details(
         ChannelContextInterface $channelContext,
         ProductInterface $product,
         ChannelInterface $channel
@@ -43,17 +38,14 @@ final class ProductDetailsTransformerSpec extends ObjectBehavior
         $product->getId()->willReturn(1);
 
         $productVariant = new ProductVariant();
+        $productVariant->setCode('code');
+
         $channelPricing = new ChannelPricing();
         $channelPricing->setPrice(10);
+
         $productVariant->addChannelPricing($channelPricing);
 
-        $product->getVariants()->willReturn(
-            new ArrayCollection(
-                [
-                    $productVariant,
-                ]
-            )
-        );
+        $product->getVariants()->willReturn(new ArrayCollection([$productVariant]));
         $product->getCode()->willReturn('code');
         $product->getSlug()->willReturn('example-slug');
         $product->getName()->willReturn('example-name');
@@ -63,13 +55,7 @@ final class ProductDetailsTransformerSpec extends ObjectBehavior
         $product->getCreatedAt()->willReturn(new \DateTime('yesterday'));
         $product->getUpdatedAt()->willReturn(new \DateTime('yesterday'));
 
-        $product->getImages()->willReturn(
-            new ArrayCollection(
-                [
-                    new ProductImage(),
-                ]
-            )
-        );
+        $product->getImages()->willReturn(new ArrayCollection([new ProductImage()]));
 
         $product->getDescription()->willReturn('description');
         $product->getShortDescription()->willReturn('desc');

@@ -47,6 +47,7 @@ final class UserProfileViewFactory implements UserProfileViewFactoryInterface
         $userProfileView->store_id = 1;
         $userProfileView->website_id = 1;
         $userProfileView->addresses = [];
+
         foreach ($syliusCustomer->getAddresses() as $address) {
             $userProfileView->addresses[] = $this->addressViewFactory->create($address);
         }

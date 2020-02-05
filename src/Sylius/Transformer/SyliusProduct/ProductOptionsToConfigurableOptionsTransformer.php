@@ -16,13 +16,14 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions\Option;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions\OptionValue;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
 final class ProductOptionsToConfigurableOptionsTransformer implements ProductOptionsToConfigurableOptionsTransformerInterface
 {
     /** @param Collection|ProductOptionInterface[] $syliusProductOptions */
-    public function transform(Collection $syliusProductOptions, $syliusProduct): ConfigurableOptions
+    public function transform(Collection $syliusProductOptions, ProductInterface $syliusProduct): ConfigurableOptions
     {
         $configurableOptions = [];
 
@@ -32,11 +33,11 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
             $configurableOptions[] = new Option(
                 $syliusProductOption->getId(),
                 $configurableOptionValues,
-                $syliusProduct->getId(), //product_id ,
+                $syliusProduct->getId(),
                 $syliusProductOption->getName(),
                 $syliusProductOption->getPosition(),
-                $syliusProductOption->getId(), //attribute_id
-                $syliusProductOption->getCode() //attribute_code
+                $syliusProductOption->getId(),
+                $syliusProductOption->getCode()
             );
         }
 
@@ -49,8 +50,10 @@ final class ProductOptionsToConfigurableOptionsTransformer implements ProductOpt
 
         /** @var ProductOptionValueInterface $syliusProductOptionValue */
         foreach ($syliusProductOptionValues as $syliusProductOptionValue) {
-            //            TODO OPTION VALUE STRING TO INT
-            $configurableOptionValues[] = new OptionValue($syliusProductOptionValue->getId(), $syliusProductOptionValue->getValue());
+            $configurableOptionValues[] = new OptionValue(
+                $syliusProductOptionValue->getId(),
+                $syliusProductOptionValue->getValue()
+            );
         }
 
         return $configurableOptionValues;

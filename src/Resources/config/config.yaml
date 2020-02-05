@@ -1,19 +1,25 @@
 imports:
-  - { resource: "indexes/vue_storefront_catalog.yaml" }
-  - { resource: "doctrine.yaml" }
+    - { resource: "indexes/vue_storefront_catalog.yaml" }
+    - { resource: "doctrine.yaml" }
 
 parameters:
-  sylius.model.order_item.class: 'BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem'
+    sylius.model.order_item.class: 'BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem'
 
 sylius_order:
-  resources:
-    order_item:
-      classes:
-        model: BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem
+    resources:
+        order_item:
+            classes:
+                model: BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem
+
+sylius_mailer:
+    emails:
+        api_reset_password_token:
+            subject: sylius.emails.user.reset_password_token.subject
+            template: "@SyliusVueStorefrontPlugin/Email/passwordReset.html.twig"
 
 framework:
-  messenger:
-    buses:
-      bitbag_vue_storefront_plugin.command_bus:
-        middleware:
-          - doctrine_transaction
+    messenger:
+        buses:
+            bitbag_vue_storefront_plugin.command_bus:
+                middleware:
+                    - doctrine_transaction

@@ -22,9 +22,13 @@ use Symfony\Component\HttpFoundation\Response;
 final class ProcessImageAction
 {
     private const IMAGE_DIRECTORY_PATH = '/public/media/image/';
+
     private const OPERATION_CROP = 'crop';
+
     private const OPERATION_FIT = 'fit';
+
     private const OPERATION_RESIZE = 'resize';
+
     private const OPERATION_IDENTIFY = 'identify';
 
     /** @var ImagineInterface */

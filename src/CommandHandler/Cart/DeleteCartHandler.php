@@ -44,7 +44,14 @@ final class DeleteCartHandler implements MessageHandlerInterface
     public function __invoke(DeleteCart $deleteCart): void
     {
         /** @var OrderInterface $order */
-        $order = $this->orderRepository->findOneBy(['tokenValue' => $deleteCart->cartId(), 'state' => OrderInterface::STATE_CART]);
+        $order = $this->orderRepository->findOneBy([
+            'tokenValue' => $deleteCart->cartId(),
+            'state' => OrderInterface::STATE_CART,
+        ]);
+
+        if (!$order) {
+            return;
+        }
 
         /** @var OrderItem|null $orderItem */
         $orderItem = $this->orderItemRepository->findOneBy(['id' => $deleteCart->cartItem()->getItemId()]);
@@ -53,6 +60,7 @@ final class DeleteCartHandler implements MessageHandlerInterface
             $order->removeItem($orderItem);
             $this->orderItemRepository->remove($orderItem);
         }
+
         $this->orderProcessor->process($order);
     }
 }

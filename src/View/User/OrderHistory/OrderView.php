@@ -74,6 +74,12 @@ final class OrderView
     /** @var string */
     public $customer_email;
 
+    /** @var string */
+    public $customer_firstname;
+
+    /** @var string */
+    public $customer_lastname;
+
     /** @var int */
     public $customer_group_id;
 

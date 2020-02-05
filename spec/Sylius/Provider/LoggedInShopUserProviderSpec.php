@@ -43,7 +43,7 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
         $this->provide()->shouldReturnAnInstanceOf(ShopUserInterface::class);
     }
 
-    function it_handles_no_token_situation(TokenStorageInterface $tokenStorage): void
+    function it_throws_exception_when_no_token_is_found(TokenStorageInterface $tokenStorage): void
     {
         $tokenStorage->getToken()->willReturn(null);
 
@@ -52,11 +52,13 @@ final class LoggedInShopUserProviderSpec extends ObjectBehavior
             ->during('provide');
     }
 
-    function it_handles_no_user_situation(
+    function it_throws_exception_when_token_does_not_contain_user(
         TokenStorageInterface $tokenStorage,
         TokenInterface $token
     ): void {
         $tokenStorage->getToken()->willReturn($token);
+
+        $token->getUser()->willReturn(null);
 
         $this
             ->shouldThrow(TokenNotFoundException::class)

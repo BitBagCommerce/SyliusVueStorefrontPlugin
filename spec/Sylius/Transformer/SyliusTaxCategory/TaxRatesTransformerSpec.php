@@ -26,7 +26,7 @@ final class TaxRatesTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(TaxRatesTransformer::class);
     }
 
-    function it_transforms(TaxRateInterface $taxRate): void
+    function it_transforms_tax_rate(TaxRateInterface $taxRate): void
     {
         $zone = new Zone();
         $zone->setName('name');
@@ -37,12 +37,7 @@ final class TaxRatesTransformerSpec extends ObjectBehavior
         $taxRate->getAmountAsPercentage()->willReturn(10.0);
         $taxRate->getZone()->willReturn($zone);
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                    $taxRate->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(Rates::class);
+        $this->transform(new ArrayCollection([$taxRate->getWrappedObject()]))
+            ->shouldReturnAnInstanceOf(Rates::class);
     }
 }

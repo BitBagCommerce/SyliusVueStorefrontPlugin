@@ -13,8 +13,9 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TaxGrandtotalDetailsView;
+use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
 interface TaxGrandtotalDetailsViewFactoryInterface
 {
-    public function create(): TaxGrandtotalDetailsView;
+    public function create(SyliusOrderInterface $syliusOrder): TaxGrandtotalDetailsView;
 }

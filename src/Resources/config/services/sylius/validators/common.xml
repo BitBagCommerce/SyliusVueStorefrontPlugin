@@ -9,5 +9,10 @@
             <argument type="service" id="validator"/>
             <tag name="validator.constraint_validator" alias="vue_storefront_valid_address_information_validator" />
         </service>
+
+        <service id="app.validator.common.valid_country_validator"
+                 class="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Common\ValidCountryValidator">
+            <tag name="validator.constraint_validator" alias="vue_storefront_valid_country_validator" />
+        </service>
     </services>
 </container>

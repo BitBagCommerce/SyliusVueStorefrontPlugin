@@ -22,6 +22,8 @@
                 "billing_address_id": "@integer@",
                 "created_at": "@string@",
                 "customer_email": "@string@",
+                "customer_firstname": "@string@",
+                "customer_lastname": "@string@",
                 "customer_group_id": "@integer@",
                 "customer_is_guest": "@integer@",
                 "customer_note_notify": "@integer@",

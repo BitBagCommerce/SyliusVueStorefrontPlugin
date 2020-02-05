@@ -13,7 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\OrderCheckoutStates;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
@@ -34,7 +37,7 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
         $this->orderRepository = $orderRepository;
     }
 
-    public function create(CustomerInterface $syliusCustomer): OrderHistoryView
+    public function create(CustomerInterface $syliusCustomer, PaginationParameters $paginationParameters): OrderHistoryView
     {
         $orderHistoryView = new OrderHistoryView();
 
@@ -43,7 +46,12 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
             'checkoutState' => OrderCheckoutStates::STATE_COMPLETED,
         ]);
 
-        $orderHistoryView->items = $this->orderViewFactory->createList($customerOrders);
+        $paginatedOrders = (new Pagerfanta(new ArrayAdapter($customerOrders)))
+            ->setMaxPerPage($paginationParameters->getPageSize())
+            ->setCurrentPage($paginationParameters->getCurrentPage())
+            ->getCurrentPageResults();
+
+        $orderHistoryView->items = $this->orderViewFactory->createList($paginatedOrders);
         $orderHistoryView->total_count = count($customerOrders);
         $orderHistoryView->search_criteria = [];
 

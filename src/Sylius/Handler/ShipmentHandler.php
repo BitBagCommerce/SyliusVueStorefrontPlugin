@@ -47,17 +47,17 @@ final class ShipmentHandler implements ShipmentHandlerInterface
 
     public function handle(OrderInterface $cart, ShippingMethodInterface $shippingMethod): void
     {
-        if (!$cart->hasShipments()) {
-            $shipment = $this->shipmentProvider->provide($shippingMethod);
-            $cart->addShipment($shipment);
-
-            $adjustment = $this->adjustmentProvider->provide($shippingMethod);
-            $cart->addAdjustment($adjustment);
+        if ($cart->hasShipments()) {
+            $this->shipmentModifier->modify($cart, $shippingMethod);
+            $this->adjustmentModifier->modify($cart, $shippingMethod);
 
             return;
         }
 
-        $this->shipmentModifier->modify($cart, $shippingMethod);
-        $this->adjustmentModifier->modify($cart, $shippingMethod);
+        $shipment = $this->shipmentProvider->provide($shippingMethod);
+        $cart->addShipment($shipment);
+
+        $adjustment = $this->adjustmentProvider->provide($shippingMethod);
+        $cart->addAdjustment($adjustment);
     }
 }

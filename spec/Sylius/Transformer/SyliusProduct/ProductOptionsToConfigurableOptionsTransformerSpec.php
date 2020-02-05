@@ -16,6 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOptionsToConfigurableOptionsTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Product\Model\ProductOptionInterface;
 use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
@@ -26,30 +27,26 @@ final class ProductOptionsToConfigurableOptionsTransformerSpec extends ObjectBeh
         $this->shouldHaveType(ProductOptionsToConfigurableOptionsTransformer::class);
     }
 
-    function it_transforms(ProductOptionInterface $syliusProductOption, ProductOptionValueInterface $productOptionValue): void
-    {
+    function it_transforms_product_options_to_configurable_options(
+        ProductOptionInterface $syliusProductOption,
+        ProductOptionValueInterface $productOptionValue,
+        ProductInterface $syliusProduct
+    ): void {
         $productOptionValue->getId()->willReturn(1);
+        $productOptionValue->getValue()->willReturn(1);
         $productOptionValue->getName()->willReturn('name');
 
-        $syliusProductOption->getValues()->willReturn(
-            new ArrayCollection(
-                [
-                    $productOptionValue->getWrappedObject(),
-                ]
-            )
-        );
+        $syliusProductOption->getValues()
+            ->willReturn(new ArrayCollection([$productOptionValue->getWrappedObject()]));
+
+        $syliusProduct->getId()->willReturn(1);
 
         $syliusProductOption->getId()->willReturn(1);
         $syliusProductOption->getName()->willReturn('name');
         $syliusProductOption->getPosition()->willReturn(1);
         $syliusProductOption->getCode()->willReturn('code');
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                    $syliusProductOption->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(ConfigurableOptions::class);
+        $this->transform(new ArrayCollection([$syliusProductOption->getWrappedObject()]), $syliusProduct)
+            ->shouldReturnAnInstanceOf(ConfigurableOptions::class);
     }
 }

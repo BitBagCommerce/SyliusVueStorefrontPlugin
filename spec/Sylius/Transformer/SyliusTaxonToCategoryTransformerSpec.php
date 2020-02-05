@@ -35,7 +35,7 @@ final class SyliusTaxonToCategoryTransformerSpec extends ObjectBehavior
         $this->beConstructedWith(new ProductTaxonRepository($baseProductTaxonRepository->getWrappedObject()));
     }
 
-    function it_transforms(
+    function it_transforms_sylius_taxon_to_category(
         BaseProductTaxonRepositoryInterface $baseProductTaxonRepository,
         TaxonInterface $taxon,
         ProductTaxonInterface $productTaxon
@@ -50,12 +50,8 @@ final class SyliusTaxonToCategoryTransformerSpec extends ObjectBehavior
 
         $productTaxon->getProduct()->willReturn(new Product());
 
-        $baseProductTaxonRepository->findBy(Argument::any())->willReturn(
-            [
-                $productTaxon,
-                $productTaxon,
-            ]
-        );
+        $baseProductTaxonRepository->findBy(Argument::any())
+            ->willReturn([$productTaxon, $productTaxon]);
 
         $this->transform($taxon)->shouldReturnAnInstanceOf(Category::class);
     }

@@ -19,6 +19,14 @@ use Sylius\Component\Order\Model\AdjustmentInterface as SyliusAdjustmentInterfac
 
 interface TotalSegmentViewFactoryInterface
 {
+    public const TAX_LABEL = 'Tax';
+
+    public const SHIPPING_LABEL = 'Shipping';
+
+    public const PROMOTION_LABEL = 'Promotion';
+
+    public const GRAND_TOTAL_LABEL = 'Grand Total';
+
     public function create(SyliusAdjustmentInterface $syliusAdjustment, ShippingMethodInterface $shippingMethod): TotalSegmentView;
 
     /** @return array|TotalSegmentView[] */

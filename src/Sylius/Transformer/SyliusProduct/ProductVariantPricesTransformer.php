@@ -30,7 +30,7 @@ final class ProductVariantPricesTransformer implements ProductVariantPricesTrans
     {
         $channelPricing = $productVariant->getChannelPricingForChannel($this->channelProvider->provide());
         $price = (float) $channelPricing->getPrice();
-        $originalPrice = (float) $channelPricing->getOriginalPrice();
+        //        $originalPrice = (float) $channelPricing->getOriginalPrice();
 
         return new Price(
             $price,
@@ -42,12 +42,12 @@ final class ProductVariantPricesTransformer implements ProductVariantPricesTrans
             $price,
             $price,
             $price,
+            null,
+            null,
+            null,
             $price,
             $price,
-            $price,
-            $originalPrice,
-            $originalPrice,
-            $originalPrice
+            $price
         );
     }
 }

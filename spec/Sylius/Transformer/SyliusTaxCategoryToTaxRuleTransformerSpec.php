@@ -32,11 +32,14 @@ final class SyliusTaxCategoryToTaxRuleTransformerSpec extends ObjectBehavior
         $this->beConstructedWith($taxRatesTransformer);
     }
 
-    function it_transforms(TaxRatesTransformerInterface $taxRatesTransformer, TaxCategoryInterface $taxCategory): void
-    {
+    function it_transforms_sylius_tax_category_to_tax_rule(
+        TaxRatesTransformerInterface $taxRatesTransformer,
+        TaxCategoryInterface $taxCategory
+    ): void {
         $taxCategory->getRates()->shouldBeCalled();
         $taxCategory->getId()->willReturn(1);
         $taxCategory->getCode()->willReturn('code');
+
         $taxRatesTransformer->transform(Argument::any())->willReturn(new Rates([], []));
 
         $this->transform($taxCategory)->shouldReturnAnInstanceOf(TaxRule::class);

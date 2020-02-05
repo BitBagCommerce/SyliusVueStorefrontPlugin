@@ -15,6 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
 final class OptionValue implements \JsonSerializable
 {
     private const INDEX = 'value_index';
+
     private const LABEL = 'label';
 
     /** @var int */

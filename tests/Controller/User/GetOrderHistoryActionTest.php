@@ -35,8 +35,10 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
-            '/vsbridge/user/order-history?token=%s',
-            $this->token
+            '/vsbridge/user/order-history?token=%s&pageSize=%d&currentPage=%d',
+            $this->token,
+            21,
+            1
         );
 
         $this->request(Request::METHOD_GET, $uri, self::JSON_REQUEST_HEADERS);
@@ -48,18 +50,15 @@ final class GetOrderHistoryActionTest extends JsonApiTestCase
 
     public function test_getting_order_history_for_invalid_token(): void
     {
-        $this->loadFixturesFromFiles([
-            'channel.yaml',
-            'customer.yaml',
-            'order_completed.yaml',
-            'coupon_based_promotion.yaml',
-        ]);
+        $this->loadFixturesFromFiles(['channel.yaml', 'customer.yaml', 'order_completed.yaml', 'coupon_based_promotion.yaml']);
 
         $this->authenticateUser('test@example.com', 'MegaSafePassword');
 
         $uri = sprintf(
-            '/vsbridge/user/order-history?token=%s',
-            12345
+            '/vsbridge/user/order-history?token=%s&pageSize=%d&currentPage=%d',
+            12345,
+            21,
+            1
         );
 
         $this->request('GET', $uri, self::JSON_REQUEST_HEADERS);

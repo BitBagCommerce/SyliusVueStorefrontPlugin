@@ -13,10 +13,14 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableChildren;
+use BitBag\SyliusVueStorefrontPlugin\Document\Product\Price;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantOptionValuesToCustomAttributesTransformerInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantPricesTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\ProductVariantInterface;
+use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
 final class ProductVariantsToConfigurableChildrenTransformerSpec extends ObjectBehavior
 {
@@ -25,17 +29,27 @@ final class ProductVariantsToConfigurableChildrenTransformerSpec extends ObjectB
         $this->shouldHaveType(ProductVariantsToConfigurableChildrenTransformer::class);
     }
 
-    function it_transforms(ProductVariantInterface $productVariant): void
-    {
+    function let(
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer,
+        ProductVariantOptionValuesToCustomAttributesTransformerInterface $productVariantOptionValuesTransformer
+    ): void {
+        $this->beConstructedWith($productVariantPricesTransformer, $productVariantOptionValuesTransformer);
+    }
+
+    function it_transforms_product_variants_to_configurable_children(
+        ProductVariantInterface $productVariant,
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer,
+        ProductVariantOptionValuesToCustomAttributesTransformerInterface $productVariantOptionValuesTransformer,
+        ProductOptionValueInterface $optionValue
+    ): void {
+        $productVariantPricesTransformer->transform($productVariant)->willReturn(new Price());
+
         $productVariant->getName()->willReturn('name');
         $productVariant->getCode()->willReturn('code');
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                    $productVariant->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(ConfigurableChildren::class);
+        $productVariantOptionValuesTransformer->transform($productVariant)->willReturn([$optionValue]);
+
+        $this->transform(new ArrayCollection([$productVariant->getWrappedObject()]))
+            ->shouldReturnAnInstanceOf(ConfigurableChildren::class);
     }
 }

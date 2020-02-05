@@ -15,17 +15,29 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document;
 final class Category implements Indexable
 {
     private const ENTITY_ID = 'id';
+
     private const PARENT_ID = 'parent_id';
+
     private const NAME = 'name';
+
     private const IS_ACTIVE = 'is_active';
+
     private const POSITION = 'position';
+
     private const LEVEL = 'level';
+
     private const PRODUCT_COUNT = 'product_count';
+
     private const CHILDREN_DATA = 'children_data';
+
     private const PATH = 'path';
+
     private const CHILDREN_COUNT = 'children_count';
+
     private const URL_KEY = 'url_key';
+
     private const URL_PATH = 'url_path';
+
     private const SLUG = 'slug';
 
     /** @var int */

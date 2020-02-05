@@ -14,13 +14,16 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\UserAddress;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\DefaultAddressModifierInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sylius\Component\Addressing\Model\AddressInterface;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Repository\AddressRepositoryInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -36,13 +39,15 @@ final class UpdateUserHandlerSpec extends ObjectBehavior
         CustomerRepositoryInterface $customerRepository,
         AddressRepositoryInterface $addressRepository,
         AddressFactoryInterface $addressFactory,
-        ObjectManager $objectManager
+        ObjectManager $objectManager,
+        DefaultAddressModifierInterface $defaultAddressModifier
     ): void {
         $this->beConstructedWith(
             $customerRepository,
             $addressRepository,
             $addressFactory,
-            $objectManager
+            $objectManager,
+            $defaultAddressModifier
         );
     }
 
@@ -52,87 +57,57 @@ final class UpdateUserHandlerSpec extends ObjectBehavior
         AddressInterface $syliusAddress,
         AddressRepositoryInterface $addressRepository,
         ObjectManager $objectManager,
-        ArrayCollection $collection
+        ArrayCollection $collection,
+        DefaultAddressModifierInterface $defaultAddressModifier
     ): void {
-        $existingUser = ExistingUser::createFromArray([
-            'id' => 1,
-            'group_id' => 2,
-            'default_billing' => 'example',
-            'default_shipping' => 'example',
-            'created_at' => 'now',
-            'updated_at' => 'now',
-            'created_in' => 'example',
-            'email' => 'shop@example.com',
-            'firstname' => 'Katarzyna',
-            'lastname' => 'Nosowska',
-            'store_id' => 3,
-            'website_id' => 4,
-            'addresses' => [
-                1 => [
-                    'id' => 1,
-                    'customer_id' => 1,
-                    'region' => [
-                        'region_code' => 'example-code',
-                        'region' => 'example-region',
-                        'region_id' => 1,
-                    ],
-                    'region_id' => 1,
-                    'country_id' => 'country',
-                    'street' => 'example-street',
-                    'company' => 'example',
-                    'telephone' => '987 654 321',
-                    'postcode' => '12345',
-                    'city' => 'example-city',
-                    'firstname' => 'Katarzyna',
-                    'lastname' => 'Nosowska',
-                    'vat_id' => 'example-id',
-                ],
-                2 => [
-                    'id' => 1,
-                    'customer_id' => 1,
-                    'region' => [
-                        'region_code' => 'example-code',
-                        'region' => 'example-region',
-                        'region_id' => 1,
-                    ],
-                    'region_id' => 1,
-                    'country_id' => 'country',
-                    'street' => 'example-street',
-                    'company' => 'example',
-                    'telephone' => '987 654 321',
-                    'postcode' => '12345',
-                    'city' => 'example-city',
-                    'firstname' => 'Katarzyna',
-                    'lastname' => 'Nosowska',
-                    'vat_id' => 'example-id',
-                ],
-            ],
-            'disable_auto_group_change' => 1,
-        ]);
+        $existingUser = new ExistingUser();
+        $existingUser->id = 7;
+        $existingUser->email = 'shop@example.com';
+        $existingUser->firstname = 'Janko';
+        $existingUser->lastname = 'Banas';
+
+        $region = new Address\Region();
+        $region->region = 'example-region';
+
+        $address = new UserAddress();
+        $address->region_id = 'province-code';
+        $address->region = $region;
+        $address->company = 'example';
+        $address->telephone = '987 654 321';
+        $address->postcode = '12345';
+        $address->country_id = 'PL';
+        $address->street = ['example-street', '18'];
+        $address->city = 'example-city';
+        $address->firstname = 'Janko';
+        $address->lastname = 'Banas';
+
+        $existingUser->addresses = [$address];
 
         $command = new UpdateUser($existingUser);
 
-        $customerRepository->findOneBy(['id' => $command->customer()->id()])->willReturn($customer);
+        $customerRepository->findOneBy(['email' => 'shop@example.com'])->willReturn($customer);
 
-        $customer->setFirstName($existingUser->firstName())->shouldBeCalled();
-        $customer->setLastName($existingUser->lastName())->shouldBeCalled();
+        $customer->setFirstName('Janko')->shouldBeCalled();
+        $customer->setLastName('Banas')->shouldBeCalled();
 
         $customer->getAddresses()->willReturn($collection);
         $collection->matching(Argument::any())->willreturn($collection);
         $collection->first()->willReturn($syliusAddress);
 
-        $syliusAddress->setProvinceCode('1')->shouldBeCalled();
+        $syliusAddress->setProvinceCode('province-code')->shouldBeCalled();
         $syliusAddress->setProvinceName('example-region')->shouldBeCalled();
         $syliusAddress->setCompany('example')->shouldBeCalled();
         $syliusAddress->setPhoneNumber('987 654 321')->shouldBeCalled();
         $syliusAddress->setPostcode('12345')->shouldBeCalled();
-        $syliusAddress->setCountryCode('country')->shouldBeCalled();
-        $syliusAddress->setStreet('example-street')->shouldBeCalled();
+        $syliusAddress->setCountryCode('PL')->shouldBeCalled();
+        $syliusAddress->setStreet('example-street 18')->shouldBeCalled();
         $syliusAddress->setCity('example-city')->shouldBeCalled();
-        $syliusAddress->setFirstName('Katarzyna')->shouldBeCalled();
-        $syliusAddress->setLastName('Nosowska')->shouldBeCalled();
+        $syliusAddress->setFirstName('Janko')->shouldBeCalled();
+        $syliusAddress->setLastName('Banas')->shouldBeCalled();
 
         $addressRepository->add($syliusAddress->getWrappedObject())->shouldBeCalled();
+
+        $defaultAddressModifier->modify($customer, $syliusAddress->getWrappedObject())->shouldBeCalled();
 
         $objectManager->flush()->shouldBeCalledOnce();
 

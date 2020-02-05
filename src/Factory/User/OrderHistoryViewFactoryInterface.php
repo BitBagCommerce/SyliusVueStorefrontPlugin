@@ -12,10 +12,11 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
 use Sylius\Component\Core\Model\CustomerInterface;
 
 interface OrderHistoryViewFactoryInterface
 {
-    public function create(CustomerInterface $syliusCustomer): OrderHistoryView;
+    public function create(CustomerInterface $syliusCustomer, PaginationParameters $paginationParameters): OrderHistoryView;
 }

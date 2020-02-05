@@ -10,6 +10,8 @@ bitbag:
                 id:
                     not_blank: Please provide user id.
                     valid_id:  Please provide valid user id.
+                token:
+                    not_null: Please provide user token.
                 group_id:
                     not_blank: Please provide valid group id.
                 default_billing:
@@ -54,9 +56,9 @@ bitbag:
                     telephone:
                         not_blank:  Please provide valid telephone.
                     postcode:
-                        not_blank:  Please provide valid postcode.
+                        not_null:  Please provide postcode.
                     city:
-                        not_blank:  Please provide valid city.
+                        not_null:  Please provide city.
                     firstname:
                         not_blank:  Please provide valid firstname.
                     lastname:
@@ -76,8 +78,6 @@ bitbag:
                     exists: The cart does not exist.
                 cart_id:
                     not_null: Cart id can not be null.
-                token:
-                    not_null: Please provide token.
                 coupon:
                     not_null: Please provide coupon code.
                     not_blank: Coupon code can not be blank.
@@ -93,7 +93,7 @@ bitbag:
                     shipping_carrier_code:
                         not_blank: Shipping carrier can not be blank.
                     payment_method_code:
-                            not_blank: Payment code can not be blank.
+                        not_blank: Payment code can not be blank.
                     invalid: Provided address information is invalid.
                 cart_item:
                     sku:
@@ -110,3 +110,9 @@ bitbag:
         datetime:
             format:
                 invalid_format: Invalid format of provided date.
+        common:
+            pagination:
+                page_size:
+                    not_blank: Page size can not be blank.
+                current_page:
+                    not_blank: Current page can not be blank.

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false" />
+
+        <service id="app.event_listener.exception"
+                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\ExceptionListener"
+        >
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="-100" />
+        </service>
+    </services>
+</container>
+

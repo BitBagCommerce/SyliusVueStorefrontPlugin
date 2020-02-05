@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface as SyliusOrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
+use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
-use Sylius\Component\Core\Model\OrderItemInterface as SyliusOrderItemInterface;
+use Sylius\Component\Core\Model\OrderInterface;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
-use Sylius\Component\Order\Model\OrderInterface;
 
 final class CartItemViewFactorySpec extends ObjectBehavior
 {
@@ -29,14 +31,24 @@ final class CartItemViewFactorySpec extends ObjectBehavior
     function it_creates_one_cart_item_view(
         SyliusOrderItemInterface $syliusOrderItem,
         ProductVariantInterface $productVariant,
-        OrderInterface $order
+        OrderInterface $order,
+        ProductInterface $product,
+        ArrayCollection $collection
     ): void {
+        $product->getVariants()->willReturn($collection);
+
+        $productVariant->getProduct()->willReturn($product);
+        $productVariant->getOptionValues()->willReturn($collection);
+        $productVariant->getCode()->willReturn('code');
+
         $syliusOrderItem->getId()->shouldBeCalled();
         $syliusOrderItem->getVariant()->willReturn($productVariant);
-        $syliusOrderItem->getQuantity()->shouldBeCalled();
-        $syliusOrderItem->getVariantName()->shouldBeCalled();
-        $syliusOrderItem->getUnitPrice()->shouldBeCalled();
+        $syliusOrderItem->getQuantity()->shouldBeCalledTimes(2);
+        $syliusOrderItem->getProductName()->shouldBeCalled();
+        $syliusOrderItem->getFullDiscountedUnitPrice()->shouldBeCalledTimes(2);
+        $syliusOrderItem->getTotal()->shouldBeCalled();
         $syliusOrderItem->getOrder()->willReturn($order);
+
         $this->create($syliusOrderItem)->shouldReturnAnInstanceOf(CartItemView::class);
     }
 }

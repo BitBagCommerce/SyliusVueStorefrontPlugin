@@ -44,17 +44,10 @@ final class TaxonToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
             1,
             1,
             [],
-            'children',
             'some/path/to/something',
-            ['position', 'name', 'price'],
-            true,
-            'PRODUCTS',
-            true,
-            '1column',
             0,
             'example-key',
-            'example/url/path',
-            'example/request/path'
+            'example/url/path'
         );
 
         $syliusTaxonToCategoryTransformer->transform($taxon)->willReturn($category);

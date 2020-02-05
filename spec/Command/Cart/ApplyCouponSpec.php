@@ -17,17 +17,9 @@ use PhpSpec\ObjectBehavior;
 
 final class ApplyCouponSpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-    private const CART_ID = 'apply-coupon-spec';
-    private const COUPON = 'coupon';
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN,
-            self::CART_ID,
-            self::COUPON
-        );
+        $this->beConstructedWith('token', 'cart-id', 'coupon');
     }
 
     function it_is_initializable(): void
@@ -35,10 +27,10 @@ final class ApplyCouponSpec extends ObjectBehavior
         $this->shouldHaveType(ApplyCoupon::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_properties_via_getters(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
-        $this->cartId()->shouldReturn(self::CART_ID);
-        $this->coupon()->shouldReturn(self::COUPON);
+        $this->token()->shouldReturn('token');
+        $this->cartId()->shouldReturn('cart-id');
+        $this->coupon()->shouldReturn('coupon');
     }
 }

@@ -15,29 +15,33 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart;
 use Doctrine\Common\Collections\Criteria;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Order\Repository\OrderItemRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 final class OrderItemExistValidator extends ConstraintValidator
 {
-    /** @var OrderItemRepositoryInterface */
-    private $orderItemRepository;
-
     /** @var OrderRepositoryInterface */
     private $cartRepository;
 
-    public function __construct(OrderItemRepositoryInterface $orderItemRepository, OrderRepositoryInterface $cartRepository)
+    public function __construct(OrderRepositoryInterface $cartRepository)
     {
-        $this->orderItemRepository = $orderItemRepository;
         $this->cartRepository = $cartRepository;
     }
 
     public function validate($request, Constraint $constraint): void
     {
-        $cart = $this->cartRepository->findOneBy(['tokenValue' => $request->cartId, 'state' => OrderInterface::STATE_CART]);
+        $cart = $this->cartRepository->findOneBy([
+            'tokenValue' => $request->cartId,
+            'state' => OrderInterface::STATE_CART,
+        ]);
 
         if (null === $cart) {
+            return;
+        }
+
+        if (!isset($request->cartItem)) {
+            $this->context->addViolation($constraint->message);
+
             return;
         }
 

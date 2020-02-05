@@ -39,10 +39,18 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
     public function create(SyliusOrderInterface $syliusOrder): TotalsView
     {
         $totalsView = new TotalsView();
+
         $totalsView->grand_total = $syliusOrder->getTotal();
+        $totalsView->base_grand_total = $syliusOrder->getTotal();
         $totalsView->subtotal = $syliusOrder->getItemsTotal();
-        $totalsView->discount_amount = $this->countDiscountAdjustmentValues($syliusOrder);
-        $totalsView->subtotal_with_discount = $syliusOrder->getPromotionSubjectTotal();
+        $totalsView->base_subtotal = $syliusOrder->getItemsTotal();
+
+        if ($syliusOrder->getPromotionCoupon()) {
+            $totalsView->coupon_code = $syliusOrder->getPromotionCoupon()->getCode();
+        }
+
+        $totalsView->discount_amount = abs($syliusOrder->getOrderPromotionTotal());
+        $totalsView->subtotal_with_discount = $syliusOrder->getItemsTotal();
         $totalsView->shipping_amount = $syliusOrder->getShippingTotal();
         $totalsView->shipping_discount_amount = $this->countShippingDiscount($syliusOrder);
         $totalsView->tax_amount = $syliusOrder->getTaxTotal();

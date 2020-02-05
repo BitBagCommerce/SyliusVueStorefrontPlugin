@@ -10,9 +10,9 @@
 
 declare(strict_types=1);
 
-namespace spec\BitBag\SyliusVueStorefrontPlugin\Response\User;
+namespace spec\BitBag\SyliusVueStorefrontPlugin\Authentication;
 
-use BitBag\SyliusVueStorefrontPlugin\Response\User\AuthenticationSuccessHandler;
+use BitBag\SyliusVueStorefrontPlugin\Authentication\AuthenticationSuccessHandler;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationSuccessResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;

@@ -36,8 +36,10 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.api.user.get_order_history"
                  class="BitBag\SyliusVueStorefrontPlugin\Controller\User\GetOrderHistoryAction">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.request_processor.user.get_order_history" />
             <argument type="service" id="fos_rest.view_handler" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history_view_factory" />
         </service>
@@ -71,12 +73,6 @@
         <service id="bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_failure"
                  class="BitBag\SyliusVueStorefrontPlugin\Authentication\AuthenticationFailureHandler"
                  decorates="lexik_jwt_authentication.handler.authentication_failure">
-        </service>
-
-        <service id="bitbag_sylius_vue_storefront_plugin.event_listener.exception"
-                 class="BitBag\SyliusVueStorefrontPlugin\EventListener\ExceptionListener"
-        >
-            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="-100" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.gesdinet.jwtrefreshtoken.send_token"

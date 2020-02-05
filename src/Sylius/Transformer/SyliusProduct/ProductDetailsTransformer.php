@@ -34,7 +34,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             $product->getCreatedAt(),
             $product->getUpdatedAt(),
             $product->getImages()->first()->getPath(),
-            $product->getVariants()->first()->getOnHand() > 0,
+            ($product->getVariants()->first()->getOnHand() - $product->getVariants()->first()->getOnHold()) > 0,
             null,
             $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getId() : null,
             $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getName() : null,

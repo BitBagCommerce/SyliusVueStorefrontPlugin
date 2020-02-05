@@ -89,7 +89,7 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/Cart/delete_cart_item_blank_item', Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->assertResponse($response, 'Controller/Cart/delete_cart_item_blank_item', Response::HTTP_BAD_REQUEST);
     }
 
     public function test_deleting_cart_item_for_non_existent_item(): void

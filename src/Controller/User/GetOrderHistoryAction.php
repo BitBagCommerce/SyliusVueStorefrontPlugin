@@ -14,6 +14,9 @@ namespace BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistoryViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactoryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessorInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\User\GetOrderHistory;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\LoggedInShopUserProviderInterface;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\View\ViewHandlerInterface;
@@ -22,11 +25,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GetOrderHistoryAction
 {
-    /** @var LoggedInShopUserProviderInterface */
-    private $loggedInShopUserProvider;
+    /** @var RequestProcessorInterface */
+    private $getOrderHistoryRequestProcessor;
 
     /** @var ViewHandlerInterface */
     private $viewHandler;
+
+    /** @var ValidationErrorViewFactoryInterface */
+    private $validationErrorViewFactory;
+
+    /** @var LoggedInShopUserProviderInterface */
+    private $loggedInShopUserProvider;
 
     /** @var GenericSuccessViewFactoryInterface */
     private $genericSuccessViewFactory;
@@ -35,24 +44,42 @@ final class GetOrderHistoryAction
     private $orderHistoryViewFactory;
 
     public function __construct(
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
+        RequestProcessorInterface $getOrderHistoryRequestProcessor,
         ViewHandlerInterface $viewHandler,
+        ValidationErrorViewFactoryInterface $validationErrorViewFactory,
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         GenericSuccessViewFactoryInterface $genericSuccessViewFactory,
         OrderHistoryViewFactoryInterface $orderHistoryViewFactory
     ) {
-        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
+        $this->getOrderHistoryRequestProcessor = $getOrderHistoryRequestProcessor;
         $this->viewHandler = $viewHandler;
+        $this->validationErrorViewFactory = $validationErrorViewFactory;
+        $this->loggedInShopUserProvider = $loggedInShopUserProvider;
         $this->genericSuccessViewFactory = $genericSuccessViewFactory;
         $this->orderHistoryViewFactory = $orderHistoryViewFactory;
     }
 
     public function __invoke(Request $request): Response
     {
+        $validationResults = $this->getOrderHistoryRequestProcessor->validate($request);
+
+        if (0 !== count($validationResults)) {
+            return $this->viewHandler->handle(
+                View::create(
+                    $this->validationErrorViewFactory->create($validationResults),
+                    Response::HTTP_BAD_REQUEST
+                )
+            );
+        }
+
         $user = $this->loggedInShopUserProvider->provide()->getCustomer();
+
+        /** @var GetOrderHistory $query */
+        $query = $this->getOrderHistoryRequestProcessor->getQuery($request);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(
-                $this->orderHistoryViewFactory->create($user)),
+                $this->orderHistoryViewFactory->create($user, $query->paginationParameters())),
             Response::HTTP_OK
         ));
     }

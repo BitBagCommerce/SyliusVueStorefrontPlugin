@@ -14,7 +14,6 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
 use BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ResetPasswordHandler;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Mailer\Emails;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -32,12 +31,7 @@ final class ResetPasswordHandlerSpec extends ObjectBehavior
         SenderInterface $sender,
         ChannelProviderInterface $channelProvider
     ): void {
-        $this->beConstructedWith(
-            $userRepository,
-            $tokenGenerator,
-            $sender,
-            $channelProvider
-        );
+        $this->beConstructedWith($userRepository, $tokenGenerator, $sender, $channelProvider);
     }
 
     function it_is_initializable(): void
@@ -60,16 +54,16 @@ final class ResetPasswordHandlerSpec extends ObjectBehavior
         $tokenGenerator->generate()->willReturn('token123');
 
         $user->setPasswordResetToken('token123')->shouldBeCalled();
-        $user->setPasswordRequestedAt(Argument::any())->shouldBeCalled();
+        $user->setPasswordRequestedAt(Argument::type(\DateTime::class))->shouldBeCalled();
 
         $user->getPasswordResetToken()->willReturn('token123');
 
         $channelProvider->provide()->willReturn($channel);
 
         $sender->send(
-            Emails::EMAIL_RESET_PASSWORD_TOKEN,
+            'api_reset_password_token',
             ['shop@example.com'],
-            ['user' => $user, 'channelCode' => $channel]
+            ['user' => $user, 'channel' => $channel]
         )->shouldBeCalled();
 
         $this->__invoke($resetPassword);

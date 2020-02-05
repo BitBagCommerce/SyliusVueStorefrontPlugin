@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Promotion\Checker\Eligibility\PromotionEligibilityCheckerInterface;
+use Sylius\Component\Promotion\Checker\Eligibility\PromotionCouponEligibilityCheckerInterface;
 use Sylius\Component\Promotion\Model\PromotionCouponInterface;
 use Sylius\Component\Promotion\Repository\PromotionCouponRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
@@ -30,13 +30,13 @@ final class ValidCouponValidator extends ConstraintValidator
     /** @var PromotionCouponRepositoryInterface */
     private $couponRepository;
 
-    /** @var PromotionEligibilityCheckerInterface */
+    /** @var PromotionCouponEligibilityCheckerInterface */
     private $couponEligibilityChecker;
 
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         PromotionCouponRepositoryInterface $couponRepository,
-        PromotionEligibilityCheckerInterface $couponEligibilityChecker
+        PromotionCouponEligibilityCheckerInterface $couponEligibilityChecker
     ) {
         $this->orderRepository = $orderRepository;
         $this->couponRepository = $couponRepository;
@@ -45,7 +45,6 @@ final class ValidCouponValidator extends ConstraintValidator
 
     public function validate($request, Constraint $constraint): void
     {
-        /** @var ApplyCouponRequest $request */
         Assert::isInstanceOf($request, ApplyCouponRequest::class);
 
         /** @var OrderInterface|null $cart */
@@ -58,7 +57,7 @@ final class ValidCouponValidator extends ConstraintValidator
         /** @var PromotionCouponInterface|null $coupon */
         $coupon = $this->couponRepository->findOneBy(['code' => $request->coupon]);
 
-        if (null === $coupon || !$this->couponEligibilityChecker->isEligible($cart, $coupon->getPromotion())) {
+        if (null === $coupon || !$this->couponEligibilityChecker->isEligible($cart, $coupon)) {
             $this->context->addViolation($constraint->message);
 
             return;

@@ -16,37 +16,46 @@ use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 
 final class TotalsView
 {
-    /** @var float */
+    /** @var int */
     public $grand_total;
 
-    /** @var float */
+    /** @var int */
+    public $base_grand_total;
+
+    /** @var int */
     public $subtotal;
 
-    /** @var float */
+    /** @var int */
+    public $base_subtotal;
+
+    /** @var string */
+    public $coupon_code;
+
+    /** @var int */
     public $discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $subtotal_with_discount;
 
-    /** @var float */
+    /** @var int */
     public $shipping_amount;
 
-    /** @var float */
+    /** @var int */
     public $shipping_discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $shipping_tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $subtotal_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $shipping_incl_tax;
 
     /** @var string */
