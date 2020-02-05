@@ -5,7 +5,7 @@ dist: xenial
 sudo: false
 
 php:
-    - 7.2
+    - 7.2.26
     - 7.3
 
 cache:
@@ -13,6 +13,9 @@ cache:
     directories:
         - ~/.composer/cache/files
         - $SYLIUS_CACHE_DIR
+
+services:
+    - mysql
 
 env:
     global:
