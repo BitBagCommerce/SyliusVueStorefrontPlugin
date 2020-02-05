@@ -15,11 +15,16 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\MediaGallery;
 final class Media implements \JsonSerializable
 {
     private const IMAGE_PATH = 'image';
+
     private const POSITION = 'pos';
+
     private const TYPE = 'typ';
+
     //    TODO MEDIA -> VID, LAB? image_path & id are only fields in integration boilerplate
     private const VID = 'vid';
+
     private const LAB = 'lab';
+
     private const ID = 'id';
 
     /** @var string */

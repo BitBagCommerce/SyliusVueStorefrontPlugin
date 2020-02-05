@@ -10,20 +10,17 @@
 
 declare(strict_types=1);
 
-namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\User;
+namespace spec\BitBag\SyliusVueStorefrontPlugin\Query\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\User\GetOrderHistory;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
+use BitBag\SyliusVueStorefrontPlugin\Query\User\GetOrderHistory;
 use PhpSpec\ObjectBehavior;
 
 final class GetOrderHistorySpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN
-        );
+        $this->beConstructedWith('token', new PaginationParameters((string) 21, (string) 1));
     }
 
     function it_is_initializable(): void
@@ -31,8 +28,8 @@ final class GetOrderHistorySpec extends ObjectBehavior
         $this->shouldHaveType(GetOrderHistory::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_token_via_getter(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
+        $this->token()->shouldReturn('token');
     }
 }

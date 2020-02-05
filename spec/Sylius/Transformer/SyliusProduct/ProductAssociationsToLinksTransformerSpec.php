@@ -28,37 +28,22 @@ final class ProductAssociationsToLinksTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(ProductAssociationsToLinksTransformer::class);
     }
 
-    function it_transforms(
+    function it_transforms_product_associations_to_links(
         ProductAssociationInterface $syliusProductAssociation,
         ProductInterface $product,
         ProductAssociationTypeInterface $productAssociationType
     ): void {
         $syliusProductAssociation->getOwner()->willReturn($product);
-        $syliusProductAssociation->getAssociatedProducts()->willReturn(
-            new ArrayCollection(
-            [
-                $product->getWrappedObject(),
-            ]
-        ));
+        $syliusProductAssociation->getAssociatedProducts()
+            ->willReturn(new ArrayCollection([$product->getWrappedObject()]));
 
         $syliusProductAssociation->getType()->willReturn($productAssociationType);
         $productAssociationType->getCode()->willReturn('similar_products');
 
         $product->getCode()->willReturn('code');
-        $product->getVariants()->willReturn(
-            new ArrayCollection(
-                [
-                    new ProductVariant(),
-                ]
-            )
-        );
+        $product->getVariants()->willReturn(new ArrayCollection([new ProductVariant()]));
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                    $syliusProductAssociation->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(ProductLinks::class);
+        $this->transform(new ArrayCollection([$syliusProductAssociation->getWrappedObject()]))
+            ->shouldReturnAnInstanceOf(ProductLinks::class);
     }
 }

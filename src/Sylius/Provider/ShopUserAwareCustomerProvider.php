@@ -45,7 +45,6 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
             return $loggedInUser->getCustomer();
         }
 
-        dump('niezalogowany');
         /** @var CustomerInterface $customer */
         $customer = $this->customerFactory->createNew();
         $customer->setEmail(sprintf('%s@guest.example', $cartId));

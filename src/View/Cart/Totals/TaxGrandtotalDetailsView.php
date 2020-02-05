@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
 final class TaxGrandtotalDetailsView
 {
-    /** @var float */
+    /** @var int */
     public $amount;
 
     /** @var array|RateView[] */

@@ -38,6 +38,7 @@ final class AddressViewFactory implements AddressViewFactoryInterface
         $addressView->city = $syliusAddress->getCity();
         $addressView->firstname = $syliusAddress->getFirstName();
         $addressView->lastname = $syliusAddress->getLastName();
+        $addressView->telephone = $syliusAddress->getPhoneNumber();
 
         return $addressView;
     }

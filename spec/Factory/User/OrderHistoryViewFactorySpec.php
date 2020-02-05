@@ -14,7 +14,9 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistoryViewFactory;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\OrderView;
+use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistoryView;
 use PhpSpec\ObjectBehavior;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
@@ -22,9 +24,9 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class OrderHistoryViewFactorySpec extends ObjectBehavior
 {
-    function let(OrderRepositoryInterface $orderRepository, OrderViewFactoryInterface $orderViewFactory): void
+    function let(OrderViewFactoryInterface $orderViewFactory, OrderRepositoryInterface $orderRepository): void
     {
-        $this->beConstructedWith($orderRepository, $orderViewFactory);
+        $this->beConstructedWith($orderViewFactory, $orderRepository);
     }
 
     function it_is_initializable(): void
@@ -33,17 +35,17 @@ final class OrderHistoryViewFactorySpec extends ObjectBehavior
     }
 
     function it_creates_order_factory_view(
-        OrderRepositoryInterface $orderRepository,
         OrderViewFactoryInterface $orderViewFactory,
+        OrderRepositoryInterface $orderRepository,
         CustomerInterface $customer,
         OrderInterface $order
     ): void {
         $orderView = new OrderView();
 
-        $orderRepository->findByCustomer($customer)->willReturn([$order]);
+        $orderRepository->findBy(['customer' => $customer, 'checkoutState' => 'completed'])->willReturn([$order]);
 
         $orderViewFactory->createList([$order])->willReturn([$orderView]);
 
-        $this->create($customer);
+        $this->create($customer, new PaginationParameters((string) 21, (string) 1))->shouldReturnAnInstanceOf(OrderHistoryView::class);
     }
 }

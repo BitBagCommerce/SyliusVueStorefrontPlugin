@@ -20,7 +20,7 @@ final class TotalSegmentView
     /** @var string */
     public $title;
 
-    /** @var float */
+    /** @var int */
     public $value;
 
     /** @var string */

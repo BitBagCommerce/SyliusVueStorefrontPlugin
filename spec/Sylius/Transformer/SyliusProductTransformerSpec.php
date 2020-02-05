@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 
+use BitBag\SyliusVueStorefrontPlugin\Document\Attribute\Option;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ImagesToMediaGalleryTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\InventoryToStockTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductAssociationsToLinksTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductDetailsTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductOptionsToConfigurableOptionsTransformerInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantPricesTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\ProductVariantsToConfigurableChildrenTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\TaxonsToCategoriesTransformerInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductTransformer;
@@ -42,7 +44,8 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
         TaxonsToCategoriesTransformerInterface $taxonsTransformer,
         ProductVariantsToConfigurableChildrenTransformerInterface $productVariantsTransformer,
         ProductOptionsToConfigurableOptionsTransformerInterface $productOptionsTransformer,
-        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer
+        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer,
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer
     ): void {
         $this->beConstructedWith(
             $productDetailsTransformer,
@@ -51,11 +54,12 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
             $taxonsTransformer,
             $productVariantsTransformer,
             $productOptionsTransformer,
-            $productAssociationsTransformer
+            $productAssociationsTransformer,
+            $productVariantPricesTransformer
         );
     }
 
-    function it_transforms(
+    function it_transforms_sylius_product(
         ProductInterface $syliusProduct,
         ProductDetailsTransformerInterface $productDetailsTransformer,
         InventoryToStockTransformerInterface $inventoryTransformer,
@@ -63,16 +67,11 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
         TaxonsToCategoriesTransformerInterface $taxonsTransformer,
         ProductVariantsToConfigurableChildrenTransformerInterface $productVariantsTransformer,
         ProductOptionsToConfigurableOptionsTransformerInterface $productOptionsTransformer,
-        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer
+        ProductAssociationsToLinksTransformerInterface $productAssociationsTransformer,
+        ProductVariantPricesTransformerInterface $productVariantPricesTransformer
     ): void {
-        $syliusProduct->getVariants()->willReturn(
-            new ArrayCollection(
-                [
-                    new ProductVariant(),
-                    new ProductVariant(),
-                ]
-            )
-        );
+        $syliusProduct->getVariants()
+            ->willReturn(new ArrayCollection([new ProductVariant(), new ProductVariant()]));
         $syliusProduct->getImages()->shouldBeCalled();
         $syliusProduct->getTaxons()->shouldBeCalled();
         $syliusProduct->getOptions()->shouldBeCalled();
@@ -87,16 +86,13 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
                 'sku',
                 'url-key',
                 'name',
-                100.0,
                 1,
-                1,
+                4,
                 new \DateTime('yesterday'),
                 new \DateTime('yesterday'),
-                10,
-                'ean',
-                'image',
+                'image.jpg',
                 true,
-                'status',
+                'Enabled',
                 1,
                 'tax',
                 'description',
@@ -106,42 +102,25 @@ final class SyliusProductTransformerSpec extends ObjectBehavior
                 [],
                 [],
                 [],
-                true
+                'parent-sku'
             )
         );
 
-        $inventoryTransformer->transform(Argument::any())->willReturn(
-            new Product\Stock(
-                1,
-                1,
-                1,
-                1
-            )
-        );
+        $inventoryTransformer->transform(Argument::any())->willReturn(new Product\Stock(1, 1, 1, true));
 
-        $imagesTransformer->transform(Argument::any())->willReturn(
-            new Product\MediaGallery(
-                [
-                    new ProductImage(),
-                    new ProductImage(),
-                ]
-            )
-        );
+        $imagesTransformer->transform(Argument::any())
+            ->willReturn(new Product\MediaGallery([new ProductImage(), new ProductImage()]));
 
         $taxonsTransformer->transform(Argument::any())->willReturn(new Product\Category([], []));
 
-        $productVariantsTransformer->transform(Argument::any())->willReturn(
-            new Product\ConfigurableChildren(
-                [
-                    new ProductVariant(),
-                    new ProductVariant(),
-                ]
-            )
-        );
+        $productVariantsTransformer->transform(Argument::any())
+            ->willReturn(new Product\ConfigurableChildren([new ProductVariant(), new ProductVariant()]));
 
-        $productOptionsTransformer->transform(Argument::any())->willReturn(new Product\ConfigurableOptions([]));
+        $productOptionsTransformer->transform(Argument::any(), $syliusProduct)
+            ->willReturn(new Product\ConfigurableOptions([new Option('option', 1)]));
 
         $productAssociationsTransformer->transform(Argument::any())->willReturn(new Product\ProductLinks([]));
+        $productVariantPricesTransformer->transform(Argument::any())->willReturn(new Product\Price());
 
         $syliusProduct->getId()->willReturn(1);
 

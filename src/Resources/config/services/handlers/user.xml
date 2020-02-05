@@ -4,19 +4,20 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.create_user_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\CreateUserHandler">
-            <argument type="service" id="sylius.factory.customer"/>
-            <argument type="service" id="sylius.repository.customer"/>
-            <argument type="service" id="sylius.factory.shop_user"/>
-            <argument type="service" id="sylius.repository.shop_user"/>
-            <tag name="messenger.message_handler"/>
+            <argument type="service" id="sylius.factory.customer" />
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.factory.shop_user" />
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.factory.address" />
+            <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.reset_password_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ResetPasswordHandler">
-            <argument type="service" id="sylius.repository.shop_user"/>
-            <argument type="service" id="sylius.shop_user.token_generator.password_reset"/>
-            <argument type="service" id="sylius.email_sender"/>
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel"/>
+            <argument type="service" id="sylius.repository.shop_user" />
+            <argument type="service" id="sylius.shop_user.token_generator.password_reset" />
+            <argument type="service" id="sylius.email_sender" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
             <tag name="messenger.message_handler" />
         </service>
 
@@ -24,16 +25,17 @@
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\ChangePasswordHandler">
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.current_user" />
             <argument type="service" id="sylius.security.password_encoder" />
-            <argument type="service" id="sylius.repository.shop_user"/>
+            <argument type="service" id="sylius.repository.shop_user" />
             <tag name="messenger.message_handler" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.handler.user.update_user_handler"
                  class="BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\UpdateUserHandler">
-            <argument type="service" id="sylius.repository.customer"/>
-            <argument type="service" id="sylius.repository.address"/>
-            <argument type="service" id="sylius.factory.address"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="sylius.repository.address" />
+            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.modifier.default_address" />
             <tag name="messenger.message_handler" />
         </service>
     </services>

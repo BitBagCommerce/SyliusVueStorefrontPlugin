@@ -3,3 +3,4 @@ BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem:
     order: "@order_1"
     variant: "@jacket_variant"
     variant_name: "RANDOM_JACKET_CODE"
+    product_name: "RANDOM_JACKET_CODE"

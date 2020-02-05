@@ -5,7 +5,10 @@
         "payment_methods": "@array@",
         "totals": {
             "grand_total": "@integer@",
+            "base_grand_total": "@integer@",
             "subtotal": "@integer@",
+            "base_subtotal": "@integer@",
+            "coupon_code": "@string@",
             "discount_amount": "@integer@",
             "subtotal_with_discount": "@integer@",
             "shipping_amount": "@integer@",
@@ -21,10 +24,29 @@
             "items": "@array@",
             "total_segments": [
                 {
-                    "code": "FED-EX",
-                    "title": "FedEx",
+                    "code": "tax",
+                    "title": "@string@",
                     "value": "@integer@",
-                    "area": "FED-EX"
+                    "area": "taxes"
+                },
+                {
+                    "code": "shipping",
+                    "title": "@string@",
+                    "value": "@integer@"
+                },
+                {
+                    "code": "discount",
+                    "title": "@string@",
+                    "value": "@integer@"
+                },
+                {
+                    "code": "grand_total",
+                    "title": "@string@",
+                    "value": "@integer@",
+                    "area": "footer",
+                    "extension_attributes": {
+                        "tax_grandtotal_details": {}
+                    }
                 }
             ]
         }

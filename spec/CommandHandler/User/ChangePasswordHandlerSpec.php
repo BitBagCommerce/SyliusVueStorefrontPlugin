@@ -45,13 +45,13 @@ final class ChangePasswordHandlerSpec extends ObjectBehavior
 
         $loggedInShopUserProvider->provide()->willReturn($shopUser);
 
-        $shopUser->setPlainPassword('new-password')->shouldBeCalledOnce();
+        $shopUser->setPlainPassword('new-password')->shouldBeCalled();
 
         $userPasswordEncoder->encode($shopUser)->willReturn('encoded-new-password');
 
-        $shopUser->setPassword('encoded-new-password')->shouldBeCalledOnce();
+        $shopUser->setPassword('encoded-new-password')->shouldBeCalled();
 
-        $shopUserRepository->add($shopUser)->shouldBeCalledOnce();
+        $shopUserRepository->add($shopUser)->shouldBeCalled();
 
         $this->__invoke($changePassword);
     }

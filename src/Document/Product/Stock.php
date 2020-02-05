@@ -15,8 +15,11 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 final class Stock implements \JsonSerializable
 {
     private const PRODUCT_ID = 'product_id';
+
     private const ITEM_ID = 'item_id';
+
     private const QUANTITY = 'qty';
+
     private const IS_IN_STOCK = 'is_in_stock';
 
     /** @var int */

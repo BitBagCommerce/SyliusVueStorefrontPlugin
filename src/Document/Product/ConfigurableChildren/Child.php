@@ -17,8 +17,11 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\Price;
 final class Child implements \JsonSerializable
 {
     private const PRICE = 'price';
+
     private const NAME = 'name';
+
     private const SKU = 'sku';
+
     private const CUSTOM_ATTRIBUTES = 'custom_attributes';
 
     //    TODO FIELDS INSIDE CHILD IN DEMO APP ONLY below, IN DOCS '$price' is not whole Price class

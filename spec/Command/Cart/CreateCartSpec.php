@@ -17,15 +17,9 @@ use PhpSpec\ObjectBehavior;
 
 final class CreateCartSpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-    private const CART_ID = 'create-cart-spec';
-
     public function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN,
-            self::CART_ID
-        );
+        $this->beConstructedWith('token');
     }
 
     function it_is_initializable(): void
@@ -33,9 +27,14 @@ final class CreateCartSpec extends ObjectBehavior
         $this->shouldHaveType(CreateCart::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_token_via_getter(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
-        $this->cartId()->shouldReturn(self::CART_ID);
+        $this->token()->shouldReturn('token');
+    }
+
+    function it_allows_to_set_and_access_cart_id(): void
+    {
+        $this->setCartId('cart-id');
+        $this->cartId()->shouldReturn('cart-id');
     }
 }

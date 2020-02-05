@@ -14,8 +14,9 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions;
 use Doctrine\Common\Collections\Collection;
+use Sylius\Component\Core\Model\ProductInterface;
 
 interface ProductOptionsToConfigurableOptionsTransformerInterface
 {
-    public function transform(Collection $productOptions, $syliusProduct): ConfigurableOptions;
+    public function transform(Collection $productOptions, ProductInterface $syliusProduct): ConfigurableOptions;
 }

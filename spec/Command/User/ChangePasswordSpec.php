@@ -17,13 +17,9 @@ use PhpSpec\ObjectBehavior;
 
 final class ChangePasswordSpec extends ObjectBehavior
 {
-    private const NEW_PASSWORD = 'sylius';
-
     public function let(): void
     {
-        $this->beConstructedWith(
-            self::NEW_PASSWORD
-        );
+        $this->beConstructedWith('new-password');
     }
 
     function it_is_initializable(): void
@@ -31,8 +27,8 @@ final class ChangePasswordSpec extends ObjectBehavior
         $this->shouldHaveType(ChangePassword::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_new_password_via_getter(): void
     {
-        $this->newPassword()->shouldReturn(self::NEW_PASSWORD);
+        $this->newPassword()->shouldReturn('new-password');
     }
 }

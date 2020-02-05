@@ -2,7 +2,10 @@
     "code": 200,
     "result": {
         "grand_total": "@integer@",
+        "base_grand_total": "@integer@",
         "subtotal": "@integer@",
+        "base_subtotal": "@integer@",
+        "coupon_code": "@string@",
         "discount_amount": "@integer@",
         "subtotal_with_discount": "@integer@",
         "shipping_amount": "@integer@",
@@ -16,6 +19,32 @@
         "quote_currency_code": "EUR",
         "items_qty": "@integer@",
         "items": "@array@",
-        "total_segments": "@array@"
+        "total_segments": [
+            {
+                "code": "tax",
+                "title": "@string@",
+                "value": "@integer@",
+                "area": "taxes"
+            },
+            {
+                "code": "shipping",
+                "title": "@string@",
+                "value": "@integer@"
+            },
+            {
+                "code": "discount",
+                "title": "@string@",
+                "value": "@integer@"
+            },
+            {
+                "code": "grand_total",
+                "title": "@string@",
+                "value": "@integer@",
+                "area": "footer",
+                "extension_attributes": {
+                    "tax_grandtotal_details": {}
+                }
+            }
+        ]
     }
 }

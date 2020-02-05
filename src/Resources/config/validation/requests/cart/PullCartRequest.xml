@@ -6,7 +6,7 @@
     <class name="BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest">
         <property name="token">
             <constraint name="NotNull">
-                <option name="message">bitbag.vue_storefront_api.sylius.cart.token.not_null</option>
+                <option name="message">bitbag.vue_storefront_api.sylius.user.token.not_null</option>
             </constraint>
         </property>
         <property name="cartId">

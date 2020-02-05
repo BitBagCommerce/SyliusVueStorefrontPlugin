@@ -28,6 +28,7 @@ final class UpdateCartActionTest extends JsonApiTestCase
             'customer.yaml',
             'order.yaml',
             'coupon_based_promotion.yaml',
+            'order_item.yaml',
             'product_with_attributes.yaml',
         ]);
 
@@ -41,12 +42,12 @@ final class UpdateCartActionTest extends JsonApiTestCase
 
         $requestBody =
 <<<JSON
-        { 
-            "cartItem": 
-                { 
+        {
+            "cartItem":
+                {
                     "sku": "RANDOM_JACKET_CODE",
-                    "qty": 2,
-                    "quoteId": "12345" 
+                    "qty": 1,
+                    "quoteId": "12345"
                 }
         }
 JSON;
@@ -72,12 +73,13 @@ JSON;
 
         $requestBody =
 <<<JSON
-        { "cartItem": 
-            { 
-                "sku": "Non-existent item",
-                "qty": 2,
-                "quoteId": "12345" 
-            }
+        {
+            "cartItem":
+                {
+                    "sku": "Non-existent item",
+                    "qty": 2,
+                    "quoteId": "12345"
+                }
         }
 JSON;
 

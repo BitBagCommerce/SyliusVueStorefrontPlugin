@@ -15,8 +15,10 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier;
 use Doctrine\Persistence\ObjectManager;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\OrderItemInterface;
+use Sylius\Component\Inventory\Checker\AvailabilityCheckerInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Processor\OrderProcessorInterface;
+use Webmozart\Assert\Assert;
 
 final class OrderModifier implements OrderModifierInterface
 {
@@ -29,14 +31,19 @@ final class OrderModifier implements OrderModifierInterface
     /** @var ObjectManager */
     private $orderManager;
 
+    /** @var AvailabilityCheckerInterface */
+    private $availabilityChecker;
+
     public function __construct(
         OrderItemQuantityModifierInterface $orderItemQuantityModifier,
         OrderProcessorInterface $orderProcessor,
-        ObjectManager $orderManager
+        ObjectManager $orderManager,
+        AvailabilityCheckerInterface $availabilityChecker
     ) {
         $this->orderItemQuantityModifier = $orderItemQuantityModifier;
         $this->orderProcessor = $orderProcessor;
         $this->orderManager = $orderManager;
+        $this->availabilityChecker = $availabilityChecker;
     }
 
     public function modify(
@@ -45,6 +52,11 @@ final class OrderModifier implements OrderModifierInterface
         int $newQuantity,
         string $uuid
     ): void {
+        Assert::true(
+            $this->availabilityChecker->isStockSufficient($cartItem->getVariant(), $newQuantity),
+            sprintf('We don\'t have as many "%s" as you requested.', $cartItem->getProductName())
+        );
+
         $this->orderItemQuantityModifier->modify($cartItem, $newQuantity);
 
         $cartItem->setUuid($uuid);

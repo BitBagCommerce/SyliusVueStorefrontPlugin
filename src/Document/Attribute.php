@@ -17,41 +17,73 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Attribute\Option;
 final class Attribute implements Indexable
 {
     private const ENTITY_ID = 'id';
+
     private const ID = 'attribute_id';
+
     private const CODE = 'attribute_code';
+
     private const POSITION = 'position';
+
     private const OPTIONS = 'options';
+
     private const IS_UNIQUE = 'is_unique';
+
     private const IS_VISIBLE = 'is_visible';
+
     private const IS_COMPARABLE = 'is_comparable';
+
     private const IS_USER_DEFINED = 'is_user_defined';
+
     private const IS_VISIBLE_ON_FRONTEND = 'is_visible_on_front';
+
     private const FRONTEND_INPUT = 'frontend_input';
+
     private const FRONTEND_LABEL = 'frontend_label';
 
     //    TODO SAMPLE FROM VS API CATALOG_BACKUP.JSON ONLY
 
     private const IS_WYSIWYG_ENABLED = 'is_wysiwyg_enabled';
+
     private const IS_HTML_ALLOWED_ON_FRONTEND = 'is_html_allowed_on_frontend';
+
     private const IS_USED_FOR_SORTING = 'used_for_sort_by';
+
     private const IS_FILTERABLE = 'is_filterable';
+
     private const IS_FILTERABLE_IN_SEARCH = 'is_filterable_in_search';
+
     private const IS_USED_IN_GRID = 'is_used_in_grid';
+
     private const IS_VISIBLE_IN_GRID = 'is_visible_in_grid';
+
     private const IS_FILTERABLE_IN_GRID = 'is_filterable_in_grid';
+
     private const APPLY_TO = 'apply_to';
+
     private const IS_SEARCHABLE = 'is_searchable';
+
     private const IS_VISIBLE_IN_ADVANCED_SEARCH = 'is_visible_in_advanced_search';
+
     private const IS_USED_FOR_PROMO_RULES = 'is_used_for_promo_rules';
+
     private const IS_USED_IN_PRODUCT_LISTING = 'used_in_product_listing';
+
     private const SCOPE = 'scope';
+
     private const ENTITY_TYPE_ID = 'entity_type_id';
+
     private const IS_REQUIRED = 'is_required';
+
     private const DEFAULT_FRONTEND_LABEL = 'default_frontend_label';
+
     private const FRONTEND_LABELS = 'frontend_labels';
+
     private const BACKEND_TYPE = 'backend_type';
+
     private const SOURCE_MODEL = 'source_model';
+
     private const DEFAULT_VALUE = 'default_value';
+
     private const VALIDATION_RULES = 'validation_rules';
 
     /** @var int */

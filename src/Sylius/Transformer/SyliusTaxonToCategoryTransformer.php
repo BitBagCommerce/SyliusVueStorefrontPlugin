@@ -14,13 +14,15 @@ namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Category;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductTaxonRepository;
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\TaxonInterface;
 
 final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTransformerInterface
 {
     /** @var ProductTaxonRepository */
     private $productTaxonRepository;
+
+    /** @var array */
+    private $childrenData;
 
     public function __construct(ProductTaxonRepository $productTaxonRepository)
     {
@@ -29,6 +31,8 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
 
     public function transform(TaxonInterface $taxon): Category
     {
+        $this->childrenData = [];
+
         return new Category(
             $taxon->getId(),
             $taxon->getId(),
@@ -37,8 +41,8 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
             true,
             $taxon->getPosition(),
             $taxon->getLevel() + 2,
-            $this->productTaxonRepository->getAmountOfProductVariants($taxon),
-            $this->processChildren($taxon->getChildren()),
+            $this->productTaxonRepository->getAmountOfProducts($taxon),
+            $this->processChildren($taxon),
             $this->buildPath($taxon),
             count($taxon->getChildren()),
             \strtolower(sprintf('%d_%s', $taxon->getId(), \str_replace([' ', '-'], '_', $taxon->getName()))),
@@ -46,15 +50,16 @@ final class SyliusTaxonToCategoryTransformer implements SyliusTaxonToCategoryTra
         );
     }
 
-    private function processChildren(Collection $childTaxons): array
+    private function processChildren(TaxonInterface $taxon): array
     {
-        $childrenData = [];
-
-        foreach ($childTaxons as $taxon) {
-            $childrenData[] = $this->transform($taxon);
+        foreach ($taxon->getChildren() as $child) {
+            $this->childrenData[] = ['id' => $child->getId()];
+            if ($child->hasChildren()) {
+                $this->processChildren($child);
+            }
         }
 
-        return $childrenData;
+        return $this->childrenData;
     }
 
     private function buildPath(TaxonInterface $taxon): string

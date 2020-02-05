@@ -32,6 +32,7 @@ final class StockViewFactorySpec extends ObjectBehavior
         $productVariant->getId()->shouldBeCalled();
         $productVariant->getProduct()->willReturn($product);
         $productVariant->getOnHand()->shouldBeCalled();
+        $productVariant->getOnHold()->shouldBeCalled();
         $this->create($productVariant)->shouldBeAnInstanceOf(StockView::class);
     }
 }

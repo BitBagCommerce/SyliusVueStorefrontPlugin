@@ -17,6 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\Category\Entity;
 final class Category
 {
     private const CATEGORY = 'category';
+
     private const CATEGORY_IDS = 'category_ids';
 
     /** @var string[] */

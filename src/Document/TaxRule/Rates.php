@@ -17,6 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\TaxRate\Rate;
 final class Rates
 {
     private const TAX_RATES = 'rates';
+
     private const TAX_RATES_IDS = 'tax_rates_ids';
 
     /** @var Rate[] */

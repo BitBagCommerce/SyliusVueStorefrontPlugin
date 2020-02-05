@@ -32,11 +32,7 @@ final class ShopUserAwareCustomerProviderSpec extends ObjectBehavior
         FactoryInterface $customerFactory,
         LoggedInShopUserProviderInterface $loggedInShopUserProvider
     ): void {
-        $this->beConstructedWith(
-            $customerRepository,
-            $customerFactory,
-            $loggedInShopUserProvider
-        );
+        $this->beConstructedWith($customerRepository, $customerFactory, $loggedInShopUserProvider);
     }
 
     function it_provides_customer_for_logged_in_shop_user(
@@ -52,7 +48,7 @@ final class ShopUserAwareCustomerProviderSpec extends ObjectBehavior
         $this->provide()->shouldReturnAnInstanceOf(CustomerInterface::class);
     }
 
-    function it_provides_customer_for_not_logged_in_shop_user(
+    function it_provides_customer_for_guest_visitor(
         LoggedInShopUserProviderInterface $loggedInShopUserProvider,
         FactoryInterface $customerFactory,
         CustomerInterface $customer,
@@ -62,6 +58,8 @@ final class ShopUserAwareCustomerProviderSpec extends ObjectBehavior
 
         $customerFactory->createNew()->willReturn($customer);
         $customer->setEmail(sprintf('%s@guest.example', null))->shouldBeCalled();
+        $customer->setFirstName('Guest')->shouldBeCalled();
+        $customer->setLastName('Customer')->shouldBeCalled();
 
         $customerRepository->add($customer)->shouldBeCalled();
 

@@ -16,7 +16,6 @@ use BitBag\SyliusVueStorefrontPlugin\EventListener\AttachRefreshTokenOnAuthentic
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
-use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,15 +49,15 @@ final class AttachRefreshTokenOnAuthenticationSuccessListenerSpec extends Object
         );
     }
 
-    function it_returns_when_no_user_passed(
-        UserInterface $user,
-        RequestStack $requestStack
-    ): void {
+    function it_returns_for_invalid_path_info(UserInterface $user, RequestStack $requestStack, Request $request): void
+    {
+        $requestStack->getCurrentRequest()->willReturn($request);
+
+        $request->getPathInfo()->willReturn('/vsbridge/user/path/invalid');
+
         /** @var AuthenticationSuccessEvent $event */
         $event = new AuthenticationSuccessEvent([], $user->getWrappedObject(), new Response());
-        $requestStack->getCurrentRequest()->willReturn(new Request());
 
-        throw new SkippingException('todo');
         $this->attachRefreshToken($event);
     }
 

@@ -15,13 +15,21 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\TaxRate;
 final class Rate implements \JsonSerializable
 {
     private const ID = 'id';
+
     private const CODE = 'code';
+
     private const RATE = 'rate';
+
     private const COUNTRY_NAME = 'tax_country_id';
+
     private const REGION_ID = 'tax_region_id';
+
     private const POSTCODE = 'tax_postcode';
+
     private const IS_ZIP_RANGE = 'zip_is_range';
+
     private const ZIP_RANGE_START = 'zip_from';
+
     private const ZIP_RANGE_END = 'zip_to';
 
     /** @var int */

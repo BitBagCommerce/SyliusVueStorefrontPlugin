@@ -1,0 +1,9 @@
+{
+    "code": 200,
+    "result": {
+        "product_id": "@integer@",
+        "item_id": "@integer@",
+        "qty": "@integer@",
+        "is_in_stock": true
+    }
+}

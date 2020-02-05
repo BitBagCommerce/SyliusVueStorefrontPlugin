@@ -14,26 +14,25 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 use BitBag\SyliusVueStorefrontPlugin\Elasticsearch\Transformer\ProductOptionToVueStorefrontDocumentTransformer;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductAttributeTransformerInterface;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProductOptionToAttributeTransformerInterface;
 use PhpSpec\ObjectBehavior;
-use Sylius\Component\Product\Model\ProductAttributeInterface;
+use Sylius\Component\Product\Model\ProductOptionInterface;
 
-/** todo */
-final class ProductAttributeToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
+final class ProductOptionToVueStorefrontDocumentTransformerSpec extends ObjectBehavior
 {
     function it_is_initializable(): void
     {
         $this->shouldHaveType(ProductOptionToVueStorefrontDocumentTransformer::class);
     }
 
-    function let(SyliusProductAttributeTransformerInterface $syliusProductAttributeTransformer): void
+    function let(SyliusProductOptionToAttributeTransformerInterface $syliusProductOptionToAttributeTransformer): void
     {
-        $this->beConstructedWith($syliusProductAttributeTransformer);
+        $this->beConstructedWith($syliusProductOptionToAttributeTransformer);
     }
 
-    function it_transforms_sylius_product_attribute_to_vue_storefront_attribute(
-        SyliusProductAttributeTransformerInterface $syliusProductAttributeTransformer,
-        ProductAttributeInterface $syliusProductAttribute
+    function it_transforms_sylius_product_option_to_vue_storefront_attribute(
+        SyliusProductOptionToAttributeTransformerInterface $syliusProductOptionToAttributeTransformer,
+        ProductOptionInterface $syliusProductOption
     ): void {
         $attribute = new Attribute(
             1,
@@ -51,8 +50,8 @@ final class ProductAttributeToVueStorefrontDocumentTransformerSpec extends Objec
             'example-label'
         );
 
-        $syliusProductAttributeTransformer->transform($syliusProductAttribute)->willReturn($attribute);
+        $syliusProductOptionToAttributeTransformer->transform($syliusProductOption)->willReturn($attribute);
 
-        $this->transform($syliusProductAttribute, []);
+        $this->transform($syliusProductOption, []);
     }
 }

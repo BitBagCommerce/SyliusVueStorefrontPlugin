@@ -15,20 +15,36 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 final class Price
 {
     private const FINAL_PRICE = 'final_price';
+
     private const PRICE = 'price';
+
     private const MINIMAL_PRICE = 'minimal_price';
+
     private const MAXIMAL_PRICE = 'max_price';
+
     private const PRICE_TAX = 'priceTax';
+
     private const PRICE_INCLUDING_TAX = 'priceInclTax';
+
+    private const PRICE_INCLUDING_TAX_V2 = 'price_incl_tax';
+
     private const REGULAR_PRICE = 'regular_price';
+
     private const MINIMAL_REGULAR_PRICE = 'minimal_regular_price';
+
     private const MAXIMAL_REGULAR_PRICE = 'max_regular_price';
+
     private const SPECIAL_PRICE = 'special_price';
+
     private const SPECIAL_PRICE_TAX = 'specialPriceTax';
+
     private const SPECIAL_PRICE_INCLUDING_TAX = 'specialPriceInclTax';
+
     private const ORIGINAL_PRICE = 'originalPrice';
-    private const OPRIGINAL_PRICE_TAX = 'originalPriceTax';
-    private const OPRIGINAL_PRICE_INCLUDING_TAX = 'originalPriceInclTax';
+
+    private const ORIGINAL_PRICE_TAX = 'originalPriceTax';
+
+    private const ORIGINAL_PRICE_INCLUDING_TAX = 'originalPriceInclTax';
 
     /** @var float|null */
     private $finalPrice;
@@ -76,21 +92,21 @@ final class Price
     private $originalPriceInludingTax;
 
     public function __construct(
-        ?float $finalPrice,
-        ?float $price,
-        ?float $minimalPrice,
-        ?float $maximalPrice,
-        ?float $priceTax,
-        ?float $priceIncludingTax,
-        ?float $regularPrice,
-        ?float $minimalRegularPrice,
-        ?float $maximalRegularPrice,
-        ?float $specialPrice,
-        ?float $specialPriceTax,
-        ?float $specialPriceIncludingTax,
-        ?float $originalPrice,
-        ?float $originalPriceTax,
-        ?float $originalPriceInludingTax
+        ?float $finalPrice = null,
+        ?float $price = null,
+        ?float $minimalPrice = null,
+        ?float $maximalPrice = null,
+        ?float $priceTax = null,
+        ?float $priceIncludingTax = null,
+        ?float $regularPrice = null,
+        ?float $minimalRegularPrice = null,
+        ?float $maximalRegularPrice = null,
+        ?float $specialPrice = null,
+        ?float $specialPriceTax = null,
+        ?float $specialPriceIncludingTax = null,
+        ?float $originalPrice = null,
+        ?float $originalPriceTax = null,
+        ?float $originalPriceInludingTax = null
     ) {
         $this->finalPrice = $finalPrice;
         $this->price = $price;
@@ -125,8 +141,9 @@ final class Price
             self::SPECIAL_PRICE_TAX => $this->specialPriceTax,
             self::SPECIAL_PRICE_INCLUDING_TAX => $this->specialPriceIncludingTax,
             self::ORIGINAL_PRICE => $this->originalPrice,
-            self::OPRIGINAL_PRICE_TAX => $this->originalPriceTax,
-            self::OPRIGINAL_PRICE_INCLUDING_TAX => $this->originalPriceInludingTax,
+            self::ORIGINAL_PRICE_TAX => $this->originalPriceTax,
+            self::ORIGINAL_PRICE_INCLUDING_TAX => $this->originalPriceInludingTax,
+            self::PRICE_INCLUDING_TAX_V2 => $this->priceIncludingTax,
         ];
     }
 }

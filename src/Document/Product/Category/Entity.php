@@ -15,13 +15,18 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\Category;
 final class Entity implements \JsonSerializable
 {
     private const CATEGORY_ID = 'category_id';
+
     private const IS_PARENT = 'is_parent';
+
     private const NAME = 'name';
+
     private const SLUG = 'slug';
+
     private const PATH = 'path';
 
-//    TODO CATEGORY IN VS DOCS, BOILERPLATE APP / DEMO APP
+    //    TODO CATEGORY IN VS DOCS, BOILERPLATE APP / DEMO APP
     private const VS_DOCS = [self::CATEGORY_ID, self::NAME];
+
     private const DEMO_APP = [self::PATH, self::CATEGORY_ID, self::NAME, self::SLUG];
 
     /** @var int */

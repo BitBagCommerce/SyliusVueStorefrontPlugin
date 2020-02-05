@@ -25,19 +25,13 @@ final class ImagesToMediaGalleryTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(ImagesToMediaGalleryTransformer::class);
     }
 
-    function it_transforms(ImageInterface $image): void
+    function it_transforms_images_to_media_gallery(ImageInterface $image): void
     {
         $image->getPath()->willReturn('some/path/to/image.jpg');
         $image->getType()->willReturn('image-type');
         $image->getId()->willReturn(1);
 
-        $this->transform(
-            new ArrayCollection(
-                [
-                   $image->getWrappedObject(),
-                   $image->getWrappedObject(),
-                ]
-            )
-        )->shouldReturnAnInstanceOf(MediaGallery::class);
+        $this->transform(new ArrayCollection([$image->getWrappedObject(), $image->getWrappedObject()]))
+            ->shouldReturnAnInstanceOf(MediaGallery::class);
     }
 }

@@ -17,13 +17,21 @@ use BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\Rates;
 final class TaxRule implements Indexable
 {
     private const ENTITY_ID = 'id';
+
     private const CODE = 'code';
+
     private const PRIORITY = 'priority';
+
     private const POSITION = 'position';
+
     private const CUSTOMER_TAX_CLASS_IDS = 'customer_tax_class_ids';
+
     private const PRODUCT_TAX_CLASS_IDS = 'product_tax_class_ids';
+
     private const TAX_RATE_IDS = 'tax_rate_ids';
+
     private const CALCULATE_SUBTOTAL = 'calculate_subtotal';
+
     private const TAX_RATES = 'rates';
 
     /** @var int */

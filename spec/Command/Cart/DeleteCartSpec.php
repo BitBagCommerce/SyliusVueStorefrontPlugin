@@ -13,19 +13,16 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\DeleteCart;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use PhpSpec\ObjectBehavior;
 
 final class DeleteCartSpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-    private const CART_ID = 'delete-cart-spec';
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN,
-            self::CART_ID
-        );
+        $cartItem = new CartItem();
+
+        $this->beConstructedWith($cartItem, 'cart-id');
     }
 
     function it_is_initializable(): void
@@ -33,9 +30,9 @@ final class DeleteCartSpec extends ObjectBehavior
         $this->shouldHaveType(DeleteCart::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_properties_via_getters(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
-        $this->cartId()->shouldReturn(self::CART_ID);
+        $this->cartItem()->shouldReturnAnInstanceOf(CartItem::class);
+        $this->cartId()->shouldReturn('cart-id');
     }
 }

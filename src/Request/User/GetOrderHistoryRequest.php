@@ -12,8 +12,9 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Request\User;
 
-use BitBag\SyliusVueStorefrontPlugin\Command\User\GetOrderHistory;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
+use BitBag\SyliusVueStorefrontPlugin\Query\User\GetOrderHistory;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
 final class GetOrderHistoryRequest implements RequestQueryInterface
@@ -21,8 +22,14 @@ final class GetOrderHistoryRequest implements RequestQueryInterface
     /** @var string|null */
     public $token;
 
+    /** @var string */
+    public $pageSize;
+
+    /** @var string */
+    public $currentPage;
+
     public function getQuery(): QueryInterface
     {
-        return new GetOrderHistory($this->token);
+        return new GetOrderHistory($this->token, new PaginationParameters($this->pageSize, $this->currentPage));
     }
 }

@@ -43,13 +43,39 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->item_id = $syliusOrderItem->getId();
         $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
         $cartItemView->qty = $syliusOrderItem->getQuantity();
-        $cartItemView->name = $syliusOrderItem->getProductName();
-        $cartItemView->price = $syliusOrderItem->getUnitPrice();
-        $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
-        $cartItemView->product_option = [];
-        $cartItemView->price_incl_tax = $syliusOrderItem->getUnitPrice();
         $cartItemView->qty_ordered = $syliusOrderItem->getQuantity();
-        $cartItemView->row_total_incl_tax = $syliusOrderItem->getSubtotal();
+        $cartItemView->name = $syliusOrderItem->getProductName();
+        $cartItemView->price = $syliusOrderItem->getFullDiscountedUnitPrice();
+        $cartItemView->price_incl_tax = $syliusOrderItem->getFullDiscountedUnitPrice();
+        $cartItemView->row_total_incl_tax = $syliusOrderItem->getTotal();
+        $cartItemView->quote_id = $syliusOrderItem->getOrder()->getTokenValue();
+        $cartItemView->product_type = 'configurable';
+
+        $productVariant = $syliusOrderItem->getVariant();
+        $variantsCount = $productVariant->getProduct()->getVariants()->count();
+
+        if ($variantsCount === 1) {
+            $cartItemView->name = $syliusOrderItem->getProductName();
+            $cartItemView->product_type = 'simple';
+
+            return $cartItemView;
+        }
+
+        $cartItemView->product_option = new ProductOptionView();
+        $cartItemView->product_option->extension_attributes = new ProductOptionExtensionAttributeView();
+        $cartItemView->product_option->extension_attributes->bundle_options = [];
+        $cartItemView->product_option->extension_attributes->configurable_item_options = [];
+        $cartItemView->product_option->extension_attributes->custom_options = [];
+
+        if ($productVariant) {
+            $cartItemView->product_option->extension_attributes->configurable_item_options = $productVariant->getOptionValues()->map(
+                static function (ProductOptionValueInterface $productOptionValue) {
+                    return [
+                        'option_value' => $productOptionValue->getId(),
+                        'option_id' => (string) $productOptionValue->getOption()->getId(),
+                    ];
+                });
+        }
 
         return $cartItemView;
     }
@@ -62,12 +88,15 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
         $cartItemView->qty = $syliusOrderItem->getQuantity();
         $cartItemView->name = $syliusOrderItem->getVariantName();
         $cartItemView->price = $syliusOrderItem->getUnitPrice();
-        $cartItemView->quote_id = $syliusOrderItem->getOrder()->getNumber();
+        $cartItemView->quote_id = $syliusOrderItem->getOrder()->getTokenValue();
+        $cartItemView->product_type = 'configurable';
 
         $productVariant = $syliusOrderItem->getVariant();
         $variantsCount = $productVariant->getProduct()->getVariants()->count();
 
         if ($variantsCount === 1) {
+            $cartItemView->product_type = 'simple';
+
             return $cartItemView;
         }
 

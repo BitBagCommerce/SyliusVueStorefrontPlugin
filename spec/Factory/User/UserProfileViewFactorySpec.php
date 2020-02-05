@@ -14,12 +14,14 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\User\UserProfileViewFactory;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\UserProfileView;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 
 final class UserProfileViewFactorySpec extends ObjectBehavior
@@ -29,16 +31,20 @@ final class UserProfileViewFactorySpec extends ObjectBehavior
         $this->shouldHaveType(UserProfileViewFactory::class);
     }
 
-    function let(AddressViewFactoryInterface $addressViewFactory): void
+    function let(AddressViewFactoryInterface $addressViewFactory, ChannelProviderInterface $channelProvider): void
     {
-        $this->beConstructedWith($addressViewFactory);
+        $this->beConstructedWith($addressViewFactory, $channelProvider);
     }
 
     function it_creates_user_profile_view(
         CustomerInterface $syliusCustomer,
         AddressViewFactoryInterface $addressViewFactory,
-        AddressInterface $address
+        AddressInterface $address,
+        ChannelProviderInterface $channelProvider,
+        ChannelInterface $channel
     ): void {
+        $channelProvider->provide()->willReturn($channel);
+
         $syliusCustomer->getId()->shouldBeCalled();
         $syliusCustomer->getDefaultAddress()->willReturn($address);
         $syliusCustomer->getCreatedAt()->willReturn(new \DateTime('yesterday'));
@@ -50,8 +56,7 @@ final class UserProfileViewFactorySpec extends ObjectBehavior
             [
                 $address->getWrappedObject(),
             ]
-        ))
-        ;
+        ));
 
         $addressViewFactory->create(Argument::any())->willReturn(new AddressView());
 

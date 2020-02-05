@@ -15,6 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 final class Option implements \JsonSerializable
 {
     private const LABEL = 'label';
+
     private const VALUE = 'value';
 
     /** @var string */

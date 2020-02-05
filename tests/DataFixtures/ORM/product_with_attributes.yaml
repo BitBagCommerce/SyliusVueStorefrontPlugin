@@ -46,6 +46,19 @@ Sylius\Component\Core\Model\Product:
             - "@jacket_holiday_material_value_de_de"
             - "@jacket_pfc_percent_value_en_gb"
             - "@jacket_pfc_percent_value_de_de"
+    second_jacket:
+        code: "RANDOM_SECOND_JACKET_CODE"
+        createdAt: "<date_create('2019-02-01 03:00:00')>"
+        channels: ["@gb_web_channel", "@fashion_web"]
+        currentLocale: "en_GB"
+        translations: ["@en_gb_second_jacket_product_translation", "@de_de_second_jacket_product_translation"]
+        attributes:
+            - "@jacket_holiday_collection_value_en_gb"
+            - "@jacket_holiday_collection_value_de_de"
+            - "@jacket_holiday_material_value_en_gb"
+            - "@jacket_holiday_material_value_de_de"
+            - "@jacket_pfc_percent_value_en_gb"
+            - "@jacket_pfc_percent_value_de_de"
 
 Sylius\Component\Core\Model\ProductTranslation:
     en_gb_jacket_product_translation:
@@ -60,6 +73,18 @@ Sylius\Component\Core\Model\ProductTranslation:
         name: "Zufallige Jacke"
         description: "WINDDICHTE ISOLATIONSJACKE."
         translatable: "@jacket"
+    en_gb_second_jacket_product_translation:
+        slug: "second_random-jacket"
+        locale: "en_GB"
+        name: "Random Jacket 2"
+        description: "WINDPROOF INSULATED JACKET."
+        translatable: "@second_jacket"
+    de_de_second_jacket_product_translation:
+        slug: "second_zufallige-jacke"
+        locale: "de_DE"
+        name: "Zufallige Jacke 2"
+        description: "WINDDICHTE ISOLATIONSJACKE."
+        translatable: "@second_jacket"
 
 Sylius\Component\Core\Model\ProductVariant:
     jacket_variant:
@@ -70,6 +95,15 @@ Sylius\Component\Core\Model\ProductVariant:
         channelPricings:
             WEB_GB: "@channel_pricing_web_gb_jacket"
             FASHION_WEB: "@channel_pricing_fashion_web_jacket"
+        on_hand: 2
+    jacket_second_variant:
+        code: "RANDOM_SECOND_JACKET_CODE"
+        product: "@second_jacket"
+        currentLocale: "en_GB"
+        translations: ["@jacket_variant_translation_en_gb", "@jacket_variant_translation_de_de"]
+        channelPricings:
+            FASHION_WEB: "@channel_pricing_fashion_web_second_jacket"
+        on_hand: 0
 
 Sylius\Component\Product\Model\ProductVariantTranslation:
     jacket_variant_translation_en_gb:
@@ -87,6 +121,10 @@ Sylius\Component\Core\Model\ChannelPricing:
         price: 19999
         originalPrice: 29999
     channel_pricing_fashion_web_jacket:
+        channelCode: "FASHION_WEB"
+        price: 19999
+        originalPrice: 29999
+    channel_pricing_fashion_web_second_jacket:
         channelCode: "FASHION_WEB"
         price: 19999
         originalPrice: 29999

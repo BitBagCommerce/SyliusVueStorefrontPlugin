@@ -16,6 +16,8 @@ use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\CommandHandler\User\CreateUserHandler;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 use PhpSpec\ObjectBehavior;
+use Sylius\Component\Core\Factory\AddressFactoryInterface;
+use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -25,16 +27,18 @@ use Sylius\Component\User\Repository\UserRepositoryInterface;
 final class CreateUserHandlerSpec extends ObjectBehavior
 {
     public function let(
-        UserRepositoryInterface $userRepository,
-        FactoryInterface $userFactory,
         FactoryInterface $customerFactory,
-        CustomerRepositoryInterface $customerRepository
+        CustomerRepositoryInterface $customerRepository,
+        FactoryInterface $userFactory,
+        UserRepositoryInterface $userRepository,
+        AddressFactoryInterface $addressFactory
     ): void {
         $this->beConstructedWith(
-            $userRepository,
-            $userFactory,
             $customerFactory,
-            $customerRepository
+            $customerRepository,
+            $userFactory,
+            $userRepository,
+            $addressFactory
         );
     }
 
@@ -48,17 +52,18 @@ final class CreateUserHandlerSpec extends ObjectBehavior
         FactoryInterface $customerFactory,
         FactoryInterface $userFactory,
         ShopUserInterface $user,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        AddressFactoryInterface $addressFactory,
+        AddressInterface $address
     ): void {
-        $newCustomer = NewCustomer::createFromArray([
-            'email' => 'shop@example.com',
-            'firstname' => 'Katarzyna',
-            'lastname' => 'Nosowska',
-        ]);
-
-        $userRepository->findOneByEmail($newCustomer->email())->willReturn(null);
+        $newCustomer = new NewCustomer();
+        $newCustomer->email = 'shop@example.com';
+        $newCustomer->firstname = 'Katarzyna';
+        $newCustomer->lastname = 'Nosowska';
 
         $command = new CreateUser($newCustomer, 'example-password');
+
+        $userRepository->findOneByEmail('shop@example.com')->willReturn(null);
 
         $customerFactory->createNew()->willReturn($customer);
         $customer->setFirstName('Katarzyna')->shouldBeCalled();
@@ -71,6 +76,10 @@ final class CreateUserHandlerSpec extends ObjectBehavior
         $user->setUsername('shop@example.com')->shouldBeCalled();
         $user->setUsernameCanonical('shop@example.com')->shouldBeCalled();
         $user->setEnabled(true)->shouldBeCalled();
+
+        $addressFactory->createForCustomer($customer)->willReturn($address);
+
+        $customer->setDefaultAddress($address)->shouldBeCalled();
 
         $userRepository->add($user)->shouldBeCalled();
 

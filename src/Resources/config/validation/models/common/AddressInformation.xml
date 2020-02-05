@@ -12,7 +12,7 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation">
-        <constraint name="\BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ValidAddressInformation" />
+        <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\ValidAddressInformation" />
         <property name="shippingAddress">
             <constraint name="Valid" />
         </property>

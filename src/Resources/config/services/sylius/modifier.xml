@@ -25,6 +25,7 @@
             <argument type="service" id="sylius.order_item_quantity_modifier" />
             <argument type="service" id="sylius.order_processing.order_processor.composite" />
             <argument type="service" id="sylius.manager.order" />
+            <argument type="service" id="sylius.availability_checker.default" />
         </service>
     </services>
 </container>

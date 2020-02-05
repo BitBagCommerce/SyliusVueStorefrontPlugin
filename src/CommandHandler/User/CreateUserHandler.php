@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
+use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
@@ -35,16 +36,21 @@ final class CreateUserHandler implements MessageHandlerInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
+    /** @var AddressFactoryInterface */
+    private $addressFactory;
+
     public function __construct(
         FactoryInterface $customerFactory,
         CustomerRepositoryInterface $customerRepository,
         FactoryInterface $userFactory,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        AddressFactoryInterface $addressFactory
     ) {
         $this->customerFactory = $customerFactory;
         $this->customerRepository = $customerRepository;
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
+        $this->addressFactory = $addressFactory;
     }
 
     public function __invoke(CreateUser $command): void
@@ -69,6 +75,16 @@ final class CreateUserHandler implements MessageHandlerInterface
         $user->setEnabled(true);
 
         $this->userRepository->add($user);
+
+        $address = $this->addressFactory->createForCustomer($customer);
+        $address->setFirstName($command->customer()->firstname);
+        $address->setLastName($command->customer()->lastname);
+        $address->setStreet('');
+        $address->setCountryCode('');
+        $address->setPostcode('');
+        $address->setCity('');
+
+        $customer->setDefaultAddress($address);
     }
 
     private function assertEmailIsNotTaken(string $email): void

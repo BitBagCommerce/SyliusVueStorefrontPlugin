@@ -63,7 +63,7 @@ final class NewOrderItemProvider implements OrderItemProviderInterface
             return $this->createOrderItem($updateCart->cartId(), $productVariant);
         }
 
-        /** @var ProductRepositoryInterface $productVariant */
+        /** @var ProductRepositoryInterface $product */
         $product = $this->productRepository->findOneByCode($updateCart->cartItem()->getSku());
 
         Assert::notNull($product, 'Product variant has not been found.');

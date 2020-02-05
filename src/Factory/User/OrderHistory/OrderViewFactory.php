@@ -88,14 +88,18 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->billing_address_id = $syliusOrder->getBillingAddress() ? $syliusOrder->getBillingAddress()->getId() : 1;
         $orderView->created_at = $syliusOrder->getCreatedAt()->format(DateHelper::DATE_TIME_FORMAT);
         $orderView->customer_email = $syliusOrder->getCustomer()->getEmail();
+        $orderView->customer_firstname = $syliusOrder->getCustomer()->getFirstName();
+        $orderView->customer_lastname = $syliusOrder->getCustomer()->getLastName();
         $orderView->customer_group_id = 0;
         $orderView->customer_is_guest = 0;
         $orderView->customer_note_notify = 0;
-        $orderView->discount_amount = 0;
+
+        $orderView->discount_amount = $syliusOrder->getOrderPromotionTotal();
+
         $orderView->email_sent = 1;
         $orderView->entity_id = $syliusOrder->getId();
         $orderView->global_currency_code = $syliusOrder->getCurrencyCode();
-        $orderView->grand_total = $syliusOrder->getTotal();
+        $orderView->grand_total = $syliusOrder->getItemsTotal() + $syliusOrder->getShippingTotal();
         $orderView->discount_tax_compensation_amount = 0;
 
         $orderView->increment_id = '000000000';
@@ -125,13 +129,14 @@ final class OrderViewFactory implements OrderViewFactoryInterface
         $orderView->store_name = 'Example';
         $orderView->store_to_base_rate = 0;
         $orderView->store_to_order_rate = 0;
+        $syliusOrder->recalculateItemsTotal();
         $orderView->subtotal = $syliusOrder->getItemsTotal();
         $orderView->subtotal_incl_tax = $syliusOrder->getItemsTotal();
         $orderView->tax_amount = $syliusOrder->getTaxTotal();
         $orderView->total_due = $syliusOrder->getTotal();
         $orderView->total_item_count = $syliusOrder->getTotalQuantity();
         $orderView->total_qty_ordered = $syliusOrder->getTotalQuantity();
-        $orderView->updated_at = $syliusOrder->getUpdatedAt()->format(DateHelper::DATE_TIME_FORMAT);
+        $orderView->updated_at = $syliusOrder->getUpdatedAt() ? $syliusOrder->getUpdatedAt()->format(DateHelper::DATE_TIME_FORMAT) : null;
         $orderView->weight = 5;
         $orderView->items = $this->cartItemViewFactory->createList($syliusOrder->getItems());
 

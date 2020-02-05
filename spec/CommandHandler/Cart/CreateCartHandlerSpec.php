@@ -52,7 +52,10 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         CurrencyInterface $currency,
         LocaleInterface $locale
     ): void {
-        $createCart = new CreateCart('token', 'cart-id');
+        $createCart = new CreateCart('token');
+        $createCart->setCartId('cart-id');
+
+        $customer->getEmail()->willReturn('example@guest.example');
 
         $channel->getBaseCurrency()->willReturn($currency);
         $channel->getDefaultLocale()->willReturn($locale);
@@ -64,6 +67,30 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         $cartFactory->createNew()->willReturn($cart);
 
         $cartRepository->add($cart)->shouldBeCalled();
+
+        $this->__invoke($createCart);
+    }
+
+    function it_attaches_previous_cart_to_existing_shop_user(
+        OrderRepositoryInterface $cartRepository,
+        OrderInterface $cart,
+        ChannelProviderInterface $channelProvider,
+        CustomerProviderInterface $customerProvider,
+        ChannelInterface $channel,
+        CustomerInterface $customer
+    ): void {
+        $createCart = new CreateCart('token');
+        $createCart->setCartId('cart-id');
+
+        $customer->getEmail()->willReturn('shop_user@shop.com');
+
+        $channelProvider->provide()->willReturn($channel);
+
+        $customerProvider->provide('cart-id')->willReturn($customer);
+
+        $cartRepository->findLatestCartByChannelAndCustomer($channel, $customer)->willReturn($cart);
+
+        $cart->setTokenValue('cart-id')->shouldBeCalled();
 
         $this->__invoke($createCart);
     }

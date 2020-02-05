@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalSegmentView;
+use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Order\Model\AdjustmentInterface as SyliusAdjustmentInterface;
@@ -20,33 +21,106 @@ use Webmozart\Assert\Assert;
 
 final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 {
+    /** @var TotalSegmentExtensionAttributeViewFactoryInterface */
+    private $totalSegmentExtensionAttributeViewFactory;
+
+    public function __construct(TotalSegmentExtensionAttributeViewFactoryInterface $totalSegmentExtensionAttributeViewFactory)
+    {
+        $this->totalSegmentExtensionAttributeViewFactory = $totalSegmentExtensionAttributeViewFactory;
+    }
+
     public function create(SyliusAdjustmentInterface $syliusAdjustment, ShippingMethodInterface $shippingMethod): TotalSegmentView
     {
-        return $this->createFromAdjustment($syliusAdjustment, $shippingMethod);
+        return $this->createFromAdjustment($syliusAdjustment);
     }
 
     public function createList(SyliusOrderInterface $syliusOrder): array
     {
-        $syliusAdjustments = $syliusOrder->getAdjustments();
         $syliusShipments = $syliusOrder->getShipments();
+
         Assert::lessThanEq($syliusShipments->count(), 1, sprintf('More than one shipment is currently unsupported.'));
 
         $totalSegmentsList = [];
 
-        foreach ($syliusAdjustments as $syliusAdjustment) {
-            $totalSegmentsList[] = $this->createFromAdjustment($syliusAdjustment, $syliusOrder->getShipments()->first()->getMethod());
+        $totalSegmentsList[] = $this->createTaxSummaryView($syliusOrder);
+        $totalSegmentsList[] = $this->createShippingSummaryView($syliusOrder);
+
+        if ($syliusOrder->getPromotionCoupon()) {
+            $totalSegmentsList[] = $this->createPromotionSummaryView($syliusOrder);
         }
+
+        $totalSegmentsList[] = $this->createGrandTotalSummaryView($syliusOrder);
 
         return $totalSegmentsList;
     }
 
-    private function createFromAdjustment(SyliusAdjustmentInterface $syliusAdjustment, ShippingMethodInterface $shippingMethod): TotalSegmentView
+    private function createFromAdjustment(SyliusAdjustmentInterface $syliusAdjustment): TotalSegmentView
     {
         $totalSegmentView = new TotalSegmentView();
-        $totalSegmentView->code = $shippingMethod->getCode();
+
+        switch ($syliusAdjustment->getType()) {
+            case AdjustmentInterface::SHIPPING_ADJUSTMENT:
+            case AdjustmentInterface::TAX_ADJUSTMENT:
+                $totalSegmentView->code = $syliusAdjustment->getType();
+
+                break;
+            case AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT:
+            case AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT:
+            case AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT:
+                $totalSegmentView->code = 'discount';
+
+                break;
+        }
+
         $totalSegmentView->title = $syliusAdjustment->getLabel();
         $totalSegmentView->value = $syliusAdjustment->getAmount();
-        $totalSegmentView->area = $shippingMethod->getCode();
+
+        return $totalSegmentView;
+    }
+
+    private function createTaxSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
+    {
+        $totalSegmentView = new TotalSegmentView();
+
+        $totalSegmentView->title = TotalSegmentViewFactoryInterface::TAX_LABEL;
+        $totalSegmentView->value = $syliusOrder->getTaxTotal();
+        $totalSegmentView->code = AdjustmentInterface::TAX_ADJUSTMENT;
+        $totalSegmentView->area = 'taxes';
+
+        return $totalSegmentView;
+    }
+
+    private function createShippingSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
+    {
+        $totalSegmentView = new TotalSegmentView();
+
+        $totalSegmentView->title = TotalSegmentViewFactoryInterface::SHIPPING_LABEL;
+        $totalSegmentView->value = $syliusOrder->getShippingTotal();
+        $totalSegmentView->code = AdjustmentInterface::SHIPPING_ADJUSTMENT;
+
+        return $totalSegmentView;
+    }
+
+    private function createPromotionSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
+    {
+        $totalSegmentView = new TotalSegmentView();
+
+        $totalSegmentView->title = TotalSegmentViewFactoryInterface::PROMOTION_LABEL;
+        $totalSegmentView->value = $syliusOrder->getOrderPromotionTotal();
+        $totalSegmentView->code = 'discount';
+
+        return $totalSegmentView;
+    }
+
+    private function createGrandTotalSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
+    {
+        $totalSegmentView = new TotalSegmentView();
+
+        $totalSegmentView->title = TotalSegmentViewFactoryInterface::GRAND_TOTAL_LABEL;
+        $totalSegmentView->value = $syliusOrder->getTotal();
+        $totalSegmentView->code = 'grand_total';
+        $totalSegmentView->area = 'footer';
+        $totalSegmentView->extension_attributes = $this->totalSegmentExtensionAttributeViewFactory->create($syliusOrder);
 
         return $totalSegmentView;
     }

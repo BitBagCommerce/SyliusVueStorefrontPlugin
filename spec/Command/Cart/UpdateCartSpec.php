@@ -13,21 +13,16 @@ declare(strict_types=1);
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
+use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use PhpSpec\ObjectBehavior;
 
 final class UpdateCartSpec extends ObjectBehavior
 {
-    private const TOKEN = 'token';
-    private const CART_ID = 'update-Cart-spec';
-    private const CART_ITEM = null;
-
     function let(): void
     {
-        $this->beConstructedWith(
-            self::TOKEN,
-            self::CART_ID,
-            self::CART_ITEM
-        );
+        $cartItem = new CartItem();
+
+        $this->beConstructedWith('token', 'cart-id', $cartItem);
     }
 
     function it_is_initializable(): void
@@ -35,10 +30,16 @@ final class UpdateCartSpec extends ObjectBehavior
         $this->shouldHaveType(UpdateCart::class);
     }
 
-    function it_allows_access_via_properties(): void
+    function it_allows_to_access_properties_via_getters(): void
     {
-        $this->token()->shouldReturn(self::TOKEN);
-        $this->cartId()->shouldReturn(self::CART_ID);
-        $this->cartItem()->shouldReturn(self::CART_ITEM);
+        $this->token()->shouldReturn('token');
+        $this->cartId()->shouldReturn('cart-id');
+        $this->cartItem()->shouldReturnAnInstanceOf(CartItem::class);
+    }
+
+    function it_allows_to_set_and_access_order_item_uuid(): void
+    {
+        $this->setOrderItemUuid('uuid');
+        $this->getOrderItemUuid()->shouldReturn('uuid');
     }
 }

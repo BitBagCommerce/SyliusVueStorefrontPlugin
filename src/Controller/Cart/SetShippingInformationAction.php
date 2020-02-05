@@ -97,17 +97,15 @@ final class SetShippingInformationAction
         $this->bus->dispatch($setShippingInformationCommand);
 
         /** @var OrderInterface $cart */
-        $cart = $this->orderRepository->findOneBy(
-            [
-                'tokenValue' => $setShippingInformationCommand->cartId(),
-                'shippingState' => OrderInterface::STATE_CART,
-            ]
-        );
+        $cart = $this->orderRepository->findOneBy([
+            'tokenValue' => $setShippingInformationCommand->cartId(),
+            'shippingState' => OrderInterface::STATE_CART,
+        ]);
 
         /** @var ChannelInterface $channel */
         $channel = $this->channelProvider->provide();
 
-        /** @var PaymentMethodInterface[] $cart */
+        /** @var PaymentMethodInterface[] $paymentMethods */
         $paymentMethods = $this->paymentMethodRepository->findEnabledForChannel($channel);
 
         return $this->viewHandler->handle(View::create(

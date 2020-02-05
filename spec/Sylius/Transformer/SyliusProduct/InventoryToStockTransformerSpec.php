@@ -15,6 +15,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Transformer\SyliusProduct\InventoryToStockTransformer;
 use PhpSpec\ObjectBehavior;
+use Sylius\Component\Core\Model\ProductInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class InventoryToStockTransformerSpec extends ObjectBehavior
@@ -24,10 +25,13 @@ final class InventoryToStockTransformerSpec extends ObjectBehavior
         $this->shouldHaveType(InventoryToStockTransformer::class);
     }
 
-    function it_transforms(ProductVariantInterface $productVariant): void
+    function it_transforms_inventory_to_stock(ProductInterface $product, ProductVariantInterface $productVariant): void
     {
-        $productVariant->getOnHand()->willReturn(1);
+        $productVariant->getProduct()->willReturn($product);
+        $product->getId()->willReturn(1);
         $productVariant->getId()->willReturn(1);
+        $productVariant->getOnHand()->willReturn(2);
+        $productVariant->getOnHold()->willReturn(1);
 
         $this->transform($productVariant)->shouldReturnAnInstanceOf(Stock::class);
     }
