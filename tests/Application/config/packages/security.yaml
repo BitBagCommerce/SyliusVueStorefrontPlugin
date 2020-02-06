@@ -64,7 +64,7 @@ security:
                 check_path: /vsbridge/user/login
                 password_path: password
                 success_handler: bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                failure_handler: bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
 
         vs_bridge:

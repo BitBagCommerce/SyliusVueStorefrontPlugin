@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\Cart\PullCart;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class PullCartRequest implements RequestQueryInterface
+class PullCartRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;

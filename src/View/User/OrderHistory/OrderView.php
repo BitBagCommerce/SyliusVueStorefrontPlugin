@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
-final class OrderView
+class OrderView
 {
     /** @var string comma separated IDs */
     public $applied_rule_ids;

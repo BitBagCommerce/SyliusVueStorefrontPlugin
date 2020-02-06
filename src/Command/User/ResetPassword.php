@@ -14,10 +14,10 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 
-final class ResetPassword implements CommandInterface
+class ResetPassword implements CommandInterface
 {
     /** @var string */
-    private $email;
+    protected $email;
 
     public function __construct(string $email)
     {

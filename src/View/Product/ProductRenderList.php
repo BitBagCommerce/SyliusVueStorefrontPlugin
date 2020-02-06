@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-final class ProductRenderList
+class ProductRenderList
 {
     /** @var array|ProductPriceView[] */
     public $items;

@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ChangePassword;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ChangePasswordRequest implements RequestCommandInterface
+class ChangePasswordRequest implements RequestCommandInterface
 {
     /** @var string */
     public $currentPassword;

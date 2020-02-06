@@ -15,13 +15,13 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\User;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 
-final class CreateUser implements CommandInterface
+class CreateUser implements CommandInterface
 {
     /** @var NewCustomer */
-    private $customer;
+    protected $customer;
 
     /** @var string */
-    private $password;
+    protected $password;
 
     public function __construct(NewCustomer $customer, string $password)
     {

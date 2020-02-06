@@ -18,7 +18,7 @@ use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\Product;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CreateOrderRequest implements RequestCommandInterface
+class CreateOrderRequest implements RequestCommandInterface
 {
     /** @var string */
     public $user_id;

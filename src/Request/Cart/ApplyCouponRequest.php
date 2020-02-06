@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\Cart\ApplyCoupon;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ApplyCouponRequest implements RequestCommandInterface
+class ApplyCouponRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;

@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Helper\DateHelper;
 
-final class Details
+class Details
 {
     private const ENTITY_ID = 'id';
 

@@ -15,13 +15,13 @@ namespace BitBag\SyliusVueStorefrontPlugin\Query\User;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\PaginationParameters;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 
-final class GetOrderHistory implements QueryInterface
+class GetOrderHistory implements QueryInterface
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var PaginationParameters */
-    private $paginationParameters;
+    protected $paginationParameters;
 
     public function __construct(?string $token, PaginationParameters $paginationParameters)
     {

@@ -27,7 +27,7 @@ final class TaxCategoryToVueStorefrontDocumentTransformer implements ModelToElas
         $this->syliusTaxCategoryTransformer = $syliusTaxCategoryTransformer;
     }
 
-    /** @param $syliusTaxCategory TaxCategoryInterface */
+    /** @param TaxCategoryInterface $syliusTaxCategory */
     public function transform($syliusTaxCategory, array $fields): Document
     {
         $taxRule = $this->syliusTaxCategoryTransformer->transform($syliusTaxCategory);

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
-final class Attribute implements \JsonSerializable
+class Attribute implements \JsonSerializable
 {
     private const CODE = 'attribute_code';
 

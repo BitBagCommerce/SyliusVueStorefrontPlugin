@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\User\CreateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\NewCustomer;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CreateUserRequest implements RequestCommandInterface
+class CreateUserRequest implements RequestCommandInterface
 {
     /** @var NewCustomer */
     public $customer;

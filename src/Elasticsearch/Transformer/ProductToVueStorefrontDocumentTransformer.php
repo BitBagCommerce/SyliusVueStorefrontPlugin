@@ -27,7 +27,7 @@ final class ProductToVueStorefrontDocumentTransformer implements ModelToElastica
         $this->syliusProductTransformer = $syliusProductTransformer;
     }
 
-    /** @param $syliusProduct ProductInterface */
+    /** @param ProductInterface $syliusProduct */
     public function transform($syliusProduct, array $fields): Document
     {
         $product = $this->syliusProductTransformer->transform($syliusProduct);

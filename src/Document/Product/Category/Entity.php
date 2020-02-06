@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\Category;
 
-final class Entity implements \JsonSerializable
+class Entity implements \JsonSerializable
 {
     private const CATEGORY_ID = 'category_id';
 

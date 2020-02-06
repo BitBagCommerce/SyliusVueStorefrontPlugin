@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class TotalSegmentExtensionAttributeView
+class TotalSegmentExtensionAttributeView
 {
     /** @var array|TaxGrandtotalDetailsView[] */
     public $tax_grandtotal_details;

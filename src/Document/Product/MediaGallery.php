@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\MediaGallery\Media;
 
-final class MediaGallery
+class MediaGallery
 {
     private const MEDIA_GALLERY = 'media_gallery';
 

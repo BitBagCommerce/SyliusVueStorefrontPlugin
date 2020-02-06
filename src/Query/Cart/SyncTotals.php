@@ -14,13 +14,13 @@ namespace BitBag\SyliusVueStorefrontPlugin\Query\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 
-final class SyncTotals implements QueryInterface
+class SyncTotals implements QueryInterface
 {
     /** @var string */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $cartId;
+    protected $cartId;
 
     public function __construct(string $token, string $cartId)
     {

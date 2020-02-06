@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
-final class PaymentView
+class PaymentView
 {
     /** @var string|null */
     public $account_status;

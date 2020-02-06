@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks;
 
-final class Link implements \JsonSerializable
+class Link implements \JsonSerializable
 {
     private const ALLOWED_TYPES = ['related', 'upsell', 'crosssell', 'associated'];
 

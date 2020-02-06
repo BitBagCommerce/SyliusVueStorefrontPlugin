@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Category\Entity;
 
-final class Category
+class Category
 {
     private const CATEGORY = 'category';
 

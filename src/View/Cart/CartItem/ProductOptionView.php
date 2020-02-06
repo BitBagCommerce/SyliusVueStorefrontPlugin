@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem;
 
-final class ProductOptionView
+class ProductOptionView
 {
     /** @var ProductOptionExtensionAttributeView */
     public $extension_attributes;

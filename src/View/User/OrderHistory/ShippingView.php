@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
-final class ShippingView
+class ShippingView
 {
     /** @var AddressView */
     public $address;

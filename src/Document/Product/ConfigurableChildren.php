@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableChildren\Child;
 
-final class ConfigurableChildren
+class ConfigurableChildren
 {
     private const CHILDREN = 'configurable_children';
 

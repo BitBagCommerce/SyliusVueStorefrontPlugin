@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address\Region;
 
-final class UserAddress extends Address
+class UserAddress extends Address
 {
     /** @var Region */
     public $region;

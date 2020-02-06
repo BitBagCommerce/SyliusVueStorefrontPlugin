@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class UpdateCartRequest implements RequestCommandInterface
+class UpdateCartRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;

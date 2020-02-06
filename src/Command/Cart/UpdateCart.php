@@ -15,19 +15,19 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 
-final class UpdateCart implements CommandInterface
+class UpdateCart implements CommandInterface
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var string|null */
-    private $cartId;
+    protected $cartId;
 
     /** @var string */
-    private $orderItemUuid;
+    protected $orderItemUuid;
 
     /** @var CartItem */
-    private $cartItem;
+    protected $cartItem;
 
     public function __construct(?string $token, ?string $cartId, CartItem $cartItem)
     {

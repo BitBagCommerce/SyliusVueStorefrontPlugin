@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\TaxRate;
 
-final class Rate implements \JsonSerializable
+class Rate implements \JsonSerializable
 {
     private const ID = 'id';
 

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
-final class Stock implements \JsonSerializable
+class Stock implements \JsonSerializable
 {
     private const PRODUCT_ID = 'product_id';
 

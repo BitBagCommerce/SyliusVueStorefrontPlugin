@@ -22,7 +22,7 @@ use BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Stock;
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\StockItem;
 
-final class Product implements ProductInterface
+class Product implements ProductInterface
 {
     /** @var int */
     private $documentId;
