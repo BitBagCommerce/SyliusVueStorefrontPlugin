@@ -16,5 +16,6 @@ class CmsPage implements Indexable
 {
     public function toElasticArray(): array
     {
+        return [];
     }
 }

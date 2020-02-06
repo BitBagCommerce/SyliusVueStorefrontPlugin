@@ -16,5 +16,6 @@ class CmsBlock implements Indexable
 {
     public function toElasticArray(): array
     {
+        return [];
     }
 }

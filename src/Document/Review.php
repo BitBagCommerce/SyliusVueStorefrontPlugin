@@ -16,5 +16,6 @@ class Review implements Indexable
 {
     public function toElasticArray(): array
     {
+        return [];
     }
 }
