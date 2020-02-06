@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
-final class Category implements Indexable
+class Category implements Indexable
 {
     private const ENTITY_ID = 'id';
 

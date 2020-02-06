@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItem\ProductOptionView;
 
-final class CartItemView
+class CartItemView
 {
     /** @var int */
     public $amount_refunded;

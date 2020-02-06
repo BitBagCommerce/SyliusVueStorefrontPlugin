@@ -16,16 +16,16 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\Product;
 
-final class CreateOrder implements CommandInterface
+class CreateOrder implements CommandInterface
 {
     /** @var string|null */
-    private $cartId;
-
-    /** @var Product[] */
-    private $products;
+    protected $cartId;
 
     /** @var AddressInformation */
-    private $addressInformation;
+    protected $addressInformation;
+
+    /** @var Product[] */
+    protected $products;
 
     public function __construct(
         ?string $cartId,
@@ -33,8 +33,8 @@ final class CreateOrder implements CommandInterface
         Product ...$products
     ) {
         $this->cartId = $cartId;
-        $this->products = $products;
         $this->addressInformation = $addressInformation;
+        $this->products = $products;
     }
 
     public function cartId(): ?string
@@ -42,13 +42,13 @@ final class CreateOrder implements CommandInterface
         return $this->cartId;
     }
 
-    public function products(): array
-    {
-        return $this->products;
-    }
-
     public function addressInformation(): AddressInformation
     {
         return $this->addressInformation;
+    }
+
+    public function products(): array
+    {
+        return $this->products;
     }
 }

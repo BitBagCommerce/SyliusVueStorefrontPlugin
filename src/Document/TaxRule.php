@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\Rates;
 
-final class TaxRule implements Indexable
+class TaxRule implements Indexable
 {
     private const ENTITY_ID = 'id';
 

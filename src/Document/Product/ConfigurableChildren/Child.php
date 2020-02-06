@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableChildren
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\Price;
 
-final class Child implements \JsonSerializable
+class Child implements \JsonSerializable
 {
     private const PRICE = 'price';
 

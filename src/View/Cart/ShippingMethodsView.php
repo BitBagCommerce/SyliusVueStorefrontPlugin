@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
-final class ShippingMethodsView
+class ShippingMethodsView
 {
     /** @var string */
     public $carrier_code;

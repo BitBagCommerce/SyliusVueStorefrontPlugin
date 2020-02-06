@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-final class ProductPriceExtensionAttributeView
+class ProductPriceExtensionAttributeView
 {
     /** @var ProductPriceInfoView */
     public $tax_adjustment;

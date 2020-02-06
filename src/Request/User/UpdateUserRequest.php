@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\User\UpdateUser;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class UpdateUserRequest implements RequestCommandInterface
+class UpdateUserRequest implements RequestCommandInterface
 {
     /** @var ExistingUser */
     public $customer;

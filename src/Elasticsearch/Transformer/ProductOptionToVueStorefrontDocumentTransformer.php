@@ -27,7 +27,7 @@ final class ProductOptionToVueStorefrontDocumentTransformer implements ModelToEl
         $this->syliusProductOptionToAttributeTransformer = $syliusProductOptionToAttributeTransformer;
     }
 
-    /** @param $syliusProductOption ProductOptionInterface */
+    /** @param ProductOptionInterface $syliusProductOption */
     public function transform($syliusProductOption, array $fields): Document
     {
         $attribute = $this->syliusProductOptionToAttributeTransformer->transform($syliusProductOption);

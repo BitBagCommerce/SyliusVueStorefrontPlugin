@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\Cart\GetShippingMethods;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class GetShippingMethodsRequest implements RequestQueryInterface
+class GetShippingMethodsRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;

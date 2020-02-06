@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
-final class RateView
+class RateView
 {
     /** @var string */
     public $percent;

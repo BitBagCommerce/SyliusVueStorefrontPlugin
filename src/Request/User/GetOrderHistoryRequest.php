@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Query\User\GetOrderHistory;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class GetOrderHistoryRequest implements RequestQueryInterface
+class GetOrderHistoryRequest implements RequestQueryInterface
 {
     /** @var string|null */
     public $token;

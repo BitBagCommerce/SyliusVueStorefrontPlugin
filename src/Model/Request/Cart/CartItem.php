@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem\ProductOption;
 
-final class CartItem
+class CartItem
 {
     /** @var string */
     public $sku;

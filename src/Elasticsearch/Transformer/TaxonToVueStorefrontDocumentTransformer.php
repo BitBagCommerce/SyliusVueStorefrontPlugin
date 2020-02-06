@@ -27,7 +27,7 @@ final class TaxonToVueStorefrontDocumentTransformer implements ModelToElasticaTr
         $this->syliusTaxonToCategoryTransformer = $syliusTaxonToCategoryTransformer;
     }
 
-    /** @param $taxon TaxonInterface */
+    /** @param TaxonInterface $taxon */
     public function transform($taxon, array $fields): Document
     {
         $category = $this->syliusTaxonToCategoryTransformer->transform($taxon);

@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class CreateCartRequest implements RequestCommandInterface
+class CreateCartRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;

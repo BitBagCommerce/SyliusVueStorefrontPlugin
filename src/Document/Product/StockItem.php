@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
-final class StockItem implements \JsonSerializable
+class StockItem implements \JsonSerializable
 {
     public function __construct()
     {

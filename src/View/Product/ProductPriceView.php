@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-final class ProductPriceView
+class ProductPriceView
 {
     /** @var ProductPriceInfoView */
     public $price_info;

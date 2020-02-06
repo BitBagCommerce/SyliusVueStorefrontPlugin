@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Attribute;
 
-final class Option implements \JsonSerializable
+class Option implements \JsonSerializable
 {
     private const LABEL = 'label';
 

@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Common;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Common\Address\RegionView;
 
-final class AddressView
+class AddressView
 {
     /** @var int */
     public $id;

@@ -14,16 +14,16 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 
-final class ApplyCoupon implements CommandInterface
+class ApplyCoupon implements CommandInterface
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $cartId;
+    protected $cartId;
 
     /** @var string */
-    private $coupon;
+    protected $coupon;
 
     public function __construct(?string $token, string $cartId, string $coupon)
     {

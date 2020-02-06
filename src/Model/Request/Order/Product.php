@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Order;
 
-final class Product
+class Product
 {
     /** @var string */
     public $sku;

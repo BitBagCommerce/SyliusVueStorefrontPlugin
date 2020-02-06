@@ -19,7 +19,7 @@ use Sylius\Component\Core\Model\TaxonInterface;
 
 final class TaxonsToCategoriesTransformer implements TaxonsToCategoriesTransformerInterface
 {
-    /** @param Collection|TaxonInterface[] */
+    /** @param Collection|TaxonInterface[] $taxons */
     public function transform(Collection $taxons): Category
     {
         $categories = [];

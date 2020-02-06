@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 
-final class ShippingAssignmentView
+class ShippingAssignmentView
 {
     /** @var ShippingView */
     public $shipping;
