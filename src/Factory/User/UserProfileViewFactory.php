@@ -20,21 +20,29 @@ use Sylius\Component\Core\Model\CustomerInterface as SyliusCustomerInterface;
 
 final class UserProfileViewFactory implements UserProfileViewFactoryInterface
 {
+    /** @var string */
+    private $userProfileViewClass;
+
     /** @var AddressViewFactoryInterface */
     private $addressViewFactory;
 
     /** @var ChannelProviderInterface */
     private $channelProvider;
 
-    public function __construct(AddressViewFactoryInterface $addressViewFactory, ChannelProviderInterface $channelProvider)
-    {
+    public function __construct(
+        string $userProfileViewClass,
+        AddressViewFactoryInterface $addressViewFactory,
+        ChannelProviderInterface $channelProvider
+    ) {
+        $this->userProfileViewClass = $userProfileViewClass;
         $this->addressViewFactory = $addressViewFactory;
         $this->channelProvider = $channelProvider;
     }
 
     public function create(SyliusCustomerInterface $syliusCustomer): UserProfileView
     {
-        $userProfileView = new UserProfileView();
+        /** @var UserProfileView $userProfileView */
+        $userProfileView = new $this->userProfileViewClass();
         $userProfileView->id = $syliusCustomer->getId();
         $userProfileView->group_id = 1;
         $userProfileView->default_shipping = $syliusCustomer->getDefaultAddress() ? (string) $syliusCustomer->getDefaultAddress()->getId() : '';

@@ -17,6 +17,14 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class ShippingTotalViewFactory implements ShippingTotalViewFactoryInterface
 {
+    /** @var string */
+    private $shippingTotalViewClass;
+
+    public function __construct(string $shippingTotalViewClass)
+    {
+        $this->shippingTotalViewClass = $shippingTotalViewClass;
+    }
+
     public function create(OrderInterface $syliusOrder): ShippingTotalView
     {
         return $this->createFromOrder($syliusOrder);
@@ -24,7 +32,8 @@ final class ShippingTotalViewFactory implements ShippingTotalViewFactoryInterfac
 
     private function createFromOrder(OrderInterface $syliusOrder): ShippingTotalView
     {
-        $shippingTotalView = new ShippingTotalView();
+        /** @var ShippingTotalView $shippingTotalView */
+        $shippingTotalView = new $this->shippingTotalViewClass();
         $shippingTotalView->base_shipping_amount = $syliusOrder->getShippingTotal();
         $shippingTotalView->base_shipping_discount_amount = 0;
         $shippingTotalView->base_shipping_incl_tax = $syliusOrder->getShippingTotal();

@@ -19,6 +19,11 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 final class ValidationErrorViewFactorySpec extends ObjectBehavior
 {
+    function let(): void
+    {
+        $this->beConstructedWith(ValidationErrorView::class);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(ValidationErrorViewFactory::class);

@@ -17,11 +17,17 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderExtensionAttributesViewFactory implements OrderExtensionAttributesViewFactoryInterface
 {
+    /** @var string */
+    private $orderExtensionAttributesViewClass;
+
     /** @var ShippingAssignmentViewFactoryInteface */
     private $shippingAssignmentViewFactoryInteface;
 
-    public function __construct(ShippingAssignmentViewFactoryInteface $shippingAssignmentViewFactoryInteface)
-    {
+    public function __construct(
+        string $orderExtensionAttributesViewClass,
+        ShippingAssignmentViewFactoryInteface $shippingAssignmentViewFactoryInteface
+    ) {
+        $this->orderExtensionAttributesViewClass = $orderExtensionAttributesViewClass;
         $this->shippingAssignmentViewFactoryInteface = $shippingAssignmentViewFactoryInteface;
     }
 
@@ -43,7 +49,8 @@ final class OrderExtensionAttributesViewFactory implements OrderExtensionAttribu
 
     private function createFromOrder(OrderInterface $syliusOrder): OrderExtensionAttributesView
     {
-        $orderExtensionAttributesView = new OrderExtensionAttributesView();
+        /** @var OrderExtensionAttributesView $orderExtensionAttributesView */
+        $orderExtensionAttributesView = new $this->orderExtensionAttributesViewClass();
         $orderExtensionAttributesView->shipping_assignments = $this->shippingAssignmentViewFactoryInteface->createList([$syliusOrder]);
 
         return $orderExtensionAttributesView;

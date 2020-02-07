@@ -6,22 +6,26 @@
     <services>
         <defaults autowire="false" autoconfigure="false" public="false" />
 
-        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory"
-                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentExtensionAttributeViewFactory">
-            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory" />
-        </service>
-
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TaxGrandtotalDetailsViewFactory">
+            <argument>%bitbag.vue_storefront.view.tax_grandtotal_details.class%</argument>
+        </service>
+
+        <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory"
+                 class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentExtensionAttributeViewFactory">
+            <argument>%bitbag.vue_storefront.view.total_segment_extension_attribute.class%</argument>
+            <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.tax_grandtotal_details_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.total_segments_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalSegmentViewFactory">
+            <argument>%bitbag.vue_storefront.view.total_segment.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.extension_attributes_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalsViewFactory">
+            <argument>%bitbag.vue_storefront.view.totals.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.total_segments_view_factory" />
         </service>

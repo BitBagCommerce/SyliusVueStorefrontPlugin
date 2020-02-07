@@ -14,8 +14,8 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
 use BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\UpdateCartHandler;
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Modifier\OrderModifierInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem\OrderItemProviderInterface;
 use Doctrine\Common\Collections\ArrayCollection;

@@ -91,7 +91,7 @@ final class UpdateCartAction
 
         /** @var OrderItemInterface $orderItem */
         $orderItem = $this->orderItemRepository->findOneBy([
-            'uuid' => $updateCartCommand->getOrderItemUuid()
+            'uuid' => $updateCartCommand->getOrderItemUuid(),
         ]);
 
         return $this->viewHandler->handle(View::create(

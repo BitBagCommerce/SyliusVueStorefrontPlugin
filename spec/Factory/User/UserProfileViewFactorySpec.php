@@ -33,7 +33,7 @@ final class UserProfileViewFactorySpec extends ObjectBehavior
 
     function let(AddressViewFactoryInterface $addressViewFactory, ChannelProviderInterface $channelProvider): void
     {
-        $this->beConstructedWith($addressViewFactory, $channelProvider);
+        $this->beConstructedWith(UserProfileView::class, $addressViewFactory, $channelProvider);
     }
 
     function it_creates_user_profile_view(

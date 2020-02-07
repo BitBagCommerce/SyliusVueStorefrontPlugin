@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace spec\BitBag\SyliusVueStorefrontPlugin\Factory\Cart;
 
-use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface as SyliusOrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface as SyliusOrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
@@ -23,6 +23,11 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class CartItemViewFactorySpec extends ObjectBehavior
 {
+    function let(): void
+    {
+        $this->beConstructedWith(CartItemView::class);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(CartItemViewFactory::class);

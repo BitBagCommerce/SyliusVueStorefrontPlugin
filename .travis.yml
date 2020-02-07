@@ -40,7 +40,7 @@ before_script:
 
 script:
     - composer validate --strict
-    - vendor/bin/ecs check src tests/Controller --fix
+    - vendor/bin/ecs check src spec tests/Controller --fix
     - vendor/bin/phpstan analyse -l 1 src/
 
     - vendor/bin/phpspec run

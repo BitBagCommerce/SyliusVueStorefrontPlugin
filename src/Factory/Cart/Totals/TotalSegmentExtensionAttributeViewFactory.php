@@ -17,19 +17,26 @@ use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
 final class TotalSegmentExtensionAttributeViewFactory implements TotalSegmentExtensionAttributeViewFactoryInterface
 {
+    /** @var string */
+    private $totalSegmentExtensionAttributeViewClass;
+
     /** @var TaxGrandtotalDetailsViewFactoryInterface */
     private $taxGrandtotalDetailsViewFactory;
 
-    public function __construct(TaxGrandtotalDetailsViewFactoryInterface $taxGrandtotalDetailsViewFactory)
-    {
+    public function __construct(
+        string $totalSegmentExtensionAttributeViewClass,
+        TaxGrandtotalDetailsViewFactoryInterface $taxGrandtotalDetailsViewFactory
+    ) {
         $this->taxGrandtotalDetailsViewFactory = $taxGrandtotalDetailsViewFactory;
+        $this->totalSegmentExtensionAttributeViewClass = $totalSegmentExtensionAttributeViewClass;
     }
 
     public function create(SyliusOrderInterface $syliusOrder): TotalSegmentExtensionAttributeView
     {
-        $totalSegmentExtensionAttribute = new TotalSegmentExtensionAttributeView();
-        $totalSegmentExtensionAttribute->tax_grandtotal_details = $this->taxGrandtotalDetailsViewFactory->create($syliusOrder);
+        /** @var TotalSegmentExtensionAttributeView $totalSegmentExtensionAttributeView */
+        $totalSegmentExtensionAttributeView = new $this->totalSegmentExtensionAttributeViewClass();
+        $totalSegmentExtensionAttributeView->tax_grandtotal_details = $this->taxGrandtotalDetailsViewFactory->create($syliusOrder);
 
-        return $totalSegmentExtensionAttribute;
+        return $totalSegmentExtensionAttributeView;
     }
 }

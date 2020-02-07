@@ -17,6 +17,14 @@ use Sylius\Component\Core\Model\ProductVariantInterface;
 
 final class StockViewFactory implements StockViewFactoryInterface
 {
+    /** @var string */
+    private $stockViewClass;
+
+    public function __construct(string $stockViewClass)
+    {
+        $this->stockViewClass = $stockViewClass;
+    }
+
     public function create(ProductVariantInterface $productVariant): StockView
     {
         return $this->createFromProductVariant($productVariant);
@@ -35,7 +43,8 @@ final class StockViewFactory implements StockViewFactoryInterface
 
     private function createFromProductVariant(ProductVariantInterface $productVariant): StockView
     {
-        $stockView = new StockView();
+        /** @var StockView $stockView */
+        $stockView = new $this->stockViewClass();
         $stockView->product_id = $productVariant->getProduct()->getId();
         $stockView->item_id = $productVariant->getId();
         $stockView->qty = $productVariant->getOnHand() - $productVariant->getOnHold();

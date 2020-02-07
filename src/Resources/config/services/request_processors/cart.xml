@@ -7,62 +7,57 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.apply_coupon"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest</argument>
-        </service>
-
-        <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.collect_totals"
-                 class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\CollectTotalsRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.apply_coupon.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.create_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\CreateCartRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.create_cart.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.delete_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\DeleteCartRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.delete_cart.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.delete_coupon"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\DeleteCouponRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.delete_coupon.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_payment_methods"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetPaymentMethodsRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.get_payment_methods.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.pull_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\PullCartRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.pull_cart.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.set_shipping_information"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SetShippingInformationRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.set_shipping_information.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_shipping_methods"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetShippingMethodsRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.get_shipping_methods.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.update_cart"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\UpdateCartRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.update_cart.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.sync_totals"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\SyncTotalsRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.sync_totals.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.cart.get_applied_coupon"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Cart\GetAppliedCouponRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.get_applied_coupon.class%</argument>
         </service>
     </services>
 </container>

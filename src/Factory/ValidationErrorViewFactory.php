@@ -19,9 +19,18 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 final class ValidationErrorViewFactory implements ValidationErrorViewFactoryInterface
 {
+    /** @var string */
+    private $validationErrorViewClass;
+
+    public function __construct(string $validationErrorViewClass)
+    {
+        $this->validationErrorViewClass = $validationErrorViewClass;
+    }
+
     public function create(ConstraintViolationListInterface $validationResults): ValidationErrorView
     {
-        $errorMessage = new ValidationErrorView();
+        /** @var ValidationErrorView $errorMessage */
+        $errorMessage = new $this->validationErrorViewClass();
         $errorMessage->code = Response::HTTP_BAD_REQUEST;
 
         $message = [];
