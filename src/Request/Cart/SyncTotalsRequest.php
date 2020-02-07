@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\Cart\SyncTotals;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class SyncTotalsRequest implements RequestQueryInterface
+class SyncTotalsRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;

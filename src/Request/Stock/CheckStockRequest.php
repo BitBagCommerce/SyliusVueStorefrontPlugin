@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Query\Stock\CheckStock;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class CheckStockRequest implements RequestQueryInterface
+class CheckStockRequest implements RequestQueryInterface
 {
     /** @var string */
     public $sku;

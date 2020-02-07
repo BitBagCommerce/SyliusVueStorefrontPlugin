@@ -18,11 +18,15 @@ use Sylius\Component\Core\Model\ShippingMethodInterface;
 
 final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInterface
 {
+    /** @var string */
+    private $shippingMethodsViewClass;
+
     /** @var ChannelProviderInterface */
     private $channelProvider;
 
-    public function __construct(ChannelProviderInterface $channelProvider)
+    public function __construct(string $shippingMethodsViewClass, ChannelProviderInterface $channelProvider)
     {
+        $this->shippingMethodsViewClass = $shippingMethodsViewClass;
         $this->channelProvider = $channelProvider;
     }
 
@@ -39,7 +43,8 @@ final class ShippingMethodsViewFactory implements ShippingMethodsViewFactoryInte
 
     private function createFromShippingMethod(ShippingMethodInterface $shippingMethod): ShippingMethodsView
     {
-        $shippingMethodsView = new ShippingMethodsView();
+        /** @var ShippingMethodsView $shippingMethodsView */
+        $shippingMethodsView = new $this->shippingMethodsViewClass();
         $shippingMethodsView->carrier_code = $shippingMethod->getCode();
         $shippingMethodsView->method_code = $shippingMethod->getCode();
         $shippingMethodsView->carrier_title = $shippingMethod->getTranslation()->getName();

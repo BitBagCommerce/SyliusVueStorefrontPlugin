@@ -90,7 +90,9 @@ final class UpdateCartAction
         $this->bus->dispatch($updateCartCommand);
 
         /** @var OrderItemInterface $orderItem */
-        $orderItem = $this->orderItemRepository->findOneByUuid($updateCartCommand->getOrderItemUuid());
+        $orderItem = $this->orderItemRepository->findOneBy([
+            'uuid' => $updateCartCommand->getOrderItemUuid(),
+        ]);
 
         return $this->viewHandler->handle(View::create(
             $this->genericSuccessViewFactory->create(

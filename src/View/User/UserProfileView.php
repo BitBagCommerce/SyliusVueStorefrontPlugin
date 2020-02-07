@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\User;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Common\AddressView;
 
-final class UserProfileView
+class UserProfileView
 {
     /** @var int */
     public $id;

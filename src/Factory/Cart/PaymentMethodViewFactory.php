@@ -17,6 +17,14 @@ use Sylius\Component\Core\Model\PaymentMethodInterface as SyliusPaymentMethodInt
 
 final class PaymentMethodViewFactory implements PaymentMethodViewFactoryInterface
 {
+    /** @var string */
+    private $paymentMethodViewClass;
+
+    public function __construct(string $paymentMethodViewClass)
+    {
+        $this->paymentMethodViewClass = $paymentMethodViewClass;
+    }
+
     public function createList(array $syliusPaymentMethods): array
     {
         $paymentMethodsList = [];
@@ -30,7 +38,8 @@ final class PaymentMethodViewFactory implements PaymentMethodViewFactoryInterfac
 
     private function createFromPaymentMethod(SyliusPaymentMethodInterface $syliusPaymentMethod): PaymentMethodView
     {
-        $paymentMethodView = new PaymentMethodView();
+        /** @var PaymentMethodView $paymentMethodView */
+        $paymentMethodView = new $this->paymentMethodViewClass();
         $paymentMethodView->code = $syliusPaymentMethod->getCode();
         $paymentMethodView->title = $syliusPaymentMethod->getName();
 

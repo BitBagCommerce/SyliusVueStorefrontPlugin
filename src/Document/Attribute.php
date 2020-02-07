@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Attribute\Option;
 
-final class Attribute implements Indexable
+class Attribute implements Indexable
 {
     private const ENTITY_ID = 'id';
 

@@ -21,9 +21,18 @@ final class SyliusVueStorefrontExtension extends Extension
 {
     public function load(array $config, ContainerBuilder $container): void
     {
-        $this->processConfiguration($this->getConfiguration([], $container), $config);
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+
+        foreach ($config['view_classes'] as $view => $class) {
+            $container->setParameter(sprintf('bitbag.vue_storefront.view.%s.class', $view), $class);
+        }
+
+        foreach ($config['request_classes'] as $request => $class) {
+            $container->setParameter(sprintf('bitbag.vue_storefront.request.%s.class', $request), $class);
+        }
+
         $loader->load('services.xml');
     }
 }

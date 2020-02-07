@@ -15,7 +15,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\User;
 use BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria\SearchCriteriaView;
 use BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory\OrderView;
 
-final class OrderHistoryView
+class OrderHistoryView
 {
     /** @var array|OrderView[] */
     public $items;

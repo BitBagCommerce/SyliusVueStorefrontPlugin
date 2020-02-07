@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Query\Cart\GetAppliedCoupon;
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestQueryInterface;
 
-final class GetAppliedCouponRequest implements RequestQueryInterface
+class GetAppliedCouponRequest implements RequestQueryInterface
 {
     /** @var string */
     public $token;

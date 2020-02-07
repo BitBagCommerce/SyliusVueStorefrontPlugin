@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class DeleteCartRequest implements RequestCommandInterface
+class DeleteCartRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;

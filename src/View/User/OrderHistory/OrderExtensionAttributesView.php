@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
-final class OrderExtensionAttributesView
+class OrderExtensionAttributesView
 {
     /** @var array|ShippingAssignmentView[] */
     public $shipping_assignments;

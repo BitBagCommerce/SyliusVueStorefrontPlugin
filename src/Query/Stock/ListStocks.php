@@ -14,10 +14,10 @@ namespace BitBag\SyliusVueStorefrontPlugin\Query\Stock;
 
 use BitBag\SyliusVueStorefrontPlugin\Query\QueryInterface;
 
-final class ListStocks implements QueryInterface
+class ListStocks implements QueryInterface
 {
     /** string */
-    private $skus;
+    protected $skus;
 
     public function __construct(string $skus)
     {

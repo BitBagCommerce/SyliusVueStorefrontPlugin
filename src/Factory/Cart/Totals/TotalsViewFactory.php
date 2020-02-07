@@ -22,6 +22,9 @@ use Sylius\Component\Core\Model\OrderItemUnitInterface;
 
 final class TotalsViewFactory implements TotalsViewFactoryInterface
 {
+    /** @var string */
+    private $totalsViewClass;
+
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
 
@@ -29,16 +32,19 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
     private $totalSegmentViewFactory;
 
     public function __construct(
+        string $totalsViewClass,
         CartItemViewFactoryInterface $cartItemViewFactory,
         TotalSegmentViewFactoryInterface $totalSegmentViewFactory
     ) {
+        $this->totalsViewClass = $totalsViewClass;
         $this->cartItemViewFactory = $cartItemViewFactory;
         $this->totalSegmentViewFactory = $totalSegmentViewFactory;
     }
 
     public function create(SyliusOrderInterface $syliusOrder): TotalsView
     {
-        $totalsView = new TotalsView();
+        /** @var TotalsView $totalsView */
+        $totalsView = new $this->totalsViewClass();
 
         $totalsView->grand_total = $syliusOrder->getTotal();
         $totalsView->base_grand_total = $syliusOrder->getTotal();

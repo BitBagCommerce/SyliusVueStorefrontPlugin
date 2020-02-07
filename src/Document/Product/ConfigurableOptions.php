@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ConfigurableOptions\Option;
 
-final class ConfigurableOptions
+class ConfigurableOptions
 {
     private const OPTIONS = 'configurable_options';
 

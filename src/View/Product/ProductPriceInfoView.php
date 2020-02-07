@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
-final class ProductPriceInfoView
+class ProductPriceInfoView
 {
     /** @var float */
     public $final_price;
@@ -35,7 +35,7 @@ final class ProductPriceInfoView
     /** @var int */
     public $regular_price;
 
-    /** @var ProductPriceFormatted */
+    /** @var ProductPriceFormattedView */
     public $formatted_prices;
 
     /** @var ProductPriceExtensionAttributeView */

@@ -18,13 +18,16 @@
         "symfony/serializer": "^4.4",
         "symfony/property-info": "^4.4"
     },
+    "suggest": {
+        "nelmio/cors-bundle": "Allows you to send Cross-Origin Ajax API requests"
+    },
     "require-dev": {
         "lchrusciel/api-test-case": "^4.1",
         "phpspec/phpspec": "^6.1",
-        "phpstan/phpstan-doctrine": "^0.11",
-        "phpstan/phpstan-shim": "^0.11",
-        "phpstan/phpstan-symfony": "^0.11",
-        "phpstan/phpstan-webmozart-assert": "^0.11",
+        "phpstan/phpstan-doctrine": "^0.12",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-symfony": "^0.12",
+        "phpstan/phpstan-webmozart-assert": "^0.12",
         "phpunit/phpunit": "^8.5",
         "roave/security-advisories": "dev-master",
         "sensiolabs/security-checker": "^5.0",

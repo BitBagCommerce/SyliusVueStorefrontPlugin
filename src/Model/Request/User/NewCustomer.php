@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
-final class NewCustomer
+class NewCustomer
 {
     /** @var string */
     public $email;

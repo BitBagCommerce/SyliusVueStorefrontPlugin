@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\OrderItem;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\UpdateCart;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItemInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Repository\ProductVariantRepositoryInterface;
 use Sylius\Component\Core\Factory\CartItemFactoryInterface;
 use Sylius\Component\Core\Model\OrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
 use Sylius\Component\Core\Model\ProductVariantInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 use Sylius\Component\Core\Repository\ProductRepositoryInterface;
@@ -57,7 +57,9 @@ final class NewOrderItemProvider implements OrderItemProviderInterface
     public function provide(UpdateCart $updateCart): OrderItemInterface
     {
         /** @var ProductVariantInterface $productVariant */
-        $productVariant = $this->baseProductVariantRepository->findOneByCode($updateCart->cartItem()->getSku());
+        $productVariant = $this->baseProductVariantRepository->findOneBy([
+            'code' => $updateCart->cartItem()->getSku(),
+        ]);
 
         if ($productVariant) {
             return $this->createOrderItem($updateCart->cartId(), $productVariant);

@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\TaxRule;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\TaxRule\TaxRate\Rate;
 
-final class Rates
+class Rates
 {
     private const TAX_RATES = 'rates';
 

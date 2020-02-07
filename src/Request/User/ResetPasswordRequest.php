@@ -16,7 +16,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Command\User\ResetPassword;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class ResetPasswordRequest implements RequestCommandInterface
+class ResetPasswordRequest implements RequestCommandInterface
 {
     /** @var string */
     public $email;

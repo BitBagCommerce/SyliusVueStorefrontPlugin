@@ -15,13 +15,13 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Cart\CartItem;
 
-final class DeleteCart implements CommandInterface
+class DeleteCart implements CommandInterface
 {
     /** @var CartItem */
-    private $cartItem;
+    protected $cartItem;
 
     /** @var string */
-    private $cartId;
+    protected $cartId;
 
     public function __construct(CartItem $cartItem, string $cartId)
     {

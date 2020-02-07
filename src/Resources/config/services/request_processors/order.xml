@@ -7,7 +7,7 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.order.create_order"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\Order\CreateOrderRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.create_order.class%</argument>
         </service>
     </services>
 </container>

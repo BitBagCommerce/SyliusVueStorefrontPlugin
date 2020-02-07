@@ -17,10 +17,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GenericSuccessViewFactory implements GenericSuccessViewFactoryInterface
 {
+    /** @var string */
+    private $genericSuccessViewClass;
+
+    public function __construct(string $genericSuccessViewClass)
+    {
+        $this->genericSuccessViewClass = $genericSuccessViewClass;
+    }
+
     /** @param mixed $value */
     public function create($value): GenericSuccessView
     {
-        $successView = new GenericSuccessView();
+        /** @var GenericSuccessView $successView */
+        $successView = new $this->genericSuccessViewClass();
         $successView->code = Response::HTTP_OK;
         $successView->result = $value;
 

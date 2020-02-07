@@ -17,6 +17,14 @@ use Sylius\Component\Core\Model\PaymentInterface;
 
 final class PaymentViewFactory implements PaymentViewFactoryInterface
 {
+    /** @var string */
+    private $paymentViewClass;
+
+    public function __construct(string $paymentViewClass)
+    {
+        $this->paymentViewClass = $paymentViewClass;
+    }
+
     public function create(PaymentInterface $syliusPayment): PaymentView
     {
         return $this->createFromPayment($syliusPayment);
@@ -24,7 +32,8 @@ final class PaymentViewFactory implements PaymentViewFactoryInterface
 
     private function createFromPayment(PaymentInterface $syliusPayment): PaymentView
     {
-        $paymentView = new PaymentView();
+        /** @var PaymentView $paymentView */
+        $paymentView = new $this->paymentViewClass();
         $paymentView->account_status = null;
         $paymentView->additional_information[] = [
             $syliusPayment->getMethod() ? $syliusPayment->getMethod()->getName() : 'undefined',

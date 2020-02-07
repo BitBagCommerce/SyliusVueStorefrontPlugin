@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Common\SearchCriteria\SearchCriteriaView;
 
-final class ProductListView
+class ProductListView
 {
     /** @var array|ProductView[] */
     public $items;

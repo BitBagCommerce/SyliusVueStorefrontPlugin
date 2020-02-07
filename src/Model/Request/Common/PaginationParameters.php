@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Common;
 
-final class PaginationParameters
+class PaginationParameters
 {
     /** @var int */
     private $pageSize;

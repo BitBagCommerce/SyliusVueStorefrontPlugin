@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Request\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestInterface;
 
-final class GetPaymentMethodsRequest implements RequestInterface
+class GetPaymentMethodsRequest implements RequestInterface
 {
     /** @var string */
     public $token;

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product\MediaGallery;
 
-final class Media implements \JsonSerializable
+class Media implements \JsonSerializable
 {
     private const IMAGE_PATH = 'image';
 

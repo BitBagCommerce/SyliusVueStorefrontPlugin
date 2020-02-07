@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\User\OrderHistory;
 
-final class ShippingTotalView
+class ShippingTotalView
 {
     /** @var int */
     public $base_shipping_amount;

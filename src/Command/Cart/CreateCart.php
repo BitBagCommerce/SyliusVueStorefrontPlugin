@@ -14,13 +14,13 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 
-final class CreateCart implements CommandInterface
+class CreateCart implements CommandInterface
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $cartId;
+    protected $cartId;
 
     public function __construct(?string $token)
     {

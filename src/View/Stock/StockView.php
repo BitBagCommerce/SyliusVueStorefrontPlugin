@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Stock;
 
-final class StockView
+class StockView
 {
     /** @var int */
     public $product_id;

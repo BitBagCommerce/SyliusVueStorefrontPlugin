@@ -17,7 +17,7 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 use BitBag\SyliusVueStorefrontPlugin\Request\RequestCommandInterface;
 
-final class SetShippingInformationRequest implements RequestCommandInterface
+class SetShippingInformationRequest implements RequestCommandInterface
 {
     /** @var string */
     public $token;

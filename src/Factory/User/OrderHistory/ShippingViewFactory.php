@@ -19,6 +19,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class ShippingViewFactory implements ShippingViewFactoryInterface
 {
+    /** @var string */
+    private $shippingViewClass;
+
     /** @var AddressViewFactoryInterface */
     private $addressViewFactory;
 
@@ -26,9 +29,11 @@ final class ShippingViewFactory implements ShippingViewFactoryInterface
     private $shippingTotalViewFactory;
 
     public function __construct(
+        string $shippingViewClass,
         AddressViewFactoryInterface $addressViewFactory,
         ShippingTotalViewFactoryInterface $shippingTotalViewFactory
     ) {
+        $this->shippingViewClass = $shippingViewClass;
         $this->addressViewFactory = $addressViewFactory;
         $this->shippingTotalViewFactory = $shippingTotalViewFactory;
     }
@@ -51,7 +56,8 @@ final class ShippingViewFactory implements ShippingViewFactoryInterface
 
     private function createFromOrder(OrderInterface $syliusOrder): ShippingView
     {
-        $shippingView = new ShippingView();
+        /** @var ShippingView $shippingView */
+        $shippingView = new $this->shippingViewClass();
 
         if ($syliusOrder->getShippingAddress()) {
             $shippingView->address = $this->addressViewFactory->create($syliusOrder->getShippingAddress());

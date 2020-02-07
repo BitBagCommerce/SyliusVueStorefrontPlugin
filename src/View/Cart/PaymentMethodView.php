@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\View\Cart;
 
-final class PaymentMethodView
+class PaymentMethodView
 {
     /** @var string */
     public $code;

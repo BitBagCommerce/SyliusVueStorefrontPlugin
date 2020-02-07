@@ -19,6 +19,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFactoryInteface
 {
+    /** @var string */
+    private $shippingAssignmentViewClass;
+
     /** @var ShippingViewFactoryInterface */
     private $shippingViewFactory;
 
@@ -26,9 +29,11 @@ final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFacto
     private $cartItemViewFactory;
 
     public function __construct(
+        string $shippingAssignmentViewClass,
         ShippingViewFactoryInterface $shippingViewFactory,
         CartItemViewFactory $cartItemViewFactory
     ) {
+        $this->shippingAssignmentViewClass = $shippingAssignmentViewClass;
         $this->shippingViewFactory = $shippingViewFactory;
         $this->cartItemViewFactory = $cartItemViewFactory;
     }
@@ -51,7 +56,8 @@ final class ShippingAssignmentViewFactory implements ShippingAssignmentViewFacto
 
     private function createFromOrder(OrderInterface $syliusOrder): ShippingAssignmentView
     {
-        $shippingAssignmentView = new ShippingAssignmentView();
+        /** @var ShippingAssignmentView $shippingAssignmentView */
+        $shippingAssignmentView = new $this->shippingAssignmentViewClass();
         $shippingAssignmentView->shipping = $this->shippingViewFactory->create($syliusOrder);
 
         if ($syliusOrder->getItems()) {

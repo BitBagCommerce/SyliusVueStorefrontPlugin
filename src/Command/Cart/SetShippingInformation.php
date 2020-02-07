@@ -15,16 +15,16 @@ namespace BitBag\SyliusVueStorefrontPlugin\Command\Cart;
 use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\AddressInformation;
 
-final class SetShippingInformation implements CommandInterface
+class SetShippingInformation implements CommandInterface
 {
     /** @var string|null */
-    private $token;
+    protected $token;
 
     /** @var string */
-    private $cartId;
+    protected $cartId;
 
     /** @var AddressInformation */
-    private $addressInformation;
+    protected $addressInformation;
 
     public function __construct(?string $token, string $cartId, AddressInformation $addressInformation)
     {

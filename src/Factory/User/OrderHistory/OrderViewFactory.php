@@ -22,6 +22,9 @@ use Sylius\Component\Core\Model\OrderInterface;
 
 final class OrderViewFactory implements OrderViewFactoryInterface
 {
+    /** @var string */
+    private $orderViewClass;
+
     /** @var CartItemViewFactoryInterface */
     private $cartItemViewFactory;
 
@@ -35,11 +38,13 @@ final class OrderViewFactory implements OrderViewFactoryInterface
     private $paymentViewFactory;
 
     public function __construct(
+        string $orderViewClass,
         CartItemViewFactoryInterface $cartItemViewFactory,
         AddressViewFactoryInterface $addressViewFactory,
         OrderExtensionAttributesViewFactoryInterface $orderExtensionAttributesViewFactory,
         PaymentViewFactoryInterface $paymentViewFactory
     ) {
+        $this->orderViewClass = $orderViewClass;
         $this->cartItemViewFactory = $cartItemViewFactory;
         $this->addressViewFactory = $addressViewFactory;
         $this->orderExtensionAttributesViewFactory = $orderExtensionAttributesViewFactory;
@@ -69,7 +74,8 @@ final class OrderViewFactory implements OrderViewFactoryInterface
 
     private function createFromOrder(OrderInterface $syliusOrder): OrderView
     {
-        $orderView = new OrderView();
+        /** @var OrderView $orderView */
+        $orderView = new $this->orderViewClass();
         $orderView->applied_rule_ids = '';
         $orderView->base_currency_code = $syliusOrder->getCurrencyCode();
         $orderView->base_discount_amount = 0;

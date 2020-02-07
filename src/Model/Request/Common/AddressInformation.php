@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\Common;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Order\OrderAddress;
 
-final class AddressInformation
+class AddressInformation
 {
     /** @var OrderAddress */
     public $shippingAddress;

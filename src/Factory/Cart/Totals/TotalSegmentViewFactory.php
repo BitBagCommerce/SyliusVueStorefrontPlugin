@@ -21,11 +21,17 @@ use Webmozart\Assert\Assert;
 
 final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 {
+    /** @var string */
+    private $totalSegmentViewClass;
+
     /** @var TotalSegmentExtensionAttributeViewFactoryInterface */
     private $totalSegmentExtensionAttributeViewFactory;
 
-    public function __construct(TotalSegmentExtensionAttributeViewFactoryInterface $totalSegmentExtensionAttributeViewFactory)
-    {
+    public function __construct(
+        string $totalSegmentViewClass,
+        TotalSegmentExtensionAttributeViewFactoryInterface $totalSegmentExtensionAttributeViewFactory
+    ) {
+        $this->totalSegmentViewClass = $totalSegmentViewClass;
         $this->totalSegmentExtensionAttributeViewFactory = $totalSegmentExtensionAttributeViewFactory;
     }
 
@@ -56,7 +62,8 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 
     private function createFromAdjustment(SyliusAdjustmentInterface $syliusAdjustment): TotalSegmentView
     {
-        $totalSegmentView = new TotalSegmentView();
+        /** @var TotalSegmentView $totalSegmentView */
+        $totalSegmentView = new $this->totalSegmentViewClass();
 
         switch ($syliusAdjustment->getType()) {
             case AdjustmentInterface::SHIPPING_ADJUSTMENT:
@@ -80,7 +87,8 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 
     private function createTaxSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
     {
-        $totalSegmentView = new TotalSegmentView();
+        /** @var TotalSegmentView $totalSegmentView */
+        $totalSegmentView = new $this->totalSegmentViewClass();
 
         $totalSegmentView->title = TotalSegmentViewFactoryInterface::TAX_LABEL;
         $totalSegmentView->value = $syliusOrder->getTaxTotal();
@@ -92,7 +100,8 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 
     private function createShippingSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
     {
-        $totalSegmentView = new TotalSegmentView();
+        /** @var TotalSegmentView $totalSegmentView */
+        $totalSegmentView = new $this->totalSegmentViewClass();
 
         $totalSegmentView->title = TotalSegmentViewFactoryInterface::SHIPPING_LABEL;
         $totalSegmentView->value = $syliusOrder->getShippingTotal();
@@ -103,7 +112,8 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 
     private function createPromotionSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
     {
-        $totalSegmentView = new TotalSegmentView();
+        /** @var TotalSegmentView $totalSegmentView */
+        $totalSegmentView = new $this->totalSegmentViewClass();
 
         $totalSegmentView->title = TotalSegmentViewFactoryInterface::PROMOTION_LABEL;
         $totalSegmentView->value = $syliusOrder->getOrderPromotionTotal();
@@ -114,7 +124,8 @@ final class TotalSegmentViewFactory implements TotalSegmentViewFactoryInterface
 
     private function createGrandTotalSummaryView(SyliusOrderInterface $syliusOrder): TotalSegmentView
     {
-        $totalSegmentView = new TotalSegmentView();
+        /** @var TotalSegmentView $totalSegmentView */
+        $totalSegmentView = new $this->totalSegmentViewClass();
 
         $totalSegmentView->title = TotalSegmentViewFactoryInterface::GRAND_TOTAL_LABEL;
         $totalSegmentView->value = $syliusOrder->getTotal();

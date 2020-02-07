@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\CartItemView;
 
-final class TotalsView
+class TotalsView
 {
     /** @var int */
     public $grand_total;

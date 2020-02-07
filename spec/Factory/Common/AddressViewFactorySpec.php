@@ -23,14 +23,14 @@ use Sylius\Component\Customer\Model\CustomerInterface;
 
 final class AddressViewFactorySpec extends ObjectBehavior
 {
+    function let(RegionViewFactoryInterface $regionView): void
+    {
+        $this->beConstructedWith(AddressView::class, $regionView);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(AddressViewFactory::class);
-    }
-
-    function let(RegionViewFactoryInterface $regionView): void
-    {
-        $this->beConstructedWith($regionView);
     }
 
     function it_creates_address_view(

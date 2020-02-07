@@ -14,7 +14,7 @@ namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
 use BitBag\SyliusVueStorefrontPlugin\Document\Product\ProductLinks\Link;
 
-final class ProductLinks
+class ProductLinks
 {
     private const PRODUCT_LINKS = 'product_links';
 

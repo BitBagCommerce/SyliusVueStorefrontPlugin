@@ -20,6 +20,11 @@ use Sylius\Component\Product\Model\ProductInterface;
 
 final class StockViewFactorySpec extends ObjectBehavior
 {
+    function let(): void
+    {
+        $this->beConstructedWith(StockView::class);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(StockViewFactory::class);

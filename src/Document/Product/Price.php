@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace BitBag\SyliusVueStorefrontPlugin\Document\Product;
 
-final class Price
+class Price
 {
     private const FINAL_PRICE = 'final_price';
 

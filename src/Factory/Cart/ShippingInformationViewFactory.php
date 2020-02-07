@@ -18,6 +18,9 @@ use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
 final class ShippingInformationViewFactory implements ShippingInformationViewFactoryInterface
 {
+    /** @var string */
+    private $shippingInformationViewClass;
+
     /** @var PaymentMethodViewFactoryInterface */
     private $paymentMethodViewFactory;
 
@@ -25,16 +28,19 @@ final class ShippingInformationViewFactory implements ShippingInformationViewFac
     private $totalsViewFactory;
 
     public function __construct(
+        string $shippingInformationViewClass,
         PaymentMethodViewFactoryInterface $paymentMethodViewFactory,
         TotalsViewFactoryInterface $totalsViewFactory
     ) {
+        $this->shippingInformationViewClass = $shippingInformationViewClass;
         $this->paymentMethodViewFactory = $paymentMethodViewFactory;
         $this->totalsViewFactory = $totalsViewFactory;
     }
 
     public function create(array $syliusPaymentMethods, SyliusOrderInterface $syliusOrder): ShippingInformationView
     {
-        $shippingInformationView = new ShippingInformationView();
+        /** @var ShippingInformationView $shippingInformationView */
+        $shippingInformationView = new $this->shippingInformationViewClass();
         $shippingInformationView->payment_methods = $this->paymentMethodViewFactory->createList($syliusPaymentMethods);
         $shippingInformationView->totals = $this->totalsViewFactory->create($syliusOrder);
 
