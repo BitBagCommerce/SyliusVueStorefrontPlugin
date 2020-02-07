@@ -17,9 +17,18 @@ use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface
 
 final class RegionViewFactory implements RegionViewFactoryInterface
 {
+    /** @var string */
+    private $regionViewClass;
+
+    public function __construct(string $regionViewClass)
+    {
+        $this->regionViewClass = $regionViewClass;
+    }
+
     public function create(SyliusAddressInterface $syliusAddress): RegionView
     {
-        $regionView = new RegionView();
+        /** @var RegionView $regionView */
+        $regionView = new $this->regionViewClass();
         $regionView->regionCode = $syliusAddress->getProvinceCode();
         $regionView->regionId = $syliusAddress->getProvinceCode();
         $regionView->region = $syliusAddress->getProvinceName();

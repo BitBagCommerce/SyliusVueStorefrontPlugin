@@ -26,7 +26,7 @@ final class OrderHistoryViewFactorySpec extends ObjectBehavior
 {
     function let(OrderViewFactoryInterface $orderViewFactory, OrderRepositoryInterface $orderRepository): void
     {
-        $this->beConstructedWith($orderViewFactory, $orderRepository);
+        $this->beConstructedWith(OrderHistoryView::class, $orderViewFactory, $orderRepository);
     }
 
     function it_is_initializable(): void

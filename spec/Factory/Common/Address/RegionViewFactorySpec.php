@@ -19,6 +19,11 @@ use Sylius\Component\Addressing\Model\AddressInterface as SyliusAddressInterface
 
 final class RegionViewFactorySpec extends ObjectBehavior
 {
+    function let(): void
+    {
+        $this->beConstructedWith(RegionView::class);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(RegionViewFactory::class);

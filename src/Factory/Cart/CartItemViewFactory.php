@@ -92,7 +92,7 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
     public function createUpdateResponse(SyliusOrderItemInterface $syliusOrderItem): CartItemView
     {
         /** @var CartItemView $cartItemView */
-        $cartItemView = new $this->cartItemViewClass;
+        $cartItemView = new $this->cartItemViewClass();
         $cartItemView->item_id = $syliusOrderItem->getId();
         $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
         $cartItemView->qty = $syliusOrderItem->getQuantity();

@@ -18,6 +18,11 @@ use PhpSpec\ObjectBehavior;
 
 final class GenericSuccessViewFactorySpec extends ObjectBehavior
 {
+    function let(): void
+    {
+        $this->beConstructedWith(GenericSuccessView::class);
+    }
+
     function it_is_initializable(): void
     {
         $this->shouldHaveType(GenericSuccessViewFactory::class);
