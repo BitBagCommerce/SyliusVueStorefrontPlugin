@@ -23,6 +23,9 @@ use Sylius\Component\Core\Repository\OrderRepositoryInterface;
 
 final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
 {
+    /** @var string */
+    private $orderHistoryViewClass;
+
     /** @var OrderViewFactoryInterface */
     private $orderViewFactory;
 
@@ -30,16 +33,19 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
     private $orderRepository;
 
     public function __construct(
+        string $orderHistoryViewClass,
         OrderViewFactoryInterface $orderViewFactory,
         OrderRepositoryInterface $orderRepository
     ) {
+        $this->orderHistoryViewClass = $orderHistoryViewClass;
         $this->orderViewFactory = $orderViewFactory;
         $this->orderRepository = $orderRepository;
     }
 
     public function create(CustomerInterface $syliusCustomer, PaginationParameters $paginationParameters): OrderHistoryView
     {
-        $orderHistoryView = new OrderHistoryView();
+        /** @var OrderHistoryView $orderHistoryView */
+        $orderHistoryView = new $this->orderHistoryViewClass();
 
         $customerOrders = $this->orderRepository->findBy([
             'customer' => $syliusCustomer,

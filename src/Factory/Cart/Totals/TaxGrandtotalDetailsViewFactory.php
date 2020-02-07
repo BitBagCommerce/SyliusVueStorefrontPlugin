@@ -17,10 +17,19 @@ use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
 
 final class TaxGrandtotalDetailsViewFactory implements TaxGrandtotalDetailsViewFactoryInterface
 {
+    /** @var string */
+    private $taxGrandtotalDetailsViewClass;
+
+    public function __construct(string $taxGrandtotalDetailsViewClass)
+    {
+        $this->taxGrandtotalDetailsViewClass = $taxGrandtotalDetailsViewClass;
+    }
+
     public function create(SyliusOrderInterface $syliusOrder): TaxGrandtotalDetailsView
     {
-        $taxGrandtotalDetails = new TaxGrandtotalDetailsView();
+        /** @var TaxGrandtotalDetailsView $taxGrandtotalDetailsView */
+        $taxGrandtotalDetailsView = new $this->taxGrandtotalDetailsViewClass();
 
-        return $taxGrandtotalDetails;
+        return $taxGrandtotalDetailsView;
     }
 }

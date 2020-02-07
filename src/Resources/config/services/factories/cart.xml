@@ -8,20 +8,24 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactory">
+            <argument>%bitbag.vue_storefront.view.cart_item.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\PaymentMethodViewFactory">
+            <argument>%bitbag.vue_storefront.view.payment_method.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_information_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingInformationViewFactory">
+            <argument>%bitbag.vue_storefront.view.shipping_information.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.payment_method_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.cart.shipping_methods_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Cart\ShippingMethodsViewFactory">
+            <argument>%bitbag.vue_storefront.view.shipping_methods.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.provider.channel" />
         </service>
     </services>

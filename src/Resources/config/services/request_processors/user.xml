@@ -7,27 +7,27 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.change_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\User\ChangePasswordRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.change_password.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.create_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\User\CreateUserRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.create_user.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.get_order_history"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\User\GetOrderHistoryRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.get_order_history.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.reset_password"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\User\ResetPasswordRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.reset_password.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.request_processor.user.update_user"
                  class="BitBag\SyliusVueStorefrontPlugin\Processor\RequestProcessor">
-            <argument key="$className">BitBag\SyliusVueStorefrontPlugin\Request\User\UpdateUserRequest</argument>
+            <argument key="$className">%bitbag.vue_storefront.request.update_user.class%</argument>
         </service>
     </services>
 </container>

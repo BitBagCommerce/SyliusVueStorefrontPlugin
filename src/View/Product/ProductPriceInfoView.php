@@ -35,7 +35,7 @@ class ProductPriceInfoView
     /** @var int */
     public $regular_price;
 
-    /** @var ProductPriceFormatted */
+    /** @var ProductPriceFormattedView */
     public $formatted_prices;
 
     /** @var ProductPriceExtensionAttributeView */

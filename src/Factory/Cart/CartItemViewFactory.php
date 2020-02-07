@@ -21,6 +21,14 @@ use Sylius\Component\Product\Model\ProductOptionValueInterface;
 
 final class CartItemViewFactory implements CartItemViewFactoryInterface
 {
+    /** @var string */
+    private $cartItemViewClass;
+
+    public function __construct(string $cartItemViewClass)
+    {
+        $this->cartItemViewClass = $cartItemViewClass;
+    }
+
     public function create(SyliusOrderItemInterface $syliusOrderItem): CartItemView
     {
         return $this->createFromOrderItem($syliusOrderItem);
@@ -39,7 +47,8 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
 
     private function createFromOrderItem(SyliusOrderItemInterface $syliusOrderItem): CartItemView
     {
-        $cartItemView = new CartItemView();
+        /** @var CartItemView $cartItemView */
+        $cartItemView = new $this->cartItemViewClass();
         $cartItemView->item_id = $syliusOrderItem->getId();
         $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
         $cartItemView->qty = $syliusOrderItem->getQuantity();
@@ -82,7 +91,8 @@ final class CartItemViewFactory implements CartItemViewFactoryInterface
 
     public function createUpdateResponse(SyliusOrderItemInterface $syliusOrderItem): CartItemView
     {
-        $cartItemView = new CartItemView();
+        /** @var CartItemView $cartItemView */
+        $cartItemView = new $this->cartItemViewClass;
         $cartItemView->item_id = $syliusOrderItem->getId();
         $cartItemView->sku = $syliusOrderItem->getVariant()->getCode();
         $cartItemView->qty = $syliusOrderItem->getQuantity();

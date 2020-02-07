@@ -18,17 +18,22 @@ use Sylius\Component\Core\Model\AddressInterface as SyliusAddressInterface;
 
 final class AddressViewFactory implements AddressViewFactoryInterface
 {
+    /** @var string */
+    private $addressViewClass;
+
     /** @var RegionViewFactoryInterface */
     private $regionView;
 
-    public function __construct(RegionViewFactoryInterface $regionView)
+    public function __construct(string $addressViewClass, RegionViewFactoryInterface $regionView)
     {
+        $this->addressViewClass = $addressViewClass;
         $this->regionView = $regionView;
     }
 
     public function create(SyliusAddressInterface $syliusAddress): AddressView
     {
-        $addressView = new AddressView();
+        /** @var AddressView $addressView */
+        $addressView = new $this->addressViewClass();
         $addressView->id = $syliusAddress->getId();
         $addressView->region = $this->regionView->create($syliusAddress);
         $addressView->customer_id = $syliusAddress->getCustomer() ? $syliusAddress->getCustomer()->getId() : 0;

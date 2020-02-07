@@ -8,23 +8,28 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Common\AddressViewFactory">
+            <argument>%bitbag.vue_storefront.view.address.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.common.address.region_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.common.address.region_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Common\Address\RegionViewFactory">
+            <argument>%bitbag.vue_storefront.view.region.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.validation_error_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\ValidationErrorViewFactory">
+            <argument>%bitbag.vue_storefront.view.validation_error.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.generic_success_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\GenericSuccessViewFactory">
+            <argument>%bitbag.vue_storefront.view.generic_success.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.stock_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\Stock\StockViewFactory">
+            <argument>%bitbag.vue_storefront.view.stock.class%</argument>
         </service>
     </services>
 </container>

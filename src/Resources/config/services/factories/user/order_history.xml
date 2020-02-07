@@ -8,12 +8,14 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_extension_attributes_view_factory"
                 class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderExtensionAttributesViewFactory">
+            <argument>%bitbag.vue_storefront.view.order_extension_attributes.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_assignment_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\OrderViewFactory">
+            <argument>%bitbag.vue_storefront.view.order.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.order_extension_attributes_view_factory" />
@@ -22,20 +24,24 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.payment_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\PaymentViewFactory">
+            <argument>%bitbag.vue_storefront.view.payment.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_assignment_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingAssignmentViewFactory">
+            <argument>%bitbag.vue_storefront.view.shipping_assignment.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.cart.cart_item_view_factory" />
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_total_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingTotalViewFactory">
+            <argument>%bitbag.vue_storefront.view.shipping_total.class%</argument>
         </service>
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_view_factory"
                  class="BitBag\SyliusVueStorefrontPlugin\Factory\User\OrderHistory\ShippingViewFactory">
+            <argument>%bitbag.vue_storefront.view.shipping.class%</argument>
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.address_view_factory" />
             <argument type="service" id="bitbag_sylius_vue_storefront_plugin.factory.user.order_history.shipping_total_view_factory" />
         </service>
