@@ -188,7 +188,7 @@ Schema of indexes is described in files stored in `Document` directory.
 It's important to note once again that **only Elasticsearch 6 is fully supported currently**.  
 Support for ES 7 is on the way - once [ruflin/elastica](https://github.com/ruflin/Elastica) and [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) start supporting it, we will as well.
 
-### Using the plugin within Sylius Standard app, with VSF
+## Using the plugin within Sylius Standard app, with VSF
 
 It is no surprise that you must have products, taxons etc. within your Sylius instance to benefit from VSF.  
 Therefore we assume that you have a shop already running.  
@@ -211,6 +211,100 @@ $ php bin/console fos:elastica:populate
 ```
 
 to populate Elasticsearch indexes and let refresher contained within the plugin to automatically update the data in ES in real time.
+
+## Extending the plugin
+
+### Extending requests, commands/queries
+
+The easiest way to extend the existing request classes and add new properties is to inherit from them.  
+Because of the way we denormalize incoming requests, you don't need constructor in that class.
+You must only:
+ * add public properties to the class
+ * override `getCommand()` or `getQuery()` method
+ 
+Optionally you may want to add constraint to your properties that would validate incoming data.  
+We use separate .xml files for that as you can see in `src/Resources/config/validation` directory.
+ 
+For example let's add locale to the coupon:
+
+```
+use BitBag\SyliusVueStorefrontPlugin\Request\Cart\ApplyCouponRequest;
+
+final class ApplyLocalizedCouponRequest extends ApplyCouponRequest
+{
+    /** @var string */
+    pubic $locale;
+
+    public function getCommand(): CommandInterface
+    {
+        return new ApplyCoupon($this->token, $this->cartId, $this->coupon, $this->locale);
+    }
+}
+```
+
+In the same manner the command would need to be created extending the ApplyCoupon class.  
+Then you only need to change one parameter in the configuration file:
+
+```
+bitbag_sylius_vue_storefront_plugin:
+    request_classes:
+        apply_coupon: \AddLocalizedCouponRequest
+```
+
+### Extending handlers
+
+The main way to extend a handler is to decorate it. This makes adding functionality before and after the handler easy.  
+Please check example of extending view below and/or follow [Symfony Documentation - How to Decorate Services](https://symfony.com/doc/4.4/service_container/service_decoration.html) guide.
+
+However, if you want to change the logic in the handler, you need to overwrite it.    
+This can be done by registering the new handler with the same service id.  
+Do not just add it with a new service id otherwise, it will execute both handlers.
+
+### Extending views
+
+When extending the views, two places need to be modified - view class and view factory.
+
+ViewFactories should be decorated just like Handlers mentioned above. You can also completely override them if you prefer to do so.
+
+```
+use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals\TotalsViewFactoryInterface;
+
+class NiceTotalViewFactory implements TotalViewFactoryInterface
+{
+    private $innerTotalViewFactory;
+
+    public function __construct(TotalsViewFactoryInterface $innerTotalViewFactory)
+    {
+        $this->innerTotalViewFactory = $innerTotalViewFactory;
+    }
+
+    public function create(OrderInterface $order): NiceTotalView
+    {
+        /** @var NiceTotalView $totalView */
+        $totalView = $this->innerTotalViewFactory->createNew();
+
+        $totalView->nicePersonDiscount = $orderInterface->getNiceDiscount();
+
+        return $totalView;
+    }
+}
+```
+
+You need to define this service in xml (or yaml) file:
+
+```<service class="NiceTotalView" id="app.factory.nice_total_view_factory"
+         decorates="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory">
+       <argument type="service" id="app.factory.nice_total_view_factory.inner" />
+</service>
+```
+
+and change the view class in configuration file:
+
+```
+bitbag_sylius_vue_storefront_plugin:
+    view_classes:
+        totals: \NiceTotalView
+```
 
 ### Additional reading resources for developers
 To be able to contribute to the plugin make sure that you familiarize yourself with:
