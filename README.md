@@ -2,6 +2,12 @@
 
 A bridge between [Sylius](https://sylius.com) and [Vue Storefront](https://vuestorefront.io).
 
+## About us
+
+At BitBag we do believe in open source. However, we are able to do it just beacuse of our awesome clients, who are kind enough to share some parts of our work with the community. Therefore, if you feel like there is a possibility for us working together, feel free to reach us out. You will find out more about our professional services, technologies and contact details at https://bitbag.io/.
+
+## Overall info
+
 This document assumes that you are already familiar with Vue Storefront and its technology stack.  
 If that's not the case please check [VSF Documentation](https://docs.vuestorefront.io/guide/) and [GitHub repository](https://github.com/DivanteLtd/vue-storefront).
 
