@@ -1,6 +1,6 @@
 # BitBag SyliusVueStorefrontPlugin
 
-A bridge between [Vue Storefront](https://vuestorefront.io) and [Sylius](https://sylius.com).  
+A bridge between [Sylius](https://sylius.com) and [Vue Storefront](https://vuestorefront.io).
 
 This document assumes that you are already familiar with Vue Storefront and its technology stack.  
 If that's not the case please check [VSF Documentation](https://docs.vuestorefront.io/guide/) and [GitHub repository](https://github.com/DivanteLtd/vue-storefront).
@@ -39,7 +39,7 @@ Please refer to [Sylius Documentation - How to disable Sylius shop?](https://doc
 
 ---
 
-First add this plugin as dependency to your Sylius project. 
+First, add this plugin as dependency to your Sylius project. 
  
  ```
  $ composer require bitbag/vue-storefront-plugin
@@ -63,6 +63,7 @@ return [
 ---
 
 Add few variables to your .env file:
+
 ```text
 APP_CHANNEL_CODE="<code of Sylius channel you want to use>"
 
@@ -79,6 +80,7 @@ CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$
 ```
 
 To generate JWT public and secret keys please run commands below in Sylius' project directory:
+
 ```
 $ mkdir -p config/jwt
 $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
@@ -95,6 +97,7 @@ Add line below to `parameters` at the top of the file:
 `bitbag.vue_storefront.security.regex: "^/vsbridge"`
 
 Add code below to `security -> firewall` part:
+
 ```
         vs_bridge_user_login:
             pattern: "%bitbag.vue_storefront.security.regex%/user/login"
@@ -126,6 +129,7 @@ Add line below to `security -> access_control` part:
 ---
 
 Now go to `config/routes.yaml` file in your Sylius app and paste there:
+
 ```
 sylius_vue_storefront_plugin:
     resource: "@SyliusVueStorefrontPlugin/Resources/config/routing.yaml"
@@ -134,6 +138,7 @@ sylius_vue_storefront_plugin:
 ---
 
 Create new file `gesdinet_jwt_refresh_token.yaml` (or name it however you like) inside `config/packages` directory and paste inside it:
+
 ```
 gesdinet_jwt_refresh_token:
     firewall: vs_bridge
@@ -205,7 +210,8 @@ $ php bin/console sylius:fixtures:load
 
 .. to add all needed entities from fixtures to database.
 
-Only then you can run 
+Only then you can run
+
 ```text
 $ php bin/console fos:elastica:populate
 ```
@@ -292,7 +298,8 @@ class NiceTotalViewFactory implements TotalViewFactoryInterface
 
 You need to define this service in xml (or yaml) file:
 
-```<service class="NiceTotalView" id="app.factory.nice_total_view_factory"
+```
+<service class="NiceTotalView" id="app.factory.nice_total_view_factory"
          decorates="bitbag_sylius_vue_storefront_plugin.factory.cart.totals.totals_view_factory">
        <argument type="service" id="app.factory.nice_total_view_factory.inner" />
 </service>
@@ -307,11 +314,14 @@ bitbag_sylius_vue_storefront_plugin:
 ```
 
 ### Additional reading resources for developers
+
 To be able to contribute to the plugin make sure that you familiarize yourself with:
+
 * [Vue Storefront Integration SDK](https://github.com/DivanteLtd/vue-storefront-integration-sdk/)
 * [Vue Storefront](Shttps://github.com/DivanteLtd/vue-storefront)
 * [Vue Storefront API](Shttps://github.com/DivanteLtd/vue-storefront-api)
 * [Sylius Shop API Plugin](https://github.com/Sylius/ShopApiPlugin/)
+* [Sylius Contribution Guide](https://docs.sylius.com/en/latest/contributing/)
 
 Additionally you might want to get to know VSF better:
 * [Vue Storefront Documentation](https://docs.vuestorefront.io/guide/) - to learn how to customize VSF frontend part
