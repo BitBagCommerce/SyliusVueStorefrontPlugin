@@ -14,11 +14,8 @@ namespace BitBag\SyliusVueStorefrontPlugin\Factory\Cart\Totals;
 
 use BitBag\SyliusVueStorefrontPlugin\Factory\Cart\CartItemViewFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\View\Cart\Totals\TotalsView;
-use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Core\Model\AdjustmentInterface;
 use Sylius\Component\Core\Model\OrderInterface as SyliusOrderInterface;
-use Sylius\Component\Core\Model\OrderItemInterface;
-use Sylius\Component\Core\Model\OrderItemUnitInterface;
 
 final class TotalsViewFactory implements TotalsViewFactoryInterface
 {
@@ -73,30 +70,6 @@ final class TotalsViewFactory implements TotalsViewFactoryInterface
         $totalsView->total_segments = $this->totalSegmentViewFactory->createList($syliusOrder);
 
         return $totalsView;
-    }
-
-    private function countDiscountAdjustmentValues(SyliusOrderInterface $syliusOrder): int
-    {
-        $total = 0;
-
-        /** @var Collection|OrderItemInterface[] $items */
-        $items = $syliusOrder->getItems();
-
-        foreach ($items as $item) {
-            $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_ITEM_PROMOTION_ADJUSTMENT);
-        }
-
-        /** @var Collection|OrderItemUnitInterface[] $itemUnits */
-        $itemUnits = $syliusOrder->getItemUnits();
-
-        foreach ($itemUnits as $item) {
-            $total += $item->getAdjustmentsTotal(AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT);
-        }
-
-        $total += $syliusOrder->getAdjustmentsTotal(AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT);
-        $total += $syliusOrder->getAdjustmentsTotal(AdjustmentInterface::ORDER_SHIPPING_PROMOTION_ADJUSTMENT);
-
-        return $total;
     }
 
     private function countShippingDiscount(SyliusOrderInterface $syliusOrder): int
