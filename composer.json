@@ -1,7 +1,7 @@
 {
-    "name": "bitbag/vue-storefront-plugin",
+    "name": "bitbag/vuestorefront-plugin",
     "type": "sylius-plugin",
-    "keywords": ["sylius", "sylius-plugin"],
+    "keywords": ["sylius", "sylius-plugin", "sylius vuestorefront"],
     "description": "BitBag VueStorefront bridge for Sylius.",
     "license": "MIT",
     "require": {
