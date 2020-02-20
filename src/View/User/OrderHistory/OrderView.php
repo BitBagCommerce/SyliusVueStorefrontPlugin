@@ -23,43 +23,43 @@ class OrderView
     /** @var string */
     public $base_currency_code;
 
-    /** @var float */
+    /** @var int */
     public $base_discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_discount_tax_compensation_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_grand_total;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_subtotal;
 
-    /** @var float */
+    /** @var int */
     public $base_subtotal_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $base_tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_to_global_rate;
 
-    /** @var float */
+    /** @var int */
     public $base_to_order_rate;
 
-    /** @var float */
+    /** @var int */
     public $base_total_due;
 
     /** @var AddressView */
@@ -89,10 +89,10 @@ class OrderView
     /** @var int */
     public $customer_note_notify;
 
-    /** @var float */
+    /** @var int */
     public $discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $discount_tax_compensation_amount;
 
     /** @var int */
@@ -107,7 +107,7 @@ class OrderView
     /** @var string */
     public $global_currency_code;
 
-    /** @var float */
+    /** @var int */
     public $grand_total;
 
     /** @var string */
@@ -137,16 +137,16 @@ class OrderView
     /** @var string */
     public $shipping_description;
 
-    /** @var float */
+    /** @var int */
     public $shipping_discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $shipping_discount_tax_compensation_amount;
 
-    /** @var float */
+    /** @var int */
     public $shipping_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $shipping_tax_amount;
 
     /** @var string */
@@ -173,16 +173,16 @@ class OrderView
     /** @var float */
     public $store_to_order_rate;
 
-    /** @var float */
+    /** @var int */
     public $subtotal;
 
-    /** @var float */
+    /** @var int */
     public $subtotal_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $total_due;
 
     /** @var int */

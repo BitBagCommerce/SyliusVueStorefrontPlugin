@@ -20,13 +20,13 @@ class PaymentView
     /** @var string[] */
     public $additional_information;
 
-    /** @var float */
+    /** @var int */
     public $amount_ordered;
 
-    /** @var float */
+    /** @var int */
     public $base_amount_ordered;
 
-    /** @var float */
+    /** @var int */
     public $base_shipping_amount;
 
     /** @var string|null */
@@ -41,6 +41,6 @@ class PaymentView
     /** @var string */
     public $parent_id;
 
-    /** @var float */
+    /** @var int */
     public $shipping_amount;
 }

@@ -14,22 +14,22 @@ namespace BitBag\SyliusVueStorefrontPlugin\View\Product;
 
 class ProductPriceInfoView
 {
-    /** @var float */
+    /** @var int */
     public $final_price;
 
-    /** @var float */
+    /** @var int */
     public $max_price;
 
-    /** @var float */
+    /** @var int */
     public $max_regular_price;
 
-    /** @var float */
+    /** @var int */
     public $minimal_regular_price;
 
     /** @var int|null */
     public $special_price;
 
-    /** @var float */
+    /** @var int */
     public $minimal_price;
 
     /** @var int */

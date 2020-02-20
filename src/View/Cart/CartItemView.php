@@ -25,46 +25,46 @@ class CartItemView
     /** @var int */
     public $base_amount_refunded;
 
-    /** @var float */
+    /** @var int */
     public $base_discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_discount_invoiced;
 
     /** @var int */
     public $base_discount_tax_compensation_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_original_price;
 
-    /** @var float */
+    /** @var int */
     public $base_price;
 
-    /** @var float */
+    /** @var int */
     public $base_price_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $base_row_invoiced;
 
-    /** @var float */
+    /** @var int */
     public $base_row_total;
 
-    /** @var float */
+    /** @var int */
     public $base_row_total_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $base_tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $base_tax_invoiced;
 
     /** @var string see DateHelper::DATE_TIME_FORMAT */
     public $created_at;
 
-    /** @var float */
+    /** @var int */
     public $discount_amount;
 
-    /** @var float */
+    /** @var int */
     public $discount_invoiced;
 
     /** @var int */
@@ -97,13 +97,13 @@ class CartItemView
     /** @var int */
     public $order_id;
 
-    /** @var float */
+    /** @var int */
     public $original_price;
 
-    /** @var float */
+    /** @var int */
     public $price;
 
-    /** @var float */
+    /** @var int */
     public $price_incl_tax;
 
     /** @var int */
@@ -139,16 +139,16 @@ class CartItemView
     /** @var int */
     public $quote_item_id;
 
-    /** @var float */
+    /** @var int */
     public $row_invoiced;
 
-    /** @var float */
+    /** @var int */
     public $row_total;
 
-    /** @var float */
+    /** @var int */
     public $row_total_incl_tax;
 
-    /** @var float */
+    /** @var int */
     public $row_total_with_discount;
 
     /** @var int */
@@ -160,10 +160,10 @@ class CartItemView
     /** @var int */
     public $store_id;
 
-    /** @var float */
+    /** @var int */
     public $tax_amount;
 
-    /** @var float */
+    /** @var int */
     public $tax_invoiced;
 
     /** @var int */
