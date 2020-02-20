@@ -28,7 +28,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final class CreateUserAction
 {
-    /** @var RequestProcessor */
+    /** @var RequestProcessorInterface */
     private $createUserRequestProcessor;
 
     /** @var MessageBusInterface */
