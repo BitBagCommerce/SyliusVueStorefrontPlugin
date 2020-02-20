@@ -43,8 +43,8 @@ Sylius ShopBundle is also no longer needed as Vue Storefront will be your new ..
 
 ## Vue Storefront + Sylius Demo
 
-We've created a demo app that showcases usage of this plugin. Visit [https://vsf.bitbag.shop](vsf.bitbag.shop) to check it out!  
-The Sylius admin panel is accessible at [https://syliusvsf.bitbag.shop/admin](syliusvsf.bitbag.shop/admin). Admin credentials: `sylius : sylius`.
+We've created a demo app that showcases usage of this plugin. Visit [vsf.bitbag.shop](https://vsf.bitbag.shop) to check it out!  
+The Sylius admin panel is accessible at [syliusvsf.bitbag.shop/admin](https://syliusvsf.bitbag.shop/admin). Admin credentials: `sylius : sylius`.
 
 
 ## Installation
