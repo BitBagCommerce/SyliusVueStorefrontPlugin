@@ -86,7 +86,6 @@
                 }
             }
         ],
-        "search_criteria": "@array@",
         "total_count": "@integer@"
     }
 }
