@@ -59,7 +59,6 @@ final class OrderHistoryViewFactory implements OrderHistoryViewFactoryInterface
 
         $orderHistoryView->items = $this->orderViewFactory->createList($paginatedOrders);
         $orderHistoryView->total_count = count($customerOrders);
-        $orderHistoryView->search_criteria = [];
 
         return $orderHistoryView;
     }

@@ -166,10 +166,10 @@ class Details
     /** @var int */
     private $visibility;
 
-    /** @var \DateTime */
+    /** @var \DateTimeInterface */
     private $createdAt;
 
-    /** @var \DateTime */
+    /** @var \DateTimeInterface */
     private $updatedAt;
 
     /** @var string */
