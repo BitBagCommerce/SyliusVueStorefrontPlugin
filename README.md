@@ -1,6 +1,6 @@
 <h1 align="center">
     <a href="http://bitbag.io" target="_blank">
-        <img src="doc/logo.png" width="55%" />
+        <img src="doc/logo.jpg" width="100%" />
     </a>
     <br />
     <a href="https://packagist.org/packages/bitbag/vuestorefront-plugin" title="License" target="_blank">
@@ -26,6 +26,12 @@
 ## BitBag SyliusVueStorefrontPlugin
 
 A bridge between [Sylius](https://sylius.com) and [Vue Storefront](https://vuestorefront.io).
+
+<h1 align="center">
+    <a href="http://bitbag.io" target="_blank">
+        <img src="doc/logo.png" width="55%" />
+    </a>
+</h1>
 
 ## About us
 
