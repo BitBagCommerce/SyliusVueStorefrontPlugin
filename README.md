@@ -79,7 +79,7 @@ Please refer to [Sylius Documentation - How to disable Sylius shop?](https://doc
 First, add this plugin as dependency to your Sylius project. 
  
  ```
- $ composer require bitbag/vue-storefront-plugin
+ $ composer require bitbag/vuestorefront-plugin
  ```
 
 Add plugin to `config/bundles.php`:
