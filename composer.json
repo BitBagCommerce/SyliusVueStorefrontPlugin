@@ -9,7 +9,7 @@
         "ext-json": "*",
         "friendsofsymfony/elastica-bundle": "^5.1",
         "ruflin/elastica": "^6.1",
-        "sylius/sylius": "^1.6",
+        "sylius/sylius": "~1.7",
         "nelmio/cors-bundle": "^1.5",
         "symfony/messenger": "^4.4",
         "lexik/jwt-authentication-bundle": "^2.6",
