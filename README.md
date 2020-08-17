@@ -27,12 +27,6 @@
 
 A bridge between [Sylius](https://sylius.com) and [Vue Storefront](https://vuestorefront.io).
 
-<h1 align="center">
-    <a href="http://bitbag.io" target="_blank">
-        <img src="doc/logo.png" width="55%" />
-    </a>
-</h1>
-
 ## About us
 
 At BitBag we do believe in open source. However, we are able to do it just beacuse of our awesome clients, who are kind enough to share some parts of our work with the community. Therefore, if you feel like there is a possibility for us working together, feel free to reach us out. You will find out more about our professional services, technologies and contact details at https://bitbag.io/.
