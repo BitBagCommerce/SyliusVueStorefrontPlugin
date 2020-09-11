@@ -75,11 +75,11 @@ final class ProductVariantRepository implements ProductVariantRepositoryInterfac
             return false;
         }
         foreach ($second as $key => $value) {
-            if (!in_array($value, $first, true)) {
+            if (!in_array($value, $first, false)) {
                 return false;
             }
 
-            if (count(array_keys($first, $value, true)) !== count(array_keys($second, $value, true))) {
+            if (count(array_keys($first, $value, false)) !== count(array_keys($second, $value, false))) {
                 return false;
             }
         }
