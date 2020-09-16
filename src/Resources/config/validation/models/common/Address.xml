@@ -32,12 +32,12 @@
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.street.not_blank</option>
             </constraint>
         </property>
-        <property name="company">
+        <!-- <property name="company">
             <constraint name="NotBlank">
                 <option name="allowNull">true</option>
                 <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blank</option>
             </constraint>
-        </property>
+        </property> -->
         <!--        <property name="postcode">-->
         <!--            <constraint name="NotNull">-->
         <!--                <option name="message">bitbag.vue_storefront_api.sylius.user.address.postcode.not_null</option>-->
