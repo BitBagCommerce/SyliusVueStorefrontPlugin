@@ -21,12 +21,14 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
     {
         $productVariantsCount = $product->getVariants()->count();
 
+        $firstVariant = $product->getVariants()->first();
+
         return new Details(
             $product->getId(),
             null,
             null,
             $productVariantsCount > 1 ? 'configurable' : 'simple',
-            $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode(),
+            $productVariantsCount === 1 ? $firstVariant->getCode() : $product->getCode(),
             $product->getSlug(),
             $product->getName(),
             null,
@@ -34,10 +36,10 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             $product->getCreatedAt(),
             $product->getUpdatedAt(),
             $product->getImages()->first() ? $product->getImages()->first()->getPath(): null,
-            ($product->getVariants()->first()->getOnHand() - $product->getVariants()->first()->getOnHold()) > 0,
+            $productVariantsCount > 0 ? ($firstVariant->getOnHand() - $firstVariant->getOnHold()) > 0 : false,
             null,
-            $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getId() : null,
-            $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getName() : null,
+            $productVariantsCount > 0 ? ($firstVariant->getTaxCategory() !== null ? $firstVariant->getTaxCategory()->getId() : null) : null,
+            $productVariantsCount > 0 ? ($firstVariant->getTaxCategory() !== null ? $firstVariant->getTaxCategory()->getName() : null) : null,
             $product->getDescription(),
             $product->getShortDescription(),
             1,//hasOptions
@@ -45,7 +47,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             [],//productLinks
             [],//colorOptions,
             [],//sizeOptions
-            $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode()
+            $productVariantsCount === 1 ? $firstVariant->getCode() : $product->getCode()
         );
     }
 }
