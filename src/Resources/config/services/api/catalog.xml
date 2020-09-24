@@ -14,6 +14,10 @@
             <argument type="service" id="fos_rest.view_handler" />
             <argument>%env(ELASTICSEARCH_HOST)%</argument>
             <argument>%env(ELASTICSEARCH_PORT)%</argument>
+            <argument>%env(ELASTICSEARCH_TRANSPORT)%</argument>
+            <argument>%env(ELASTICSEARCH_SSL)%</argument>
+            <argument>%env(ELASTICSEARCH_USERNAME)%</argument>
+            <argument>%env(ELASTICSEARCH_PASSWORD)%</argument>
         </service>
     </services>
 </container>

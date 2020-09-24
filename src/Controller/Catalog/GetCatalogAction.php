@@ -32,17 +32,50 @@ final class GetCatalogAction
     /** @var int */
     private $port;
 
-    public function __construct(ViewHandlerInterface $viewHandler, string $host, int $port)
+    /** @var string */
+    private $transport;
+
+    /** @var bool */
+    private $ssl;
+
+    /** @var int */
+    private $username;
+
+    /** @var string */
+    private $password;
+
+    public function __construct(
+        ViewHandlerInterface $viewHandler,
+        string $host,
+        int $port,
+        string $transport,
+        bool $ssl,
+        string $username,
+        string $password
+    )
     {
         $this->host = $host;
         $this->port = $port;
+        $this->transport = $transport;
+        $this->ssl = $ssl;
+        $this->username = $username;
+        $this->password = $password;
         $this->viewHandler = $viewHandler;
     }
 
     public function __invoke(Request $request): Response
     {
         $client = new Client();
-        $client->addConnection(new Connection(['host' => $this->host, 'port' => $this->port]));
+        $connection = new Connection([
+            'host' => $this->host,
+            'port' => $this->port,
+            'transport' => $this->transport,
+            'ssl' => $this->ssl,
+            'username' => $this->username,
+            'password' => $this->password
+        ]);
+        
+        $client->addConnection($connection);
 
         $index = $request->attributes->get('index');
         $type = $request->attributes->get('type');
