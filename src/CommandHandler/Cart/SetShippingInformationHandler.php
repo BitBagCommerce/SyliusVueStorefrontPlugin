@@ -26,7 +26,7 @@ final class SetShippingInformationHandler implements MessageHandlerInterface
     /** @var OrderRepositoryInterface */
     private $orderRepository;
 
-    /** @var ShippingMethodRepositoryInterface $shippingMethodRepository */
+    /** @var ShippingMethodRepositoryInterface */
     private $shippingMethodRepository;
 
     /** @var ShipmentHandlerInterface */

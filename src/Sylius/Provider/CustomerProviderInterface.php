@@ -16,5 +16,5 @@ use Sylius\Component\Customer\Model\CustomerInterface;
 
 interface CustomerProviderInterface
 {
-    public function provide(?string $cartId = null): CustomerInterface;
+    public function provide(?string $cartId = null): ?CustomerInterface;
 }

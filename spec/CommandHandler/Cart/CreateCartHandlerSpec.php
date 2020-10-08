@@ -14,6 +14,7 @@ namespace spec\BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
 use BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart\CreateCartHandler;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Factory\CartFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\CustomerProviderInterface;
 use PhpSpec\ObjectBehavior;
@@ -21,14 +22,11 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Currency\Model\CurrencyInterface;
-use Sylius\Component\Locale\Model\LocaleInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 
 final class CreateCartHandlerSpec extends ObjectBehavior
 {
     function let(
-        FactoryInterface $cartFactory,
+        CartFactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         ChannelProviderInterface $channelProvider,
         CustomerProviderInterface $customerProvider
@@ -41,30 +39,27 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         $this->shouldHaveType(CreateCartHandler::class);
     }
 
-    function it_creates_cart(
-        FactoryInterface $cartFactory,
+    function it_creates_cart_for_guest_user(
+        CartFactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         OrderInterface $cart,
         ChannelProviderInterface $channelProvider,
         CustomerProviderInterface $customerProvider,
-        ChannelInterface $channel,
-        CustomerInterface $customer,
-        CurrencyInterface $currency,
-        LocaleInterface $locale
+        ChannelInterface $channel
     ): void {
-        $createCart = new CreateCart('token');
+        $createCart = new CreateCart();
         $createCart->setCartId('cart-id');
-
-        $customer->getEmail()->willReturn('example@guest.example');
-
-        $channel->getBaseCurrency()->willReturn($currency);
-        $channel->getDefaultLocale()->willReturn($locale);
 
         $channelProvider->provide()->willReturn($channel);
 
-        $customerProvider->provide('cart-id')->willReturn($customer);
+        $customerProvider->provide('cart-id')->willReturn(null);
 
-        $cartFactory->createNew()->willReturn($cart);
+        $cartFactory->createForChannel($channel)->willReturn($cart);
+
+        $cart->setState(OrderInterface::STATE_CART)->shouldBeCalledOnce();
+        $cart->setPaymentState(OrderInterface::STATE_CART)->shouldBeCalledOnce();
+
+        $cart->setTokenValue('cart-id')->shouldBeCalled();
 
         $cartRepository->add($cart)->shouldBeCalled();
 
@@ -79,7 +74,7 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         ChannelInterface $channel,
         CustomerInterface $customer
     ): void {
-        $createCart = new CreateCart('token');
+        $createCart = new CreateCart();
         $createCart->setCartId('cart-id');
 
         $customer->getEmail()->willReturn('shop_user@shop.com');
@@ -89,6 +84,38 @@ final class CreateCartHandlerSpec extends ObjectBehavior
         $customerProvider->provide('cart-id')->willReturn($customer);
 
         $cartRepository->findLatestCartByChannelAndCustomer($channel, $customer)->willReturn($cart);
+
+        $cart->setTokenValue('cart-id')->shouldBeCalled();
+
+        $this->__invoke($createCart);
+    }
+
+    function it_creates_cart_for_existing_shop_user(
+        CartFactoryInterface $cartFactory,
+        OrderRepositoryInterface $cartRepository,
+        OrderInterface $cart,
+        ChannelProviderInterface $channelProvider,
+        CustomerProviderInterface $customerProvider,
+        ChannelInterface $channel,
+        CustomerInterface $customer
+    ): void {
+        $createCart = new CreateCart();
+        $createCart->setCartId('cart-id');
+
+        $customer->getEmail()->willReturn('shop_user@shop.com');
+
+        $channelProvider->provide()->willReturn($channel);
+
+        $customerProvider->provide('cart-id')->willReturn($customer);
+
+        $cartRepository->findLatestCartByChannelAndCustomer($channel, $customer)->willReturn(null);
+
+        $cartFactory->createForCustomerAndChannel($customer, $channel)->willReturn($cart);
+
+        $cart->setState(OrderInterface::STATE_CART)->shouldBeCalledOnce();
+        $cart->setPaymentState(OrderInterface::STATE_CART)->shouldBeCalledOnce();
+
+        $cartRepository->add($cart);
 
         $cart->setTokenValue('cart-id')->shouldBeCalled();
 

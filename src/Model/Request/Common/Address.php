@@ -50,6 +50,9 @@ class Address
     /** @var string */
     public $lastname;
 
+    /** @var string */
+    public $email;
+
     /** @var string|null */
     public $vat_id;
 
@@ -88,5 +91,20 @@ class Address
     public function getLastName(): string
     {
         return $this->lastname;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function getRegionId(): int
+    {
+        return $this->region_id;
     }
 }
