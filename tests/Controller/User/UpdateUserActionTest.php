@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Tests\BitBag\SyliusVueStorefrontPlugin\Controller\User;
 
-use Sylius\Component\Core\Model\ShopUserInterface;
-use Sylius\Component\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\BitBag\SyliusVueStorefrontPlugin\Controller\JsonApiTestCase;
@@ -34,30 +32,13 @@ final class UpdateUserActionTest extends JsonApiTestCase
             $this->token
         );
 
-        /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
-
-        /** @var ShopUserInterface $shopUser */
-        $shopUser = $userRepository->findOneByEmail('test@example.com');
-
-        $customerId = $shopUser->getCustomer()->getId();
-
         $requestBody =
 <<<JSON
         {
             "customer": {
-                "id": $customerId,
-                "group_id": 1,
-                "default_billing": "10",
-                "default_shipping": "10",
-                "created_at": "2018-03-16 19:01:18",
-                "updated_at": "2018-04-03 12:59:13",
-                "created_in": "Fashion Web",
                 "email": "test@example.com",
                 "firstname": "Johny",
                 "lastname": "Doe",
-                "store_id": 1,
-                "website_id": 1,
                 "addresses": [
                     {
                         "id": 123,
@@ -78,8 +59,7 @@ final class UpdateUserActionTest extends JsonApiTestCase
                         "lastname": "Doe",
                         "vat_id": "PL987654321"
                     }
-                ],
-                "disable_auto_group_change": 0
+                ]
             }
         }
 JSON;
@@ -106,18 +86,9 @@ JSON;
 <<<JSON
         {
             "customer": {
-                "id": 123,
-                "group_id": 1,
-                "default_billing": "10",
-                "default_shipping": "10",
-                "created_at": "2018-03-16 19:01:18",
-                "updated_at": "2018-04-03 12:59:13",
-                "created_in": "Fashion Web",
                 "email": "test@example.com",
-                "firstname": "Johny",
+                "firstname": "",
                 "lastname": "Doe",
-                "store_id": 1,
-                "website_id": 1,
                 "addresses": [
                     {
                         "id": 123,
@@ -138,8 +109,7 @@ JSON;
                         "lastname": "Doe",
                         "vat_id": "PL987654321"
                     }
-                ],
-                "disable_auto_group_change": 0
+                ]
             }
         }
 JSON;
@@ -148,7 +118,11 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/User/update_user_invalid_user', Response::HTTP_BAD_REQUEST);
+        $this->assertResponse(
+            $response,
+            'Controller/User/update_user_invalid_user',
+            Response::HTTP_BAD_REQUEST
+        );
     }
 
     public function test_updating_user_for_blank_information(): void
@@ -166,7 +140,11 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/User/update_user_blank_information', Response::HTTP_BAD_REQUEST);
+        self::assertResponse(
+            $response,
+            'Controller/User/update_user_blank_information',
+            Response::HTTP_BAD_REQUEST
+        );
     }
 
     public function test_updating_user_for_blank_addresses(): void
@@ -180,31 +158,13 @@ JSON;
             $this->token
         );
 
-        /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
-
-        /** @var ShopUserInterface $shopUser */
-        $shopUser = $userRepository->findOneByEmail('test@example.com');
-
-        $customerId = $shopUser->getCustomer()->getId();
-
         $requestBody =
 <<<JSON
         {
             "customer": {
-                "id": $customerId,
-                "group_id": 1,
-                "default_billing": "10",
-                "default_shipping": "10",
-                "created_at": "2018-03-16 19:01:18",
-                "updated_at": "2018-04-03 12:59:13",
-                "created_in": "Fashion Web",
                 "email": "test@example.com",
                 "firstname": "Johny",
-                "lastname": "Doe",
-                "store_id": 1,
-                "website_id": 1,
-                "disable_auto_group_change": 0
+                "lastname": "Doe"
             }
         }
 JSON;
@@ -213,7 +173,11 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        self::assertResponse($response, 'Controller/User/update_user_blank_addresses', Response::HTTP_BAD_REQUEST);
+        self::assertResponse(
+            $response,
+            'Controller/User/update_user_blank_addresses',
+            Response::HTTP_BAD_REQUEST
+        );
     }
 
     public function test_updating_user_for_invalid_token(): void
@@ -227,30 +191,13 @@ JSON;
             123
         );
 
-        /** @var UserRepositoryInterface $userRepository */
-        $userRepository = $this->client->getContainer()->get('sylius.repository.shop_user');
-
-        /** @var ShopUserInterface $shopUser */
-        $shopUser = $userRepository->findOneByEmail('test@example.com');
-
-        $customerId = $shopUser->getCustomer()->getId();
-
         $requestBody =
 <<<JSON
         {
             "customer": {
-                "id": $customerId,
-                "group_id": 1,
-                "default_billing": "10",
-                "default_shipping": "10",
-                "created_at": "2018-03-16 19:01:18",
-                "updated_at": "2018-04-03 12:59:13",
-                "created_in": "Fashion Web",
                 "email": "test@example.com",
                 "firstname": "Johny",
                 "lastname": "Doe",
-                "store_id": 1,
-                "website_id": 1,
                 "addresses": [
                     {
                         "id": 123,
@@ -271,8 +218,7 @@ JSON;
                         "lastname": "Doe",
                         "vat_id": "PL987654321"
                     }
-                ],
-                "disable_auto_group_change": 0
+                ]
             }
         }
 JSON;
@@ -281,6 +227,10 @@ JSON;
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'Controller/User/Common/invalid_token', Response::HTTP_UNAUTHORIZED);
+        $this->assertResponse(
+            $response,
+            'Controller/User/Common/invalid_token',
+            Response::HTTP_UNAUTHORIZED
+        );
     }
 }
