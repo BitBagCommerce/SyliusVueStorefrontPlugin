@@ -45,7 +45,7 @@ class Media implements \JsonSerializable
     /** @var int */
     private $id;
 
-    public function __construct(string $imagePath, int $position, string $type, int $id)
+    public function __construct(string $imagePath, int $position, ?string $type, int $id)
     {
         $this->imagePath = $imagePath;
         $this->position = $position;
