@@ -51,8 +51,6 @@ bitbag:
                         not_blank: Please provide valid country id.
                     street:
                         not_blank: Please provide valid street name.
-                    company_id:
-                        not_blank:  Please provide valid company id.
                     telephone:
                         not_blank:  Please provide valid telephone.
                     postcode:
