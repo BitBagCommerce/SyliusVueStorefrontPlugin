@@ -19,7 +19,7 @@ use Sylius\Component\Order\Model\AdjustmentInterface as BaseAdjustmentInterface;
 
 final class AdjustmentProvider implements AdjustmentProviderInterface
 {
-    /** @var AdjustmentFactoryInterface $adjustmentFactory */
+    /** @var AdjustmentFactoryInterface */
     private $adjustmentFactory;
 
     /** @var ChannelProviderInterface */

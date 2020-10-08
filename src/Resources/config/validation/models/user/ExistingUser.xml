@@ -4,45 +4,6 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
     <class name="BitBag\SyliusVueStorefrontPlugin\Model\Request\User\ExistingUser">
-        <property name="id">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.id.not_blank</option>
-            </constraint>
-            <constraint name="BitBag\SyliusVueStorefrontPlugin\Sylius\Validator\Constraints\CustomerIsCurrentShopUser" />
-        </property>
-        <property name="group_id">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.group_id.not_blank</option>
-            </constraint>
-        </property>
-        <property name="default_billing">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.default_billing.not_blank</option>
-            </constraint>
-        </property>
-        <property name="default_shipping">
-            <constraint name="NotNull">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.default_shipping.not_blank</option>
-            </constraint>
-        </property>
-        <property name="created_at">
-            <constraint name="DateTime">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.date_time.wrong_format</option>
-            </constraint>
-        </property>
-        <property name="updated_at">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.date_time.wrong_format</option>
-            </constraint>
-        </property>
-        <property name="created_in">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.created_in.not_blank</option>
-            </constraint>
-        </property>
         <property name="email">
             <constraint name="NotBlank">
                 <option name="message">bitbag.vue_storefront_api.sylius.user.email.not_blank</option>
@@ -62,30 +23,11 @@
                 <option name="message">bitbag.vue_storefront_api.sylius.user.lastname.not_blank</option>
             </constraint>
         </property>
-        <property name="store_id">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.store_id.not_blank</option>
-            </constraint>
-        </property>
-        <property name="website_id">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.website_id.not_blank</option>
-            </constraint>
-        </property>
         <property name="addresses">
             <constraint name="NotBlank">
                 <option name="message">bitbag.vue_storefront_api.sylius.user.addresses.not_blank</option>
             </constraint>
             <constraint name="Valid" />
-        </property>
-        <property name="disable_auto_group_change">
-            <constraint name="NotBlank">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.disable_auto_group_change.not_blank
-                </option>
-            </constraint>
-            <constraint name="NotNull">
-                <option name="message">bitbag.vue_storefront_api.sylius.user.disable_auto_group_change.not_null</option>
-            </constraint>
         </property>
     </class>
 </constraint-mapping>
