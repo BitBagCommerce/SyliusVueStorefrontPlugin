@@ -17,6 +17,6 @@ class ConfigurableItemOption
     /** @var string */
     public $option_id;
 
-    /** @var int */
+    /** @var int|string */
     public $option_value;
 }
