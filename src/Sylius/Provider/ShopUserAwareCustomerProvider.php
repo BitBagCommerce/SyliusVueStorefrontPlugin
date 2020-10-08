@@ -16,7 +16,7 @@ use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Customer\Model\CustomerInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 
-final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
+class ShopUserAwareCustomerProvider implements CustomerProviderInterface
 {
     /** @var CustomerRepositoryInterface */
     private $customerRepository;
@@ -37,7 +37,7 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
         $this->loggedInShopUserProvider = $loggedInShopUserProvider;
     }
 
-    public function provide(?string $cartId = null): CustomerInterface
+    public function provide(?string $cartId = null): ?CustomerInterface
     {
         if ($this->loggedInShopUserProvider->isUserLoggedIn()) {
             $loggedInUser = $this->loggedInShopUserProvider->provide();
@@ -45,14 +45,6 @@ final class ShopUserAwareCustomerProvider implements CustomerProviderInterface
             return $loggedInUser->getCustomer();
         }
 
-        /** @var CustomerInterface $customer */
-        $customer = $this->customerFactory->createNew();
-        $customer->setEmail(sprintf('%s@guest.example', $cartId));
-        $customer->setFirstName('Guest');
-        $customer->setLastName('Customer');
-
-        $this->customerRepository->add($customer);
-
-        return $customer;
+        return null;
     }
 }

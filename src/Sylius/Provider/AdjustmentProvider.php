@@ -17,7 +17,7 @@ use Sylius\Component\Core\Model\ShippingMethodInterface;
 use Sylius\Component\Order\Factory\AdjustmentFactoryInterface;
 use Sylius\Component\Order\Model\AdjustmentInterface as BaseAdjustmentInterface;
 
-final class AdjustmentProvider implements AdjustmentProviderInterface
+class AdjustmentProvider implements AdjustmentProviderInterface
 {
     /** @var AdjustmentFactoryInterface */
     private $adjustmentFactory;

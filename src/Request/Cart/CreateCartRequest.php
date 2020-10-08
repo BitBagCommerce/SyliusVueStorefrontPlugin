@@ -23,6 +23,6 @@ class CreateCartRequest implements RequestCommandInterface
 
     public function getCommand(): CommandInterface
     {
-        return new CreateCart($this->token);
+        return new CreateCart();
     }
 }

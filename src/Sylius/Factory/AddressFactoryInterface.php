@@ -10,12 +10,15 @@
 
 declare(strict_types=1);
 
-namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Provider;
+namespace BitBag\SyliusVueStorefrontPlugin\Sylius\Factory;
 
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
+use Sylius\Component\Core\Factory\AddressFactoryInterface as BaseAddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 
-interface AddressProviderInterface
+interface AddressFactoryInterface extends BaseAddressFactoryInterface
 {
-    public function provide(Address $requestAddress): AddressInterface;
+    public function createFromDTO(Address $addressDTO): AddressInterface;
+
+    public function fillAddressData(AddressInterface $address, Address $addressDTO): AddressInterface;
 }

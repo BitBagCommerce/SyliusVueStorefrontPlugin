@@ -22,4 +22,9 @@ class Region
 
     /** @var int|null */
     public $region_id;
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
 }

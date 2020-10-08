@@ -13,16 +13,18 @@ declare(strict_types=1);
 namespace BitBag\SyliusVueStorefrontPlugin\CommandHandler\Cart;
 
 use BitBag\SyliusVueStorefrontPlugin\Command\Cart\CreateCart;
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Factory\CartFactoryInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\ChannelProviderInterface;
 use BitBag\SyliusVueStorefrontPlugin\Sylius\Provider\CustomerProviderInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\OrderRepositoryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class CreateCartHandler implements MessageHandlerInterface
 {
-    /** @var FactoryInterface */
+    /** @var CartFactoryInterface */
     private $cartFactory;
 
     /** @var OrderRepositoryInterface */
@@ -35,7 +37,7 @@ final class CreateCartHandler implements MessageHandlerInterface
     private $customerProvider;
 
     public function __construct(
-        FactoryInterface $cartFactory,
+        CartFactoryInterface $cartFactory,
         OrderRepositoryInterface $cartRepository,
         ChannelProviderInterface $channelProvider,
         CustomerProviderInterface $customerProvider
@@ -48,22 +50,34 @@ final class CreateCartHandler implements MessageHandlerInterface
 
     public function __invoke(CreateCart $createCart): void
     {
+        /** @var ChannelInterface $channel */
         $channel = $this->channelProvider->provide();
+
+        /** @var CustomerInterface $customer */
         $customer = $this->customerProvider->provide($createCart->cartId());
 
-        if (strpos($customer->getEmail(), '@guest.example') === false) {
+        if ($customer !== null) {
             $cart = $this->cartRepository->findLatestCartByChannelAndCustomer($channel, $customer);
+
+            if (!$cart instanceof OrderInterface) {
+                $cart = $this->cartFactory->createForCustomerAndChannel($customer, $channel);
+
+                $cart->setState(OrderInterface::STATE_CART);
+                $cart->setPaymentState(OrderInterface::STATE_CART);
+
+                $this->cartRepository->add($cart);
+            }
+
             $cart->setTokenValue($createCart->cartId());
 
             return;
         }
 
-        /** @var OrderInterface $cart */
-        $cart = $this->cartFactory->createNew();
-        $cart->setCustomer($customer);
-        $cart->setChannel($channel);
-        $cart->setCurrencyCode($channel->getBaseCurrency()->getCode());
-        $cart->setLocaleCode($channel->getDefaultLocale()->getCode());
+        $cart = $this->cartFactory->createForChannel($channel);
+
+        $cart->setState(OrderInterface::STATE_CART);
+        $cart->setPaymentState(OrderInterface::STATE_CART);
+
         $cart->setTokenValue($createCart->cartId());
 
         $this->cartRepository->add($cart);
