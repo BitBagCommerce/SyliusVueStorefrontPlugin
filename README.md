@@ -274,7 +274,7 @@ fos_elastica:
 
 ---
 
-Add a following rule to `fos_rest.format_listener.rules` in your `fos_rest.yaml`
+Add a following rule to `fos_rest.format_listener.rules` in your `config/packages/fos_rest.yaml`
 
 ```
 - { path: '^/vsbridge/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
@@ -392,7 +392,11 @@ To fix it add a following block into your `composer.json` file:
     "doctrine/inflector": "^1.4"
 },
 ```
-and run
+Make sure that
+```
+"bitbag/vuestorefront-plugin": "v1.0.0-beta.1"
+```
+is present in `require` section in your `composer.json` file and then run:
 ```
 $ composer update
 ```
