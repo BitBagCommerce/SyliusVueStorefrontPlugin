@@ -372,7 +372,7 @@ to populate Elasticsearch indexes and let refresher contained within the plugin 
 
 <img src="doc/fixtures_error.png"></img>
 
-To be able to load the fixtures, go to the `vendor/bitbag/vuestorefront-plugin/src/Resources/config/indexes/product.yaml` file and comment last line in there (the `defer:true` one).
+In case of this error - to be able to load the fixtures, go to the `vendor/bitbag/vuestorefront-plugin/src/Resources/config/indexes/product.yaml` file and comment last line in there (the `defer:true` one).
 
 Then clear the cache, load fixtures and uncomment this line afterwards.
 
@@ -389,8 +389,8 @@ it means you are using invalid version of `doctrine/inflector` package.
 To fix it add a following block into your `composer.json` file:
 ```          
 "conflict": {
-      "doctrine/inflector": "^1.4"
-  },
+    "doctrine/inflector": "^1.4"
+},
 ```
 and run
 ```
