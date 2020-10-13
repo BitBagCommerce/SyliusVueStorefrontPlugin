@@ -16,10 +16,22 @@ use BitBag\SyliusVueStorefrontPlugin\Model\Request\Common\Address;
 use BitBag\SyliusVueStorefrontPlugin\Model\Request\User\UserAddress;
 use Sylius\Component\Core\Factory\AddressFactory as BaseAddressFactory;
 use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
 class AddressFactory extends BaseAddressFactory implements AddressFactoryInterface
 {
+    /** @var TranslatorInterface */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator, FactoryInterface $factory)
+    {
+        parent::__construct($factory);
+
+        $this->translator = $translator;
+    }
+
     public function createFromDTO(Address $addressDTO): AddressInterface
     {
         /** @var AddressInterface $address */
@@ -32,20 +44,55 @@ class AddressFactory extends BaseAddressFactory implements AddressFactoryInterfa
     {
         $address->setCreatedAt(new \DateTime());
 
+        Assert::notNull(
+            $addressDTO->getStreet(),
+            $this->translator->trans(
+                'bitbag.vue_storefront_api.sylius.user.address.street.not_null',
+                [],
+                'validators'
+            )
+        );
         $address->setStreet($addressDTO->getStreet());
-        Assert::notNull($addressDTO->getStreet(), 'Customer has not provided street in request.');
 
+        Assert::notNull(
+            $addressDTO->getPostcode(),
+            $this->translator->trans(
+                'bitbag.vue_storefront_api.sylius.user.address.postcode.not_null',
+                [],
+                'validators'
+            )
+        );
         $address->setPostcode($addressDTO->getPostcode());
-        Assert::notNull($addressDTO->getPostcode(), 'Customer has not provided postcode in request.');
 
+        Assert::notNull(
+            $addressDTO->getCity(),
+            $this->translator->trans(
+                'bitbag.vue_storefront_api.sylius.user.address.city.not_null',
+                [],
+                'validators'
+            )
+        );
         $address->setCity($addressDTO->getCity());
-        Assert::notNull($addressDTO->getCity(), 'Customer has not provided city in request.');
 
+        Assert::notNull(
+            $addressDTO->getFirstName(),
+            $this->translator->trans(
+                'bitbag.vue_storefront_api.sylius.user.address.firstname.not_null',
+                [],
+                'validators'
+            )
+        );
         $address->setFirstName($addressDTO->getFirstName());
-        Assert::notNull($addressDTO->getFirstName(), 'Customer has not provided a valid first name.');
 
+        Assert::notNull(
+            $addressDTO->getLastName(),
+            $this->translator->trans(
+                'bitbag.vue_storefront_api.sylius.user.address.firstname.not_null',
+                [],
+                'validators'
+            )
+        );
         $address->setLastName($addressDTO->getLastName());
-        Assert::notNull($addressDTO->getLastName(), 'Customer has not provided a valid last name.');
 
         $address->setCountryCode($addressDTO->getCountryId());
 

@@ -18,12 +18,13 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AddressFactorySpec extends ObjectBehavior
 {
-    function let(AddressFactoryInterface $decoratedFactory): void
+    function let(TranslatorInterface $translator, AddressFactoryInterface $decoratedFactory): void
     {
-        $this->beConstructedWith($decoratedFactory);
+        $this->beConstructedWith($translator, $decoratedFactory);
     }
 
     function it_is_initializable(): void
