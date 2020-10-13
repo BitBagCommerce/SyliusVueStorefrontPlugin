@@ -14,27 +14,6 @@ namespace BitBag\SyliusVueStorefrontPlugin\Model\Request\User;
 
 class ExistingUser
 {
-    /** @var int */
-    public $id;
-
-    /** @var int */
-    public $group_id;
-
-    /** @var string|null */
-    public $default_billing;
-
-    /** @var string|null */
-    public $default_shipping;
-
-    /** @var \DateTime */
-    public $created_at;
-
-    /** @var \DateTime */
-    public $updated_at;
-
-    /** @var string */
-    public $created_in;
-
     /** @var string */
     public $email;
 
@@ -44,17 +23,8 @@ class ExistingUser
     /** @var string */
     public $lastname;
 
-    /** @var int */
-    public $store_id;
-
-    /** @var int */
-    public $website_id;
-
     /** @var UserAddress[] */
     public $addresses;
-
-    /** @var int */
-    public $disable_auto_group_change;
 
     public function addresses(): array
     {
