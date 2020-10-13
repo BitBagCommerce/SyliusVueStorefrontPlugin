@@ -49,20 +49,10 @@ final class ShopUserAwareCustomerProviderSpec extends ObjectBehavior
     }
 
     function it_provides_customer_for_guest_visitor(
-        LoggedInShopUserProviderInterface $loggedInShopUserProvider,
-        FactoryInterface $customerFactory,
-        CustomerInterface $customer,
-        CustomerRepositoryInterface $customerRepository
+        LoggedInShopUserProviderInterface $loggedInShopUserProvider
     ): void {
         $loggedInShopUserProvider->isUserLoggedIn()->willReturn(false);
 
-        $customerFactory->createNew()->willReturn($customer);
-        $customer->setEmail(sprintf('%s@guest.example', null))->shouldBeCalled();
-        $customer->setFirstName('Guest')->shouldBeCalled();
-        $customer->setLastName('Customer')->shouldBeCalled();
-
-        $customerRepository->add($customer)->shouldBeCalled();
-
-        $this->provide()->shouldReturnAnInstanceOf(CustomerInterface::class);
+        $this->provide()->shouldReturn(null);
     }
 }

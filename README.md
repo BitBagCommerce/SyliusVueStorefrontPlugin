@@ -59,7 +59,7 @@ Please also check [Vue Storefront requirements](https://docs.vuestorefront.io/gu
 | PHP           |  7.3 (>= 7.2)  |
 | MySQL         |  8.0.x (>= 5.7)|
 | Elasticsearch |  6.8.x         |
-| Vue Storefront|  1.11          |
+| Vue Storefront|  1.12          |
 
 **Important note**  
 Please inspect files stored in `tests/Application` directory (especially `config` subdirectory)   
@@ -313,7 +313,7 @@ use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem as BaseOrderI
 
 Copy `etc/vsf-config/local.json` file from this repository to `config/local.json` of Vue Storefront project directory.  
 In that file you only need to replace every occurence of `<insert-your-hostname>` with URL of your store.  
-You don't have to change anything else as sensible defaults are provided by us, that are proven to work in Vue Storefront v1.11.   
+You don't have to change anything else as sensible defaults are provided by us, that are proven to work in Vue Storefront v1.12.   
 If your configuration settings differ from defaults provided with the plugin and you run into problems don't hesitate to create issue on GitHub or contact us directly at hello@bitbag.io.
 
 ## Architecture

@@ -49,6 +49,11 @@ class AddressInformation
         return $this->shipping_carrier_code ?? $this->shippingCarrierCode;
     }
 
+    public function getPaymentMethodCode(): string
+    {
+        return $this->payment_method_code;
+    }
+
     public function getBillingAddress(): Address
     {
         return $this->billingAddress;
