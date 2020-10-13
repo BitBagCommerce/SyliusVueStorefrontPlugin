@@ -12,7 +12,8 @@
 
         <service id="bitbag_sylius_vue_storefront_plugin.factory.address"
                  class="BitBag\SyliusVueStorefrontPlugin\Sylius\Factory\AddressFactory">
-            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="sylius.custom_factory.address.inner" />
         </service>
     </services>
 </container>
