@@ -114,7 +114,14 @@ ELASTICSEARCH_HOST=localhost
 ELASTICSEARCH_PORT=9200
 ELASTICSEARCH_INDEX=vue_storefront_catalog
 
-# Optionally, when using Nelmio CORS Bundle
+// Set transport value to "https" and ssl to "true" when using an ssl connection
+ELASTICSEARCH_TRANSPORT=http
+ELASTICSEARCH_SSL=false
+// Leave blank if authentication is not required
+ELASTICSEARCH_USERNAME=
+ELASTICSEARCH_PASSWORD=
+
+// Optionally, when using Nelmio CORS Bundle
 CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$
 ```
 
