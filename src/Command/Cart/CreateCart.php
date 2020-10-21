@@ -16,21 +16,8 @@ use BitBag\SyliusVueStorefrontPlugin\Command\CommandInterface;
 
 class CreateCart implements CommandInterface
 {
-    /** @var string|null */
-    protected $token;
-
     /** @var string */
     protected $cartId;
-
-    public function __construct(?string $token)
-    {
-        $this->token = $token;
-    }
-
-    public function token(): ?string
-    {
-        return $this->token;
-    }
 
     public function setCartId(string $cartId): void
     {

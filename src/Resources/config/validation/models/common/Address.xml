@@ -33,9 +33,9 @@
             </constraint>
         </property>
         <property name="company">
-            <constraint name="NotBlank">
-                <option name="allowNull">true</option>
-                <option name="message">bitbag.vue_storefront_api.sylius.user.address.company.not_blank</option>
+            <constraint name="Length">
+                <option name="min">0</option>
+                <option name="allowEmptyString">true</option>
             </constraint>
         </property>
         <!--        <property name="postcode">-->

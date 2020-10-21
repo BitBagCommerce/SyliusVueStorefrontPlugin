@@ -51,8 +51,7 @@ bitbag:
                         not_blank: Please provide valid country id.
                     street:
                         not_blank: Please provide valid street name.
-                    company_id:
-                        not_blank:  Please provide valid company id.
+                        not_null: Please provide valid street name.
                     telephone:
                         not_blank:  Please provide valid telephone.
                     postcode:
@@ -61,8 +60,10 @@ bitbag:
                         not_null:  Please provide city.
                     firstname:
                         not_blank:  Please provide valid firstname.
+                        not_null:  Please provide valid firstname.
                     lastname:
                         not_blank:  Please provide valid lastname.
+                        not_null:  Please provide valid lastname.
                     vat_id:
                         not_blank:  Please provide valid vat id.
                     region:
@@ -104,6 +105,7 @@ bitbag:
                         not_blank: Please provide valid item id.
                     quote_id:
                         not_blank: Please provide valid quote id.
+                promotion_already_used: Your promotion "code" has been used. Please remove it from cart before confirming order.
             stock:
                 sku:
                     not_blank: Please provide valid SKU.

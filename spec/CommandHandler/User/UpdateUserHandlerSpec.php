@@ -61,7 +61,6 @@ final class UpdateUserHandlerSpec extends ObjectBehavior
         DefaultAddressModifierInterface $defaultAddressModifier
     ): void {
         $existingUser = new ExistingUser();
-        $existingUser->id = 7;
         $existingUser->email = 'shop@example.com';
         $existingUser->firstname = 'Janko';
         $existingUser->lastname = 'Banas';

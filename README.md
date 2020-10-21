@@ -41,6 +41,14 @@ Please also check [Sylius Documentation](https://docs.sylius.com/en/latest/) and
 Depending on your preferences, the plugin can also fully replace [VSF API](https://github.com/DivanteLtd/vue-storefront-api/) - you will only need VSF front app if you choose so.  
 Sylius ShopBundle is also no longer needed as Vue Storefront will be your new ... Storefront. :)
 
+### Supported versions
+
+| Plugin version       | Sylius version | Supported VSF version |
+|:--------------------:|:--------------:|:---------------------:|
+| v2.0.0               | 1.8            | 1.12.2                |
+| v1.0.0-beta.1        | 1.6            | 1.11.4                |
+
+
 ## Vue Storefront + Sylius Demo
 
 We've created a demo app that showcases usage of this plugin. Visit [vsf.bitbag.shop](https://vsf.bitbag.shop) to check it out!  
@@ -56,10 +64,10 @@ Please also check [Vue Storefront requirements](https://docs.vuestorefront.io/gu
 
 | Package       | Version        |
 |:-------------:|:--------------:|
-| PHP           |  7.3 (>= 7.2)  |
+| PHP           |  7.4 (>= 7.3)  |
 | MySQL         |  8.0.x (>= 5.7)|
 | Elasticsearch |  6.8.x         |
-| Vue Storefront|  1.11          |
+| Vue Storefront|  1.12          |
 
 **Important note**  
 Please inspect files stored in `tests/Application` directory (especially `config` subdirectory)   
@@ -73,10 +81,10 @@ Please refer to [Sylius Documentation - How to disable Sylius shop?](https://doc
 First, add this plugin as dependency to your Sylius project. 
  
  ```
- $ composer require bitbag/vuestorefront-plugin
+ $ composer require bitbag/vuestorefront-plugin:v1.0.0-beta.1
  ```
 
-Add plugin to `config/bundles.php`:
+Add the plugin to `config/bundles.php` (if it's not there already):
 
 ```
 return [
@@ -129,12 +137,25 @@ Then set value of `JWT_PASSPHRASE` environment variable with passphrase that you
 
 ---
 
-Now it is time to edit `config/packages/security.yaml` file.
+Next step is to add a following line to the end of the `imports` section in your `config/packages/_sylius.yaml`:
+                
+```
+- { resource: "@SyliusVueStorefrontPlugin/Resources/config/config.yaml" }
+```
 
-Add line below to `parameters` at the top of the file:  
-`bitbag.vue_storefront.security.regex: "^/vsbridge"`
+It's needed to load some plugin configuration.
 
-Add code below to `security -> firewall` part:
+---
+
+Now it is needed to edit `config/packages/security.yaml` file.
+
+Add a line below to `parameters` key at the top of the file:  
+
+```
+bitbag.vue_storefront.security.regex: "^/vsbridge"
+```
+
+Add a code below to the top of `security -> firewalls` key (an order is really important there):
 
 ```
         vs_bridge_user_login:
@@ -161,8 +182,38 @@ Add code below to `security -> firewall` part:
                     - lexik_jwt_authentication.jwt_token_authenticator
 ```
 
-Add line below to `security -> access_control` part:  
-`- { path: "%bitbag.vue_storefront.security.regex%/user/login", role: IS_AUTHENTICATED_ANONYMOUSLY }`
+So it should look like this:
+
+```
+    firewalls:
+        vs_bridge_user_login:
+            pattern: "%bitbag.vue_storefront.security.regex%/user/login"
+            stateless: true
+            anonymous: true
+            provider: sylius_shop_user_provider
+            json_login:
+                provider: sylius_shop_user_provider
+                check_path: /vsbridge/user/login
+                password_path: password
+                success_handler: bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_success
+                failure_handler: bitbag_sylius_vue_storefront_plugin.lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        vs_bridge:
+            pattern: "%bitbag.vue_storefront.security.regex%"
+            stateless: true
+            anonymous: true
+            provider: sylius_shop_user_provider
+            guard:
+                provider: sylius_shop_user_provider
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+```
+
+Afterwards add a line below to `security -> access_control` part:  
+```
+- { path: "%bitbag.vue_storefront.security.regex%/user/login", role: IS_AUTHENTICATED_ANONYMOUSLY }
+```
 
 ---
 
@@ -172,6 +223,8 @@ Now go to `config/routes.yaml` file in your Sylius app and paste there:
 sylius_vue_storefront_plugin:
     resource: "@SyliusVueStorefrontPlugin/Resources/config/routing.yaml"
 ```
+
+to load configuration of all routes for API endpoints.
 
 ---
 
@@ -185,7 +238,7 @@ gesdinet_jwt_refresh_token:
 ```
 ---
 
-Paste lines below inside `config/packages/lexik_jwt_authentication.yaml`:
+Replace content of your `config/packages/lexik_jwt_authentication.yaml` file with the following configuration:
 
 ```
 lexik_jwt_authentication:
@@ -201,9 +254,81 @@ lexik_jwt_authentication:
 
 ---
 
+Afterwards add:
+
+```
+translator: { fallbacks: ["%locale%"] }
+```
+
+under your `framework` key in `config/packages/framework.yaml` so it should look like this afterwards:
+
+```
+framework:
+    translator: { fallbacks: ["%locale%"] }
+    secret: '%env(APP_SECRET)%'
+    form: true
+    csrf_protection: true
+    templating: { engines: ["twig"] }
+    session:
+        handler_id: ~
+```
+---
+
+Set content of your `config/fos_elastica.yaml` to the following:
+
+```
+imports:
+    - { resource: "@SyliusVueStorefrontPlugin/Resources/config/indexes/attribute.yaml" }
+    - { resource: "@SyliusVueStorefrontPlugin/Resources/config/indexes/category.yaml" }
+    - { resource: "@SyliusVueStorefrontPlugin/Resources/config/indexes/product.yaml" }
+
+fos_elastica:
+    clients:
+        default: { host: '%env(ELASTICSEARCH_HOST)%', port: '%env(ELASTICSEARCH_PORT)%' }
+```
+
+---
+
+Add a following rule to `fos_rest.format_listener.rules` in your `config/packages/fos_rest.yaml`
+
+```
+- { path: '^/vsbridge/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
+```
+
+For example the file should look like this afterwards:
+
+```
+fos_rest:
+    exception: true
+    view:
+        formats:
+            json: true
+            xml:  true
+        empty_content: 204
+    format_listener:
+        rules:
+            - { path: '^/api/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
+            - { path: '^/vsbridge/.*', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
+            - { path: '^/', stop: true }
+```
+
+---
+Go to your `src/Entity/Order/OrderItem.php` file and make it to extend the `OrderItem` entity from our plugin.
+
+Change:
+```
+use Sylius\Component\Core\Model\OrderItem as BaseOrderItem;
+```
+to:
+```
+use BitBag\SyliusVueStorefrontPlugin\Sylius\Entity\Order\OrderItem as BaseOrderItem;
+```
+
+---
+
 Copy `etc/vsf-config/local.json` file from this repository to `config/local.json` of Vue Storefront project directory.  
 In that file you only need to replace every occurence of `<insert-your-hostname>` with URL of your store.  
-You don't have to change anything else as sensible defaults are provided by us, that are proven to work in Vue Storefront v1.11.   
+You don't have to change anything else as sensible defaults are provided by us, that are proven to work in Vue Storefront v1.12.   
 If your configuration settings differ from defaults provided with the plugin and you run into problems don't hesitate to create issue on GitHub or contact us directly at hello@bitbag.io.
 
 ## Architecture
@@ -255,6 +380,41 @@ $ php bin/console fos:elastica:populate
 ```
 
 to populate Elasticsearch indexes and let refresher contained within the plugin to automatically update the data in ES in real time.
+
+### Known issues
+
+#### Translatable trait error during loading fixtures
+
+<img src="doc/fixtures_error.png"></img>
+
+In case of this error - to be able to load the fixtures, go to the `vendor/bitbag/vuestorefront-plugin/src/Resources/config/indexes/product.yaml` file and comment last line in there (the `defer:true` one).
+
+Then clear the cache, load fixtures and uncomment this line afterwards.
+
+#### Getting 500 error related to taxa (`taxons`)
+If you see something like this for example in your admin panel:
+```
+{
+    "result": "Variable \"taxons\" does not exist.",
+    "code": 500
+}
+```
+it means you are using invalid version of `doctrine/inflector` package.
+
+To fix it add a following block into your `composer.json` file:
+```          
+"conflict": {
+    "doctrine/inflector": "^1.4"
+},
+```
+Make sure that
+```
+"bitbag/vuestorefront-plugin": "v1.0.0-beta.1"
+```
+is present in `require` section in your `composer.json` file and then run:
+```
+$ composer update
+```
 
 ## Extending the plugin
 
