@@ -41,6 +41,14 @@ Please also check [Sylius Documentation](https://docs.sylius.com/en/latest/) and
 Depending on your preferences, the plugin can also fully replace [VSF API](https://github.com/DivanteLtd/vue-storefront-api/) - you will only need VSF front app if you choose so.  
 Sylius ShopBundle is also no longer needed as Vue Storefront will be your new ... Storefront. :)
 
+### Supported versions
+
+| Plugin version       | Sylius version | Supported VSF version |
+|:--------------------:|:--------------:|:---------------------:|
+| v2.0.0               | 1.8            | 1.12.2                |
+| v1.0.0-beta.1        | 1.6            | 1.11.4                |
+
+
 ## Vue Storefront + Sylius Demo
 
 We've created a demo app that showcases usage of this plugin. Visit [vsf.bitbag.shop](https://vsf.bitbag.shop) to check it out!  
@@ -56,7 +64,7 @@ Please also check [Vue Storefront requirements](https://docs.vuestorefront.io/gu
 
 | Package       | Version        |
 |:-------------:|:--------------:|
-| PHP           |  7.3 (>= 7.2)  |
+| PHP           |  7.4 (>= 7.3)  |
 | MySQL         |  8.0.x (>= 5.7)|
 | Elasticsearch |  6.8.x         |
 | Vue Storefront|  1.12          |
