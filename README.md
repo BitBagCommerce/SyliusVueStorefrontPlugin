@@ -1,7 +1,6 @@
 # [![](https://bitbag.io/wp-content/uploads/2020/10/vsf.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
 # BitBag SyliusVueStorefrontPlugin
-----
 
 [![](https://img.shields.io/packagist/l/bitbag/vuestorefront-plugin.svg) ](https://packagist.org/packages/bitbag/vuestorefront-plugin "License") [ ![](https://img.shields.io/packagist/v/bitbag/vuestorefront-plugin.svg) ](https://packagist.org/packages/bitbag/vuestorefront-plugin "Version") [ ![](https://img.shields.io/travis/BitBagCommerce/SyliusVueStorefrontPlugin/master.svg) ](http://travis-ci.org/BitBagCommerce/SyliusVueStorefrontPlugin "Build status") [ ![](https://img.shields.io/scrutinizer/g/BitBagCommerce/SyliusVueStorefrontPlugin.svg) ](https://scrutinizer-ci.com/g/BitBagCommerce/SyliusVueStorefrontPlugin/ "Scrutinizer") [![](https://poser.pugx.org/bitbag/vuestorefront-plugin/downloads)](https://packagist.org/packages/bitbag/vuestorefront-plugin "Total Downloads") [![Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)](http://sylius-devs.slack.com) [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
@@ -49,7 +48,6 @@ This **open-source plugin was developed to help the Sylius community**. If you h
 
 
 ## Installation
-----
 
 ### Supported versions
 
@@ -333,7 +331,7 @@ You don't have to change anything else as sensible defaults are provided by us, 
 If your configuration settings differ from defaults provided with the plugin and you run into problems don't hesitate to create issue on GitHub or contact us directly at hello@bitbag.io.
 
 ## Architecture
-----
+
 VueStorefront fetches data in two ways - **statically** and **dynamically**.  
 Less frequently updated data is stored in **Elasticsearch**: 
 1. Products
@@ -358,7 +356,7 @@ It's important to note once again that **only Elasticsearch 6 is fully supported
 Support for ES 7 is on the way - once [ruflin/elastica](https://github.com/ruflin/Elastica) and [FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) start supporting it, we will as well.
 
 ## Using the plugin within Sylius Standard app, with VSF
-----
+
 It is no surprise that you must have products, taxons etc. within your Sylius instance to benefit from VSF.  
 Therefore we assume that you have a shop already running.  
 If it's not the case you might want to run commands below on freshly cloned [Sylius Standard](https://github.com/Sylius/Sylius-Standard) repository:
@@ -383,7 +381,6 @@ $ php bin/console fos:elastica:populate
 to populate Elasticsearch indexes and let refresher contained within the plugin to automatically update the data in ES in real time.
 
 ### Known issues
-----
 
 #### Translatable trait error during loading fixtures
 
@@ -394,6 +391,7 @@ In case of this error - to be able to load the fixtures, go to the `vendor/bitba
 Then clear the cache, load fixtures and uncomment this line afterwards.
 
 #### Getting 500 error related to taxa (`taxons`)
+
 If you see something like this for example in your admin panel:
 ```
 {
@@ -419,7 +417,6 @@ $ composer update
 ```
 
 ## Extending the plugin
-----
 
 ### Extending requests, commands/queries
 
@@ -516,7 +513,6 @@ bitbag_sylius_vue_storefront_plugin:
 
 
 # About us
----
 
 BitBag is an agency that provides high-quality **eCommerce and Digital Experience software**. Our main area of expertise includes eCommerce consulting and development for B2C, B2B, and Multi-vendor Marketplaces.
 The scope of our services related to Sylius includes:
@@ -542,12 +538,10 @@ If you need some help with Sylius development, don't be hesitate to contact us d
 [![](https://bitbag.io/wp-content/uploads/2020/10/badges-sylius.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
 ## Community
----- 
 
 For online communication, we invite you to chat with us & other users on [Sylius Slack](https://sylius-devs.slack.com/).
 
 # Vue Storefront + Sylius Demo
----
 
 We've created a demo app that showcases usage of this plugin. Visit [vsf.bitbag.shop](https://vsf.bitbag.shop) to check it out!  
 The Sylius admin panel is accessible at [syliusvsf.bitbag.shop/admin](https://syliusvsf.bitbag.shop/admin). Admin credentials: `sylius : sylius`.
@@ -556,7 +550,7 @@ The Sylius admin panel is accessible at [syliusvsf.bitbag.shop/admin](https://sy
 [![](https://bitbag.io/wp-content/uploads/2020/10/button_free_consulatation-1.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
 ## Additional resources for developers
----
+
 To be able to contribute to the plugin make sure that you familiarize yourself with:
 
 * [Vue Storefront Integration SDK](https://github.com/DivanteLtd/vue-storefront-integration-sdk/)
@@ -570,14 +564,13 @@ Additionally you might want to get to know VSF better:
 * [Vue Storefront Journal](https://medium.com/the-vue-storefront-journal) - blog where new ideas are shared and what lies ahead is announced
 
 ## License
----
 
 This plugin's source code is completely free and released under the terms of the MIT license.
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen.)
 
 ## Contact
----
+
 If you want to contact us, the best way is to fill the form on [our website](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf) or send us an e-mail to hello@bitbag.io with your question(s). We guarantee that we answer as soon as we can!
 
 [![](https://bitbag.io/wp-content/uploads/2020/10/footer.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
