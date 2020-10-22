@@ -10,8 +10,6 @@
 
 ## Table of Content
 
-***
-
 * [Overview](#overview)
 * [Support](#we-are-here-to-help)
 * [Installation](#installation)
@@ -29,8 +27,6 @@
 * [Contact](#contact)
 
 # Overview
-
-***
 
 This document assumes that you are already familiar with Vue Storefront and its technology stack.  
 If that's not the case please check [VSF Documentation](https://docs.vuestorefront.io/guide/) and [GitHub repository](https://github.com/DivanteLtd/vue-storefront).
