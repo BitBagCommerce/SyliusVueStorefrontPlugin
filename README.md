@@ -4,10 +4,6 @@
 
 [![](https://img.shields.io/packagist/l/bitbag/vuestorefront-plugin.svg) ](https://packagist.org/packages/bitbag/vuestorefront-plugin "License") [ ![](https://img.shields.io/packagist/v/bitbag/vuestorefront-plugin.svg) ](https://packagist.org/packages/bitbag/vuestorefront-plugin "Version") [ ![](https://img.shields.io/travis/BitBagCommerce/SyliusVueStorefrontPlugin/master.svg) ](http://travis-ci.org/BitBagCommerce/SyliusVueStorefrontPlugin "Build status") [ ![](https://img.shields.io/scrutinizer/g/BitBagCommerce/SyliusVueStorefrontPlugin.svg) ](https://scrutinizer-ci.com/g/BitBagCommerce/SyliusVueStorefrontPlugin/ "Scrutinizer") [![](https://poser.pugx.org/bitbag/vuestorefront-plugin/downloads)](https://packagist.org/packages/bitbag/vuestorefront-plugin "Total Downloads") [![Slack](https://img.shields.io/badge/community%20chat-slack-FF1493.svg)](http://sylius-devs.slack.com) [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
-<p>
- <img src="https://sylius.com/assets/badge-approved-by-sylius.png" width="85">
-</p> 
-
 ## Table of Content
 
 * [Overview](#overview)
