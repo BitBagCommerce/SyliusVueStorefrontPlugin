@@ -52,8 +52,7 @@ final class GetCatalogAction
         bool $ssl,
         string $username,
         string $password
-    )
-    {
+    ) {
         $this->host = $host;
         $this->port = $port;
         $this->transport = $transport;
@@ -72,9 +71,9 @@ final class GetCatalogAction
             'transport' => $this->transport,
             'ssl' => $this->ssl,
             'username' => $this->username,
-            'password' => $this->password
+            'password' => $this->password,
         ]);
-        
+
         $client->addConnection($connection);
 
         $index = $request->attributes->get('index');
