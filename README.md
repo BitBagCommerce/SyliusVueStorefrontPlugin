@@ -47,7 +47,7 @@ This **open-source plugin was developed to help the Sylius community**. If you h
 
 | Plugin version       | Sylius version | Supported VSF version |
 |:--------------------:|:--------------:|:---------------------:|
-| v2.1.0               | 1.8            | 1.12.2                |
+| v2.1.1               | 1.8            | 1.12.2                |
 | v1.0.0-beta.1        | 1.6            | 1.11.4                |
 
 ### Requirements
@@ -74,7 +74,7 @@ Please refer to [Sylius Documentation - How to disable Sylius shop?](https://doc
 First, add this plugin as dependency to your Sylius project. 
  
  ```
- $ composer require bitbag/vuestorefront-plugin:v2.1.0
+ $ composer require bitbag/vuestorefront-plugin:v2.1.1
  ```
 
 Add the plugin to `config/bundles.php` (if it's not there already):
@@ -403,7 +403,7 @@ To fix it add a following block into your `composer.json` file:
 ```
 Make sure that
 ```
-"bitbag/vuestorefront-plugin": "v2.1.0"
+"bitbag/vuestorefront-plugin": "v2.1.1"
 ```
 is present in `require` section in your `composer.json` file and then run:
 ```
