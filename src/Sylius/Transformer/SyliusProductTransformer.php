@@ -72,7 +72,11 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
     public function transform(ProductInterface $syliusProduct): Product
     {
         $details = $this->productDetailsTransformer->transform($syliusProduct);
-        $stock = $this->inventoryTransformer->transform($syliusProduct->getVariants()->first());
+        $stock = null;
+        if ($syliusProduct->getVariants()->first()) {
+            $stock = $this->inventoryTransformer->transform($syliusProduct->getVariants()->first());
+        }
+
         $mediaGallery = $this->imagesTransformer->transform($syliusProduct->getImages());
         $category = $this->taxonsTransformer->transform($syliusProduct->getTaxons());
 
@@ -85,7 +89,11 @@ final class SyliusProductTransformer implements SyliusProductTransformerInterfac
         }
 
         $productLinks = $this->productAssociationsTransformer->transform($syliusProduct->getAssociations());
-        $price = $this->productVariantPricesTransformer->transform($syliusProduct->getVariants()->first());
+        $price = null;
+        if ($syliusProduct->getVariants()->first()) {
+            $price = $this->productVariantPricesTransformer->transform($syliusProduct->getVariants()->first());
+        }
+
         $stockItem = new Product\StockItem();
 
         return new Product(

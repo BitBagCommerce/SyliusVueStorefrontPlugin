@@ -96,7 +96,7 @@ class Product implements ProductInterface
             $this->details->isConfigurableProduct() ? $this->configurableChildren->toArray() : [],
             $this->details->isConfigurableProduct() ? $this->configurableOptions->toArray() : [],
             $this->productLinks->toArray(),
-            $this->price->toArray()
+            $this->price ? $this->price->toArray():[]
         );
     }
 }

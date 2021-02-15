@@ -34,10 +34,10 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             $product->getCreatedAt(),
             $product->getUpdatedAt(),
             $product->getImages()->first() ? $product->getImages()->first()->getPath() : null,
-            ($product->getVariants()->first()->getOnHand() - $product->getVariants()->first()->getOnHold()) > 0,
+            $product->getVariants()->first() ? ($product->getVariants()->first()->getOnHand() - $product->getVariants()->first()->getOnHold()) > 0:false,
             null,
-            $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getId() : null,
-            $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getName() : null,
+            $product->getVariants()->first() && $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getId() : null,
+            $product->getVariants()->first() && $product->getVariants()->first()->getTaxCategory() !== null ? $product->getVariants()->first()->getTaxCategory()->getName() : null,
             $product->getDescription(),
             $product->getShortDescription(),
             1,//hasOptions
@@ -45,7 +45,7 @@ final class ProductDetailsTransformer implements ProductDetailsTransformerInterf
             [],//productLinks
             [],//colorOptions,
             [],//sizeOptions
-            $productVariantsCount === 1 ? $product->getVariants()->first()->getCode() : $product->getCode()
+            $productVariantsCount === 1 && $product->getVariants()->first() ? $product->getVariants()->first()->getCode() : $product->getCode()
         );
     }
 }
