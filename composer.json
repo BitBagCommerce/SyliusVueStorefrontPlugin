@@ -9,14 +9,14 @@
         "ext-json": "*",
         "friendsofsymfony/elastica-bundle": "^5.1",
         "ruflin/elastica": "^6.1",
-        "sylius/sylius": "^1.8",
-        "nelmio/cors-bundle": "^1.5",
-        "symfony/messenger": "^4.4",
+        "sylius/sylius": "^1.8 || ^1.9",
+        "nelmio/cors-bundle": "^2.1",
+        "symfony/messenger": "^4.4 || ^5.2",
         "lexik/jwt-authentication-bundle": "^2.6",
-        "gesdinet/jwt-refresh-token-bundle": "^0.8",
+        "gesdinet/jwt-refresh-token-bundle": "^v0.11",
         "imagine/imagine": "^1.2",
-        "symfony/serializer": "^4.4 || ^5.0",
-        "symfony/property-info": "^4.4"
+        "symfony/serializer": "^4.4 || ^5.0 || ^5.2",
+        "symfony/property-info": "^4.4 || ^5.2"
     },
     "suggest": {
         "nelmio/cors-bundle": "Allows you to send Cross-Origin Ajax API requests"
@@ -33,11 +33,11 @@
         "sensiolabs/security-checker": "^5.0",
         "sylius-labs/coding-standard": "^2.0",
         "symfony/browser-kit": "^4.4",
-        "symfony/debug-bundle": "^4.4",
-        "symfony/dotenv": "^4.4",
-        "symfony/intl": "^4.4",
-        "symfony/web-profiler-bundle": "^4.4",
-        "symfony/web-server-bundle": "^4.4"
+        "symfony/debug-bundle": "^4.4 || ^5.2",
+        "symfony/dotenv": "^4.4 || ^5.2",
+        "symfony/intl": "^4.4 || ^5.2",
+        "symfony/web-profiler-bundle": "^4.4 || ^5.2",
+        "symfony/web-server-bundle": "^4.4 || ^5.2"
     },
     "conflict": {
         "symfony/symfony": "4.1.8",
