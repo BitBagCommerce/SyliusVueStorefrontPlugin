@@ -1,11 +1,7 @@
 > :warning: **BEWARE!**
 > The current solution is deprecated as it was created for Vue Storefront v1. For Vue Storefront 2 integration check out our GraphQL-based integration, which could be found here: https://github.com/BitBagCommerce/SyliusGraphQLPlugin.
 > 
-> We have also created a plugin that complements the Sylius VueStorefront integration:
-> 
-> GraphQL plugin -> https://github.com/BitBagCommerce/SyliusGraphQLPlugin
-> 
-> If you want to know more about it, read our blog -> https://bitbag.io/blog/introduction-to-vue-storefront-2sylius-integration-technical-aspects
+> If you want to know more about the new integration, read our blog -> https://bitbag.io/blog/introduction-to-vue-storefront-2sylius-integration-technical-aspects
 
 # [![](https://bitbag.io/wp-content/uploads/2020/10/vsf.png)](https://bitbag.io/contact-us/?utm_source=github&utm_medium=referral&utm_campaign=plugins_vsf)
 
