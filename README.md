@@ -1,5 +1,5 @@
 > :warning: **BEWARE!**
-> The current solution is legacy. You can find the new integration here -> https://github.com/RealtainmentBerlin/vuestorefront-sylius
+> The current solution is deprecated as it was created for Vue Storefront v1. For Vue Storefront 2 integration check out our GraphQL-based integration, which could be found here: https://github.com/BitBagCommerce/SyliusGraphQLPlugin.
 > 
 > We have also created a plugin that complements the Sylius VueStorefront integration:
 > 
